@@ -8,8 +8,8 @@
 		public function theSecond(){
 			//echo "THIS IS THE SECOND STEP!!!";
 			$json = '{
-			    "type": "donut",
-			    "name": "Cake"
+			    "type": "donutsssss",
+			    "name": "Cakddddddddddsvvvvvvvvvvve"
 			}';
 		
 		    $data['json'] = $json;
