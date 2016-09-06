@@ -17,12 +17,12 @@
 	<ul class="sidebar-menu">
 	
 		<li><a href="dashboard"> <i class="fa fa-th"></i> <span>Dashboard</span></a></li>
-		<li><a href="category"> <i class="fa fa-th"></i> <span>Category</span></a></li>
-		<li><a href="shop"> <i class="fa fa-th"></i> <span>Shop Management</span></a></li>
-		<li><a href="product"> <i class="fa fa-th"></i> <span>Product Management</span></a></li>
-		<li><a href="user"> <i class="fa fa-th"></i> <span>User Management</span></a></li>
-		<li><a href="post"> <i class="fa fa-th"></i> <span>Post Management</span></a></li>
-		<li><a href="comment"> <i class="fa fa-th"></i> <span>Comment Management</span></a></li>
+		<li><a href="category"> <i class="fa fa-sitemap" aria-hidden="true"></i> <span>Category</span></a></li>
+		<li><a href="shop"><i class="fa fa-building" aria-hidden="true"></i> <span>Shop Management</span></a></li>
+		<li><a href="product"> <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Product Management</span></a></li>
+		<li><a href="user"> <i class="fa fa-users" aria-hidden="true"></i> <span>User Management</span></a></li>
+		<li><a href="post"> <i class="fa fa-pencil-square" aria-hidden="true"></i> <span>Post Management</span></a></li>
+		<li><a href="comment"> <i class="fa fa-comments" aria-hidden="true"></i> <span>Comment Management</span></a></li>
 
 	</ul>
 </section>
