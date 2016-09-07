@@ -25,8 +25,8 @@
 			$this->load->view('pages/product');
 		}
 		
-		public function shop(){
-			$this->load->view('pages/shop');
+		public function addshop(){
+			$this->load->view('pages/addshop');
 		}
 		
 		public function user(){

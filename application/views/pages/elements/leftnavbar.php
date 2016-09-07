@@ -17,12 +17,22 @@
 	<ul class="sidebar-menu">
 	
 		<li><a href="dashboard"> <i class="fa fa-th"></i> <span>Dashboard</span></a></li>
-		<li><a href="category"> <i class="fa fa-sitemap" aria-hidden="true"></i> <span>Category</span></a></li>
-		<li><a href="shop"><i class="fa fa-building" aria-hidden="true"></i> <span>Shop Management</span></a></li>
+		<!-- <li><a href="category"> <i class="fa fa-sitemap" aria-hidden="true"></i> <span>Category</span></a></li> -->
+		
+		<li class="treeview">
+              <a href="#">
+                <i class="fa fa-building" aria-hidden="true"></i> <span>Shop Management</span><i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="addshop"><i class="fa fa-circle-o"></i> Add Shop</a></li>
+                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Shop Detail</a></li>
+          
+              </ul>
+        </li>
 		<li><a href="product"> <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Product Management</span></a></li>
 		<li><a href="user"> <i class="fa fa-users" aria-hidden="true"></i> <span>User Management</span></a></li>
-		<li><a href="post"> <i class="fa fa-pencil-square" aria-hidden="true"></i> <span>Post Management</span></a></li>
-		<li><a href="comment"> <i class="fa fa-comments" aria-hidden="true"></i> <span>Comment Management</span></a></li>
+		<!-- <li><a href="post"> <i class="fa fa-pencil-square" aria-hidden="true"></i> <span>Post Management</span></a></li>
+		<li><a href="comment"> <i class="fa fa-comments" aria-hidden="true"></i> <span>Comment Management</span></a></li> -->
 
 	</ul>
 </section>
