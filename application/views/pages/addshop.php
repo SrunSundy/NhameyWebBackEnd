@@ -8,19 +8,17 @@
  	<?php include 'imports/cssimport.php' ?>
  	<style>
  		
- 		div#brandsearchdetail{
- 			
- 			
- 			background:#fff;
- 			display:none; 
- 			border: 1px solid #E0E0E0;
- 			position: absolute;
- 			width:100%;
- 				
-	 		z-index:99999;
- 		}
+ 	div#brandsearchdetail{
+ 					
+ 		background:#fff;
+ 		display:none; 
+ 		border: 1px solid #E0E0E0;
+ 		position: absolute;
+ 		width:100%;
+ 		z-index:99999;
+ 	}
  	div.brand-result-wrapper{
- 		height:300px;
+ 		height:210px;
  		overflow-y: auto;	
  	}
  	div.brand-result,div.brand-more{
@@ -28,9 +26,18 @@
  		height: 35px;
  		line-height: 30px;
  		border-top: 1px solid #E0E0E0;
- 	
+ 		cursor: pointer;
  	}
  	
+ 	div.brand-result:hover{
+ 	
+ 		background: #E0E0E0;
+ 	}
+ 	
+ 	div.add-background{
+ 	
+ 		background: #E0E0E0;
+ 	}
  	div.brand-result-footer{
  		border-top:  1px solid #E0E0E0;
  		padding: 10px;
@@ -43,6 +50,42 @@
  		 height: 40px;
  		 border-radius: 0;
  	
+ 	}
+ 	div.div-top-gap{
+ 	
+ 		margin-top: 10px;
+ 	}
+ 	.gray-color{
+ 		color: #9E9E9E;
+ 		font-style: italic;
+ 		font-size: 16px;
+ 	}
+ 	.gray-color-noitalic{
+ 		color: #9E9E9E;
+ 		font-size: 16px;
+ 	}
+ 	span.red-background{
+ 		background: #dd4b39 !important;
+ 		color: #fff;
+ 	}
+ 	div.image-browsing{
+ 		width: 170px;
+ 		height: 190px;
+ 		border-radius: 0;
+ 		background: #E0E0E0;
+ 		cursor: pointer;
+ 		margin-top:12px;
+ 	}
+ 	
+ 	
+ 	div.logo-browsing-wrapper{
+ 		border: 1px solid #E0E0E0; 
+ 		
+ 	}
+ 	p.tagp-of-i{
+ 		
+ 		font-size: 80px;
+ 		color: #9E9E9E;
  	}
  	</style>
   </head>
@@ -86,16 +129,16 @@
 	                  					<p>sdfsff</p>
 	                  				</div>
 	                  				<div class="brand-result">
-	                  					<p>sdfsff</p>
+	                  					<p>sdfaaaaaaaaaaaaaaasff</p>
 	                  				</div>
 	                  				<div class="brand-result">
-	                  					<p>sdfsff</p>
+	                  					<p>sdfddddddddddesff</p>
 	                  				</div>
 	                  				<div class="brand-result">
-	                  					<p>sdfsff</p>
+	                  					<p>sdfeeeeeeeeeeeeeeeesff</p>
 	                  				</div>
 	                  				<div class="brand-result">
-	                  					<p>sdfsff</p>
+	                  					<p>srrrrrrrrrrrrrrfsff</p>
 	                  				</div>
 	                  				<div class="brand-result">
 	                  					<p>sdfsff</p>
@@ -133,7 +176,42 @@
                   	
                   	
                 </div>
-                <div class="box-body" >
+                <div class="box-body div-top-gap" >
+                	<!--  -->
+                  	 <!-- Small boxes (Stat box) -->
+		        
+			          <!-- Main row -->
+			          <div class="row">
+			            <!-- Left col -->
+			            <section class="col-lg-5 connectedSortable">
+			             	<h5 class="gray-color">Informative Text</h5>
+			             	<div class="input-group">
+			                    <span class="input-group-addon red-background"><i class="fa fa-flag" aria-hidden="true"></i></span>
+			                    <input type="text" class="form-control" placeholder="Enter the shop name">
+		                  	</div>
+			
+			            </section><!-- /.Left col -->
+			            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+			            <section class="col-lg-7 connectedSortable">
+							<h5 class="gray-color">Informative Image</h5>
+							<div><label>Logo</label></div>
+							<div class="col-lg-12 logo-browsing-wrapper" align="center"  >
+											                     		                  		                    	  
+		                    	<div class="fileinput fileinput-new " data-provides="fileinput">
+									<div class="fileinput-preview thumbnail image-browsing" data-trigger="fileinput" style="width: 170px; height: 190px;">
+										<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThQkfXNS4-nJ2yGOOalgeEmAI1sWhTOpnbiZf6BW2u3uHWxLHUdA" />								  
+									
+									</div>
+									<div style="display:none">
+									    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input onchange="readURL(this);" type="file"  name="..."></span>
+									    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+									</div>
+								</div>
+											                    	  		                    	  		                    	  
+							</div>
+							 			      			
+			            </section><!-- right col -->
+			          </div><!-- /.row (main row) -->
                 </div>
                 <div class="box-footer">
                  
@@ -178,8 +256,32 @@
 	
 	
 		$("div.brand-result").on("click",function(){
-			console.log($(this).text());
+			  $("div.brand-result").removeClass("add-background");
+			  $(this).addClass("add-background");
+			  $("#searchinputbox").val($(this).text().trim());
+			  $("#brandsearchdetail").hide();
+			 
 		});
+
+
+		function readURL(input) {
+			/* alert(input.files.length);
+		            // if (input.files && input.files[0]) {
+		                var reader = new FileReader();
+
+		                reader.onload = function (e) {
+						alert(e.target.result);
+						alert($("#yyy").val());
+						console.log(e.target.result);
+							var test = '<img src="'+e.target.result+'" />';
+		                    $('#imagewrapper').append(test);
+		               
+		                };
+
+		                reader.readAsDataURL(input.files[0]);
+		          //  }
+		        } */
+		
 		$("#test").on("click",function(){
 			alert(1);
 		});

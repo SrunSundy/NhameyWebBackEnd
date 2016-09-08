@@ -23,3 +23,5 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">
