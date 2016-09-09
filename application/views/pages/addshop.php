@@ -79,6 +79,7 @@
  	
  	
  	div.logo-browsing-wrapper{
+ 		cursor: pointer;
  		border: 1px solid #E0E0E0; 
  		
  	}
@@ -195,7 +196,7 @@
 			            <section class="col-lg-7 connectedSortable">
 							<h5 class="gray-color">Informative Image</h5>
 							<div><label>Logo</label></div>
-							<div class="col-lg-12 logo-browsing-wrapper" align="center"  >
+							<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">
 											                     		                  		                    	  
 		                    	<div class="fileinput fileinput-new " data-provides="fileinput">
 									<div class="fileinput-preview thumbnail image-browsing" data-trigger="fileinput" style="width: 170px; height: 190px;">
@@ -203,9 +204,12 @@
 									
 									</div>
 									<div style="display:none">
-									    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input onchange="readURL(this);" type="file"  name="..."></span>
+									    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="logo-upload" onchange="readURL(this);" type="file"  name="..."></span>
 									    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 									</div>
+								</div>
+								<div id="cover-upload-image" style="position:absolute;width: 100%;top:0; left:0; height: 100%; z-index: 200;">
+									
 								</div>
 											                    	  		                    	  		                    	  
 							</div>
@@ -263,8 +267,12 @@
 			 
 		});
 
+		$("#cover-upload-image").on("click",function(){
+	
+			$("#logo-upload").click();
+		});
 
-		function readURL(input) {
+		function readURL() {
 			/* alert(input.files.length);
 		            // if (input.files && input.files[0]) {
 		                var reader = new FileReader();
@@ -281,7 +289,7 @@
 		                reader.readAsDataURL(input.files[0]);
 		          //  }
 		        } */
-		
+		   }
 		$("#test").on("click",function(){
 			alert(1);
 		});
