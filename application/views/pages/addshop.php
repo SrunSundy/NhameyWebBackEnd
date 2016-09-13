@@ -8,15 +8,13 @@
  	<?php include 'imports/cssimport.php' ?>
  	<style>
  	
-
-
 .nham-control-group {
   display: inline-block;
   vertical-align: top;
   text-align: left;
   box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   margin-right: 20px;
-
+  
 }
 .nham-control {
   display: block;
@@ -78,6 +76,25 @@
   border-color: #7b7b7b;
 }
 
+
+
+
+
+
+
+
+div.image-upload-wrapper{
+	margin: 8px;
+	width: 170px;
+	min-height: 190px;
+	padding: 5px;
+	background: #E0E0E0;
+	
+}
+img.upload-shop-img{
+	max-width: 100%; 
+	height: auto;
+} 
  	</style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -286,7 +303,7 @@
 			                      <input type="text" class="form-control" placeholder="Shop Email address">			                      
 		                      </div>
 		                      
-		                      <div class="form-group" >
+		                      <div class="form-group"  >
 		                      	<div class="col-lg-12">
 		                      		<div class="row">
 				                      <div style="float: left;">
@@ -306,7 +323,7 @@
 					                  <div style="clear:both;"></div>
 					                 </div>
 				                  </div>
-				                  <div class="col-lg-12">
+				                  <div class="col-lg-12" style="margin-bottom:20px;">
 				                  	<div class="row">
 					                   					                    
 					                     <div class="nham-control-group div-top-gap">
@@ -397,18 +414,12 @@
 							<h5 class="gray-color">Informative Image</h5>
 							<div  class="form-group">
 								<label>Logo</label>
-								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">
-												                     		                  		                    	  
-			                    	<div class="fileinput fileinput-new " data-provides="fileinput">
-										<div class="fileinput-preview thumbnail image-browsing" data-trigger="fileinput" style="width: 170px; height: 190px;">
-											<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThQkfXNS4-nJ2yGOOalgeEmAI1sWhTOpnbiZf6BW2u3uHWxLHUdA" />								  
-										
-										</div>
-										<div style="display:none">
-										    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="logo-upload" onchange="readURL(this);" type="file"  name="..."></span>
-										    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-										</div>
-									</div>
+								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">											                     		                  		                    	  
+			                    	<input type='file' id="logoupload" style="display: none;"/>
+			                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
+			                    		
+			                    	</div>
+   									
 									<div id="cover-upload-image" style="position:absolute;width: 100%;top:0; left:0; height: 100%; z-index: 200;">
 										
 									</div>
@@ -528,7 +539,7 @@
 			          </div><!-- /.row (main row) -->
                 </div>
                 <div class="box-footer">
-                 	<button type="button" class="btn btn-danger shop-save"> Save </button>
+                 	<button type="button" class="btn btn-danger shop-save" id="saveshop"> Save </button>
                 </div>
               </div><!-- /.box (chat box) -->
        	
@@ -553,9 +564,8 @@
  
   <script>
   $('.inputmaskphone').inputmask({
-	  mask: '999-999-999?9'
+	  mask: '999-999-9999'
 	});
-
   
   $('.timeformat').inputmask({
 	  mask: '99:99'
@@ -565,14 +575,10 @@
     checkboxClass: 'icheckbox_flat-red',
     radioClass: 'iradio_flat-red'
   });
-
-
   
 //phone adding
 var shopphones = [];
-
 $(".nham-append-data").on("click",function(){
-
 	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
 	if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
 	
@@ -582,7 +588,6 @@ $(".nham-append-data").on("click",function(){
 	$("#shop_phonenum").val("");
 	
 });
-
 $(document).on("click",".close-phone",function(){
 	var arrayno = parseInt($(this).siblings(".phone-wrapper").find("input").val());
 	shopphones.splice(arrayno , 1);
@@ -591,7 +596,6 @@ $(document).on("click",".close-phone",function(){
 	//var shopphoneslash = shopphones.toString().replace(/[,]/g,"|").trim();
 	//alert(shopphoneslash);	
 });
-
 function displayPhones( data ){
 	var dis =""; 
 	for( var i=0 ; i<data.length ; i++){
@@ -605,48 +609,41 @@ function displayPhones( data ){
 //close phone adding
 
 
-var workingday = [1,2,3,4,5,6,7];
-
 
 $("#allday").on("change", function () {
 	if($(this).is(":checked")){
-		alert("YES");
+		//workingday = [1,2,3,4,5,6,7];
+		$(".work-day").prop('checked', true);
 	}else{
-		alert("NO");
+	//	workingday = [];
+		$(".work-day").prop('checked', false);
 	}
+});
+$(".work-day").on("change", function(){
+
+	if($(this).is(":checked")){
+		var len = $("input.work-day:checked").length;
+		if(len >= 7){
+			$("#allday").prop('checked', true);
+		}
+	}else{
+		$("#allday").prop('checked', false);
+	}
+});
+function countWorkingday(){
+	var workingday = [];
+	$('input.work-day:checked').each(function() {		
+		workingday.push(this.value);
+	});
+	return workingday;
+}
+
+$("#saveshop").on("click",function(){
+
+	
 });
 
 
-
-
-  
- 
- /*  $(".file-1").fileinput({
-	      uploadUrl: '', // you must set a valid URL here else you will get an error
-	      allowedFileExtensions : ['jpg', 'png','gif'],
-	      overwriteInitial: false,
-	      maxFileSize: 1000,
-	      maxFilesNum: 10,
-	      showUpload: false,
-	      browseClass: "btn btn-danger",
-	      //allowedFileTypes: ['image', 'video', 'flash'],
-	      slugCallback: function(filename) {
-	                 return filename.replace('(', '_').replace(']', '_');
-	 	}
-	 });
-	                                                                             
-	 $(document).ready(function() {
-	       $("#test-upload").fileinput({
-	            'showPreview' : false,
-	            'allowedFileExtensions' : ['jpg', 'png','gif'],
-	            'elErrorContainer': '#errorBlock'
-	        });
-	         
-	         //    $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
-	          //       alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
-	           //   });
-	        
-   }); */
    $("#input-44").fileinput({
        uploadUrl: '/file-upload-batch/2',
        maxFilePreviewSize: 10240,
@@ -659,27 +656,27 @@ $("#allday").on("change", function () {
 	   
 		$("#cover-upload-image").on("click",function(){
 	
-			$("#logo-upload").click();
+			$("#logoupload").click();
 		});
 
-		function readURL() {
-			/* alert(input.files.length);
-		            // if (input.files && input.files[0]) {
+		        function readURL(input) {
+
+		            if (input.files && input.files[0]) {
 		                var reader = new FileReader();
 
 		                reader.onload = function (e) {
-						alert(e.target.result);
-						alert($("#yyy").val());
-						console.log(e.target.result);
-							var test = '<img src="'+e.target.result+'" />';
-		                    $('#imagewrapper').append(test);
-		               
-		                };
+		                	
+		                	var myimg ='<img id="logoimage" class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		                    $('#logo-upload-wrapper').html(myimg);
+		                }
 
 		                reader.readAsDataURL(input.files[0]);
-		          //  }
-		        } */
-		   }
+		            }
+		        }
+
+		        $("#logoupload").change(function(){
+		            readURL(this);
+		        });
 		$("#test").on("click",function(){
 			alert(1);
 		});
