@@ -46,8 +46,7 @@
    
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo base_url() ?>application/views/dist/js/demo.js"></script>
-    <script src="<?php echo base_url() ?>application/views/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
-    
+   
     <script src="<?php echo base_url() ?>application/views/plugins/fileinput/fileinput.min.js"></script>
     
     <script src="<?php echo base_url() ?>application/views/nhamdis/js/nhamdropdown.js"></script>
