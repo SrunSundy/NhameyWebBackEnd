@@ -7,150 +7,77 @@
  	
  	<?php include 'imports/cssimport.php' ?>
  	<style>
- 		
- 	div.nham-dropdown-detail{
- 					
- 		background:#fff;
- 		display:none; 
- 		border: 1px solid #BDBDBD;
- 		position: absolute;
- 		width:100%;
- 		z-index:99999;
- 	}
- 	div.nham-dropdown-result-wrapper{
- 		height:210px;
- 		overflow-y: auto;	
- 	}
  	
- 	.small div.nham-dropdown-result-wrapper{
- 		height:180px;
- 		overflow-y: auto;	
- 	}
- 	div.nham-dropdown-result,div.nham-dropdown-more{
- 		width: 100%;
- 		height: 35px;
- 		line-height: 30px;
- 		border-top: 1px solid #E0E0E0;
- 		cursor: pointer;
- 	}
- 	
- 	.small div.nham-dropdown-result,.small div.nham-dropdown-more{
- 		width: 100%;
- 		height: 30px;
- 		line-height: 30px;
- 		border-top: 1px solid #E0E0E0;
- 		cursor: pointer;
- 	}
- 	
- 	div.nham-dropdown-result p{
- 		margin-left: 8px;
- 	}
- 	
- 	div.nham-dropdown-result-footer{
- 		border-top:  1px solid #E0E0E0;
- 		padding: 10px;
- 		height: 60px;
- 		
- 	}
- 	.small div.nham-dropdown-result-footer{
- 		border-top:  1px solid #E0E0E0;
- 		padding: 10px;
- 		height: 50px;
- 		
- 	}
- 	div.nham-dropdown-result:hover{
- 	
- 		background: #E0E0E0;
- 	}
- 	.nham-dropdown-wrapper{
- 		position:relative;
- 	}
- 	button.nhamey-btn{
- 		 
- 		 width: 130px;
- 		 height: 40px;
- 		 border-radius: 0;
- 	
- 	}
- 	.small button.nhamey-btn{
- 		 
- 		 width: 130px;
- 		 height: 30px;
- 		 border-radius: 0;
- 	
- 	}
- 	
- 	
- 	
- 	
+
+
+.nham-control-group {
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin-right: 20px;
+
+}
+.nham-control {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
  
- 	
- 	
- 	div.add-background{
- 	
- 		background: #E0E0E0;
- 	}
- 	
- 
- 	div.div-top-gap{
- 	
- 		margin-top: 10px;
- 	}
- 	.gray-color{
- 		color: #9E9E9E;
- 		font-style: italic;
- 		font-size: 16px;
- 	}
- 	.gray-color-noitalic{
- 		color: #9E9E9E;
- 		font-size: 16px;
- 	}
- 	span.red-background{
- 		background: #dd4b39 !important;
- 		color: #fff;
- 	}
- 	div.image-browsing{
- 		width: 170px;
- 		height: 190px;
- 		border-radius: 0;
- 		background: #E0E0E0;
- 		cursor: pointer;
- 		margin-top:12px;
- 	}
- 	
- 	
- 	div.logo-browsing-wrapper{
- 		cursor: pointer;
- 		border: 1px solid #E0E0E0; 
- 		
- 	}
- 	p.tagp-of-i{
- 		
- 		font-size: 80px;
- 		color: #9E9E9E;
- 	}
- 	.top-gap{
- 		margin-top: 6px;
- 	}
- 	
- 	span.nham-box-wrap{
- 		background: #BDBDBD;
- 		margin-right:2px;
- 		padding: 3px;
- 		border-radius: 2px;
- 	}
- 	
- 	span.nham-box-wrap > i:hover{
- 		cursor: pointer;
- 	}
- 	
- 	span.nham-box-wrap:hover{
- 		background: #9E9E9E;
- 	}
- 	
- 	div.phone-add-result{
- 		margin-top: 6px;
- 	}
+}
+.nham-control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.nham-control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: #e3e3e3;
+}
+.nham-control--radio .nham-control__indicator {
+  border-radius: 50%;
+}
+.nham-control:hover input ~ .nham-control__indicator,
+.nham-control input:focus ~ .nham-control__indicator {
+  background: #e3e3e3;
+}
+.nham-control input:checked ~ .nham-control__indicator {
+  background: #dd4b39;
+}
+.nham-control:hover input:not([disabled]):checked ~ .nham-control__indicator,
+.nham-control input:checked:focus ~ .nham-control__indicator {
+  background: #dd4b39;
+}
+.nham-control input:disabled ~ .nham-control__indicator {
+  background: #dd4b39;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.nham-control__indicator:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.nham-control input:checked ~ .nham-control__indicator:after {
+  display: block;
+}
+.nham-control--checkbox .nham-control__indicator:after {
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(50deg);
+}
+.nham-control--checkbox input:disabled ~ .nham-control__indicator:after {
+  border-color: #7b7b7b;
+}
+
  	</style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -344,29 +271,125 @@
 			                  <div class="form-group">
 			                    <label>Shop Phone:</label>
 			                    <div class="input-group">			                      
-			                      <input type="text" class="form-control inputmaskphone">
-			                      <div class="input-group-addon">
+			                      <input type="text" class="form-control inputmaskphone" id="shop_phonenum" placeholder="shop contact">
+			                      <div class="input-group-addon nham-append-data">
 			                        <i class="fa fa-plus"></i>
 			                      </div>
 			                    </div><!-- /.input group -->
-			                  	 <div class="phone-add-result" >
-			                    	<span class="nham-box-wrap">		                    		
-			                    		<span>014255545</span>
-			                    		<i class="fa fa-close" style="margin-left:5px;"></i>
-			                    	</span>
-			                    	<span class="nham-box-wrap">		                    		
-			                    		<span>014255545</span>
-			                    		<i class="fa fa-close" style="margin-left:5px;"></i>
-			                    	</span>
-			                    	<span class="nham-box-wrap">		                    		
-			                    		<span>014255545</span>
-			                    		<i class="fa fa-close" style="margin-left:5px;"></i>
-			                    	</span>
-			                    	
+			                  	 <div class="phone-add-result" id="phone-add-result">
+			                    	                  	
 			                    </div>
-			                  </div><!-- /.form group -->
+			                   </div><!-- /.form group -->
 			                  
+			                  <div class="form-group">
+			                      <label>Shop Email</label>
+			                      <input type="text" class="form-control" placeholder="Shop Email address">			                      
+		                      </div>
+		                      
+		                      <div class="form-group" >
+		                      	<div class="col-lg-12">
+		                      		<div class="row">
+				                      <div style="float: left;">
+				                      	<label>Shop Working days</label>
+				                      </div>
+					                  <div style="float:left;margin-left: 20px;">
+						                  <div class="form-group">
+						                    	  <div class="nham-control-group">
+												    <label class="nham-control nham-control--checkbox">All
+												      <input type="checkbox"  value="0" id="allday"/>
+												      <div class="nham-control__indicator"></div>
+												    </label>
+												  </div>			                   
+						                  </div>
+					                  </div>
+					                  
+					                  <div style="clear:both;"></div>
+					                 </div>
+				                  </div>
+				                  <div class="col-lg-12">
+				                  	<div class="row">
+					                   					                    
+					                     <div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Monday
+											    <input type="checkbox"  id="mon" value="1"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Tuesday
+											    <input type="checkbox"  id="mon" value="2"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Wednesday
+											    <input type="checkbox" id="mon" value="3"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Thursday
+											    <input type="checkbox"  id="mon" value="4"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Friday
+											    <input type="checkbox"  id="mon" value="5"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Saturday
+											    <input type="checkbox"  id="mon" value="6"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Sunday
+											    <input type="checkbox"  id="mon" value="7"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+					                    					                    
+				                    </div>
+			                  	  </div>	                      
+		                      </div>
+			                 
+			                  <div class="form-group" >
+			                      <label>Shop Opening Time</label>
+			                      <input type="text" class="form-control timeformat" placeholder="Time to open (ex: 8:00)">			                      
+		                      </div>
+		                      
+		                      <div class="form-group">
+			                      <label>Shop Closing Time</label>
+			                      <input type="text" class="form-control timeformat" placeholder="Time to close (ex: 20:30)">			                      
+		                      </div>
+		                      
+		                      <div class="input-group top-gap">
+			                    <span class="input-group-addon"><i class="fa fa-facebook-square font-size-20" aria-hidden="true"  ></i></span>
+			                    <input type="text" class="form-control" placeholder="Facebook page's link (ex:https://www.facebook.com/shopname)">
+			                  </div>
+			                  			    		                      
+		                      <div class="input-group top-gap">
+			                    <span class="input-group-addon"><i class="fa fa-instagram font-size-20" aria-hidden="true"  ></i></span>
+			                    <input type="text" class="form-control" placeholder="Instagram page's link (ex:https://www.instagram.com)">
+			                  </div>
 			                  
+			                  <div class="input-group top-gap">
+			                    <span class="input-group-addon"><i class="fa fa-google-plus font-size-20" aria-hidden="true"  ></i></span>
+			                    <input type="text" class="form-control" placeholder="Facebook page's link (ex:https://plus.google.com)">
+			                  </div>
+			                  
+			                  <div class="input-group top-gap">
+			                    <span class="input-group-addon"><i class="fa fa-twitter font-size-20" aria-hidden="true"  ></i></span>
+			                    <input type="text" class="form-control" placeholder="Facebook page's link (ex:https://twitter.com)">
+			                  </div>
+			                  
+			                   <div class="form-group">
+			                     <label>Remark</label>
+			                     <textarea class="form-control" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
+			                   </div>
 			
 			            </section><!-- /.Left col -->
 			            <!-- right col (We are only adding the ID to make the widgets sortable)-->
@@ -437,6 +460,7 @@
 											var myOptions = {
 									            center: new google.maps.LatLng(11.559844756373714, 104.91085053014103 ),
 									            zoom: 14,
+									            scrollwheel: false,
 									            mapTypeId: google.maps.MapTypeId.ROADMAP
 									        };
 											
@@ -462,7 +486,7 @@
 												}
 									          /*   document.getElementById('lat').value=location.lat();
 									            document.getElementById('lng').value=location.lng(); */
-									            alert(location);
+									          //  alert(location);
 									            getAddress(location);
 									        }
 									
@@ -489,14 +513,22 @@
 									
 									</script>
 				                  </div>
-			                 </div>  
+			                 </div> 
+			                 
+			                  <div class="form-group">
+
+                                	<label class="control-label">Select File</label>
+									<input id="input-44" name="input44[]" type="file" multiple class="file-loading">
+									<div id="errorBlock" class="help-block"></div>
+                              </div>
+                              
 							
 							 			      			
 			            </section><!-- right col -->
 			          </div><!-- /.row (main row) -->
                 </div>
                 <div class="box-footer">
-                 
+                 	<button type="button" class="btn btn-danger shop-save"> Save </button>
                 </div>
               </div><!-- /.box (chat box) -->
        	
@@ -517,47 +549,114 @@
    
 
   </body>
+
+ 
   <script>
   $('.inputmaskphone').inputmask({
-	  mask: '(999)-999-9999'
+	  mask: '999-999-999?9'
 	});
-	//add event handler to hide the `txtAddGenreContainer` element when the document is clicked
-	 /*  $(document).on('click', function () {
-	      var $tar = $(".nham-dropdown-detail");//UPDATE
-	    	  $tar.hide();
-	      
-	  }); */
-	
-	  //add event handler to the `addGenreFinal` and `newGenreTxt` elements to stop the click event from bubbling up the document
-	  /* $('.nham-dropdown-detail , .nham-dropdown-inputbox').on('click', function (event) {
-	      event.stopPropagation();
-	  });
- */
- $(".nham-dropdown-inputbox").on("focus keyup",function(){
-	 
-	 	var trigger = false;
-		$(this).siblings(".nham-dropdown-detail").show();
-		 $(".nham-dropdown-result").on("mousedown",function(){		
-			 trigger = true;
-			  $(this).siblings().removeClass("add-background");
-			  $(this).addClass("add-background");
-			  $(this).parents(".nham-dropdown-detail").siblings(".nham-dropdown-inputbox").val($(this).text().trim());
-			  $(this).parents(".nham-dropdown-detail").hide();
-			 
-		});
-		 $(".nham-dropdown-inputbox").on("blur",function(){
-	 		 if(!trigger){
-	 			$(".nham-dropdown-detail").hide();	
-	 		 }		
-		}); 
 
- });
+  
+  $('.timeformat').inputmask({
+	  mask: '99:99'
+	});
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+    checkboxClass: 'icheckbox_flat-red',
+    radioClass: 'iradio_flat-red'
+  });
+
+
+  
+//phone adding
+var shopphones = [];
+
+$(".nham-append-data").on("click",function(){
+
+	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
+	if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
+	
+	shopphones.push(phonenum);
+	displayPhones(shopphones);
+	console.log(shopphones);	
+	$("#shop_phonenum").val("");
+	
+});
+
+$(document).on("click",".close-phone",function(){
+	var arrayno = parseInt($(this).siblings(".phone-wrapper").find("input").val());
+	shopphones.splice(arrayno , 1);
+	displayPhones(shopphones);
+	console.log(shopphones);
+	//var shopphoneslash = shopphones.toString().replace(/[,]/g,"|").trim();
+	//alert(shopphoneslash);	
+});
+
+function displayPhones( data ){
+	var dis =""; 
+	for( var i=0 ; i<data.length ; i++){
+		dis += '<span class="nham-box-wrap">';
+		dis += '<span class="phone-wrapper"><input type="hidden" value="'+i+'" />'+data[i]+'</span>';
+		dis += '<i class="fa fa-close close-phone" style="margin-left:5px;margin-top:5px;" ></i>';
+		dis += '</span>';
+	}
+	$("#phone-add-result").html(dis);
+}
+//close phone adding
+
+
+var workingday = [1,2,3,4,5,6,7];
+
+
+$("#allday").on("change", function () {
+	if($(this).is(":checked")){
+		alert("YES");
+	}else{
+		alert("NO");
+	}
+});
+
+
+
+
+  
+ 
+ /*  $(".file-1").fileinput({
+	      uploadUrl: '', // you must set a valid URL here else you will get an error
+	      allowedFileExtensions : ['jpg', 'png','gif'],
+	      overwriteInitial: false,
+	      maxFileSize: 1000,
+	      maxFilesNum: 10,
+	      showUpload: false,
+	      browseClass: "btn btn-danger",
+	      //allowedFileTypes: ['image', 'video', 'flash'],
+	      slugCallback: function(filename) {
+	                 return filename.replace('(', '_').replace(']', '_');
+	 	}
+	 });
+	                                                                             
+	 $(document).ready(function() {
+	       $("#test-upload").fileinput({
+	            'showPreview' : false,
+	            'allowedFileExtensions' : ['jpg', 'png','gif'],
+	            'elErrorContainer': '#errorBlock'
+	        });
+	         
+	         //    $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
+	          //       alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+	           //   });
+	        
+   }); */
+   $("#input-44").fileinput({
+       uploadUrl: '/file-upload-batch/2',
+       maxFilePreviewSize: 10240,
+       browseClass: "btn btn-danger",
+       allowedFileExtensions: ["jpg", "png", "gif"],
+       showUpload: false,
+            
+   });
+ 
 	   
-
-	
-
-
-		
 		$("#cover-upload-image").on("click",function(){
 	
 			$("#logo-upload").click();

@@ -1,0 +1,25 @@
+@CHARSET "EUC-KR";
+
+.left-gap-10{
+	
+	margin-left: 10px;
+}
+
+.left-gap-20{
+	
+	margin-left: 20px;
+}
+
+.right-gap-10{
+	
+	margin-left: 10px;
+}
+
+.right-gap-20{
+	
+	margin-left: 20px;
+}
+.font-size-20{
+	
+	font-size: 20px;
+}

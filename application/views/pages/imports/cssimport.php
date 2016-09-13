@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/iCheck/all.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
@@ -25,3 +28,15 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">
+    
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/fileinput/fileinput.css">
+    
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/nhamdis/css/nham.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/nhamdis/css/nhamdropdown.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/nhamdis/css/nhamsetting.css">
+    
+    
+    
+     	
+ 
+ 
