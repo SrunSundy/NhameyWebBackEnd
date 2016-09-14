@@ -7,7 +7,7 @@ class UserRestController extends  CI_Controller{
 
 	public function listuser(){
 		//echo "THIS IS THE SECOND STEP!!!";
-		$this->load->model('UserModel');
+		
 		$data = $this->UserModel->getAllUser();
 		
 		$json = json_encode($data);
@@ -18,7 +18,7 @@ class UserRestController extends  CI_Controller{
 	
 	public function insertuser(){
 		
-		$this->load->model('UserModel');
+		
 		$check = $this->UserModel->insertUser();
 		$data = array();
 		if($check){

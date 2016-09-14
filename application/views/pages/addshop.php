@@ -6,96 +6,7 @@
     <title>AdminLTE 2 | Dashboard</title>
  	
  	<?php include 'imports/cssimport.php' ?>
- 	<style>
- 	
-.nham-control-group {
-  display: inline-block;
-  vertical-align: top;
-  text-align: left;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  margin-right: 20px;
-  
-}
-.nham-control {
-  display: block;
-  position: relative;
-  padding-left: 30px;
-  cursor: pointer;
- 
-}
-.nham-control input {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-}
-.nham-control__indicator {
-  position: absolute;
-  top: 2px;
-  left: 0;
-  height: 20px;
-  width: 20px;
-  background: #e3e3e3;
-}
-.nham-control--radio .nham-control__indicator {
-  border-radius: 50%;
-}
-.nham-control:hover input ~ .nham-control__indicator,
-.nham-control input:focus ~ .nham-control__indicator {
-  background: #e3e3e3;
-}
-.nham-control input:checked ~ .nham-control__indicator {
-  background: #dd4b39;
-}
-.nham-control:hover input:not([disabled]):checked ~ .nham-control__indicator,
-.nham-control input:checked:focus ~ .nham-control__indicator {
-  background: #dd4b39;
-}
-.nham-control input:disabled ~ .nham-control__indicator {
-  background: #dd4b39;
-  opacity: 0.6;
-  pointer-events: none;
-}
-.nham-control__indicator:after {
-  content: '';
-  position: absolute;
-  display: none;
-}
-.nham-control input:checked ~ .nham-control__indicator:after {
-  display: block;
-}
-.nham-control--checkbox .nham-control__indicator:after {
-  left: 8px;
-  top: 4px;
-  width: 5px;
-  height: 10px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(50deg);
-}
-.nham-control--checkbox input:disabled ~ .nham-control__indicator:after {
-  border-color: #7b7b7b;
-}
 
-
-
-
-
-
-
-
-div.image-upload-wrapper{
-	margin: 8px;
-	width: 170px;
-	min-height: 190px;
-	padding: 5px;
-	background: #E0E0E0;
-	
-}
-img.upload-shop-img{
-	max-width: 100%; 
-	height: auto;
-} 
- 	</style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     <div class="wrapper">
@@ -129,30 +40,16 @@ img.upload-shop-img{
                 <div class="box-header">
                 	<div class=" col-sm-12 nham-dropdown-wrapper" >
                 		<div class="row">
-                    		<input type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search brand to insert shop">
+                    		<input id="brandname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search brand to insert shop">
                     	
                     		<div class="nham-dropdown-detail"  >
                     			<div class="nham-dropdown-result-wrapper">
-	                    			<div class="nham-dropdown-result">
-	                  					<p>sdfsff</p>
-	                  				</div>
-	                  				<div class="nham-dropdown-result">
-	                  					<p>sdfaaaaaaaaaaaaaaasff</p>
-	                  				</div>
-	                  				<div class="nham-dropdown-result">
-	                  					<p>sdfddddddddddesff</p>
-	                  				</div>
-	                  				<div class="nham-dropdown-result">
-	                  					<p>sdfeeeeeeeeeeeeeeeesff</p>
-	                  				</div>
-	                  				<div class="nham-dropdown-result">
-	                  					<p>srrrrrrrrrrrrrrfsff</p>
-	                  				</div>
-	                  				<div class="nham-dropdown-result">
-	                  					<p>sdfsff</p>
-	                  				</div>
-	                  				
-	                  				
+                    				<div id="display-result" class="display-result-wrapper">
+                    					
+		                  		
+		
+                    				</div>
+       				
                   					<div class="nham-dropdown-more" >
 	                  					<p align="center">MORE</p>
                     				</div>
@@ -180,11 +77,11 @@ img.upload-shop-img{
 			             	<h5 class="gray-color">Informative Text</h5>
 			             	 <div class="form-group">
 			                      <label>Shop Name</label>
-			                      <input type="text" class="form-control" placeholder="Shop Name in English">
-			                      <input type="text" class="form-control top-gap" placeholder="Shop Name in Khmer">
+			                      <input type="text" id="shopengname" class="form-control" placeholder="Shop Name in English">
+			                      <input type="text" id="shopkhname" class="form-control top-gap" placeholder="Shop Name in Khmer">
 		                     </div>
 		                     
-		                     <div class="form-group nham-dropdown-wrapper small">
+		                     <div class="form-group nham-dropdown-wrapper">
 			                    <label>Shop Region</label>
 			                    <input type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop region">
                     	
@@ -205,9 +102,6 @@ img.upload-shop-img{
 		                  				<div class="nham-dropdown-result">
 		                  					<p>srrrrrrrrrrrrrrfsff</p>
 		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfsff</p>
-		                  				</div>
 		                  				
 		                  				
 	                  					<div class="nham-dropdown-more" >
@@ -222,7 +116,7 @@ img.upload-shop-img{
 	                  			</div>
 		                     </div>
 		                     
-		                     <div class="form-group nham-dropdown-wrapper small">
+		                     <div class="form-group nham-dropdown-wrapper">
 			                    <label>Shop Type</label>
 			                    <input type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for Shop Type">
                     	
@@ -262,26 +156,26 @@ img.upload-shop-img{
 		                     
 		                     <div class="form-group">
 			                    <label>Shop Server Type</label>
-			                    <select class="form-control " style="width: 100%;">
-			                      <option selected="selected">Food</option>
-			                      <option>Drink</option>
+			                    <select class="form-control " style="width: 100%;" id="shopservertype">
+			                      <option selected="selected" value="food">Food</option>
+			                      <option value="drink">Drink</option>
 			                    
 			                    </select>
 			                  </div><!-- /.form-group -->
 			                  
 			                  <div class="form-group">
 			                     <label>Short Description</label>
-			                     <textarea class="form-control" rows="3" placeholder="describe shortly about the shop" style="resize:none;"></textarea>
+			                     <textarea id="shopshortdes" class="form-control" rows="3" placeholder="describe shortly about the shop" style="resize:none;"></textarea>
 			                  </div>
 			                  
 			                  <div class="form-group">
 			                     <label>Description</label>
-			                     <textarea class="form-control" rows="3" placeholder="describe briefly about the shop"  style="resize:vertical;"></textarea>
+			                     <textarea id="shopdes" class="form-control" rows="3" placeholder="describe briefly about the shop"  style="resize:vertical;"></textarea>
 			                  </div>
 			                  
 			                  <div class="form-group">
 			                     <label>Shop address</label>
-			                     <textarea class="form-control" rows="3" placeholder="add shop location (sergkat , khan , street ...)"  style="resize:none;"></textarea>
+			                     <textarea id="shopaddress" class="form-control" rows="3" placeholder="add shop location (sergkat , khan , street ...)"  style="resize:none;"></textarea>
 			                  </div>		                
 		                      
 		                       <!-- phone mask -->
@@ -300,7 +194,7 @@ img.upload-shop-img{
 			                  
 			                  <div class="form-group">
 			                      <label>Shop Email</label>
-			                      <input type="text" class="form-control" placeholder="Shop Email address">			                      
+			                      <input id="shopemail" type="text" class="form-control" placeholder="Shop Email address">			                      
 		                      </div>
 		                      
 		                      <div class="form-group"  >
@@ -375,37 +269,37 @@ img.upload-shop-img{
 			                 
 			                  <div class="form-group" >
 			                      <label>Shop Opening Time</label>
-			                      <input type="text" class="form-control timeformat" placeholder="Time to open (ex: 8:00)">			                      
+			                      <input id="shopopentime" type="text" class="form-control timeformat" placeholder="Time to open (ex: 8:00)">			                      
 		                      </div>
 		                      
 		                      <div class="form-group">
 			                      <label>Shop Closing Time</label>
-			                      <input type="text" class="form-control timeformat" placeholder="Time to close (ex: 20:30)">			                      
+			                      <input id="shopclosetime" type="text" class="form-control timeformat" placeholder="Time to close (ex: 20:30)">			                      
 		                      </div>
 		                      
 		                      <div class="input-group top-gap">
 			                    <span class="input-group-addon"><i class="fa fa-facebook-square font-size-20" aria-hidden="true"  ></i></span>
-			                    <input type="text" class="form-control" placeholder="Facebook page's link (ex:https://www.facebook.com/shopname)">
+			                    <input id="shopfb" type="text" class="form-control" placeholder="Facebook page's link (ex:https://www.facebook.com/shopname)">
 			                  </div>
 			                  			    		                      
 		                      <div class="input-group top-gap">
 			                    <span class="input-group-addon"><i class="fa fa-instagram font-size-20" aria-hidden="true"  ></i></span>
-			                    <input type="text" class="form-control" placeholder="Instagram page's link (ex:https://www.instagram.com)">
+			                    <input id="shopinstagram" type="text" class="form-control" placeholder="Instagram page's link (ex:https://www.instagram.com)">
 			                  </div>
 			                  
 			                  <div class="input-group top-gap">
 			                    <span class="input-group-addon"><i class="fa fa-google-plus font-size-20" aria-hidden="true"  ></i></span>
-			                    <input type="text" class="form-control" placeholder="Facebook page's link (ex:https://plus.google.com)">
+			                    <input id="shopgoogleplus"  type="text" class="form-control" placeholder="Googleplus page's link (ex:https://plus.google.com)">
 			                  </div>
 			                  
 			                  <div class="input-group top-gap">
 			                    <span class="input-group-addon"><i class="fa fa-twitter font-size-20" aria-hidden="true"  ></i></span>
-			                    <input type="text" class="form-control" placeholder="Facebook page's link (ex:https://twitter.com)">
+			                    <input id="shoptwitter" type="text" class="form-control" placeholder="Twitter page's link (ex:https://twitter.com)">
 			                  </div>
 			                  
 			                   <div class="form-group">
 			                     <label>Remark</label>
-			                     <textarea class="form-control" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
+			                     <textarea id="shopremark" class="form-control" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
 			                   </div>
 			
 			            </section><!-- /.Left col -->
@@ -417,33 +311,23 @@ img.upload-shop-img{
 								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">											                     		                  		                    	  
 			                    	<input type='file' id="logoupload" style="display: none;"/>
 			                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
-			                    		
-			                    	</div>
-   									
-									<div id="cover-upload-image" style="position:absolute;width: 100%;top:0; left:0; height: 100%; z-index: 200;">
-										
-									</div>
+			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+			                    		<p style="font-weight:bold;color:#9E9E9E"> Add logo image </p>
+			                    	</div> 									
+									<div id="logo-upload-image" class="upload-image-hover" ></div>
 												                    	  		                    	  		                    	  
 								</div>
 							</div>
 							
 							<div  class="form-group">
 								<label>Cover</label>
-								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">
-												                     		                  		                    	  
-			                    	<div class="fileinput fileinput-new " data-provides="fileinput">
-										<div class="fileinput-preview thumbnail image-browsing" data-trigger="fileinput" style="width: 170px; height: 190px;">
-											<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThQkfXNS4-nJ2yGOOalgeEmAI1sWhTOpnbiZf6BW2u3uHWxLHUdA" />								  
-										
-										</div>
-										<div style="display:none">
-										    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="logo-upload" onchange="readURL(this);" type="file"  name="..."></span>
-										    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-										</div>
-									</div>
-									<div id="cover-upload-image" style="position:absolute;width: 100%;top:0; left:0; height: 100%; z-index: 200;">
-										
-									</div>
+								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">												                     		                  		                    	  
+			                    	<input type='file' id="coverupload" style="display: none;"/>
+			                    	<div class="image-upload-wrapper" id="cover-upload-wrapper">
+			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+			                    		<p style="font-weight:bold;color:#9E9E9E"> Add cover image </p>
+			                    	</div> 
+									<div id="cover-upload-image" class="upload-image-hover"></div>
 												                    	  		                    	  		                    	  
 								</div>
 							</div>
@@ -528,7 +412,7 @@ img.upload-shop-img{
 			                 
 			                  <div class="form-group">
 
-                                	<label class="control-label">Select File</label>
+                                	<label class="control-label">Shop images detail</label>
 									<input id="input-44" name="input44[]" type="file" multiple class="file-loading">
 									<div id="errorBlock" class="help-block"></div>
                               </div>
@@ -611,11 +495,9 @@ function displayPhones( data ){
 
 
 $("#allday").on("change", function () {
-	if($(this).is(":checked")){
-		//workingday = [1,2,3,4,5,6,7];
+	if($(this).is(":checked")){		
 		$(".work-day").prop('checked', true);
 	}else{
-	//	workingday = [];
 		$(".work-day").prop('checked', false);
 	}
 });
@@ -638,47 +520,130 @@ function countWorkingday(){
 	return workingday;
 }
 
-$("#saveshop").on("click",function(){
 
+
+
+$("#input-44").fileinput({
+     uploadUrl: '/file-upload-batch/2',
+     maxFilePreviewSize: 10240,
+     browseClass: "btn btn-danger",
+     allowedFileExtensions: ["jpg", "png", "gif"],
+     showUpload: false,
+});
+ 
+	   
+$("#logo-upload-image").on("click",function(){	
+	$("#logoupload").click();
+});
+$("#logoupload").change(function(){
+	uploadLogo(this);
+});
+function uploadLogo(input) {
+
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) {
+		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		              $('#logo-upload-wrapper').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+		$('#logo-upload-wrapper').html(txt);
+	}
+}
+
+
+$("#cover-upload-image").on("click",function(){	
+	$("#coverupload").click();
+});
+$("#coverupload").change(function(){
+	uploadCover(this);
+});
+function uploadCover(input){
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) {
+		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		              $('#cover-upload-wrapper').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Cover image </p>';
+		 $('#cover-upload-wrapper').html(txt);
+	}
 	
+}
+
+$("#brandname").on("focus keyup",function(){
+	var srchbrandname = $(this).val();
+	if(srchbrandname == '' || srchbrandname == null) srchbrandname = "all";
+	
+	$.ajax({
+		 type: "GET",
+		 url: "/NhameyWebBackEnd/API/BrandRestController/getBrandByName/"+srchbrandname, 
+		 success: function(data){
+			 data = JSON.parse(data);
+			 console.log(data);
+			 var branddis = '';
+			 for(var i=0 ; i<data.length ; i++){
+				
+				 branddis += '<div  class="nham-dropdown-result"><p>'+data[i].brand_name+'</p></div>';
+			}
+			
+			$("#display-result").html(branddis); 
+			 
+   	 	 }
+   });
+});
+
+function getDataToInsert(){
+	var shopdata = {
+		"ShopData":{
+			"brand_id" : 1,
+			"shop_name_en" : $("#shopengname").val() ,
+			"shop_name_kh" : $("#shopkhname").val(),
+			"shop_logo" : "123",
+			"shop_cover" : "34343",
+			"region_id" : 3,
+			"shop_type_id" : 2,
+			"shop_serve_type" : $("#shopservertype").val(),
+			"shop_short_description": $("#shopshortdes").val() ,
+			"shop_description" : $("#shopdes").val(),
+			"shop_address": $("#shopaddress").val(),
+			"shop_phone": shopphones.toString().replace(/[,]/g,"|").trim(),
+			"shop_email":$("#shopemail").val(),
+			"shop_working_day": countWorkingday().toString().replace(/[,]/g,"|").trim(),
+			"shop_opening_time": $("#shopopentime").val(),
+			"shop_close_time": $("#shopclosetime").val(),
+			"shop_map_address": "32424",
+			"shop_social_media": {
+				"facebook" : $("#shopfb").val(),
+				"instagram" : $("#shopinstagram").val(),
+				"googleplus" : $("#shopgoogleplus").val(),
+				"twitter": $("#shoptwitter").val()
+			} ,
+			"shop_remark": $("#shopremark").val(),
+			"shop_image_detail": "2343333333333333333333333"
+		}	
+	};
+	return shopdata;
+}
+
+$("#saveshop").on("click",function(){
+	// console.log(getDataToInsert());
+	 alert(0);
+	 $.ajax({
+		 type: "POST",
+		 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
+		 data: getDataToInsert(),
+		 success: function(data){
+         	alert(data);    
+     	 }
+     });
 });
 
 
-   $("#input-44").fileinput({
-       uploadUrl: '/file-upload-batch/2',
-       maxFilePreviewSize: 10240,
-       browseClass: "btn btn-danger",
-       allowedFileExtensions: ["jpg", "png", "gif"],
-       showUpload: false,
-            
-   });
- 
-	   
-		$("#cover-upload-image").on("click",function(){
 	
-			$("#logoupload").click();
-		});
-
-		        function readURL(input) {
-
-		            if (input.files && input.files[0]) {
-		                var reader = new FileReader();
-
-		                reader.onload = function (e) {
-		                	
-		                	var myimg ='<img id="logoimage" class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		                    $('#logo-upload-wrapper').html(myimg);
-		                }
-
-		                reader.readAsDataURL(input.files[0]);
-		            }
-		        }
-
-		        $("#logoupload").change(function(){
-		            readURL(this);
-		        });
-		$("#test").on("click",function(){
-			alert(1);
-		});
   </script>
 </html>

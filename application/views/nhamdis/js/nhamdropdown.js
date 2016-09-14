@@ -10,8 +10,21 @@
 	      event.stopPropagation();
 	  });
  */
-$(".nham-dropdown-inputbox").on("focus keyup",function(){
-	 
+$("").on("focus keyup",function(){
+	 //  $(".nham-dropdown-detail").css("max-height", $(".nham-dropdown-detail").height());
+		//console.log($(this).siblings(".nham-dropdown-detail").find(".nham-dropdown-result").length);
+		/*var row = $(this).siblings(".nham-dropdown-detail").find(".nham-dropdown-result").length		
+		if(row <= 0){
+			$(this).siblings(".nham-dropdown-detail").find(".display-result-wrapper").html("<h5>No Data to display!</h5>");
+			$(this).siblings(".nham-dropdown-detail").find(".nham-dropdown-result-footer").show();
+		}
+		if( row > 7){
+			$(this).siblings(".nham-dropdown-detail").find(".nham-dropdown-result-wrapper").addClass("nham-dynamic-height");
+			$(this).siblings(".nham-dropdown-detail").find(".nham-dropdown-result-footer").hide();
+		}else{
+			$(this).siblings(".nham-dropdown-detail").find(".nham-dropdown-result-wrapper").removeClass("nham-dynamic-height");
+			
+		}*/
 	 	var trigger = false;
 		$(this).siblings(".nham-dropdown-detail").show();
 		 $(".nham-dropdown-result").on("mousedown",function(){		

@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/fileinput/fileinput.css">
     
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/nhamdis/css/nham.css">
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/nhamdis/css/nhamcheckbox.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/nhamdis/css/nhamdropdown.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/nhamdis/css/nhamsetting.css">
     

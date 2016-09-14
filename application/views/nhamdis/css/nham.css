@@ -75,3 +75,32 @@ button.shop-save{
 	background: ;
 	cursor: pointer;
 }
+
+div.image-upload-wrapper{
+	margin: 8px;
+	width: 170px;
+	min-height: 190px;
+	padding: 5px;
+	background: #E0E0E0;
+	
+}
+img.upload-shop-img{
+	max-width: 100%; 
+	height: auto;
+} 
+div.upload-image-hover{
+	position:absolute;
+	width: 100%;
+	top:0; 
+	left:0; 
+	height: 100%; 
+	z-index: 200;
+}
+.gray-image-plus{
+	font-size:80px;
+	color:#9E9E9E;
+}
+.logo-browsing-wrapper:hover{
+	 opacity: 0.8;
+   
+}
