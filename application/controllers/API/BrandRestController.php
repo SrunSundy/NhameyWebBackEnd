@@ -13,10 +13,14 @@ class BrandRestController extends CI_Controller{
 		
 	}
 	
-	public function getBrandByName( $brandname ){
+	public function getBrandByNameCombo( $brandname , $limit=null ){
 		
+		if(!isset($limit))
+		{
+			$limit = 10;
+		}
 		if($brandname == "all") $brandname = "";
-		$data = $this->BrandModel->getBrandByName($brandname);
+		$data = $this->BrandModel->getBrandByNameCombo($brandname , $limit);
 		$json = json_encode($data);
 		echo $json;
 		
@@ -24,6 +28,15 @@ class BrandRestController extends CI_Controller{
 	
 	public function getBrandById(){
 		
+	}
+	
+	public function insertBrand(){
+		
+		$branddata = $this->input->post('BrandData');
+		$brandarr = array($branddata['brand_name'],$branddata['brand_remark']);
+		$data = $this->BrandModel->insertBrand( $brandarr );
+		$json = json_encode($data); 
+		echo $json;
 	}
 }
 ?>

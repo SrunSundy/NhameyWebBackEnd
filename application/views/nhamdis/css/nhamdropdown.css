@@ -26,6 +26,33 @@ div.nham-dropdown-result, div.nham-dropdown-more {
 	line-height: 30px;
 	border-top: 1px solid #E0E0E0;
 	cursor: pointer;
+	
+}
+div.nham-dropdown-result p span.title{
+	
+	font-weight: bold;
+}
+div.nham-dropdown-noresult{
+	
+	width: 100%;
+	height: 45px;
+	line-height: 50px;
+	border-top: 1px solid #E0E0E0;
+	font-weight: bold;
+	text-align: center;
+	color: #42A5F5;
+	word-wrap: break-word;
+	
+}
+div.nham-dropdown-question{
+	
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	border-top: 1px solid #E0E0E0;
+	text-align: center;
+	color: #42A5F5;
+	word-wrap: break-word;
 }
 
 div.nham-dropdown-result p {
@@ -37,6 +64,7 @@ div.nham-dropdown-result-footer {
 	padding: 10px;
 	height: 60px;
 	display:none;
+	
 }
 
 div.nham-dropdown-result:hover {

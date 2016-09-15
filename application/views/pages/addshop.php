@@ -38,26 +38,21 @@
          	 <!-- Chat box -->
               <div class="box box-danger" style="border-radius: 0;min-height: 500px;">
                 <div class="box-header">
-                	<div class=" col-sm-12 nham-dropdown-wrapper" >
+                	<div class=" col-sm-12 nham-dropdown-wrapper">
                 		<div class="row">
-                    		<input id="brandname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search brand to insert shop">
-                    	
+                			<div class="selected-dropdown">
+                    		   <input id="brandname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search brand to insert shop">
+                    	       <input type="hidden" class="selectedbrandid" id="selectedbrand"/>
+                    	    </div>
                     		<div class="nham-dropdown-detail"  >
                     			<div class="nham-dropdown-result-wrapper">
                     				<div id="display-result" class="display-result-wrapper">
                     					
-		                  		
-		
                     				</div>
        				
-                  					<div class="nham-dropdown-more" >
-	                  					<p align="center">MORE</p>
-                    				</div>
-                  				
                   				</div>
-                  				<div class="nham-dropdown-result-footer" align="center">
+                  				<div id="nham-dropdown-footer" class="nham-dropdown-result-footer" align="center">
                   					<button class="btn nhamey-btn" id="yesbrand">Yes</button>
-                  					<button class="btn nhamey-btn" id="test">No</button>
                   				</div>
                   			</div>
                     	</div>
@@ -83,75 +78,48 @@
 		                     
 		                     <div class="form-group nham-dropdown-wrapper">
 			                    <label>Shop Region</label>
-			                    <input type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop region">
-                    	
-	                    		<div class="nham-dropdown-detail"  >
-	                    			<div class="nham-dropdown-result-wrapper">
-		                    			<div class="nham-dropdown-result">
-		                  					<p>sdfsff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfaaaaaaaaaaaaaaasff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfddddddddddesff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfeeeeeeeeeeeeeeeesff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>srrrrrrrrrrrrrrfsff</p>
-		                  				</div>
-		                  				
-		                  				
-	                  					<div class="nham-dropdown-more" >
-		                  					<p align="center">MORE</p>
-	                    				</div>
-	                  				
-	                  				</div>
-	                  				<div class="nham-dropdown-result-footer" align="center">
-	                  					<button class="btn nhamey-btn" id="yesshop">Yes</button>
-	                  					<button class="btn nhamey-btn" id="test">No</button>
-	                  				</div>
-	                  			</div>
+			                    <div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="selected-dropdown">
+			                    		    <input id="regionid" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop region">
+			                    	       <input type="hidden" class="selectedbrandid" id="selectedregion"/>
+			                    	    </div>
+			                    		<div class="nham-dropdown-detail"  >
+			                    			<div class="nham-dropdown-result-wrapper">
+			                    				<div id="display-result-region" class="display-result-wrapper">
+			                    					
+			                    				</div>
+			       				
+			                  				</div>
+			                  				<div id="nham-dropdown-footer-region" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesregion">Yes</button>
+			                  				</div>
+			                  			</div>
+			                    	</div>			                    	
+			                  	</div>
 		                     </div>
 		                     
 		                     <div class="form-group nham-dropdown-wrapper">
 			                    <label>Shop Type</label>
-			                    <input type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for Shop Type">
-                    	
-	                    		<div class="nham-dropdown-detail"  >
-	                    			<div class="nham-dropdown-result-wrapper">
-		                    			<div class="nham-dropdown-result">
-		                  					<p>sdfsff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfaaaaaaaaaaaaaaasff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfddddddddddesff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfeeeeeeeeeeeeeeeesff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>srrrrrrrrrrrrrrfsff</p>
-		                  				</div>
-		                  				<div class="nham-dropdown-result">
-		                  					<p>sdfsff</p>
-		                  				</div>
-		                  				
-		                  				
-	                  					<div class="nham-dropdown-more" >
-		                  					<p align="center">MORE</p>
-	                    				</div>
-	                  				
-	                  				</div>
-	                  				<div class="nham-dropdown-result-footer" align="center">
-	                  					<button class="btn nhamey-btn" id="test">Yes</button>
-	                  					<button class="btn nhamey-btn" id="test">No</button>
-	                  				</div>
-	                  			</div>
+			                     <div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="selected-dropdown">
+			                    		    <input id="shoptypename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop region">
+			                    	        <input type="hidden" class="selectedbrandid" id="selectedshoptype"/>
+			                    	    </div>
+			                    		<div class="nham-dropdown-detail"  >
+			                    			<div class="nham-dropdown-result-wrapper">
+			                    				<div id="display-result-shoptype" class="display-result-wrapper">
+			                    					
+			                    				</div>
+			       				
+			                  				</div>
+			                  				<div id="nham-dropdown-footer-shoptype" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesshoptype">Yes</button>
+			                  				</div>
+			                  			</div>
+			                    	</div>			                    	
+			                  	</div>
 		                     </div>
 		                     
 		                     <div class="form-group">
@@ -575,32 +543,12 @@ function uploadCover(input){
 	
 }
 
-$("#brandname").on("focus keyup",function(){
-	var srchbrandname = $(this).val();
-	if(srchbrandname == '' || srchbrandname == null) srchbrandname = "all";
-	
-	$.ajax({
-		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/BrandRestController/getBrandByName/"+srchbrandname, 
-		 success: function(data){
-			 data = JSON.parse(data);
-			 console.log(data);
-			 var branddis = '';
-			 for(var i=0 ; i<data.length ; i++){
-				
-				 branddis += '<div  class="nham-dropdown-result"><p>'+data[i].brand_name+'</p></div>';
-			}
-			
-			$("#display-result").html(branddis); 
-			 
-   	 	 }
-   });
-});
+
 
 function getDataToInsert(){
 	var shopdata = {
 		"ShopData":{
-			"brand_id" : 1,
+			"brand_id" : $("#selectedbrand").val(),
 			"shop_name_en" : $("#shopengname").val() ,
 			"shop_name_kh" : $("#shopkhname").val(),
 			"shop_logo" : "123",
@@ -642,6 +590,162 @@ $("#saveshop").on("click",function(){
      	 }
      });
 });
+
+
+
+
+$("#brandname").on("focus keyup",function(){
+	var srchbrandname = $(this).val();
+	if(srchbrandname == '' || srchbrandname == null) srchbrandname = "all";
+	$.ajax({
+		 type: "GET",
+		 url: "/NhameyWebBackEnd/API/BrandRestController/getBrandByNameCombo/"+srchbrandname+"/10", 
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var branddis = '';
+			if(data.length <= 0){
+				branddis +='<div  class="nham-dropdown-noresult">';
+				branddis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
+				branddis +='  Searching "'+cutString(srchbrandname , 35)+'" has no Result!</p>';
+				branddis +='</div>';
+				branddis +='<div class="nham-dropdown-question">';
+				branddis +='<p>Do you want to register "'+cutString(srchbrandname , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
+				branddis +='</div>';
+				$("#nham-dropdown-footer").show();
+			}else{	
+				$("#nham-dropdown-footer").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					 branddis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].brand_id+'" /><p><span class="title">'+data[i].brand_name+'</span></p></div>';
+				 }				
+				
+			}
+			$("#display-result").html(branddis); 					 
+   	 	 }
+   });
+});
+$("#yesbrand").on("mousedown",function(){
+	var branddata = {
+		"BrandData" : {
+			"brand_name" : $("#brandname").val(),
+			"brand_remark": ""
+		}
+	};
+	$.ajax({
+		type : "POST",
+		url : "/NhameyWebBackEnd/API/BrandRestController/insertBrand",
+		data : branddata,
+		success : function(data){
+			console.log(data);
+			//alert(data);
+			$("#selectedbrand").val(data);
+		}
+	});
+});
+
+
+
+$("#regionid").on("focus keyup",function(){
+	var srchname = $(this).val();
+	if(srchname == '' || srchname == null) srchname = "all";
+	$.ajax({
+		 type: "GET",
+		 url: "/NhameyWebBackEnd/API/RegionRestController/getRegionByNameCombo/"+srchname+"/10", 
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var dis = '';
+			if(data.length <= 0){
+				dis +='<div  class="nham-dropdown-noresult">';
+				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
+				dis +='  Searching "'+cutString(srchname , 35)+'" has no Result!</p>';
+				dis +='</div>';
+				dis +='<div class="nham-dropdown-question">';
+				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
+				dis +='</div>';
+				$("#nham-dropdown-footer-region").show();
+			}else{	
+				$("#nham-dropdown-footer-region").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].region_id+'" /><p><span class="title">'+data[i].region_name+'</span></p></div>';
+				 }				
+				
+			}
+			$("#display-result-region").html(dis); 					 
+   	 	 }
+   });
+});
+$("#yesregion").on("mousedown",function(){
+	var regiondata = {
+		"RegionData" : {
+			"region_name" : $("#regionid").val(),
+			"region_remark": ""
+		}
+	};
+	$.ajax({
+		type : "POST",
+		url : "/NhameyWebBackEnd/API/RegionRestController/insertRegion",
+		data : regiondata,
+		success : function(data){
+			console.log(data);
+			//alert(data);
+			$("#selectedregion").val(data);
+		}
+	});
+});
+
+
+
+$("#shoptypename").on("focus keyup",function(){
+	var srchname = $(this).val();
+	if(srchname == '' || srchname == null) srchname = "all";
+	$.ajax({
+		 type: "GET",
+		 url: "/NhameyWebBackEnd/API/ShopTypeRestController/getShopTypeByNameCombo/"+srchname+"/10", 
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var dis = '';
+			if(data.length <= 0){
+				dis +='<div  class="nham-dropdown-noresult">';
+				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
+				dis +='  Searching "'+cutString(srchname , 35)+'" has no Result!</p>';
+				dis +='</div>';
+				dis +='<div class="nham-dropdown-question">';
+				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
+				dis +='</div>';
+				$("#nham-dropdown-footer-shoptype").show();
+			}else{	
+				$("#nham-dropdown-footer-shoptype").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_type_id+'" /><p><span class="title">'+data[i].shop_type_name+'</span></p></div>';
+				 }				
+				
+			}
+			$("#display-result-shoptype").html(dis); 					 
+   	 	 }
+   });
+});
+$("#yesshoptype").on("mousedown",function(){
+	var shoptypedata = {
+		"ShoptypeData" : {
+			"shop_type_name" : $("#selectedshoptype").val(),
+			"shop_type_remark": ""
+		}
+	};
+	$.ajax({
+		type : "POST",
+		url : "/NhameyWebBackEnd/API/ShopTypeRestController/insertShopType",
+		data : shoptypedata,
+		success : function(data){
+			console.log(data);
+			//alert(data);
+			$("#selectedshoptype").val(data);
+		}
+	});
+});
+
+
 
 
 	
