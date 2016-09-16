@@ -99,7 +99,7 @@
 			                  	</div>
 		                     </div>
 		                     
-		                     <div class="form-group nham-dropdown-wrapper">
+		                     <div class="form-group ">
 			                    <label>Shop Type</label>
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
@@ -277,12 +277,31 @@
 							<div  class="form-group">
 								<label>Logo</label>
 								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">											                     		                  		                    	  
-			                    	<input type='file' id="logoupload" style="display: none;"/>
+			                    	<input type='file' id="logoupload" style="display: none;" accept="image/*"/>
 			                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
 			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
 			                    		<p style="font-weight:bold;color:#9E9E9E"> Add logo image </p>
 			                    	</div> 									
-									<div id="logo-upload-image" class="upload-image-hover" ></div>
+									<div id="logo-upload-image" class="upload-image-hover"  >
+										
+									</div>
+									<div id="loading-wrapper" class="upload-image-loading" style="display:none" >
+										 <div class="progress progress-xxs">
+						                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+						                    </div>
+						                  </div>
+										  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+									</div>
+									<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none">
+									
+									</div>
+									<div id="removelogoimagewrapper" class="upload-image-remove" style="display:none" >
+										<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>										
+									</div>
+									<div id="removeloadingwrapper" class="upload-image-remove" style="display:none">
+										 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />
+										
+									</div>
 												                    	  		                    	  		                    	  
 								</div>
 							</div>
@@ -290,7 +309,7 @@
 							<div  class="form-group">
 								<label>Cover</label>
 								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">												                     		                  		                    	  
-			                    	<input type='file' id="coverupload" style="display: none;"/>
+			                    	<input type='file' id="coverupload" style="display: none;" accept="image/*"/>
 			                    	<div class="image-upload-wrapper" id="cover-upload-wrapper">
 			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
 			                    		<p style="font-weight:bold;color:#9E9E9E"> Add cover image </p>
@@ -415,6 +434,11 @@
 
  
   <script>
+
+//phone adding
+  var shopphones = [];
+  var logoimagename = "";
+  
   $('.inputmaskphone').inputmask({
 	  mask: '999-999-9999'
 	});
@@ -428,8 +452,7 @@
     radioClass: 'iradio_flat-red'
   });
   
-//phone adding
-var shopphones = [];
+
 $(".nham-append-data").on("click",function(){
 	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
 	if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
@@ -489,8 +512,6 @@ function countWorkingday(){
 }
 
 
-
-
 $("#input-44").fileinput({
      uploadUrl: '/file-upload-batch/2',
      maxFilePreviewSize: 10240,
@@ -501,7 +522,10 @@ $("#input-44").fileinput({
  
 	   
 $("#logo-upload-image").on("click",function(){	
-	$("#logoupload").click();
+		$("#logoupload").click();	
+});
+$("#removelogoimage").on("click",function(){
+	removeLogoImageFromServer();
 });
 $("#logoupload").change(function(){
 	uploadLogo(this);
@@ -511,6 +535,7 @@ function uploadLogo(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
  		reader.onload = function (e) {
+ 			upoloadLogoToServer();
 		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
 		              $('#logo-upload-wrapper').html(myimg);
 		}
@@ -520,6 +545,76 @@ function uploadLogo(input) {
 		$('#logo-upload-wrapper').html(txt);
 	}
 }
+function removeLogoImageFromServer(){
+	$("#removeloadingwrapper").show();
+	$.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopLogoImage",
+		type: "POST",
+		data : {
+			"logoimagename" : logoimagename
+		},
+		success: function(data){
+			
+			logoimagename="";
+			$("#logoupload").val(null);
+			$("#uploadimageremoveback").hide();
+			$("#removelogoimagewrapper").hide();
+			var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+			$('#logo-upload-wrapper').html(txt);
+			$("#removeloadingwrapper").hide();
+		}
+	});
+}
+function upoloadLogoToServer(){
+	var inputFile = $("#logoupload");
+	$("#logo-upload-image").addClass("loading-box");
+	$("#loading-wrapper").show();
+	var fileToUpload = inputFile[0].files[0];
+	//console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				data = JSON.parse(data);
+				//alert(data.filename);
+				if(data.is_upload == false){
+					alert("error uploading!");
+				}else{
+					logoimagename = data.filename;
+					$("#loading-wrapper").hide();
+					$("#logo-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback").show();
+					$("#removelogoimagewrapper").show();
+				}
+				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						 //console.log(percentComplete);
+						
+						$("#logoprogressbar").css({width: percentComplete+"%"});
+					};
+				}, false);
+
+				return xhr;
+			}
+		});
+	} 
+}
+
+
+
 
 
 $("#cover-upload-image").on("click",function(){	
@@ -580,7 +675,7 @@ function getDataToInsert(){
 
 $("#saveshop").on("click",function(){
 	// console.log(getDataToInsert());
-	 alert(0);
+	 /* alert(0);
 	 $.ajax({
 		 type: "POST",
 		 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
@@ -588,14 +683,19 @@ $("#saveshop").on("click",function(){
 		 success: function(data){
          	alert(data);    
      	 }
-     });
+     }); */
+    alert($("#logoupload").val());
+    alert(logoimagename);
 });
 
 
 
 
 $("#brandname").on("focus keyup",function(){
+	
 	var srchbrandname = $(this).val();
+	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
 	if(srchbrandname == '' || srchbrandname == null) srchbrandname = "all";
 	$.ajax({
 		 type: "GET",
@@ -636,9 +736,15 @@ $("#yesbrand").on("mousedown",function(){
 		url : "/NhameyWebBackEnd/API/BrandRestController/insertBrand",
 		data : branddata,
 		success : function(data){
+			 data = JSON.parse(data);
 			console.log(data);
+			if(data.is_insert == false){
+				alert("error");
+			}else{
+				$("#selectedbrand").val(data.brand_id);
+			}
 			//alert(data);
-			$("#selectedbrand").val(data);
+			
 		}
 	});
 });
@@ -647,6 +753,8 @@ $("#yesbrand").on("mousedown",function(){
 
 $("#regionid").on("focus keyup",function(){
 	var srchname = $(this).val();
+	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	$("#display-result-region").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
 	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
@@ -658,7 +766,7 @@ $("#regionid").on("focus keyup",function(){
 			if(data.length <= 0){
 				dis +='<div  class="nham-dropdown-noresult">';
 				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				dis +='  Searching "'+cutString(srchname , 35)+'" has no Result!</p>';
+				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
 				dis +='</div>';
 				dis +='<div class="nham-dropdown-question">';
 				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
@@ -687,9 +795,15 @@ $("#yesregion").on("mousedown",function(){
 		url : "/NhameyWebBackEnd/API/RegionRestController/insertRegion",
 		data : regiondata,
 		success : function(data){
+			data = JSON.parse(data);
 			console.log(data);
-			//alert(data);
-			$("#selectedregion").val(data);
+			if(data.is_insert == false){
+				alert("Insert error!");
+			}else{
+				//alert(data);
+				$("#selectedregion").val(data.region_id);
+			}
+			
 		}
 	});
 });
@@ -698,6 +812,8 @@ $("#yesregion").on("mousedown",function(){
 
 $("#shoptypename").on("focus keyup",function(){
 	var srchname = $(this).val();
+	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	$("#display-result-shoptype").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
 	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
@@ -709,7 +825,7 @@ $("#shoptypename").on("focus keyup",function(){
 			if(data.length <= 0){
 				dis +='<div  class="nham-dropdown-noresult">';
 				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				dis +='  Searching "'+cutString(srchname , 35)+'" has no Result!</p>';
+				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
 				dis +='</div>';
 				dis +='<div class="nham-dropdown-question">';
 				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
@@ -729,7 +845,7 @@ $("#shoptypename").on("focus keyup",function(){
 $("#yesshoptype").on("mousedown",function(){
 	var shoptypedata = {
 		"ShoptypeData" : {
-			"shop_type_name" : $("#selectedshoptype").val(),
+			"shop_type_name" : $("#shoptypename").val(),
 			"shop_type_remark": ""
 		}
 	};
@@ -738,9 +854,15 @@ $("#yesshoptype").on("mousedown",function(){
 		url : "/NhameyWebBackEnd/API/ShopTypeRestController/insertShopType",
 		data : shoptypedata,
 		success : function(data){
+			data = JSON.parse(data);
 			console.log(data);
-			//alert(data);
-			$("#selectedshoptype").val(data);
+			if(data.is_insert == false){
+				alert("Insert error!");
+			}else{
+				//alert(data);
+				$("#selectedshoptype").val(data.shop_type_id);
+			}
+			
 		}
 	});
 });
