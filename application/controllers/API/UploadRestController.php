@@ -7,10 +7,14 @@ class UploadRestController extends CI_Controller{
 	
 	public function shopLogoUploadImage(){
 		
+		
 		if ( ! empty($_FILES))
 		{
 			$config['upload_path'] = "./uploadimages";
 			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size'] = '20000';
+			$config['max_width']  = '1024000';
+			$config['max_height']  = '768000';
 			//$_FILES["file"]['name'];
 			$new_name = $this->generateRandomString(20).".jpg";
 			$config['file_name'] = $new_name;
