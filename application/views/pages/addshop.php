@@ -754,7 +754,7 @@ $("#yesbrand").on("mousedown",function(){
 $("#regionid").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-region").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
+	$("#display-result-region").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
@@ -813,7 +813,7 @@ $("#yesregion").on("mousedown",function(){
 $("#shoptypename").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-shoptype").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
+	$("#display-result-shoptype").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
