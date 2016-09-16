@@ -139,8 +139,8 @@ div.upload-image-remove-background{
 	left:0; 
 	height: 100%; 
 	z-index: 202;
-	background: white;
-	opacity: 0.3;
+	background: gray;
+	opacity: 0.1;
 	
 }
 
