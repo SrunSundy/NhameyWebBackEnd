@@ -16,7 +16,7 @@ class UploadRestController extends CI_Controller{
 			$config['max_width']  = '1024000';
 			$config['max_height']  = '768000';
 			//$_FILES["file"]['name'];
-			$new_name = $this->generateRandomString(20).".jpg";
+			$new_name = "logo_".$this->generateRandomString(20).".jpg";
 			$config['file_name'] = $new_name;
 			
 			$this->load->library('upload', $config);
@@ -37,10 +37,67 @@ class UploadRestController extends CI_Controller{
 		
 	}
 	
-	public function removeShopLogoImage(){
+	public function shopImageDetailUpload(){
 		
-		$logoimagename = $this->input->post('logoimagename');
-		unlink("./uploadimages/" . $logoimagename);
+		if ( ! empty($_FILES))
+		{
+			$config['upload_path'] = "./uploadimages/shopimages";
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size'] = '20000';
+			$config['max_width']  = '1024000';
+			$config['max_height']  = '768000';
+			
+			$this->load->library('upload');
+		
+			$files = $_FILES;
+			$number_of_files = count($_FILES['file']['name']);
+			$errors = 0;
+			$arrfilenames = array();
+			for ($i = 0; $i < $number_of_files; $i++)
+			{
+				$_FILES['file']['name'] = $files['file']['name'][$i];
+				$_FILES['file']['type'] = $files['file']['type'][$i];
+				$_FILES['file']['tmp_name'] = $files['file']['tmp_name'][$i];
+				$_FILES['file']['error'] = $files['file']['error'][$i];
+				$_FILES['file']['size'] = $files['file']['size'][$i]; 
+				
+				$new_name = "detail_".$this->generateRandomString(20).".jpg";
+				$config['file_name'] = $new_name;
+				
+				//$arrfilenames["image_".$i] = $new_name;
+				array_push($arrfilenames,$new_name."|".$_FILES['file']['name']);
+				// we have to initialize before upload
+				$this->upload->initialize($config);
+			
+				if (! $this->upload->do_upload("file")) {
+					$errors++;
+				}
+			}
+		
+			if ($errors > 0) {
+				echo $errors . "File(s) cannot be uploaded";
+			}else{
+				$data["filename"] = $arrfilenames;
+				$json = json_encode($data);
+				echo $json;
+			}
+		
+		}
+	}	
+	
+	public function removeShopSingleImage(){
+		$removedata = $this->input->post('removeimagedata');
+		$removetype = $removedata["image_type"];
+		$logoimagename = $removedata["logoimagename"]; 
+		$src = "";
+		if($removetype == "1"){
+			$src = "./uploadimages/";
+		}else if($removetype == "2"){
+			$src = "";
+		}else if($removetype == "3"){
+			$src = "./uploadimages/shopimages/";
+		}
+		unlink($src.$logoimagename);
 		$data['message'] =" File is removed";
 		$json = json_encode($data);
 		echo $json;
