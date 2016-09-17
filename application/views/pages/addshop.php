@@ -400,7 +400,7 @@
 			                  <div class="form-group">
 
                                 	<label class="control-label">Shop images detail</label>
-									<input id="input-44" name="input44[]" type="file" multiple class="file-loading">
+									<input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
 									<div id="errorBlock" class="help-block"></div>
                               </div>
                               
@@ -437,6 +437,8 @@
 
 //phone adding
   var shopphones = [];
+  var arrnewfileimagename = [];
+  var arroldfileimagename = [];
   var logoimagename = "";
   
   $('.inputmaskphone').inputmask({
@@ -548,10 +550,13 @@ function uploadLogo(input) {
 function removeLogoImageFromServer(){
 	$("#removeloadingwrapper").show();
 	$.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopLogoImage",
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
-			"logoimagename" : logoimagename
+			"removeimagedata":{
+				"image_type" : "1",
+				"logoimagename" : logoimagename
+			}			
 		},
 		success: function(data){
 			
@@ -584,7 +589,7 @@ function upoloadLogoToServer(){
 			contentType : false,
 			success: function(data){
 				data = JSON.parse(data);
-				//alert(data.filename);
+				
 				if(data.is_upload == false){
 					alert("error uploading!");
 				}else{
@@ -638,6 +643,74 @@ function uploadCover(input){
 	
 }
 
+$("#input-44").on("change", function(){
+	
+	uploadShopImageDetailToServer();
+});
+$(document).on("mousedown","button.kv-file-remove",function(){
+	var oldimagename = $(this).parents(".file-thumbnail-footer").find(".file-footer-caption").attr("title").trim();
+	console.log(oldimagename);
+	console.log(arrnewfileimagename);
+	for(var i=0; i<arrnewfileimagename.length; i++){ 
+		var filefromserver = arrnewfileimagename[i].split("|");
+		oldimage = filefromserver[1];
+		newimage = filefromserver[0];
+		console.log(oldimage);
+		if(oldimagename == oldimage){
+			console.log(newimage);
+			removeShopImageDetailFromServer(newimage).success(function (data) {
+				//  alert(data);
+				arrnewfileimagename.splice(i , 1);
+				console.log(arrnewfileimagename);
+			});
+			
+		}else{
+			//alert("incorrect");
+			//do nothing
+		}
+		
+	}
+	
+});
+function removeShopImageDetailFromServer(imagetoremove){
+	return $.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		type: "POST",
+		data : {
+			"removeimagedata":{
+				"image_type" : "3",
+				"logoimagename" : imagetoremove
+			}			
+		}
+	});
+}
+function uploadShopImageDetailToServer(){
+	alert(2);
+	var inputFile = $("#input-44");
+	var filesToUpload = inputFile[0].files;
+	console.log(filesToUpload);
+	if (filesToUpload.length > 0) {
+		var formData = new FormData();
+		for (var i = 0; i < filesToUpload.length; i++) {
+			var file = filesToUpload[i];
+			formData.append("file[]", file, file.name);				
+		}
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/shopImageDetailUpload",
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				data = JSON.parse(data);
+				//console.log(data.oldfilename[0]);
+				arrnewfileimagename = data.filename;
+				console.log(arrnewfileimagename);
+				//alert(data.length);
+			}
+		});
+	}
+}
 
 
 function getDataToInsert(){
@@ -667,7 +740,10 @@ function getDataToInsert(){
 				"twitter": $("#shoptwitter").val()
 			} ,
 			"shop_remark": $("#shopremark").val(),
-			"shop_image_detail": "2343333333333333333333333"
+			"shop_image_detail": {
+				"image_type" : "3",
+				"image_detail" : arrnewfileimagename
+			}
 		}	
 	};
 	return shopdata;
@@ -684,8 +760,10 @@ $("#saveshop").on("click",function(){
          	alert(data);    
      	 }
      }); */
-    alert($("#logoupload").val());
-    alert(logoimagename);
+   /*  alert($("#logoupload").val());
+    alert(logoimagename); */
+  //  uploadShopImageDetailToServer();
+	  console.log(getDataToInsert());
 });
 
 
