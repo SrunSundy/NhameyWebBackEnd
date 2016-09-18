@@ -642,10 +642,19 @@ function uploadCover(input){
 	
 }
 
+
 $("#input-44").on("change", function(){
 	
 	uploadShopImageDetailToServer();
 });
+function splitNewShopImage(){
+	var shopimagetoinsert = [];
+	for(var i=0; i<arrnewfileimagename.length; i++){
+		var newimagetoinsert = arrnewfileimagename[i].split("|")[0];
+		shopimagetoinsert.push(newimagetoinsert);
+	}
+	return shopimagetoinsert;
+}
 $(document).on("mousedown","button.kv-file-remove",function(){
 	var oldimagename = $(this).parents(".file-thumbnail-footer").find(".file-footer-caption").attr("title").trim();
 
@@ -658,10 +667,7 @@ $(document).on("mousedown","button.kv-file-remove",function(){
 		if(oldimagename == oldimage){
 			console.log(newimage);
 			arrnewfileimagename.splice(i , 1);
-			removeShopImageDetailFromServer(newimage).success(function (data) {
-
-			
-				
+			removeShopImageDetailFromServer(newimage).success(function (data) {	
 			});
 			console.log(arrnewfileimagename);
 			
@@ -673,6 +679,24 @@ $(document).on("mousedown","button.kv-file-remove",function(){
 	}
 	
 });
+$(document).on("mousedown", "button.fileinput-remove-button", function(){
+	//console.log(splitNewShopImage());
+	//arrnewfileimagename = [];
+	//console.log(arrnewfileimagename);
+	removeShopImageDetailFromServerMulti(splitNewShopImage()).success(function(data){
+		arrnewfileimagename = [];
+		console.log(arrnewfileimagename);
+	});
+});
+function removeShopImageDetailFromServerMulti(imagestoremove){
+	return $.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopMultipleImage",
+		type: "POST",
+		data : {
+			"removeimagedata": imagestoremove		
+		}
+	});
+}
 function removeShopImageDetailFromServer(imagetoremove){
 	return $.ajax({
 		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
