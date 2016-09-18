@@ -438,7 +438,6 @@
 //phone adding
   var shopphones = [];
   var arrnewfileimagename = [];
-  var arroldfileimagename = [];
   var logoimagename = "";
   
   $('.inputmaskphone').inputmask({
@@ -649,20 +648,22 @@ $("#input-44").on("change", function(){
 });
 $(document).on("mousedown","button.kv-file-remove",function(){
 	var oldimagename = $(this).parents(".file-thumbnail-footer").find(".file-footer-caption").attr("title").trim();
-	console.log(oldimagename);
-	console.log(arrnewfileimagename);
+
 	for(var i=0; i<arrnewfileimagename.length; i++){ 
 		var filefromserver = arrnewfileimagename[i].split("|");
 		oldimage = filefromserver[1];
 		newimage = filefromserver[0];
 		console.log(oldimage);
+		console.log(oldimagename);
 		if(oldimagename == oldimage){
 			console.log(newimage);
+			arrnewfileimagename.splice(i , 1);
 			removeShopImageDetailFromServer(newimage).success(function (data) {
-				//  alert(data);
-				arrnewfileimagename.splice(i , 1);
-				console.log(arrnewfileimagename);
+
+			
+				
 			});
+			console.log(arrnewfileimagename);
 			
 		}else{
 			//alert("incorrect");
@@ -704,7 +705,11 @@ function uploadShopImageDetailToServer(){
 			success: function(data) {
 				data = JSON.parse(data);
 				//console.log(data.oldfilename[0]);
-				arrnewfileimagename = data.filename;
+				for(var i=0 ;i< data.filename.length; i++){
+					arrnewfileimagename.push( data.filename[i]);
+					console.log(data.filename[i]);
+				}
+			//	arrnewfileimagename = data.filename;
 				console.log(arrnewfileimagename);
 				//alert(data.length);
 			}
