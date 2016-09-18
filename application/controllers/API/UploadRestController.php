@@ -97,8 +97,30 @@ class UploadRestController extends CI_Controller{
 		}else if($removetype == "3"){
 			$src = "./uploadimages/shopimages/";
 		}
-		unlink($src.$logoimagename);
-		$data['message'] =" File is removed";
+		
+		if(file_exists($src.$logoimagename)){
+			unlink($src.$logoimagename);
+			$data['message'] ="File is removed";
+		}else{
+			$data['message'] ="File not found";			
+		}		
+		
+		$json = json_encode($data);
+		echo $json;
+	}
+	
+	public function removeShopMultipleImage(){
+		$removedata = $this->input->post('removeimagedata');
+		$num_image = count($removedata);
+		$data = array();
+		for($i=0; $i < $num_image; $i++){
+			if(file_exists("./uploadimages/shopimages/".$removedata[$i])){
+				unlink("./uploadimages/shopimages/".$removedata[$i]);
+				$data[$removedata[$i]]= "File is removed";
+			}else{
+				$data[$removedata[$i]] = 'File not found';
+			}
+		}
 		$json = json_encode($data);
 		echo $json;
 	}
