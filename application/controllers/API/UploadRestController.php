@@ -52,9 +52,13 @@ class UploadRestController extends CI_Controller{
 			$files = $_FILES;
 			$number_of_files = count($_FILES['file']['name']);
 			$errors = 0;
-			$arrfilenames = array();
+			//$arrfilenames = array();
+			$data = array();
+			$reportwrapper = array();
+
 			for ($i = 0; $i < $number_of_files; $i++)
 			{
+				$report = array();
 				$_FILES['file']['name'] = $files['file']['name'][$i];
 				$_FILES['file']['type'] = $files['file']['type'][$i];
 				$_FILES['file']['tmp_name'] = $files['file']['tmp_name'][$i];
@@ -65,22 +69,39 @@ class UploadRestController extends CI_Controller{
 				$config['file_name'] = $new_name;
 				
 				//$arrfilenames["image_".$i] = $new_name;
-				array_push($arrfilenames,$new_name."|".$_FILES['file']['name']);
+				
 				// we have to initialize before upload
 				$this->upload->initialize($config);
 			
 				if (! $this->upload->do_upload("file")) {
-					$errors++;
+					//$errors++;
+					$report['is_upload']= false; 
+					$report["message"] = "File(s) cannot be uploaded";
+					$report["filename"] =$_FILES['file']['name'];
+					array_push($reportwrapper , $report);
+				}else{
+					$report['is_upload']= true;
+					$report["message"] = "File(s) upload successfully!";
+					$report["filename"] =$new_name."|".$_FILES['file']['name'];
+					array_push($reportwrapper , $report);
+					//array_push($arrfilenames,$new_name."|".$_FILES['file']['name']);
 				}
 			}
-		
-			if ($errors > 0) {
-				echo $errors . "File(s) cannot be uploaded";
-			}else{
+			
+			/* if ($errors > 0) {
+				$data['is_upload']= false;
+				$data["message"] = "File(s) cannot be uploaded";
 				$data["filename"] = $arrfilenames;
-				$json = json_encode($data);
-				echo $json;
-			}
+			}else{
+				$data['is_upload']= true;
+				$data["message"] = "File(s) upload successfully!";
+				$data["filename"] = $arrfilenames;
+				
+			} */
+			$data["fileupload"] = $reportwrapper;
+			//$data["filename"] = $arrfilenames;
+			$json = json_encode($data);
+			echo $json;
 		
 		}
 	}	
