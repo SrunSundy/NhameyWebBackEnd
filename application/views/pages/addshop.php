@@ -123,7 +123,7 @@
 		                     </div>
 		                     
 		                     <div class="form-group">
-			                    <label>Shop Server Type</label>
+			                    <label>Shop Serve Type</label>
 			                    <select class="form-control " style="width: 100%;" id="shopservertype">
 			                      <option selected="selected" value="food">Food</option>
 			                      <option value="drink">Drink</option>
@@ -320,17 +320,89 @@
 							</div>
 							
 							<div  class="form-group">
+							
+			                    
+		                    
 								<label>Shop map</label>
-								<div class="nham-embed-googlemap">
+								  <div class="col-lg-12">
+								  	<div class="row">
+									  <div class="col-lg-6">
+									  	 <div class="row">
+									  	 <div class="input-group top-gap">
+					                     	<span class="input-group-addon">Lat</span>
+					                     	<input id="lat-location" type="text" class="form-control" placeholder="Enter the latitude (ex: 11.559844756373714)">
+					                     </div>
+					                     </div>
+									  </div>
+									  <div class="col-lg-6">
+									     <div class="row">
+									     <div class="input-group top-gap">
+					                     	<span class="input-group-addon">Lng</span>
+					                     	<input id="lng-location" type="text" class="form-control" placeholder="Enter the Longitude (ex: 104.91085053014103)">
+					                     </div>
+					                     </div>
+									   </div>
+									 </div>		  
+			                      </div>
+			                      <div class="col-lg-12 top-gap" style="margin-bottom: 10px;">
+								     <button type="button" class="btn  nhambtn" id="detectlocation" style="width:100%" > Detect Location </button>
+								  </div>
+								<div class="nham-embed-googlemap ">
 									
 									<script type="text/javascript"
 										 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSDjBA-4xhfV7TGP1jrTBcBJ4p70mmezo"></script>
 									
 									<div id="map_canvas" style="width: 100%; height: 300px;"></div>
-									
+								
+				                </div>
+			                 </div> 
+			                 
+			                  <div class="form-group">
+
+                                	<label class="control-label">Shop images detail</label>
+                                	<div class="uploaddetailwrapper" style="width: 100%; height: auto;position:relative;">
+										<input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
+										<div id="errorBlock" class="help-block"></div>
+										<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
+										</div>
+										<div id="coveruploadimagewithload"  align="center" class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
+											<img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:23px;width:30px;" />
+										</div>
+									</div>
+                              </div>
+                              
+							
+							 			      			
+			            </section><!-- right col -->
+			          </div><!-- /.row (main row) -->
+                </div>
+                <div class="box-footer">
+                 	<button type="button" class="btn btn-danger shop-save" id="saveshop"> Save </button>
+                </div>
+              </div><!-- /.box (chat box) -->
+       	
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+      		<?php include 'elements/footnavbar.php';?>
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        	<?php include 'elements/settingnavbar.php';?>
+      </aside>
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+    <?php include 'imports/scriptimport.php'; ?>
+   
+
+  </body>
+	
 									<script>
 										var map;
 									    var geocoder;
+									  
 									    var mapOptions = { 
 											center: new google.maps.LatLng(0.0, 0.0),
 											zoom: 2,
@@ -369,10 +441,20 @@
 									          /*   document.getElementById('lat').value=location.lat();
 									            document.getElementById('lng').value=location.lng(); */
 									          //  alert(location);
-									            getAddress(location);
+									           // getAddress(location);
+									          
 									        }
-									
-									      function getAddress(latLng) {
+									        $("#detectlocation").on("click", function(){
+										        var delocation = {lat: parseFloat($("#lat-location").val()) , lng: parseFloat($("#lng-location").val())};
+										        alert(delocation);
+												marker.setPosition(delocation);												
+												map.panTo(delocation); 
+												//map.setCenter(test);
+												 marker.setAnimation(google.maps.Animation.DROP);
+												
+									        });
+									      
+									     /*  function getAddress(latLng) {
 									        geocoder.geocode( {'latLng': latLng},
 									          function(results, status) {
 												
@@ -389,49 +471,11 @@
 									            //  document.getElementById("address").value = status;
 									            }
 									          });
-									        }
+									        } */
 									      }
 									      google.maps.event.addDomListener(window, 'load', initialize)
 									
 									</script>
-				                  </div>
-			                 </div> 
-			                 
-			                  <div class="form-group">
-
-                                	<label class="control-label">Shop images detail</label>
-									<input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
-									<div id="errorBlock" class="help-block"></div>
-                              </div>
-                              
-							
-							 			      			
-			            </section><!-- right col -->
-			          </div><!-- /.row (main row) -->
-                </div>
-                <div class="box-footer">
-                 	<button type="button" class="btn btn-danger shop-save" id="saveshop"> Save </button>
-                </div>
-              </div><!-- /.box (chat box) -->
-       	
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
-      		<?php include 'elements/footnavbar.php';?>
-      </footer>
-
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        	<?php include 'elements/settingnavbar.php';?>
-      </aside>
-      <div class="control-sidebar-bg"></div>
-    </div><!-- ./wrapper -->
-
-    <?php include 'imports/scriptimport.php'; ?>
-   
-
-  </body>
-
  
   <script>
 
@@ -439,7 +483,18 @@
   var shopphones = [];
   var arrnewfileimagename = [];
   var logoimagename = "";
-  
+
+
+  $('#lat-location').keyup(function() {
+	  //code to not allow any changes to be made to input field
+	 // var boo = $(this).val().match(/[\d]/g,'');
+	  //var filter = /[^\d\.]/g;
+	 //$(this).val($(this).val().replace(/[^\d\.\-]/g,''));
+	 $(this).val($(this).val().replace(/\d\-\d/,''));
+	 // console.log(filter.test($(this).val()));
+	 
+  });
+
   $('.inputmaskphone').inputmask({
 	  mask: '999-999-9999'
 	});
@@ -655,19 +710,38 @@ function splitNewShopImage(){
 	}
 	return shopimagetoinsert;
 }
+
+function turnSpecialCharToUnderscore( str ){
+
+	var mystr = "";
+	mystr = str.replace(/[\^]/gi,'_');
+	mystr = mystr.replace(/[\]]/gi,'_');
+	mystr = mystr.replace(/[\[]/gi,'_');
+	mystr = mystr.replace(/[\{]/gi,'_');
+	mystr = mystr.replace(/[\}]/gi,'_');
+	mystr = mystr.replace(/[\(]/gi,'_');
+	mystr = mystr.replace(/[\)]/gi,'_');
+	mystr = mystr.replace(/[\']/gi,'_');
+	mystr = mystr.replace(/[-;#%&=+]/gi, '_');
+	return mystr;
+}
+
 $(document).on("mousedown","button.kv-file-remove",function(){
 	var oldimagename = $(this).parents(".file-thumbnail-footer").find(".file-footer-caption").attr("title").trim();
-
+	 oldimagename = turnSpecialCharToUnderscore(oldimagename);
 	for(var i=0; i<arrnewfileimagename.length; i++){ 
 		var filefromserver = arrnewfileimagename[i].split("|");
 		oldimage = filefromserver[1];
 		newimage = filefromserver[0];
+		
+		oldimage = turnSpecialCharToUnderscore(oldimage);
 		console.log(oldimage);
 		console.log(oldimagename);
 		if(oldimagename == oldimage){
 			console.log(newimage);
 			arrnewfileimagename.splice(i , 1);
 			removeShopImageDetailFromServer(newimage).success(function (data) {	
+				
 			});
 			console.log(arrnewfileimagename);
 			
@@ -683,6 +757,7 @@ $(document).on("mousedown", "button.fileinput-remove-button", function(){
 	//console.log(splitNewShopImage());
 	//arrnewfileimagename = [];
 	//console.log(arrnewfileimagename);
+	
 	removeShopImageDetailFromServerMulti(splitNewShopImage()).success(function(data){
 		arrnewfileimagename = [];
 		console.log(arrnewfileimagename);
@@ -711,6 +786,9 @@ function removeShopImageDetailFromServer(imagetoremove){
 }
 function uploadShopImageDetailToServer(){
 	alert(2);
+	$("#coveruploadimage").show();
+	$("#coveruploadimagewithload").show();
+	
 	var inputFile = $("#input-44");
 	var filesToUpload = inputFile[0].files;
 	console.log(filesToUpload);
@@ -728,14 +806,19 @@ function uploadShopImageDetailToServer(){
 			contentType: false,
 			success: function(data) {
 				data = JSON.parse(data);
-				//console.log(data.oldfilename[0]);
-				for(var i=0 ;i< data.filename.length; i++){
-					arrnewfileimagename.push( data.filename[i]);
-					console.log(data.filename[i]);
-				}
-			//	arrnewfileimagename = data.filename;
+			    console.log(data);
+			    var filelen = data.fileupload.length;			 
+			    for(var i=0 ;i< filelen; i++){
+				    if(data.fileupload[i].is_upload == true){
+				    		arrnewfileimagename.push( data.fileupload[i].filename);
+					}else{
+						alert(data.fileupload[i].filename+" :: "+data.fileupload[i].message);
+					}						
+					console.log(data.fileupload[i].filename);
+				}				
 				console.log(arrnewfileimagename);
-				//alert(data.length);
+				$("#coveruploadimage").hide();
+				$("#coveruploadimagewithload").hide();	
 			}
 		});
 	}
