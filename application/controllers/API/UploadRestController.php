@@ -6,26 +6,35 @@ class UploadRestController extends CI_Controller{
 	}
 	
 	public function shopLogoUploadImage(){
-		
-		
+		$data = array();
+		if($_FILES['file']['size']<10240)
+		{
+			$data['is_upload']= false;
+			$data['message'] =" File cannot be uploaded. It's too small".$_FILES['file']['size'];
+			$json = json_encode($data);
+			echo $json;
+			return ;
+		}
 		if ( ! empty($_FILES))
 		{
-			$config['upload_path'] = "./uploadimages";
+			$config['upload_path'] = "./uploadimages/logo/big";
 			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size'] = '20000';
-			$config['max_width']  = '1024000';
-			$config['max_height']  = '768000';
+			$config['max_size'] = '5120';
+			$config['max_width']  = '2028';
+			$config['max_height']  = '2028';
+			$config['min_width'] = '300';
+			$config['min_height'] = '300';
 			//$_FILES["file"]['name'];
 			$new_name = "logo_".$this->generateRandomString(20).".jpg";
 			$config['file_name'] = $new_name;
-			
+				
 			$this->load->library('upload', $config);
 			$data = array();
-			
+				
 			if (! $this->upload->do_upload("file")) {
 				$data['is_upload']= false;
-				$data['message'] =" File cannot be uploaded";
-			
+				$data['message'] =" File cannot be uploaded".$this->upload->display_errors();
+					
 			}else{
 				$data['is_upload'] = true;
 				$data['message'] =" File is uploaded";
@@ -51,8 +60,7 @@ class UploadRestController extends CI_Controller{
 		
 			$files = $_FILES;
 			$number_of_files = count($_FILES['file']['name']);
-			$errors = 0;
-			//$arrfilenames = array();
+			//$errors = 0;
 			$data = array();
 			$reportwrapper = array();
 
@@ -68,9 +76,6 @@ class UploadRestController extends CI_Controller{
 				$new_name = "detail_".$this->generateRandomString(20).".jpg";
 				$config['file_name'] = $new_name;
 				
-				//$arrfilenames["image_".$i] = $new_name;
-				
-				// we have to initialize before upload
 				$this->upload->initialize($config);
 			
 				if (! $this->upload->do_upload("file")) {
@@ -84,22 +89,10 @@ class UploadRestController extends CI_Controller{
 					$report["message"] = "File(s) upload successfully!";
 					$report["filename"] =$new_name."|".$_FILES['file']['name'];
 					array_push($reportwrapper , $report);
-					//array_push($arrfilenames,$new_name."|".$_FILES['file']['name']);
 				}
 			}
 			
-			/* if ($errors > 0) {
-				$data['is_upload']= false;
-				$data["message"] = "File(s) cannot be uploaded";
-				$data["filename"] = $arrfilenames;
-			}else{
-				$data['is_upload']= true;
-				$data["message"] = "File(s) upload successfully!";
-				$data["filename"] = $arrfilenames;
-				
-			} */
 			$data["fileupload"] = $reportwrapper;
-			//$data["filename"] = $arrfilenames;
 			$json = json_encode($data);
 			echo $json;
 		
