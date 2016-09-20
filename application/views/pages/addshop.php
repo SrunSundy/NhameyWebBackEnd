@@ -141,10 +141,7 @@
 			                     <textarea id="shopdes" class="form-control" rows="3" placeholder="describe briefly about the shop"  style="resize:vertical;"></textarea>
 			                  </div>
 			                  
-			                  <div class="form-group">
-			                     <label>Shop address</label>
-			                     <textarea id="shopaddress" class="form-control" rows="3" placeholder="add shop location (sergkat , khan , street ...)"  style="resize:none;"></textarea>
-			                  </div>		                
+			                 		                
 		                      
 		                       <!-- phone mask -->
 			                  <div class="form-group">
@@ -319,6 +316,20 @@
 								</div>
 							</div>
 							
+							
+			                <div class="form-group">
+				                 <label>Minimal</label>
+				                 <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
+				                      <option selected="selected">Alabama</option>
+				                      <option>Alaska</option>
+				                      <option>California</option>
+				                      <option>Delaware</option>
+				                      <option>Tennessee</option>
+				                      <option>Texas</option>
+				                      <option>Washington</option>
+				                 </select>
+				            </div><!-- /.form-group -->
+			                
 							<div  class="form-group">
 							
 			                    
@@ -356,12 +367,14 @@
 								
 				                </div>
 			                 </div> 
-			                 
-			                  <div class="form-group">
-
-                                	<label class="control-label">Shop images detail</label>
-                                	<div class="uploaddetailwrapper" style="width: 100%; height: auto;position:relative;">
-										<input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
+			                 			                                							 			      			
+			            </section><!-- right col -->
+			            <div class="col-lg-12">
+			            	
+			            	  <div class="form-group">
+			                      <label class="control-label">Shop images detail</label>
+			                        <div class="uploaddetailwrapper" style="width: 100%; height: auto;position:relative;">
+									    <input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
 										<div id="errorBlock" class="help-block"></div>
 										<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
 										</div>
@@ -369,14 +382,14 @@
 											<img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:23px;width:30px;" />
 										</div>
 									</div>
-                              </div>
-                              
-							
-							 			      			
-			            </section><!-- right col -->
+			                    </div>			            	
+			            	
+			            </div>
+			            
 			          </div><!-- /.row (main row) -->
                 </div>
                 <div class="box-footer">
+                
                  	<button type="button" class="btn btn-danger shop-save" id="saveshop"> Save </button>
                 </div>
               </div><!-- /.box (chat box) -->
@@ -480,6 +493,11 @@
   <script>
 
 //phone adding
+$(document).ready(function(){
+
+	setTimeout(function(){$(".select2").select2();},3000);
+	
+});
   var shopphones = [];
   var arrnewfileimagename = [];
   var logoimagename = "";
@@ -494,7 +512,7 @@
 	 // console.log(filter.test($(this).val()));
 	 
   });
-
+ 
   $('.inputmaskphone').inputmask({
 	  mask: '999-999-9999'
 	});
@@ -629,7 +647,7 @@ function upoloadLogoToServer(){
 	$("#logo-upload-image").addClass("loading-box");
 	$("#loading-wrapper").show();
 	var fileToUpload = inputFile[0].files[0];
-	//console.log(fileToUpload);
+	console.log(fileToUpload);
 	if(fileToUpload != 'undefined'){
 
 		var formData = new FormData();
@@ -646,6 +664,7 @@ function upoloadLogoToServer(){
 				
 				if(data.is_upload == false){
 					alert("error uploading!");
+					alert(data.message);
 				}else{
 					logoimagename = data.filename;
 					$("#loading-wrapper").hide();
