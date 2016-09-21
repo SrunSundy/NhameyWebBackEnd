@@ -78,7 +78,7 @@ button.shop-save{
 
 div.image-upload-wrapper{
 	margin: 8px;
-	width: 170px;
+	width: 180px;
 	min-height: 190px;
 	padding: 5px;
 	background: #E0E0E0;
@@ -122,6 +122,10 @@ div.upload-image-remove{
 	z-index: 1000;
 	
 	
+}
+button.nhambtn{
+	
+	border-radius: 0;
 }
 div.upload-image-remove i{
 	position:absolute;
