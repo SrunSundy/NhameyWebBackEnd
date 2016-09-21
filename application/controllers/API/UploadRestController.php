@@ -17,11 +17,15 @@ class UploadRestController extends CI_Controller{
 		}
 		if ( ! empty($_FILES))
 		{
-			$config['upload_path'] = "./uploadimages/logo/big";
+			$image_info = getimagesize($_FILES["file"]["tmp_name"]);
+			$image_width = $image_info[0];
+			$image_height = $image_info[1];
+			
+			$config['upload_path'] = "./uploadimages/logo/original";
 			$config['allowed_types'] = 'gif|jpg|png';
 			$config['max_size'] = '5120';
-			$config['max_width']  = '2028';
-			$config['max_height']  = '2028';
+			$config['max_width']  = '5000';
+			$config['max_height']  = '5000';
 			$config['min_width'] = '300';
 			$config['min_height'] = '300';
 			//$_FILES["file"]['name'];
@@ -34,11 +38,39 @@ class UploadRestController extends CI_Controller{
 			if (! $this->upload->do_upload("file")) {
 				$data['is_upload']= false;
 				$data['message'] =" File cannot be uploaded".$this->upload->display_errors();
-					
+				
 			}else{
 				$data['is_upload'] = true;
 				$data['message'] =" File is uploaded";
 				$data['filename'] = $new_name;
+				$data['dimension'] = $image_width."___".$image_height;
+				
+				$percent = 0.5;
+				$source_img ="./uploadimages/logo/original/".$new_name;
+				$destination_img = "./uploadimages/logo/big/".$new_name;
+				$info = getimagesize($source_img);
+				
+				list($width, $height) = $info;
+				$new_width = $width * $percent;
+				$new_height = $height * $percent;				
+				// Resample
+				$image_p = imagecreatetruecolor($new_width, $new_height);
+				$image = imagecreatefromjpeg($source_img);
+				imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+				//$image = imagecreatefromjpeg($source_img);			
+				imagejpeg($image, $destination_img, 50);
+				
+		
+				$config_resize = array();
+				$config_resize['image_library'] = 'gd2';
+				$config_resize['source_image'] = "./uploadimages/logo/original/".$new_name;
+				$config_resize['create_thumb'] = TRUE;
+				$config_resize['maintain_ratio'] = TRUE;
+				$config_resize['width'] = 130;
+				$config_resize['height'] = 130;
+				$config_resize['new_image'] = "./uploadimages/logo/small/".$new_name;
+				$this->load->library('image_lib' , $config_resize);
+				$this->image_lib->resize(); 
 			}
 			$json = json_encode($data);
 			echo $json;
@@ -105,7 +137,7 @@ class UploadRestController extends CI_Controller{
 		$logoimagename = $removedata["logoimagename"]; 
 		$src = "";
 		if($removetype == "1"){
-			$src = "./uploadimages/";
+			$src = "./uploadimages/logo/big/";
 		}else if($removetype == "2"){
 			$src = "";
 		}else if($removetype == "3"){
@@ -146,7 +178,7 @@ class UploadRestController extends CI_Controller{
 		for ($i = 0; $i < $length; $i++) {
 			$randomString .= $characters[rand(0, $charactersLength - 1)];
 		}
-		return $randomString;
+		return $randomString."_".time();
 	}
 }
 ?>
