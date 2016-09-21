@@ -6,7 +6,13 @@
     <title>AdminLTE 2 | Dashboard</title>
  	
  	<?php include 'imports/cssimport.php' ?>
+<style>
+span.select2-selection{
+		height: 40px;
+		border-radius: 0;
+}
 
+</style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     <div class="wrapper">
@@ -242,6 +248,65 @@
 			                      <input id="shopclosetime" type="text" class="form-control timeformat" placeholder="Time to close (ex: 20:30)">			                      
 		                      </div>
 		                      
+		                      <div class="form-group" >
+		                      	<div class="col-lg-12">
+		                      		<div class="row">
+				                      <div style="float: left;">
+				                      	<label>Shop Facilities</label>
+				                      </div>
+					                  <div style="float:left;margin-left: 20px;">
+						                  <div class="form-group">
+						                    	  <div class="nham-control-group">
+												    <label class="nham-control nham-control--checkbox">All
+												      <input type="checkbox"  value="0" id="allday"/>
+												      <div class="nham-control__indicator"></div>
+												    </label>
+												  </div>			                   
+						                  </div>
+					                  </div>
+					                  
+					                  <div style="clear:both;"></div>
+					                 </div>
+				                  </div>
+				                  <div class="col-lg-12" style="margin-bottom:20px;">
+				                  	<div class="row">
+					                   					                    
+					                     <div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Wi-Fi
+											    <input type="checkbox"  id="mon" value="1"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Parking lot
+											    <input type="checkbox"  id="mon" value="2"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Wednesday
+											    <input type="checkbox" id="mon" value="3"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Thursday
+											    <input type="checkbox"  id="mon" value="4"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+										<div class="nham-control-group div-top-gap">
+											  <label class="nham-control nham-control--checkbox">Friday
+											    <input type="checkbox"  id="mon" value="5"  class="work-day"/>
+											    <div class="nham-control__indicator"></div>
+											 </label>
+										</div>	
+									
+					                    					                    
+				                    </div>
+			                  	  </div>	                      
+		                      </div>
+		                      
 		                      <div class="input-group top-gap">
 			                    <span class="input-group-addon"><i class="fa fa-facebook-square font-size-20" aria-hidden="true"  ></i></span>
 			                    <input id="shopfb" type="text" class="form-control" placeholder="Facebook page's link (ex:https://www.facebook.com/shopname)">
@@ -317,17 +382,72 @@
 							</div>
 							
 							
-			                <div class="form-group">
-				                 <label>Minimal</label>
-				                 <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
-				                      <option selected="selected">Alabama</option>
-				                      <option>Alaska</option>
-				                      <option>California</option>
-				                      <option>Delaware</option>
-				                      <option>Tennessee</option>
-				                      <option>Texas</option>
-				                      <option>Washington</option>
-				                 </select>
+			                <div class="form-group ">
+			                    <label>Shop Address</label>
+			                	<div class="col-lg-12 top-gap">
+			                		<div class="row">
+						                 <div class="input-group top-gap">
+						                    <span class="input-group-addon"><i class="fa fa-globe font-size-20" aria-hidden="true"></i></span>
+						                     <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
+						                      <option selected="selected">Alabama</option>
+						                      <option>Alaska</option>
+						                      <option>California</option>
+						                      <option>Delaware</option>
+						                      <option>Tennessee</option>
+						                      <option>Texas</option>
+						                      <option>Washington</option>
+						                    </select>
+						                  </div>
+						                
+					                 </div>
+				                 </div>
+				                  
+				                 <div class="col-lg-12 ">
+			                		<div class="row">
+						                 <div class="input-group top-gap">
+						                    <span class="input-group-addon"><i class="fa fa-map " aria-hidden="true"  ></i></span>
+						                     <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
+						                      <option selected="selected">Alabama</option>
+						                      <option>Alaska</option>
+						                      <option>California</option>
+						                      <option>Delaware</option>
+						                      <option>Tennessee</option>
+						                      <option>Texas</option>
+						                      <option>Washington</option>
+						                    </select>
+						                  </div>
+						                
+					                 </div>
+				                 </div>
+				                 
+				                 <div class="col-lg-12 ">
+			                		<div class="row">
+						                 <div class="input-group top-gap">
+						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
+						                     <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
+						                      <option selected="selected">Alabama</option>
+						                      <option>Alaska</option>
+						                      <option>California</option>
+						                      <option>Delaware</option>
+						                      <option>Tennessee</option>
+						                      <option>Texas</option>
+						                      <option>Washington</option>
+						                    </select>
+						                  </div>
+						                
+					                 </div>
+				                 </div>
+				                 
+				                 <div class="col-lg-12 ">
+			                		<div class="row">
+						                 <div class="input-group top-gap">
+						                    <span class="input-group-addon"><i class="fa fa-map-marker font-size-20" aria-hidden="true"  ></i></span>
+						                    <input id="shoptwitter" type="text" class="form-control" placeholder="Street number..">
+						                  </div>
+					                 </div>
+				                 </div>
+				                 
+				                 
 				            </div><!-- /.form-group -->
 			                
 							<div  class="form-group">
@@ -358,13 +478,13 @@
 			                      <div class="col-lg-12 top-gap" style="margin-bottom: 10px;">
 								     <button type="button" class="btn  nhambtn" id="detectlocation" style="width:100%" > Detect Location </button>
 								  </div>
-								<div class="nham-embed-googlemap ">
-									
-									<script type="text/javascript"
-										 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSDjBA-4xhfV7TGP1jrTBcBJ4p70mmezo"></script>
-									
-									<div id="map_canvas" style="width: 100%; height: 300px;"></div>
-								
+								<div class="nham-embed-googlemap col-lg-12">
+									<div class="row">
+										<script type="text/javascript"
+											 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSDjBA-4xhfV7TGP1jrTBcBJ4p70mmezo"></script>
+										
+										<div id="map_canvas" style="width: 100%; height: 570px;"></div>
+									</div>
 				                </div>
 			                 </div> 
 			                 			                                							 			      			
@@ -495,7 +615,9 @@
 //phone adding
 $(document).ready(function(){
 
-	setTimeout(function(){$(".select2").select2();},3000);
+	$(".select2").select2();
+	$("span.select2-selection").css({ "height":"35px","border-radius" : "0","border":"1px solid #ccc"});
+	
 	
 });
   var shopphones = [];
@@ -520,12 +642,12 @@ $(document).ready(function(){
   $('.timeformat').inputmask({
 	  mask: '99:99'
 	});
-  //Flat red color scheme for iCheck
+/*   //Flat red color scheme for iCheck
   $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
     checkboxClass: 'icheckbox_flat-red',
     radioClass: 'iradio_flat-red'
   });
-  
+   */
 
 $(".nham-append-data").on("click",function(){
 	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
@@ -661,7 +783,7 @@ function upoloadLogoToServer(){
 			contentType : false,
 			success: function(data){
 				data = JSON.parse(data);
-				
+				console.log(data);
 				if(data.is_upload == false){
 					alert("error uploading!");
 					alert(data.message);
