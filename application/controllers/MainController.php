@@ -25,6 +25,10 @@
 			$this->load->view('pages/product');
 		}
 		
+		public function addproduct(){
+			$this->load->view('pages/addproduct');
+		}
+		
 		public function addshop(){
 			$this->load->view('pages/addshop');
 		}
