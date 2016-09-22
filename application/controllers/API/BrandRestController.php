@@ -15,6 +15,8 @@ class BrandRestController extends CI_Controller{
 	
 	public function getBrandByNameCombo( $brandname , $limit=null ){
 		
+		$brandname = urldecode($brandname);
+		$limit = urldecode($limit);
 		if(!isset($limit))
 		{
 			$limit = 10;
