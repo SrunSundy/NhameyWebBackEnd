@@ -7,6 +7,9 @@ class ShopTypeRestController extends CI_Controller{
 	
 	public function getShopTypeByNameCombo( $shoptype , $limit=null ){
 		
+		$shoptype = urldecode($shoptype);
+		$limit = urldecode($limit);
+		
 		if(!isset($limit))
 		{
 			$limit = 10;
