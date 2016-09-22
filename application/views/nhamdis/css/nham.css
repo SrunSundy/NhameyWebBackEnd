@@ -35,6 +35,16 @@ div.image-browsing {
 .no-data-wrapper{
 	
 }
+i.disable-cover{
+	
+	position: absolute;
+	right: 5px;
+	top: 1px;
+	font-size: 25px;
+	color: #dd4b39;
+	cursor: pointer;
+	
+}
 .no-data-icon{
 	margin-top:5px;
 	color: #BDBDBD;
@@ -93,6 +103,14 @@ button.shop-save{
 div.image-upload-wrapper{
 	margin: 8px;
 	width: 180px;
+	min-height: 190px;
+	padding: 5px;
+	background: #E0E0E0;
+	
+}
+div.image-upload-wrapper-cover{
+	margin: 8px;
+	width: 320px;
 	min-height: 190px;
 	padding: 5px;
 	background: #E0E0E0;
