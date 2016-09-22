@@ -6,29 +6,27 @@ class UploadRestController extends CI_Controller{
 	}
 	
 	public function shopLogoUploadImage(){
-		$data = array();
-		if($_FILES['file']['size']<10240)
-		{
-			$data['is_upload']= false;
-			$data['message'] =" File cannot be uploaded. It's too small".$_FILES['file']['size'];
-			$json = json_encode($data);
-			echo $json;
-			return ;
-		}
+		
 		if ( ! empty($_FILES))
 		{
-			$image_info = getimagesize($_FILES["file"]["tmp_name"]);
-			$image_width = $image_info[0];
-			$image_height = $image_info[1];
-			
+			if($_FILES['file']['size']<10240)
+			{   
+				$data = array();		
+				$data['is_upload']= false;
+				$data['message'] =" File cannot be uploaded. It's too small".$_FILES['file']['size'];
+				$json = json_encode($data);
+				echo $json;
+				return ;
+			}
+
 			$config['upload_path'] = "./uploadimages/logo/original";
 			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size'] = '5120';
+			$config['max_size'] = '20120';
 			$config['max_width']  = '5000';
 			$config['max_height']  = '5000';
 			$config['min_width'] = '300';
 			$config['min_height'] = '300';
-			//$_FILES["file"]['name'];
+			
 			$new_name = "logo_".$this->generateRandomString(20).".jpg";
 			$config['file_name'] = $new_name;
 				
@@ -43,34 +41,90 @@ class UploadRestController extends CI_Controller{
 				$data['is_upload'] = true;
 				$data['message'] =" File is uploaded";
 				$data['filename'] = $new_name;
-				$data['dimension'] = $image_width."___".$image_height;
 				
-				$percent = 0.5;
-				$source_img ="./uploadimages/logo/original/".$new_name;
+				if($_FILES['file']['size'] > 100000){
+					$this->resizeImage("./uploadimages/logo/big/","./uploadimages/logo/original/",0.5,90 , $new_name);
+					$this->resizeImage("./uploadimages/logo/small/","./uploadimages/logo/original/",0.2,100 , $new_name);
+					
+				}else{
+					$this->resizeImage("./uploadimages/logo/big/","./uploadimages/logo/original/",1, 90 , $new_name);
+					$this->resizeImage("./uploadimages/logo/small/","./uploadimages/logo/original/",0.5,90 , $new_name);
+					
+				}
+				
+				/* $percent = 0.5;
+				$source_img =$targetfolder."original/".$new_name;
 				$destination_img = "./uploadimages/logo/big/".$new_name;
-				$info = getimagesize($source_img);
-				
+				$info = getimagesize($source_img);				
 				list($width, $height) = $info;
 				$new_width = $width * $percent;
 				$new_height = $height * $percent;				
 				// Resample
 				$image_p = imagecreatetruecolor($new_width, $new_height);
-				$image = imagecreatefromjpeg($source_img);
-				imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-				//$image = imagecreatefromjpeg($source_img);			
-				imagejpeg($image, $destination_img, 50);
+				if ($info['mime'] == 'image/jpeg') 
+					$image = imagecreatefromjpeg($source_img);		
+				elseif ($info['mime'] == 'image/gif') 
+					$image = imagecreatefromgif($source_img);		
+				elseif ($info['mime'] == 'image/png') 
+					$image = imagecreatefrompng($source_img);				
+				imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);			
+				imagejpeg($image_p, $destination_img, 50);
+				 
 				
-		
 				$config_resize = array();
 				$config_resize['image_library'] = 'gd2';
 				$config_resize['source_image'] = "./uploadimages/logo/original/".$new_name;
 				$config_resize['create_thumb'] = TRUE;
 				$config_resize['maintain_ratio'] = TRUE;
-				$config_resize['width'] = 130;
-				$config_resize['height'] = 130;
+				$config_resize['width'] = (int)$new_width;
+				$config_resize['height'] = (int)$new_height;
 				$config_resize['new_image'] = "./uploadimages/logo/small/".$new_name;
 				$this->load->library('image_lib' , $config_resize);
-				$this->image_lib->resize(); 
+				$this->image_lib->resize(); */
+			}
+			$json = json_encode($data);
+			echo $json;
+		}
+		
+	}
+	public function shopCoverUploadImage(){
+		if ( ! empty($_FILES))
+		{
+			if($_FILES['file']['size']<10240)
+			{
+				$data = array();
+				$data['is_upload']= false;
+				$data['message'] =" File cannot be uploaded. It's too small".$_FILES['file']['size'];
+				$json = json_encode($data);
+				echo $json;
+				return ;
+			}
+		
+			$config['upload_path'] = "./uploadimages/cover/original";
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size'] = '20120';
+			$config['max_width']  = '8000';
+			$config['max_height']  = '5000';
+			$config['min_width'] = '500';
+			$config['min_height'] = '300';
+				
+			$new_name = "cover_".$this->generateRandomString(20).".jpg";
+			$config['file_name'] = $new_name;
+		
+			$this->load->library('upload', $config);
+			$data = array();
+		
+			if (! $this->upload->do_upload("file")) {
+				$data['is_upload']= false;
+				$data['message'] =" File cannot be uploaded".$this->upload->display_errors();
+		
+			}else{
+				$data['is_upload'] = true;
+				$data['message'] =" File is uploaded";
+				$data['filename'] = $new_name;
+		
+				$this->resizeImage("./uploadimages/cover/big/","./uploadimages/cover/original/",0.5,50 , $new_name);
+				$this->resizeImage("./uploadimages/cover/small/","./uploadimages/cover/original/",0.2,50 , $new_name);
 			}
 			$json = json_encode($data);
 			echo $json;
@@ -134,23 +188,35 @@ class UploadRestController extends CI_Controller{
 	public function removeShopSingleImage(){
 		$removedata = $this->input->post('removeimagedata');
 		$removetype = $removedata["image_type"];
-		$logoimagename = $removedata["logoimagename"]; 
-		$src = "";
+		$imagename = $removedata["imagename"]; 
+		$srcbig = "";
+		$srcsmall = "";
 		if($removetype == "1"){
-			$src = "./uploadimages/logo/big/";
+			$srcbig = "./uploadimages/logo/big/";
+			$srcsmall = "./uploadimages/logo/small/";
 		}else if($removetype == "2"){
-			$src = "";
+			$srcbig = "";
 		}else if($removetype == "3"){
-			$src = "./uploadimages/shopimages/";
+			$srcbig = "./uploadimages/shopimages/";
 		}
 		
-		if(file_exists($src.$logoimagename)){
-			unlink($src.$logoimagename);
-			$data['message'] ="File is removed";
+		$data['message'] = array();
+		$report = array();
+		if(file_exists($srcbig.$imagename)){
+			unlink($srcbig.$imagename);
+			$report['big_image_message'] ="File is removed";
+			
 		}else{
-			$data['message'] ="File not found";			
+			$report['big_image_message'] ="File not found";			
 		}		
-		
+		if(file_exists($srcsmall.$imagename)){
+			unlink($srcsmall.$imagename);
+			$report['small_image_message'] ="File is removed";
+				
+		}else{
+			$report['small_image_message'] ="File not found";
+		}
+		array_push($data , $report);
 		$json = json_encode($data);
 		echo $json;
 	}
@@ -171,6 +237,7 @@ class UploadRestController extends CI_Controller{
 		echo $json;
 	}
 	
+	
 	function generateRandomString($length) {
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$charactersLength = strlen($characters);
@@ -179,6 +246,31 @@ class UploadRestController extends CI_Controller{
 			$randomString .= $characters[rand(0, $charactersLength - 1)];
 		}
 		return $randomString."_".time();
+	}
+	
+	function resizeImage($targetfolder, $sourcefolder , $resizepixelpercent, $quality , $img_name){
+		
+		$source_img =$sourcefolder.$img_name;
+		$info = getimagesize($source_img);
+		
+		$percent = $resizepixelpercent;
+		list($width, $height) = $info;
+		$new_width = $width * $percent;
+		$new_height = $height * $percent;
+		
+		
+		$destination_img = $targetfolder.$img_name;
+		// Resample
+		$image_p = imagecreatetruecolor($new_width, $new_height);
+		if ($info['mime'] == 'image/jpeg')
+			$image = imagecreatefromjpeg($source_img);
+		elseif ($info['mime'] == 'image/gif')
+		$image = imagecreatefromgif($source_img);
+		elseif ($info['mime'] == 'image/png')
+		$image = imagecreatefrompng($source_img);
+		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+		imagejpeg($image_p, $destination_img, $quality);
+		
 	}
 }
 ?>
