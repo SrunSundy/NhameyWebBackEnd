@@ -32,11 +32,25 @@ div.image-browsing {
 	cursor: pointer;
 	margin-top: 12px;
 }
-
+.no-data-wrapper{
+	
+}
+.no-data-icon{
+	margin-top:5px;
+	color: #BDBDBD;
+	font-size: 20px;
+	margin-right: 8px;
+}
+.no-data-text{
+	font-family: cursive;
+	color: #BDBDBD;
+	font-weight: bold;
+}
 div.logo-browsing-wrapper {
 	
 	border: 1px dashed #e1e1e1;
 }
+
 
 p.tagp-of-i {
 	font-size: 80px;
