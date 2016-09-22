@@ -52,11 +52,19 @@ span.select2-selection{
                     	    </div>
                     		<div class="nham-dropdown-detail"  >
                     			<div class="nham-dropdown-result-wrapper">
-                    				<div id="display-result" class="display-result-wrapper">
-                    					
-                    				</div>
-       				
+                    				<div id="display-result" class="display-result-wrapper" style="min-height:35px;">                  					
+                    				</div>   								
                   				</div>
+                  				<div id="display-searching-text" style="display:none;">
+                  					<div  class="nham-dropdown-noresult">
+										<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+											Searching "<span id="text-search-dis1"></span>" has no Result!</p>
+									</div>
+									<div class="nham-dropdown-question">	
+										<p>Do you want to register "<span id="text-search-dis2"></span>" as a new brand?</p>
+									</div>
+                  				</div>
+                  				
                   				<div id="nham-dropdown-footer" class="nham-dropdown-result-footer" align="center">
                   					<button class="btn nhamey-btn" id="yesbrand">Yes</button>
                   				</div>
@@ -83,22 +91,31 @@ span.select2-selection{
 		                     </div>
 		                     
 		                     <div class="form-group nham-dropdown-wrapper">
-			                    <label>Shop Region</label>
+			                    <label>Shop Cuisine</label>
 			                    <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="regionid" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop region">
-			                    	       <input type="hidden" class="selectedbrandid" id="selectedregion"/>
+			                    		    <input id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
+			                    	       <input type="hidden" class="selectedbrandid" id="selectedcuisine"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-region" class="display-result-wrapper">
+			                    				<div id="display-result-cuisine" class="display-result-wrapper">
 			                    					
 			                    				</div>
 			       				
 			                  				</div>
-			                  				<div id="nham-dropdown-footer-region" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesregion">Yes</button>
+			                  				<div id="display-searching-text_cuisine" style="display:none;">
+			                  					<div  class="nham-dropdown-noresult">
+													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+														Searching "<span id="text-search-cuisine-dis1"></span>" has no Result!</p>
+												</div>
+												<div class="nham-dropdown-question">	
+													<p>Do you want to register "<span id="text-search-cuisine-dis2"></span>" as a new cuisine?</p>
+												</div>
+			                  				</div>
+			                  				<div id="nham-dropdown-footer-cuisine" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yescuisine">Yes</button>
 			                  				</div>
 			                  			</div>
 			                    	</div>			                    	
@@ -110,7 +127,7 @@ span.select2-selection{
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="shoptypename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop region">
+			                    		    <input id="shoptypename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop type">
 			                    	        <input type="hidden" class="selectedbrandid" id="selectedshoptype"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
@@ -120,6 +137,17 @@ span.select2-selection{
 			                    				</div>
 			       				
 			                  				</div>
+			                  				
+			                  				<div id="display-searching-text_shoptype" style="display:none;">
+			                  					<div  class="nham-dropdown-noresult">
+													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+														Searching "<span id="text-search-shoptype-dis1"></span>" has no Result!</p>
+												</div>
+												<div class="nham-dropdown-question">	
+													<p>Do you want to register "<span id="text-search-shoptype-dis2"></span>" as a new cuisine?</p>
+												</div>
+			                  				</div>
+			                  				
 			                  				<div id="nham-dropdown-footer-shoptype" class="nham-dropdown-result-footer" align="center">
 			                  					<button class="btn nhamey-btn" id="yesshoptype">Yes</button>
 			                  				</div>
@@ -199,37 +227,37 @@ span.select2-selection{
 										</div>	
 										<div class="nham-control-group div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Tuesday
-											    <input type="checkbox"  id="mon" value="2"  class="work-day"/>
+											    <input type="checkbox"  id="tue" value="2"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Wednesday
-											    <input type="checkbox" id="mon" value="3"  class="work-day"/>
+											    <input type="checkbox" id="wed" value="3"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Thursday
-											    <input type="checkbox"  id="mon" value="4"  class="work-day"/>
+											    <input type="checkbox"  id="thur" value="4"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Friday
-											    <input type="checkbox"  id="mon" value="5"  class="work-day"/>
+											    <input type="checkbox"  id="fri" value="5"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Saturday
-											    <input type="checkbox"  id="mon" value="6"  class="work-day"/>
+											    <input type="checkbox"  id="sat" value="6"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Sunday
-											    <input type="checkbox"  id="mon" value="7"  class="work-day"/>
+											    <input type="checkbox"  id="sun" value="7"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
@@ -272,32 +300,32 @@ span.select2-selection{
 				                  	<div class="row">
 					                   					                    
 					                     <div class="nham-control-group div-top-gap">
-											  <label class="nham-control nham-control--checkbox">Wi-Fi
-											    <input type="checkbox"  id="mon" value="1"  class="work-day"/>
+											  <label class="nham-control nham-control--checkbox">WiFi
+											    <input type="checkbox"  id="mon" value="1"  class=""/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Parking lot
-											    <input type="checkbox"  id="mon" value="2"  class="work-day"/>
+											    <input type="checkbox"  id="mon" value="2"  class=""/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
-											  <label class="nham-control nham-control--checkbox">Wednesday
-											    <input type="checkbox" id="mon" value="3"  class="work-day"/>
+											  <label class="nham-control nham-control--checkbox">Air Conditioner
+											    <input type="checkbox" id="mon" value="3"  class=""/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
-											  <label class="nham-control nham-control--checkbox">Thursday
-											    <input type="checkbox"  id="mon" value="4"  class="work-day"/>
+											  <label class="nham-control nham-control--checkbox">Reservation
+											    <input type="checkbox"  id="mon" value="4"  class=""/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
 										<div class="nham-control-group div-top-gap">
-											  <label class="nham-control nham-control--checkbox">Friday
-											    <input type="checkbox"  id="mon" value="5"  class="work-day"/>
+											  <label class="nham-control nham-control--checkbox">Tax Invoice
+											    <input type="checkbox"  id="mon" value="5"  class=""/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
@@ -342,27 +370,24 @@ span.select2-selection{
 			                    	<input type='file' id="logoupload" style="display: none;" accept="image/*"/>
 			                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
 			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-			                    		<p style="font-weight:bold;color:#9E9E9E"> Add logo image </p>
+			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>
+			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>
 			                    	</div> 									
-									<div id="logo-upload-image" class="upload-image-hover"  >
-										
-									</div>
+									<div id="logo-upload-image" class="upload-image-hover" ></div>
 									<div id="loading-wrapper" class="upload-image-loading" style="display:none" >
 										 <div class="progress progress-xxs">
 						                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 						                    </div>
 						                  </div>
 										  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+										  <i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
 									</div>
-									<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none">
-									
-									</div>
+									<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
 									<div id="removelogoimagewrapper" class="upload-image-remove" style="display:none" >
 										<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>										
 									</div>
 									<div id="removeloadingwrapper" class="upload-image-remove" style="display:none">
-										 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />
-										
+										 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
 									</div>
 												                    	  		                    	  		                    	  
 								</div>
@@ -372,12 +397,29 @@ span.select2-selection{
 								<label>Cover</label>
 								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">												                     		                  		                    	  
 			                    	<input type='file' id="coverupload" style="display: none;" accept="image/*"/>
-			                    	<div class="image-upload-wrapper" id="cover-upload-wrapper">
+			                    	<div class="image-upload-wrapper-cover" id="cover-upload-wrapper">
 			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-			                    		<p style="font-weight:bold;color:#9E9E9E"> Add cover image </p>
+			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 700 x 500 </p>
+			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
 			                    	</div> 
 									<div id="cover-upload-image" class="upload-image-hover"></div>
-												                    	  		                    	  		                    	  
+									<div id="loading-wrapper-cover" class="upload-image-loading" style="display:none" >
+										 <div class="progress progress-xxs">
+						                    <div id="logoprogressbar-cover" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+						                    </div>
+						                  </div>
+										  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+										  <i class="fa fa-times disable-cover" id="cover-disable-cover" aria-hidden="true" title="close" ></i>
+									</div>
+									<div id="uploadimageremoveback-cover" class="upload-image-remove-background" style="display:none"></div>
+									<div id="removelogoimagewrapper-cover" class="upload-image-remove" style="display:none" >
+										<i id="removelogoimage-cover" class="fa fa-trash" aria-hidden="true"></i>										
+									</div>
+									<div id="removeloadingwrapper-cover" class="upload-image-remove" style="display:none">
+										 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+									</div>
+									
+											                    	  		                    	  		                    	  
 								</div>
 							</div>
 							
@@ -623,7 +665,7 @@ $(document).ready(function(){
   var shopphones = [];
   var arrnewfileimagename = [];
   var logoimagename = "";
-
+  var coverimagename = "";
 
   $('#lat-location').keyup(function() {
 	  //code to not allow any changes to be made to input field
@@ -723,6 +765,17 @@ $("#logo-upload-image").on("click",function(){
 $("#removelogoimage").on("click",function(){
 	removeLogoImageFromServer();
 });
+$("#logo-disable-cover").on("click", function(){
+	$("#logoupload").val(null);
+	$("#loading-wrapper").hide();
+	$("#logo-upload-image").removeClass("loading-box");
+	var txt = '<label class="gray-image-plus">';
+	txt += '  <i class="fa fa-plus"></i>';
+	txt += '</label>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+	$('#logo-upload-wrapper').html(txt);	
+});
 $("#logoupload").change(function(){
 	uploadLogo(this);
 });
@@ -741,6 +794,7 @@ function uploadLogo(input) {
 		$('#logo-upload-wrapper').html(txt);
 	}
 }
+
 function removeLogoImageFromServer(){
 	$("#removeloadingwrapper").show();
 	$.ajax({
@@ -749,7 +803,7 @@ function removeLogoImageFromServer(){
 		data : {
 			"removeimagedata":{
 				"image_type" : "1",
-				"logoimagename" : logoimagename
+				"imagename" : logoimagename
 			}			
 		},
 		success: function(data){
@@ -758,7 +812,11 @@ function removeLogoImageFromServer(){
 			$("#logoupload").val(null);
 			$("#uploadimageremoveback").hide();
 			$("#removelogoimagewrapper").hide();
-			var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+			var txt = '<label class="gray-image-plus">';
+				txt += '  <i class="fa fa-plus"></i>';
+				txt += '</label>';
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
 			$('#logo-upload-wrapper').html(txt);
 			$("#removeloadingwrapper").hide();
 		}
@@ -820,6 +878,20 @@ function upoloadLogoToServer(){
 $("#cover-upload-image").on("click",function(){	
 	$("#coverupload").click();
 });
+$("#removelogoimage-cover").on("click",function(){
+	removeCoverImageFromServer();
+}); 
+$("#cover-disable-cover").on("click", function(){
+	$("#coverupload").val(null);
+	$("#loading-wrapper-cover").hide();
+	$("#cover-upload-image").removeClass("loading-box");
+	var txt = '<label class="gray-image-plus">';
+	txt += '  <i class="fa fa-plus"></i>';
+	txt += '</label>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+	$('#cover-upload-wrapper').html(txt);	
+});
 $("#coverupload").change(function(){
 	uploadCover(this);
 });
@@ -827,16 +899,97 @@ function uploadCover(input){
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
  		reader.onload = function (e) {
+ 			 upoloadCoverToServer();
 		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
 		              $('#cover-upload-wrapper').html(myimg);
 		}
 		reader.readAsDataURL(input.files[0]);
 	}else{
-		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Cover image </p>';
+		 var txt  = '<label class="gray-image-plus">';
+			 txt += '<i class="fa fa-plus"></i>';
+			 txt += '</label>';
+			 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 700 x 500 </p>';
+			 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
 		 $('#cover-upload-wrapper').html(txt);
 	}
 	
 }
+function removeCoverImageFromServer(){
+	$("#removeloadingwrapper-cover").show();
+	$.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		type: "POST",
+		data : {
+			"removeimagedata":{
+				"image_type" : "1",
+				"imagename" : coverimagename
+			}			
+		},
+		success: function(data){
+			
+			coverimagename="";
+			$("#coverupload").val(null);
+			$("#uploadimageremoveback-cover").hide();
+			$("#removelogoimagewrapper-cover").hide();
+			var txt = '<label class="gray-image-plus">';
+				txt += '  <i class="fa fa-plus"></i>';
+				txt += '</label>';
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+			$('#cover-upload-wrapper').html(txt);
+			$("#removeloadingwrapper-cover").hide();
+		}
+	});	
+}
+function upoloadCoverToServer(){
+	var inputFile = $("#coverupload");
+	$("#cover-upload-image").addClass("loading-box");
+	$("#loading-wrapper-cover").show();
+	var fileToUpload = inputFile[0].files[0];
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/shopCoverUploadImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+				}else{
+					coverimagename = data.filename;
+					$("#loading-wrapper-cover").hide();
+					$("#cover-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback-cover").show();
+					$("#removelogoimagewrapper-cover").show();
+				}
+				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						 //console.log(percentComplete);
+						
+						$("#logoprogressbar-cover").css({width: percentComplete+"%"});
+					};
+				}, false);
+
+				return xhr;
+			}
+		});
+	} 
+}
+
 
 
 $("#input-44").on("change", function(){
@@ -920,7 +1073,7 @@ function removeShopImageDetailFromServer(imagetoremove){
 		data : {
 			"removeimagedata":{
 				"image_type" : "3",
-				"logoimagename" : imagetoremove
+				"imagename" : imagetoremove
 			}			
 		}
 	});
@@ -974,7 +1127,7 @@ function getDataToInsert(){
 			"shop_name_kh" : $("#shopkhname").val(),
 			"shop_logo" : "123",
 			"shop_cover" : "34343",
-			"region_id" : 3,
+			"cuisine_id" : 3,
 			"shop_type_id" : 2,
 			"shop_serve_type" : $("#shopservertype").val(),
 			"shop_short_description": $("#shopshortdes").val() ,
@@ -1026,7 +1179,7 @@ $("#brandname").on("focus keyup",function(){
 	
 	var srchbrandname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
+	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	if(srchbrandname == '' || srchbrandname == null) srchbrandname = "all";
 	$.ajax({
 		 type: "GET",
@@ -1036,15 +1189,18 @@ $("#brandname").on("focus keyup",function(){
 			console.log(data);
 			 var branddis = '';
 			if(data.length <= 0){
-				branddis +='<div  class="nham-dropdown-noresult">';
-				branddis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				branddis +='  Searching "'+cutString(srchbrandname , 35)+'" has no Result!</p>';
-				branddis +='</div>';
-				branddis +='<div class="nham-dropdown-question">';
-				branddis +='<p>Do you want to register "'+cutString(srchbrandname , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
-				branddis +='</div>';
+				$("#text-search-dis1").html(cutString(srchbrandname , 35));
+				$("#text-search-dis2").html(cutString(srchbrandname , 20));
+				branddis +="<div class='no-data-wrapper' align='center'>";
+				branddis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				branddis +="  <span class='no-data-text'>No Record Found!</span>";
+				branddis +="</div>";
+				$("#display-searching-text").show();
 				$("#nham-dropdown-footer").show();
+				
 			}else{	
+				
+				$("#display-searching-text").hide();
 				$("#nham-dropdown-footer").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
 					 branddis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].brand_id+'" /><p><span class="title">'+data[i].brand_name+'</span></p></div>';
@@ -1082,49 +1238,50 @@ $("#yesbrand").on("mousedown",function(){
 
 
 
-$("#regionid").on("focus keyup",function(){
+$("#cuisinename").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-region").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	$("#display-result-cuisine").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/RegionRestController/getRegionByNameCombo/"+srchname+"/10", 
+		 url: "/NhameyWebBackEnd/API/CuisineRestController/getCuisineByNameCombo/"+srchname+"/10", 
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
 			 var dis = '';
 			if(data.length <= 0){
-				dis +='<div  class="nham-dropdown-noresult">';
-				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
-				dis +='</div>';
-				dis +='<div class="nham-dropdown-question">';
-				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
-				dis +='</div>';
-				$("#nham-dropdown-footer-region").show();
+				$("#text-search-cuisine-dis1").html(cutString(srchname , 35));
+				$("#text-search-cuisine-dis2").html(cutString(srchname , 20));
+				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				dis +="  <span class='no-data-text'>No Record Found!</span>";
+				dis +="</div>";
+				$("#display-searching-text_cuisine").show();
+				$("#nham-dropdown-footer-cuisine").show();
 			}else{	
-				$("#nham-dropdown-footer-region").hide();		
+				$("#display-searching-text_cuisine").hide();
+				$("#nham-dropdown-footer-cuisine").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].region_id+'" /><p><span class="title">'+data[i].region_name+'</span></p></div>';
+					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].cuisine_id+'" /><p><span class="title">'+data[i].cuisine_name+'</span></p></div>';
 				 }				
 				
 			}
-			$("#display-result-region").html(dis); 					 
+			$("#display-result-cuisine").html(dis); 					 
    	 	 }
    });
 });
-$("#yesregion").on("mousedown",function(){
-	var regiondata = {
-		"RegionData" : {
-			"region_name" : $("#regionid").val(),
-			"region_remark": ""
+$("#yescuisine").on("mousedown",function(){
+	var cuisinedata = {
+		"CuisineData" : {
+			"cuisine_name" : $("#cuisinename").val(),
+			"cuisine_remark": ""
 		}
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/RegionRestController/insertRegion",
-		data : regiondata,
+		url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
+		data : cuisinedata,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
@@ -1132,7 +1289,7 @@ $("#yesregion").on("mousedown",function(){
 				alert("Insert error!");
 			}else{
 				//alert(data);
-				$("#selectedregion").val(data.region_id);
+				$("#selectedcuisine").val(data.cuisine_id);
 			}
 			
 		}
@@ -1154,15 +1311,23 @@ $("#shoptypename").on("focus keyup",function(){
 			console.log(data);
 			 var dis = '';
 			if(data.length <= 0){
-				dis +='<div  class="nham-dropdown-noresult">';
+				/* dis +='<div  class="nham-dropdown-noresult">';
 				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
 				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
 				dis +='</div>';
 				dis +='<div class="nham-dropdown-question">';
 				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
-				dis +='</div>';
+				dis +='</div>'; */
+				$("#text-search-shoptype-dis1").html(cutString(srchname , 35));
+				$("#text-search-shoptype-dis2").html(cutString(srchname , 20));
+				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				dis +="  <span class='no-data-text'>No Record Found!</span>";
+				dis +="</div>";
+				$("#display-searching-text_shoptype").show();
 				$("#nham-dropdown-footer-shoptype").show();
 			}else{	
+				$("#display-searching-text_shoptype").hide();
 				$("#nham-dropdown-footer-shoptype").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
 					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_type_id+'" /><p><span class="title">'+data[i].shop_type_name+'</span></p></div>';
