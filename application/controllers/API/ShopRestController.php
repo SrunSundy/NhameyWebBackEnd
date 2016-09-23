@@ -14,13 +14,11 @@ class ShopRestController extends CI_Controller{
 		echo "HI";	
 	}	
 	
-	public function getShopByNameCombo( $shopname , $limit=null ){	
-	
-	if(!isset($limit))	
-		$limit = 10;		
-		$shopname = urldecode($shopname);				
-		if($shopname == "all") $shopname = "";	
-		
+	public function getShopByNameCombo(){	
+		$shopname = $this->input->get('srchname');
+		$limit = $this->input->get('limit');
+		if($limit == null)
+			$limit = 10;
 			$data = $this->ShopModel->getshopByNameCombo($shopname , $limit);		
 			$json = json_encode($data);		
 			echo $json;	
