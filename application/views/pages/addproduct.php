@@ -41,7 +41,7 @@
                 	<div class=" col-sm-12 nham-dropdown-wrapper">
                 		<div class="row">
                 			<div class="selected-dropdown">
-                    		   <input id="brandname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search Shop to insert Product">
+                    		   <input id="shopname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search Shop to insert Product">
                     	       <input type="hidden" class="selectedbrandid" id="selectedbrand"/>
                     	    </div>
                     		<div class="nham-dropdown-detail"  >
@@ -52,7 +52,7 @@
        				
                   				</div>
                   				<div id="nham-dropdown-footer" class="nham-dropdown-result-footer" align="center">
-                  					<button class="btn nhamey-btn" id="yesbrand">Yes</button>
+                  					<button class="btn nhamey-btn" id="yeshop">Yes</button>
                   				</div>
                   			</div>
                     	</div>
@@ -70,11 +70,6 @@
 			            <!-- Left col -->
 			            <section class="col-lg-5 connectedSortable">
 			             	<h5 class="gray-color">Informative Text</h5>
-			             	 <div class="form-group">
-			                      <label>Shop Name</label>
-			                      <input type="text" id="shopengname" class="form-control" placeholder="Shop Name in English">
-			                      <input type="text" id="shopkhname" class="form-control top-gap" placeholder="Shop Name in Khmer">
-		                     </div>
 		                     
 		                     <div class="form-group nham-dropdown-wrapper">
 			                  
@@ -95,40 +90,40 @@
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="shoptypename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product taste">
-			                    	        <input type="hidden" class="selectedbrandid" id="selectedshoptype"/>
+			                    		    <input id="productaste" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product taste">
+			                    	        <input type="hidden" class="selectedbrandid" id="selectedtaste"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-shoptype" class="display-result-wrapper">
+			                    				<div id="display-result-taste" class="display-result-wrapper">
 			                    					
 			                    				</div>
 			       				
 			                  				</div>
-			                  				<div id="nham-dropdown-footer-shoptype" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesshoptype">Yes</button>
+			                  				<div id="nham-dropdown-footer-taste" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesproductaste">Yes</button>
 			                  				</div>
 			                  			</div>
 			                    	</div>			                    	
 			                  	</div>
 		                     </div>
 		                             <div class="form-group ">
-			                    <label>Product Region</label>
+			                    <label>Types of Cuisine</label>
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="pro_region" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product Region">
-			                    	        <input type="hidden" class="selectedbrandid" id="selectedshoptype"/>
+			                    		    <input id="pro_cuisine" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product Region">
+			                    	        <input type="hidden" class="selectedbrandid" id="selectedprocuisine"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-shoptype" class="display-result-wrapper">
+			                    				<div id="display-result-procuisine" class="display-result-wrapper">
 			                    					
 			                    				</div>
 			       				
 			                  				</div>
-			                  				<div id="nham-dropdown-footer-shoptype" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesshoptype">Yes</button>
+			                  				<div id="nham-dropdown-footer-procuisine" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesproductaste">Yes</button>
 			                  				</div>
 			                  			</div>
 			                    	</div>			                    	
@@ -213,7 +208,6 @@
 
  
   <script>
-
 //phone adding
   var shopphones = [];
   var logoimagename = "";
@@ -231,7 +225,6 @@
     radioClass: 'iradio_flat-red'
   });
   
-
 $(".nham-append-data").on("click",function(){
 	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
 	if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
@@ -261,9 +254,6 @@ function displayPhones( data ){
 	$("#phone-add-result").html(dis);
 }
 //close phone adding
-
-
-
 $("#allday").on("change", function () {
 	if($(this).is(":checked")){		
 		$(".work-day").prop('checked', true);
@@ -272,7 +262,6 @@ $("#allday").on("change", function () {
 	}
 });
 $(".work-day").on("change", function(){
-
 	if($(this).is(":checked")){
 		var len = $("input.work-day:checked").length;
 		if(len >= 7){
@@ -289,8 +278,6 @@ function countWorkingday(){
 	});
 	return workingday;
 }
-
-
 $("#input-44").fileinput({
      uploadUrl: '/file-upload-batch/2',
      maxFilePreviewSize: 10240,
@@ -310,7 +297,6 @@ $("#logoupload").change(function(){
 	uploadLogo(this);
 });
 function uploadLogo(input) {
-
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
  		reader.onload = function (e) {
@@ -351,7 +337,6 @@ function upoloadLogoToServer(){
 	var fileToUpload = inputFile[0].files[0];
 	//console.log(fileToUpload);
 	if(fileToUpload != 'undefined'){
-
 		var formData = new FormData();
 		formData.append("file",  fileToUpload);
 		
@@ -385,17 +370,11 @@ function upoloadLogoToServer(){
 						$("#logoprogressbar").css({width: percentComplete+"%"});
 					};
 				}, false);
-
 				return xhr;
 			}
 		});
 	} 
 }
-
-
-
-
-
 $("#cover-upload-image").on("click",function(){	
 	$("#coverupload").click();
 });
@@ -416,9 +395,6 @@ function uploadCover(input){
 	}
 	
 }
-
-
-
 function getDataToInsert(){
 	var shopdata = {
 		"ShopData":{
@@ -451,7 +427,6 @@ function getDataToInsert(){
 	};
 	return shopdata;
 }
-
 $("#saveshop").on("click",function(){
 	// console.log(getDataToInsert());
 	 /* alert(0);
@@ -467,46 +442,48 @@ $("#saveshop").on("click",function(){
     alert(logoimagename);
 });
 
-
-
-
-$("#brandname").on("focus keyup",function(){
+$("#shopname").on("focus keyup",function(){
 	
-	var srchbrandname = $(this).val();
+	var srchshopname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
-	if(srchbrandname == '' || srchbrandname == null) srchbrandname = "all";
+	
+	if(srchshopname == '' || srchshopname == null) srchshopname = "all";
+	
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/BrandRestController/getBrandByNameCombo/"+srchbrandname+"/10", 
+		 url: "/NhameyWebBackEnd/API/ShopRestController/getShopByNameCombo/"+srchshopname+"/10", 
+		
 		 success: function(data){
 			 data = JSON.parse(data);
+		
 			console.log(data);
-			 var branddis = '';
+			 var shopdis = '';
 			if(data.length <= 0){
-				branddis +='<div  class="nham-dropdown-noresult">';
-				branddis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				branddis +='  Searching "'+cutString(srchbrandname , 35)+'" has no Result!</p>';
-				branddis +='</div>';
-				branddis +='<div class="nham-dropdown-question">';
-				branddis +='<p>Do you want to register "'+cutString(srchbrandname , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
-				branddis +='</div>';
+				shopdis +='<div  class="nham-dropdown-noresult">';
+				shopdis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
+				shopdis +='  Searching "'+cutString(srchshopname , 35)+'" has no Result!</p>';
+				shopdis +='</div>';
+				shopdis +='<div class="nham-dropdown-question">';
+				shopdis +='<p>Do you want to register "'+cutString(srchshopname , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
+				shopdis +='</div>';
 				$("#nham-dropdown-footer").show();
 			}else{	
+		
 				$("#nham-dropdown-footer").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 branddis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].brand_id+'" /><p><span class="title">'+data[i].brand_name+'</span></p></div>';
+					 shopdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_id+'" /><p><span class="title">'+data[i].shop_name_en+'</span></p></div>';
 				 }				
 				
 			}
-			$("#display-result").html(branddis); 					 
+			$("#display-result").html(shopdis); 					 
    	 	 }
    });
 });
-$("#yesbrand").on("mousedown",function(){
+$("#yeshop").on("mousedown",function(){
 	var branddata = {
 		"BrandData" : {
-			"brand_name" : $("#brandname").val(),
+			"brand_name" : $("#shopname").val(),
 			"brand_remark": ""
 		}
 	};
@@ -527,8 +504,6 @@ $("#yesbrand").on("mousedown",function(){
 		}
 	});
 });
-
-
 $("#yesregion").on("mousedown",function(){
 	var regiondata = {
 		"RegionData" : {
@@ -553,13 +528,42 @@ $("#yesregion").on("mousedown",function(){
 		}
 	});
 });
-
-
-
-$("#shoptypename").on("focus keyup",function(){
+$("#productaste").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-shoptype").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	$("#display-result-taste").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	if(srchname == '' || srchname == null) srchname = "all";
+	$.ajax({
+		 type: "GET",
+		 url: "/NhameyWebBackEnd/API/ProductTasteRestController/getTasteByNameCombo/"+srchname+"/10", 
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var dis = '';
+			if(data.length <= 0){
+				dis +='<div  class="nham-dropdown-noresult">';
+				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
+				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
+				dis +='</div>';
+				dis +='<div class="nham-dropdown-question">';
+				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
+				dis +='</div>';
+				$("#nham-dropdown-footer-taste").show();
+			}else{	
+				$("#nham-dropdown-footer-taste").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].taste_id+'" /><p><span class="title">'+data[i].taste_name+'</span></p></div>';
+				 }				
+				
+			}
+			$("#display-result-taste").html(dis); 					 
+   	 	 }
+   });
+});
+$("#pro_cuisine").on("focus keyup",function(){
+	var srchname = $(this).val();
+	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	$("#display-result-taste").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
@@ -576,61 +580,29 @@ $("#shoptypename").on("focus keyup",function(){
 				dis +='<div class="nham-dropdown-question">';
 				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
 				dis +='</div>';
-				$("#nham-dropdown-footer-shoptype").show();
+				$("#nham-dropdown-footer-procuisine").show();
 			}else{	
-				$("#nham-dropdown-footer-shoptype").hide();		
+				$("#nham-dropdown-footer-procuisinee").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
 					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_type_id+'" /><p><span class="title">'+data[i].shop_type_name+'</span></p></div>';
 				 }				
 				
 			}
-			$("#display-result-shoptype").html(dis); 					 
+			$("#display-result-procuisine").html(dis); 					 
    	 	 }
    });
 });
-$("#pro_region").on("focus keyup",function(){
-	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-shoptype").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
-	if(srchname == '' || srchname == null) srchname = "all";
-	$.ajax({
-		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ShopTypeRestController/getShopTypeByNameCombo/"+srchname+"/10", 
-		 success: function(data){
-			 data = JSON.parse(data);
-			console.log(data);
-			 var dis = '';
-			if(data.length <= 0){
-				dis +='<div  class="nham-dropdown-noresult">';
-				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
-				dis +='</div>';
-				dis +='<div class="nham-dropdown-question">';
-				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
-				dis +='</div>';
-				$("#nham-dropdown-footer-shoptype").show();
-			}else{	
-				$("#nham-dropdown-footer-shoptype").hide();		
-				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_type_id+'" /><p><span class="title">'+data[i].shop_type_name+'</span></p></div>';
-				 }				
-				
-			}
-			$("#display-result-shoptype").html(dis); 					 
-   	 	 }
-   });
-});
-$("#yesshoptype").on("mousedown",function(){
-	var shoptypedata = {
-		"ShoptypeData" : {
-			"shop_type_name" : $("#shoptypename").val(),
-			"shop_type_remark": ""
+$("#yesproductaste").on("mousedown",function(){
+	var tastedata = {
+		"tastedata" : {
+			"taste_name" : $("#productaste").val(),
+			"taste_remark": ""
 		}
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/ShopTypeRestController/insertShopType",
-		data : shoptypedata,
+		url : "/NhameyWebBackEnd/API/ProductTasteRestController/insertTaste",
+		data : tastedata,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
@@ -638,16 +610,12 @@ $("#yesshoptype").on("mousedown",function(){
 				alert("Insert error!");
 			}else{
 				//alert(data);
-				$("#selectedshoptype").val(data.shop_type_id);
+				$("#selectedtaste").val(data.taste_id);
 			}
 			
 		}
 	});
 });
-
-
-
-
 	
   </script>
 </html>
