@@ -14,14 +14,12 @@ class ProductTasteRestController extends CI_Controller{
 		echo "HI";	
 	}	
 	
-	public function getTasteByNameCombo( $Tastename , $limit=null ){	
+	public function getTasteByNameCombo(){	
 	
-	if(!isset($limit))	
-		$limit = 10;		
-		$Tastename = urldecode($Tastename);				
-		if($Tastename == "all") 
-			$Tastename = "";	
-		
+		$Tastename = $this->input->get('srchname');
+		$limit = $this->input->get('limit');
+		if($limit == null)
+			$limit = 10;
 			$data = $this->TasteModel->getTasteByNameCombo($Tastename , $limit);		
 			$json = json_encode($data);		
 			echo $json;	
