@@ -1,27 +1,32 @@
 <?php
 class BrandRestController extends CI_Controller{
 	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model("BrandModel");			
+	}
+	
 	public function index(){
 		$this->load->view('index');
 	}
 	
 	public function getAllBrand(){
-		
+		$this->load->model("BrandModel");
 		$data = $this->BrandModel->getAllBrand();		
 		$json = json_encode($data);
 		echo $json;
 		
 	}
 	
-	public function getBrandByNameCombo( $brandname , $limit=null ){
+	public function getBrandByNameCombo(){
 		
-		$brandname = urldecode($brandname);
-		$limit = urldecode($limit);
-		if(!isset($limit))
+		$brandname = $this->input->get('srchname');
+		$limit = $this->input->get('limit');
+		if($limit == null)
 		{
 			$limit = 10;
-		}
-		if($brandname == "all") $brandname = "";
+		}				
 		$data = $this->BrandModel->getBrandByNameCombo($brandname , $limit);
 		$json = json_encode($data);
 		echo $json;
