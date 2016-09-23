@@ -107,7 +107,7 @@
 			                    	</div>			                    	
 			                  	</div>
 		                     </div>
-		                             <div class="form-group ">
+		                    <div class="form-group ">
 			                    <label>Types of Cuisine</label>
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
@@ -123,7 +123,7 @@
 			       				
 			                  				</div>
 			                  				<div id="nham-dropdown-footer-procuisine" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesproductaste">Yes</button>
+			                  					<button class="btn nhamey-btn" id="yesprocuisine">Yes</button>
 			                  				</div>
 			                  			</div>
 			                    	</div>			                    	
@@ -209,75 +209,10 @@
  
   <script>
 //phone adding
-  var shopphones = [];
-  var logoimagename = "";
-  
-  $('.inputmaskphone').inputmask({
-	  mask: '999-999-9999'
-	});
-  
-  $('.timeformat').inputmask({
-	  mask: '99:99'
-	});
-  //Flat red color scheme for iCheck
-  $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-    checkboxClass: 'icheckbox_flat-red',
-    radioClass: 'iradio_flat-red'
-  });
-  
-$(".nham-append-data").on("click",function(){
-	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
-	if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
-	
-	shopphones.push(phonenum);
-	displayPhones(shopphones);
-	console.log(shopphones);	
-	$("#shop_phonenum").val("");
-	
-});
-$(document).on("click",".close-phone",function(){
-	var arrayno = parseInt($(this).siblings(".phone-wrapper").find("input").val());
-	shopphones.splice(arrayno , 1);
-	displayPhones(shopphones);
-	console.log(shopphones);
-	//var shopphoneslash = shopphones.toString().replace(/[,]/g,"|").trim();
-	//alert(shopphoneslash);	
-});
-function displayPhones( data ){
-	var dis =""; 
-	for( var i=0 ; i<data.length ; i++){
-		dis += '<span class="nham-box-wrap">';
-		dis += '<span class="phone-wrapper"><input type="hidden" value="'+i+'" />'+data[i]+'</span>';
-		dis += '<i class="fa fa-close close-phone" style="margin-left:5px;margin-top:5px;" ></i>';
-		dis += '</span>';
-	}
-	$("#phone-add-result").html(dis);
-}
-//close phone adding
-$("#allday").on("change", function () {
-	if($(this).is(":checked")){		
-		$(".work-day").prop('checked', true);
-	}else{
-		$(".work-day").prop('checked', false);
-	}
-});
-$(".work-day").on("change", function(){
-	if($(this).is(":checked")){
-		var len = $("input.work-day:checked").length;
-		if(len >= 7){
-			$("#allday").prop('checked', true);
-		}
-	}else{
-		$("#allday").prop('checked', false);
-	}
-});
-function countWorkingday(){
-	var workingday = [];
-	$('input.work-day:checked').each(function() {		
-		workingday.push(this.value);
-	});
-	return workingday;
-}
+
+ var logoimagename = "";
+
+
 $("#input-44").fileinput({
      uploadUrl: '/file-upload-batch/2',
      maxFilePreviewSize: 10240,
@@ -375,26 +310,7 @@ function upoloadLogoToServer(){
 		});
 	} 
 }
-$("#cover-upload-image").on("click",function(){	
-	$("#coverupload").click();
-});
-$("#coverupload").change(function(){
-	uploadCover(this);
-});
-function uploadCover(input){
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
- 		reader.onload = function (e) {
-		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		              $('#cover-upload-wrapper').html(myimg);
-		}
-		reader.readAsDataURL(input.files[0]);
-	}else{
-		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Cover image </p>';
-		 $('#cover-upload-wrapper').html(txt);
-	}
-	
-}
+
 function getDataToInsert(){
 	var shopdata = {
 		"ShopData":{
@@ -448,15 +364,15 @@ $("#shopname").on("focus keyup",function(){
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
 	
-	if(srchshopname == '' || srchshopname == null) srchshopname = "all";
-	
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ShopRestController/getShopByNameCombo/"+srchshopname+"/10", 
-		
+		 url: "/NhameyWebBackEnd/API/ShopRestController/getShopByNameCombo", 
+		 data : {			 
+				"srchname" : srchshopname,
+				"limit" : 10		 	
+		 },
 		 success: function(data){
-			 data = JSON.parse(data);
-		
+			data = JSON.parse(data);
 			console.log(data);
 			 var shopdis = '';
 			if(data.length <= 0){
@@ -493,7 +409,7 @@ $("#yeshop").on("mousedown",function(){
 		data : branddata,
 		success : function(data){
 			 data = JSON.parse(data);
-			console.log(data);
+			//console.log(data);
 			if(data.is_insert == false){
 				alert("error");
 			}else{
@@ -504,16 +420,16 @@ $("#yeshop").on("mousedown",function(){
 		}
 	});
 });
-$("#yesregion").on("mousedown",function(){
+$("#yesprocuisine").on("mousedown",function(){
 	var regiondata = {
-		"RegionData" : {
-			"region_name" : $("#regionid").val(),
-			"region_remark": ""
+		"CuisineData" : {
+			"cuisine_name" : $("#pro_cuisine").val(),
+			"cuisine_remark": ""
 		}
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/RegionRestController/insertRegion",
+		url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
 		data : regiondata,
 		success : function(data){
 			data = JSON.parse(data);
@@ -522,7 +438,7 @@ $("#yesregion").on("mousedown",function(){
 				alert("Insert error!");
 			}else{
 				//alert(data);
-				$("#selectedregion").val(data.region_id);
+				$("#selectedprocuisine").val(data.cuisine_id);
 			}
 			
 		}
@@ -532,10 +448,14 @@ $("#productaste").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result-taste").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
-	if(srchname == '' || srchname == null) srchname = "all";
+
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ProductTasteRestController/getTasteByNameCombo/"+srchname+"/10", 
+		 url: "/NhameyWebBackEnd/API/ProductTasteRestController/getTasteByNameCombo", 
+		 data : {			 
+				"srchname" : srchname,
+				"limit" : 10		 	
+		 },
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
@@ -564,10 +484,14 @@ $("#pro_cuisine").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result-taste").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
-	if(srchname == '' || srchname == null) srchname = "all";
+	
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ShopTypeRestController/getShopTypeByNameCombo/"+srchname+"/10", 
+		 url: "/NhameyWebBackEnd/API/CuisineRestController/getCuisineByNameCombo/", 
+		 data:{
+			 "srchname" : srchname,
+			 "limit"    : 10
+		 },
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
@@ -582,9 +506,9 @@ $("#pro_cuisine").on("focus keyup",function(){
 				dis +='</div>';
 				$("#nham-dropdown-footer-procuisine").show();
 			}else{	
-				$("#nham-dropdown-footer-procuisinee").hide();		
+				$("#nham-dropdown-footer-procuisine").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_type_id+'" /><p><span class="title">'+data[i].shop_type_name+'</span></p></div>';
+					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].cuisine_id+'" /><p><span class="title">'+data[i].cuisine_name+'</span></p></div>';
 				 }				
 				
 			}
