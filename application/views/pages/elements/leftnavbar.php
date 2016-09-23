@@ -29,7 +29,16 @@
           
               </ul>
         </li>
-		<li><a href="product"> <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Product Management</span></a></li>
+			<li class="treeview">
+              <a href="#">
+                <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Product Management</span><i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="addproduct"><i class="fa fa-circle-o"></i> Add Product</a></li>
+               
+          
+              </ul>
+        </li>
 		<li><a href="user"> <i class="fa fa-users" aria-hidden="true"></i> <span>User Management</span></a></li>
 		<!-- <li><a href="post"> <i class="fa fa-pencil-square" aria-hidden="true"></i> <span>Post Management</span></a></li>
 		<li><a href="comment"> <i class="fa fa-comments" aria-hidden="true"></i> <span>Comment Management</span></a></li> -->
