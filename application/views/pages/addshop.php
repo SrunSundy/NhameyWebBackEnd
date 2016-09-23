@@ -216,7 +216,7 @@ span.select2-selection{
 					                  <div style="clear:both;"></div>
 					                 </div>
 				                  </div>
-				                  <div class="col-lg-12" style="margin-bottom:20px;">
+				                  <div class="col-lg-12" style="margin-bottom:20px;;margin-top:-10px;">
 				                  	<div class="row">
 					                   					                    
 					                     <div class="nham-control-group div-top-gap">
@@ -284,9 +284,9 @@ span.select2-selection{
 				                      </div>
 					                  <div style="float:left;margin-left: 20px;">
 						                  <div class="form-group">
-						                    	  <div class="nham-control-group">
+						                    	  <div class="">
 												    <label class="nham-control nham-control--checkbox">All
-												      <input type="checkbox"  value="0" id="allday"/>
+												      <input type="checkbox"  value="0" id="allfacilities"/>
 												      <div class="nham-control__indicator"></div>
 												    </label>
 												  </div>			                   
@@ -296,36 +296,36 @@ span.select2-selection{
 					                  <div style="clear:both;"></div>
 					                 </div>
 				                  </div>
-				                  <div class="col-lg-12" style="margin-bottom:20px;">
+				                  <div class="col-lg-12" style="margin-bottom:20px;margin-top:-10px;">
 				                  	<div class="row">
 					                   					                    
-					                     <div class="nham-control-group div-top-gap">
+					                     <div class=" col-lg-12 div-top-gap" >
 											  <label class="nham-control nham-control--checkbox">WiFi
-											    <input type="checkbox"  id="mon" value="1"  class=""/>
+											    <input type="checkbox"  id="wifi" value="1"  class="shop-facility"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
-											  <label class="nham-control nham-control--checkbox">Parking lot
-											    <input type="checkbox"  id="mon" value="2"  class=""/>
+										<div class=" col-lg-12 div-top-gap" >
+											  <label class="nham-control nham-control--checkbox" >Parking lot
+											    <input type="checkbox"  id="parking" value="2"  class="shop-facility"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class=" col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Air Conditioner
-											    <input type="checkbox" id="mon" value="3"  class=""/>
+											    <input type="checkbox" id="aircon" value="3"  class="shop-facility"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class=" col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Reservation
-											    <input type="checkbox"  id="mon" value="4"  class=""/>
+											    <input type="checkbox"  id="reserve" value="4"  class="shop-facility"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class=" col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Tax Invoice
-											    <input type="checkbox"  id="mon" value="5"  class=""/>
+											    <input type="checkbox"  id="taxinvoice" value="5"  class="shop-facility"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
@@ -430,7 +430,7 @@ span.select2-selection{
 			                		<div class="row">
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-globe font-size-20" aria-hidden="true"></i></span>
-						                     <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
+						                     <select class="form-control nham-control  select2" id="nham_country" style="width: 100%; border-radius: 0!important;">
 						                      <option selected="selected">Alabama</option>
 						                      <option>Alaska</option>
 						                      <option>California</option>
@@ -448,7 +448,7 @@ span.select2-selection{
 			                		<div class="row">
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map " aria-hidden="true"  ></i></span>
-						                     <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
+						                     <select class="form-control nham-control  select2" id="nham_city"  style="width: 100%; border-radius: 0!important;">
 						                      <option selected="selected">Alabama</option>
 						                      <option>Alaska</option>
 						                      <option>California</option>
@@ -466,7 +466,25 @@ span.select2-selection{
 			                		<div class="row">
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
-						                     <select class="form-control nham-control  select2" style="width: 100%; border-radius: 0!important;">
+						                     <select class="form-control nham-control  select2"  style="width: 100%; border-radius: 0!important;">
+						                      <option selected="selected">Alabama</option>
+						                      <option>Alaska</option>
+						                      <option>California</option>
+						                      <option>Delaware</option>
+						                      <option>Tennessee</option>
+						                      <option>Texas</option>
+						                      <option>Washington</option>
+						                    </select>
+						                  </div>
+						                
+					                 </div>
+				                 </div>
+				                 
+				                  <div class="col-lg-12 ">
+			                		<div class="row">
+						                 <div class="input-group top-gap">
+						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
+						                     <select class="form-control nham-control select2"  style="width: 100%; border-radius: 0!important;">
 						                      <option selected="selected">Alabama</option>
 						                      <option>Alaska</option>
 						                      <option>California</option>
@@ -484,7 +502,7 @@ span.select2-selection{
 			                		<div class="row">
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map-marker font-size-20" aria-hidden="true"  ></i></span>
-						                    <input id="shoptwitter" type="text" class="form-control" placeholder="Street number..">
+						                    <input id="shopstreetno" type="text" class="form-control" placeholder="Street No">
 						                  </div>
 					                 </div>
 				                 </div>
@@ -525,7 +543,7 @@ span.select2-selection{
 										<script type="text/javascript"
 											 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSDjBA-4xhfV7TGP1jrTBcBJ4p70mmezo"></script>
 										
-										<div id="map_canvas" style="width: 100%; height: 570px;"></div>
+										<div id="map_canvas" style="width: 100%; height: 610px;"></div>
 									</div>
 				                </div>
 			                 </div> 
@@ -574,85 +592,83 @@ span.select2-selection{
 
   </body>
 	
-									<script>
-										var map;
-									    var geocoder;
-									  
-									    var mapOptions = { 
-											center: new google.maps.LatLng(0.0, 0.0),
-											zoom: 2,
-									        mapTypeId: google.maps.MapTypeId.ROADMAP 
-										};
-									
-									    function initialize() {
-											var mylocationmarker = {lat: 11.559844756373714, lng:  104.91085053014103};
-											var myOptions = {
-									            center: new google.maps.LatLng(11.559844756373714, 104.91085053014103 ),
-									            zoom: 14,
-									            scrollwheel: false,
-									            mapTypeId: google.maps.MapTypeId.ROADMAP
-									        };
-											
-									        geocoder = new google.maps.Geocoder();
-									        var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-									        google.maps.event.addListener(map, 'click', function(event) {
-									            placeMarker(event.latLng);
-									        });
-											
-											
-									        var marker = new google.maps.Marker({
-									          position: mylocationmarker,
-									          map: map,
-									        });
-									        function placeMarker(location) {
-												if(marker){ 
-													marker.setPosition(location); 
-											    }else{
-													marker = new google.maps.Marker({ 
-														position: location, 
-														map: map
-													});
-												}
-									          /*   document.getElementById('lat').value=location.lat();
-									            document.getElementById('lng').value=location.lng(); */
-									          //  alert(location);
-									           // getAddress(location);
-									          
-									        }
-									        $("#detectlocation").on("click", function(){
-										        var delocation = {lat: parseFloat($("#lat-location").val()) , lng: parseFloat($("#lng-location").val())};
-										        alert(delocation);
-												marker.setPosition(delocation);												
-												map.panTo(delocation); 
-												//map.setCenter(test);
-												 marker.setAnimation(google.maps.Animation.DROP);
+<script>
+   var map;
+   var geocoder;
+   var mapOptions = { 
+		center: new google.maps.LatLng(0.0, 0.0),
+		zoom: 2,
+		mapTypeId: google.maps.MapTypeId.ROADMAP 
+	};								
+	function initialize() {
+		var mylocationmarker = {lat: 11.559844756373714, lng:  104.91085053014103};
+		var myOptions = {
+				center: new google.maps.LatLng(11.559844756373714, 104.91085053014103 ),
+				zoom: 14,
+				scrollwheel: false,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		geocoder = new google.maps.Geocoder();
+		var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+		google.maps.event.addListener(map, 'click', function(event) {
+				placeMarker(event.latLng);
+		});
+																						
+		var marker = new google.maps.Marker({
+			position: mylocationmarker,
+			map: map,
+		});
+		
+		function placeMarker(location) {
+			if(marker){ 
+				marker.setPosition(location); 
+			}else{
+				marker = new google.maps.Marker({ 
+					position: location, 
+					map: map
+				});
+			}	
+			getAddress(location);									         
+			$("#lat-location").val(location.lat());
+			$("#lng-location").val(location.lng());
+		 }
+
+		$("#detectlocation").on("click", function(){
+		
+			var delocation = {lat: parseFloat($("#lat-location").val()) , lng: parseFloat($("#lng-location").val())};
+			getAddress(delocation);
+			marker.setPosition(delocation);												
+			map.panTo(delocation); 
+			//map.setCenter(test);
+			marker.setAnimation(google.maps.Animation.DROP);
 												
-									        });
+		});
 									      
-									     /*  function getAddress(latLng) {
-									        geocoder.geocode( {'latLng': latLng},
-									          function(results, status) {
-												
-									            if(status == google.maps.GeocoderStatus.OK) {
-												  
-									              if(results[0]) {
-									              //  document.getElementById("address").value = results[0].formatted_address;
-									              }
-									              else {
-									              //  document.getElementById("address").value = "No results";
-									              }
-									            }
-									            else {
-									            //  document.getElementById("address").value = status;
-									            }
-									          });
-									        } */
-									      }
-									      google.maps.event.addDomListener(window, 'load', initialize)
+		function getAddress(latLng) {
+			var address = "";
+			geocoder.geocode( {'latLng': latLng}, function(results, status) {				
+				console.log(results);	
+				if($("#shopstreetno").val() == ""){
+					if(status == google.maps.GeocoderStatus.OK) {												  
+						if(results[0]) {												              
+							$("#shopstreetno").val(results[0].formatted_address);
+						 }
+						else {
+							$("#shopstreetno").val("No results");
+						 }
+					}
+					else {
+						$("#shopstreetno").val(status);
+					}
+				}												  										        															           
+			});
+		}
+	}
+	google.maps.event.addDomListener(window, 'load', initialize)
 									
-									</script>
+</script>
  
-  <script>
+ <script>
 
 //phone adding
 $(document).ready(function(){
@@ -748,6 +764,44 @@ function countWorkingday(){
 	});
 	return workingday;
 }
+
+
+$("#allfacilities").on("change", function(){
+	if($(this).is(":checked")){		
+		$(".shop-facility").prop('checked', true);
+	}else{
+		$(".shop-facility").prop('checked', false);
+	}
+});
+$(".shop-facility").on("change", function(){
+	
+	if($(this).is(":checked")){
+		var len = $("input.shop-facility:checked").length;
+		if(len >= 5){
+			$("#allfacilities").prop('checked', true);
+		}
+	}else{
+		$("#allfacilities").prop('checked', false);
+	}
+});
+function getShopFacilityData(){
+	var shopfacilities = {
+		"wifi" : isCheckFacility("wifi"),
+		"parking-lot" : isCheckFacility("parking"),
+		"air-conditioner" : isCheckFacility("aircon"),
+		"reservation" : isCheckFacility("reserve"),
+		"tax-invoice": isCheckFacility("taxinvoice")
+	};
+	return shopfacilities;
+}
+function isCheckFacility( radioid ){
+	var check = 0;
+	if($("#"+radioid).is(":checked")){
+		check = 1;
+	}
+	return check;
+}
+
 
 
 $("#input-44").fileinput({
@@ -1119,6 +1173,9 @@ function uploadShopImageDetailToServer(){
 }
 
 
+function getAddress(){
+	
+}
 function getDataToInsert(){
 	var shopdata = {
 		"ShopData":{
@@ -1169,7 +1226,7 @@ $("#saveshop").on("click",function(){
    /*  alert($("#logoupload").val());
     alert(logoimagename); */
   //  uploadShopImageDetailToServer();
-	  console.log(getDataToInsert());
+	  console.log(getShopFacilityData());
 });
 
 
@@ -1180,10 +1237,13 @@ $("#brandname").on("focus keyup",function(){
 	var srchbrandname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
-	if(srchbrandname == '' || srchbrandname == null) srchbrandname = "all";
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/BrandRestController/getBrandByNameCombo/"+srchbrandname+"/10", 
+		 url: "/NhameyWebBackEnd/API/BrandRestController/getBrandByNameCombo", 
+		 data : {			 
+			"srchname" : srchbrandname,
+			"limit" : 10		 	
+		 },
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
@@ -1242,10 +1302,13 @@ $("#cuisinename").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result-cuisine").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
-	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/CuisineRestController/getCuisineByNameCombo/"+srchname+"/10", 
+		 url: "/NhameyWebBackEnd/API/CuisineRestController/getCuisineByNameCombo",
+		 data:{
+			"srchname" : srchname,
+			"limit" : 10
+		 }, 
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
@@ -1302,10 +1365,13 @@ $("#shoptypename").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result-shoptype").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
-	if(srchname == '' || srchname == null) srchname = "all";
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ShopTypeRestController/getShopTypeByNameCombo/"+srchname+"/10", 
+		 url: "/NhameyWebBackEnd/API/ShopTypeRestController/getShopTypeByNameCombo", 
+		 data : {
+			"srchname" : srchname,
+			"limit" : 10
+		 },
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
