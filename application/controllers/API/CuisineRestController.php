@@ -1,20 +1,25 @@
 <?php
 class CuisineRestController extends CI_Controller{
 	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model("CuisineModel");
+	}
+	
 	public function index(){
 		$this->load->view('index');
 	}
 	
-	public function getCuisineByNameCombo( $cuisine , $limit=null ){
+	public function getCuisineByNameCombo(){
 		
-		$cuisine = urldecode($cuisine);
-		$limit = urldecode($limit);
-		
-		if(!isset($limit))
+		$cuisine = $this->input->get('srchname');
+		$limit = $this->input->get('limit');
+		if($limit == null)
 		{
 			$limit = 10;
 		}
-		if($cuisine == "all") $cuisine = "";
+		
 		$data = $this->CuisineModel->getCuisineByNameCombo( $cuisine , $limit );
 		$json = json_encode($data);
 		echo $json;

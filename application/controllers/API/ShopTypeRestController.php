@@ -1,20 +1,25 @@
 <?php
 class ShopTypeRestController extends CI_Controller{
 	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model("ShopTypeModel");
+	}
+	
 	public function index(){
 		$this->load->view('index');
 	}
 	
-	public function getShopTypeByNameCombo( $shoptype , $limit=null ){
+	public function getShopTypeByNameCombo(){
 		
-		$shoptype = urldecode($shoptype);
-		$limit = urldecode($limit);
-		
-		if(!isset($limit))
+		$shoptype = $this->input->get('srchname');
+		$limit = $this->input->get('limit');
+		if($limit == null)
 		{
 			$limit = 10;
 		}
-		if($shoptype == "all") $shoptype = "";
+		
 		$data = $this->ShopTypeModel->getShopTypeByNameCombo( $shoptype , $limit );
 		$json = json_encode($data);
 		echo $json;
