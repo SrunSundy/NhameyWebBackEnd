@@ -1,15 +1,15 @@
 <?php
 class ShopTypeModel extends CI_Model{
 	
-	function getShopTypeByNameCombo( $shoptype , $limit ){
+	function getShopTypeByName( $shoptype , $limit ,  $status){
 		
     	$sql = "SELECT shop_type_id,shop_type_name from nham_shop_type 
-    			WHERE shop_type_name LIKE ? AND shop_type_status = 1 
+    			WHERE REPLACE(shop_type_name, ' ', '') LIKE REPLACE(?,' ','')  AND shop_type_status in (?,?)
     			ORDER BY shop_type_id DESC 
     			LIMIT ?";
     	$shoptype = "%".$shoptype."%";
     	$limit = (int)$limit;
-    	$query = $this->db->query($sql, array($shoptype, $limit) );
+    	$query = $this->db->query($sql, array($shoptype, $status["statusA"] , $status["statusB"] ,$limit) );
     	$data = $query->result();
     	return $data;
     	

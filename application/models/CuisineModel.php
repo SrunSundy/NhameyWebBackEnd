@@ -1,15 +1,17 @@
 <?php
 class CuisineModel extends  CI_Model{
 	
-    function getCuisineByNameCombo( $cuisine , $limit ){
+    function getCuisineByName( $cuisine , $limit , $status){
 		
+    	$statusA = $status["statusA"];
+    	$statusB = $status["statusB"];
     	$sql = "SELECT cuisine_id,cuisine_name from nham_cuisine 
-    			WHERE cuisine_name LIKE ? AND cuisine_status = 1 
+    			WHERE  REPLACE(cuisine_name, ' ', '') LIKE REPLACE(?,' ','') AND cuisine_status in (?,?) 
     			ORDER BY cuisine_id DESC 
     			LIMIT ?";
     	$cuisine = "%".$cuisine."%";
     	$limit = (int)$limit;
-    	$query = $this->db->query($sql, array($cuisine, $limit) );
+    	$query = $this->db->query($sql, array($cuisine, $status["statusA"] , $status["statusB"]  ,$limit) );
     	$data = $query->result();
     	return $data;
     	

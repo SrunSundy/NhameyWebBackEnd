@@ -9,15 +9,15 @@ class BrandModel extends CI_Model{
 		
 	}
 	
-	function getBrandByNameCombo($brandname , $limit){
+	function getBrandByName($brandname , $limit , $status){
 		
 		$sql = "SELECT brand_id,brand_name,brand_remark FROM nham_brand
-				WHERE brand_name LIKE ? and brand_status=1 
+				WHERE REPLACE(brand_name, ' ', '') LIKE REPLACE(?,' ','') and brand_status in (?,?)
 				ORDER BY brand_id DESC 
 				limit ?";
 		$brandname = "%".$brandname."%";
 		$limit = (int)$limit;
-		$query = $this->db->query($sql, array($brandname, $limit) );
+		$query = $this->db->query($sql, array($brandname, $status["statusA"] , $status["statusB"] ,$limit) );
 		$data = $query->result();
 		return $data;
 		
