@@ -1,4 +1,5 @@
 <!-- Tell the browser to be responsive to screen width -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/bootstrap/css/bootstrap.min.css">
@@ -24,6 +25,8 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/datepicker/datepicker3.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/daterangepicker/daterangepicker-bs3.css">
+     <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/timepicker/bootstrap-timepicker.min.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?php echo base_url() ?>application/views/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     

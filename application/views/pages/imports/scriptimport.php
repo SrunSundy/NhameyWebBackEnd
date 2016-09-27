@@ -18,6 +18,9 @@
      <!-- daterangepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
     <script src="<?php echo base_url() ?>application/views/plugins/daterangepicker/daterangepicker.js"></script>
+    
+     <!-- bootstrap time picker -->
+    <script src="<?php echo base_url() ?>application/views/plugins/timepicker/bootstrap-timepicker.min.js"></script>
   <!-- Slimscroll -->
     <script src="<?php echo base_url() ?>application/views/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     

@@ -196,7 +196,7 @@ span.select2-selection{
 			                      <input id="shopemail" type="text" class="form-control" placeholder="Shop Email address">			                      
 		                      </div>
 		                      
-		                      <div class="form-group"  >
+		                      <div class="form-group" style="min-height:100px;"  >
 		                      	<div class="col-lg-12">
 		                      		<div class="row">
 				                      <div style="float: left;">
@@ -265,17 +265,21 @@ span.select2-selection{
 				                    </div>
 			                  	  </div>	                      
 		                      </div>
-			                 
-			                  <div class="form-group" >
+			                 			               
+			                  <div class="bootstrap-timepicker form-group">
+			                    <div class="form-group">
 			                      <label>Shop Opening Time</label>
-			                      <input id="shopopentime" type="text" class="form-control timeformat" placeholder="Time to open (ex: 8:00)">			                      
-		                      </div>
-		                      
-		                      <div class="form-group">
+			                      <input id="shopopentime" type="text" class="form-control timepicker" value="9:00">			                      
+			                    </div><!-- /.form group -->
+			                  </div>
+			                  
+			                  <div class="bootstrap-timepicker">
+			                    <div class="form-group">
 			                      <label>Shop Closing Time</label>
-			                      <input id="shopclosetime" type="text" class="form-control timeformat" placeholder="Time to close (ex: 20:30)">			                      
-		                      </div>
-		                      
+			                      <input id="shopclosetime" type="text" class="form-control timepicker" value="21:00">			                      
+			                    </div><!-- /.form group -->
+			                  </div>
+                           		                 	                      
 		                      <div class="form-group" >
 		                      	<div class="col-lg-12">
 		                      		<div class="row">
@@ -336,7 +340,7 @@ span.select2-selection{
 		                      </div>
 		                      
 		                      <div class="input-group top-gap">
-			                    <span class="input-group-addon"><i class="fa fa-facebook-square font-size-20" aria-hidden="true"  ></i></span>
+			                    <span class="input-group-addon "><i class="fa fa-facebook-square font-size-20" aria-hidden="true"  ></i></span>
 			                    <input id="shopfb" type="text" class="form-control" placeholder="Facebook page's link (ex:https://www.facebook.com/shopname)">
 			                  </div>
 			                  			    		                      
@@ -346,15 +350,15 @@ span.select2-selection{
 			                  </div>
 			                  
 			                  <div class="input-group top-gap">
-			                    <span class="input-group-addon"><i class="fa fa-google-plus font-size-20" aria-hidden="true"  ></i></span>
-			                    <input id="shopgoogleplus"  type="text" class="form-control" placeholder="Googleplus page's link (ex:https://plus.google.com)">
-			                  </div>
-			                  
-			                  <div class="input-group top-gap">
 			                    <span class="input-group-addon"><i class="fa fa-twitter font-size-20" aria-hidden="true"  ></i></span>
 			                    <input id="shoptwitter" type="text" class="form-control" placeholder="Twitter page's link (ex:https://twitter.com)">
 			                  </div>
 			                  
+			                  <div class="input-group top-gap">
+			                    <span class="input-group-addon"><i class="fa fa-google-plus font-size-20" aria-hidden="true"  ></i></span>
+			                    <input id="shopgoogleplus"  type="text" class="form-control" placeholder="Googleplus page's link (ex:https://plus.google.com)">
+			                  </div>
+			                  			                 		                  
 			                   <div class="form-group">
 			                     <label>Remark</label>
 			                     <textarea id="shopremark" class="form-control" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
@@ -431,13 +435,7 @@ span.select2-selection{
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-globe font-size-20" aria-hidden="true"></i></span>
 						                     <select class="form-control nham-control  select2" id="nham_country" style="width: 100%; border-radius: 0!important;">
-						                      <option selected="selected">Alabama</option>
-						                      <option>Alaska</option>
-						                      <option>California</option>
-						                      <option>Delaware</option>
-						                      <option>Tennessee</option>
-						                      <option>Texas</option>
-						                      <option>Washington</option>
+						                      	<option selected="selected">----- SELECT COUNTRY -----</option>
 						                    </select>
 						                  </div>
 						                
@@ -449,13 +447,7 @@ span.select2-selection{
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map " aria-hidden="true"  ></i></span>
 						                     <select class="form-control nham-control  select2" id="nham_city"  style="width: 100%; border-radius: 0!important;">
-						                      <option selected="selected">Alabama</option>
-						                      <option>Alaska</option>
-						                      <option>California</option>
-						                      <option>Delaware</option>
-						                      <option>Tennessee</option>
-						                      <option>Texas</option>
-						                      <option>Washington</option>
+						                     	<option  selected="selected">----- SELECT CITY -----</option>
 						                    </select>
 						                  </div>
 						                
@@ -466,14 +458,8 @@ span.select2-selection{
 			                		<div class="row">
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
-						                     <select class="form-control nham-control  select2"  style="width: 100%; border-radius: 0!important;">
-						                      <option selected="selected">Alabama</option>
-						                      <option>Alaska</option>
-						                      <option>California</option>
-						                      <option>Delaware</option>
-						                      <option>Tennessee</option>
-						                      <option>Texas</option>
-						                      <option>Washington</option>
+						                     <select class="form-control nham-control  select2" id="nham_district"  style="width: 100%; border-radius: 0!important;">
+						                    	<option  selected="selected">----- SELECT DISTRICT -----</option>
 						                    </select>
 						                  </div>
 						                
@@ -484,14 +470,8 @@ span.select2-selection{
 			                		<div class="row">
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
-						                     <select class="form-control nham-control select2"  style="width: 100%; border-radius: 0!important;">
-						                      <option selected="selected">Alabama</option>
-						                      <option>Alaska</option>
-						                      <option>California</option>
-						                      <option>Delaware</option>
-						                      <option>Tennessee</option>
-						                      <option>Texas</option>
-						                      <option>Washington</option>
+						                     <select class="form-control nham-control select2" id="nham_commune"  style="width: 100%; border-radius: 0!important;">
+						                     	<option  selected="selected">----- SELECT COMMUNE -----</option>
 						                    </select>
 						                  </div>
 						                
@@ -502,7 +482,7 @@ span.select2-selection{
 			                		<div class="row">
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map-marker font-size-20" aria-hidden="true"  ></i></span>
-						                    <input id="shopstreetno" type="text" class="form-control" placeholder="Street No">
+						                    <input id="shopstreetad" type="text" class="form-control" placeholder="Street Address">
 						                  </div>
 					                 </div>
 				                 </div>
@@ -676,6 +656,11 @@ $(document).ready(function(){
 	$(".select2").select2();
 	$("span.select2-selection").css({ "height":"35px","border-radius" : "0","border":"1px solid #ccc"});
 	
+	 $(".timepicker").timepicker({
+         showInputs: false,
+         showMeridian : false,
+         maxHours : 24
+      });
 	
 });
   var shopphones = [];
@@ -683,6 +668,95 @@ $(document).ready(function(){
   var logoimagename = "";
   var coverimagename = "";
 
+  loadCountryData();
+
+  function loadCountryData(){
+
+	 $.ajax({
+		type : "GET",
+		url  : "/NhameyWebBackEnd/API/CountryRestController/getCountryCombo",
+		success : function(data){
+			data = JSON.parse(data);
+			console.log(data);
+			$("#nham_country").remove();
+			var country = '<option>----- SELECT COUNTRY -----</option>';
+			for(var i=0 ; i< data.length; i++){
+				if(i==0){
+					country += '<option selected="selected" value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
+				}
+				country +='<option value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
+			}
+			$("#nham_country").append(country);
+			loadCityData($("#nham_country").val());
+		}		
+	 });
+  }
+
+  function loadCityData( countryid ){
+
+	  $.ajax({
+			type : "GET",
+			url  : "/NhameyWebBackEnd/API/CityRestController/getCityCombo/"+countryid,
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				$("#nham_city").remove();
+				var city = '<option >----- SELECT CITY -----</option>';
+				for(var i=0 ; i< data.length; i++){
+					if(i == 0){
+						city +='<option selected="selected" value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
+					}
+					city +='<option value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
+				}
+				$("#nham_city").append(city);
+				loadDistrictData( $("#nham_city").val() );
+			}		
+	  });
+  }
+
+  function loadDistrictData( cityid ){
+
+	  $.ajax({
+			type : "GET",
+			url  : "/NhameyWebBackEnd/API/DistrictRestController/getDistrictCombo/"+cityid,
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				$("#nham_district").remove();
+				var district = '<option >----- SELECT DISTRICT -----</option>';
+				for(var i=0 ; i< data.length; i++){
+					if(i == 0){
+						district +='<option selected="selected" value="'+data[i].district_id+'">'+data[i].district_name+'</option>';
+					}
+					district +='<option value="'+data[i].district_id+'">'+data[i].district_name+'</option>';
+				}
+				$("#nham_district").append(district);
+				loadCommuneData( $("#nham_district").val() );
+			}		
+	  });
+  }
+
+  function loadCommuneData( districtid ){
+
+	  $.ajax({
+			type : "GET",
+			url  : "/NhameyWebBackEnd/API/CommuneRestController/getCommuneCombo/"+districtid,
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				$("#nham_commune").remove();
+				var commune = '<option >----- SELECT COMMUNE -----</option>';
+				for(var i=0 ; i< data.length; i++){
+					if(i == 0){
+						commune +='<option selected="selected" value="'+data[i].commune_id+'">'+data[i].commune_name+'</option>';
+					}
+					commune +='<option value="'+data[i].commune_id+'">'+data[i].commune_name+'</option>';
+				}
+				$("#nham_commune").append(commune);
+			}		
+	  });
+  }
+  
   $('#lat-location').keyup(function() {
 	  //code to not allow any changes to be made to input field
 	 // var boo = $(this).val().match(/[\d]/g,'');
@@ -695,10 +769,6 @@ $(document).ready(function(){
  
   $('.inputmaskphone').inputmask({
 	  mask: '999-999-9999'
-	});
-  
-  $('.timeformat').inputmask({
-	  mask: '99:99'
 	});
 /*   //Flat red color scheme for iCheck
   $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
@@ -942,8 +1012,8 @@ $("#cover-disable-cover").on("click", function(){
 	var txt = '<label class="gray-image-plus">';
 	txt += '  <i class="fa fa-plus"></i>';
 	txt += '</label>';
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 700 x 500 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
 	$('#cover-upload-wrapper').html(txt);	
 });
 $("#coverupload").change(function(){
@@ -1173,29 +1243,45 @@ function uploadShopImageDetailToServer(){
 }
 
 
-function getAddress(){
+function getAddress(){//name of country, city........
+
+	var streetad = $("#shopstreetad").val().split(",");
+	var country = ;
+	var city = ;
+	var district = ;
+	var commune = ;
+
+	streetad = streetad[0];
+}
+function getTechnicalAddress(){//country_id , city_id......
 	
 }
 function getDataToInsert(){
+	
 	var shopdata = {
 		"ShopData":{
 			"brand_id" : $("#selectedbrand").val(),
 			"shop_name_en" : $("#shopengname").val() ,
 			"shop_name_kh" : $("#shopkhname").val(),
-			"shop_logo" : "123",
-			"shop_cover" : "34343",
-			"cuisine_id" : 3,
-			"shop_type_id" : 2,
+			"shop_logo" : logoimagename,
+			"shop_cover" : coverimagename,
+			"cuisine_id" : $("#selectedcuisine").val(),
+			"shop_type_id" : $("#selectedshoptype").val(),
 			"shop_serve_type" : $("#shopservertype").val(),
 			"shop_short_description": $("#shopshortdes").val() ,
-			"shop_description" : $("#shopdes").val(),
-			"shop_address": $("#shopaddress").val(),
+			"shop_description" : $("#shopdes").val(),			
 			"shop_phone": shopphones.toString().replace(/[,]/g,"|").trim(),
 			"shop_email":$("#shopemail").val(),
 			"shop_working_day": countWorkingday().toString().replace(/[,]/g,"|").trim(),
 			"shop_opening_time": $("#shopopentime").val(),
 			"shop_close_time": $("#shopclosetime").val(),
-			"shop_map_address": "32424",
+			"shop_facilities" : getShopFacilityData(),
+			"shop_address_technical" : "",
+			"shop_map_address": {
+				"lat" : $("#lat-location").val(),
+				"lng" : $("#lng-location").val()
+			},
+			"shop_address": "",
 			"shop_social_media": {
 				"facebook" : $("#shopfb").val(),
 				"instagram" : $("#shopinstagram").val(),
@@ -1205,7 +1291,7 @@ function getDataToInsert(){
 			"shop_remark": $("#shopremark").val(),
 			"shop_image_detail": {
 				"image_type" : "3",
-				"image_detail" : arrnewfileimagename
+				"image_detail" : splitNewShopImage()
 			}
 		}	
 	};
@@ -1226,7 +1312,7 @@ $("#saveshop").on("click",function(){
    /*  alert($("#logoupload").val());
     alert(logoimagename); */
   //  uploadShopImageDetailToServer();
-	  console.log(getShopFacilityData());
+	  console.log(getDataToInsert());
 });
 
 
