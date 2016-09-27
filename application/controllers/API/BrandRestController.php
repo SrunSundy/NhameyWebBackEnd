@@ -26,8 +26,10 @@ class BrandRestController extends CI_Controller{
 		if($limit == null)
 		{
 			$limit = 10;
-		}				
-		$data = $this->BrandModel->getBrandByNameCombo($brandname , $limit);
+		}	
+		$status["statusA"] = 1;
+		$status["statusB"] = 1;
+		$data = $this->BrandModel->getBrandByName($brandname , $limit , $status);
 		$json = json_encode($data);
 		echo $json;
 		

@@ -11,7 +11,7 @@ class CountryRestController extends CI_Controller{
 		$this->load->view('index');
 	}
 	
-	public function getAllCountry(){
+	public function getCountryCombo(){
 		
 		$status["statusA"] = 1;
 		$status["statusB"] = 1;

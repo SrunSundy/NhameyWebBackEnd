@@ -19,8 +19,9 @@ class CuisineRestController extends CI_Controller{
 		{
 			$limit = 10;
 		}
-		
-		$data = $this->CuisineModel->getCuisineByNameCombo( $cuisine , $limit );
+		$status["statusA"] = 1;
+		$status["statusB"] = 1;
+		$data = $this->CuisineModel->getCuisineByName( $cuisine , $limit , $status );
 		$json = json_encode($data);
 		echo $json;
 		

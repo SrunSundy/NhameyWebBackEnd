@@ -19,8 +19,9 @@ class ShopTypeRestController extends CI_Controller{
 		{
 			$limit = 10;
 		}
-		
-		$data = $this->ShopTypeModel->getShopTypeByNameCombo( $shoptype , $limit );
+		$status["statusA"] = 1;
+		$status["statusB"] = 1;
+		$data = $this->ShopTypeModel->getShopTypeByName( $shoptype , $limit, $status );
 		$json = json_encode($data);
 		echo $json;
 		
