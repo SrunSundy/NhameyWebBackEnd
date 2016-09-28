@@ -47,8 +47,8 @@ span.select2-selection{
                 	<div class=" col-sm-12 nham-dropdown-wrapper">
                 		<div class="row">
                 			<div class="selected-dropdown">
-                    		   <input id="brandname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search brand to insert shop">
-                    	       <input type="hidden" class="selectedbrandid" id="selectedbrand"/>
+                    		   <input id="branchname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search branch to insert shop">
+                    	       <input type="hidden" class="selectedbranchid" id="selectedbranch"/>
                     	    </div>
                     		<div class="nham-dropdown-detail"  >
                     			<div class="nham-dropdown-result-wrapper">
@@ -61,12 +61,12 @@ span.select2-selection{
 											Searching "<span id="text-search-dis1"></span>" has no Result!</p>
 									</div>
 									<div class="nham-dropdown-question">	
-										<p>Do you want to register "<span id="text-search-dis2"></span>" as a new brand?</p>
+										<p>Do you want to register "<span id="text-search-dis2"></span>" as a new branch?</p>
 									</div>
                   				</div>
                   				
                   				<div id="nham-dropdown-footer" class="nham-dropdown-result-footer" align="center">
-                  					<button class="btn nhamey-btn" id="yesbrand">Yes</button>
+                  					<button class="btn nhamey-btn" id="yesbranch">Yes</button>
                   				</div>
                   			</div>
                     	</div>
@@ -96,7 +96,7 @@ span.select2-selection{
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
-			                    	       <input type="hidden" class="selectedbrandid" id="selectedcuisine"/>
+			                    	       <input type="hidden" class="selectedbranchid" id="selectedcuisine"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -128,7 +128,7 @@ span.select2-selection{
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shoptypename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop type">
-			                    	        <input type="hidden" class="selectedbrandid" id="selectedshoptype"/>
+			                    	        <input type="hidden" class="selectedbranchid" id="selectedshoptype"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -678,16 +678,22 @@ $(document).ready(function(){
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
-			$("#nham_country").remove();
-			var country = '<option>----- SELECT COUNTRY -----</option>';
-			for(var i=0 ; i< data.length; i++){
-				if(i==0){
-					country += '<option selected="selected" value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
+			if(data.length > 0){
+				$("#nham_country").children().remove();
+				var country = '<option>----- SELECT COUNTRY -----</option>';
+				for(var i=0 ; i< data.length; i++){
+					if(i==0){
+						country += '<option selected="selected" value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
+					}else{
+						country +='<option value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
+					}
+					
 				}
-				country +='<option value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
+				$("#nham_country").append(country);
+				alert($("#nham_country option:selected").val());
+				loadCityData($("#nham_country option:selected").val());
 			}
-			$("#nham_country").append(country);
-			loadCityData($("#nham_country").val());
+			
 		}		
 	 });
   }
@@ -700,16 +706,23 @@ $(document).ready(function(){
 			success : function(data){
 				data = JSON.parse(data);
 				console.log(data);
-				$("#nham_city").remove();
-				var city = '<option >----- SELECT CITY -----</option>';
-				for(var i=0 ; i< data.length; i++){
-					if(i == 0){
-						city +='<option selected="selected" value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
+				if(data.length > 0){
+					$("#nham_city").children().remove();
+					var city = '<option >----- SELECT CITY -----</option>';
+					for(var i=0 ; i< data.length; i++){
+						if(i == 0){
+							city +='<option selected="selected" value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
+						}else{
+							city +='<option value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
+						}
+						
 					}
-					city +='<option value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
+					$("#nham_city").append(city);
+					alert(city);
+					alert($("#nham_city option:selected").val());
+					loadDistrictData( $("#nham_city option:selected").val() );
 				}
-				$("#nham_city").append(city);
-				loadDistrictData( $("#nham_city").val() );
+				
 			}		
 	  });
   }
@@ -722,16 +735,20 @@ $(document).ready(function(){
 			success : function(data){
 				data = JSON.parse(data);
 				console.log(data);
-				$("#nham_district").remove();
-				var district = '<option >----- SELECT DISTRICT -----</option>';
-				for(var i=0 ; i< data.length; i++){
-					if(i == 0){
-						district +='<option selected="selected" value="'+data[i].district_id+'">'+data[i].district_name+'</option>';
+				if(data.length > 0){
+					$("#nham_district").remove();
+					var district = '<option >----- SELECT DISTRICT -----</option>';
+					for(var i=0 ; i< data.length; i++){
+						if(i == 0){
+							district +='<option selected="selected" value="'+data[i].district_id+'">'+data[i].district_name+'</option>';
+						}else{
+							district +='<option value="'+data[i].district_id+'">'+data[i].district_name+'</option>';
+						}
+						
 					}
-					district +='<option value="'+data[i].district_id+'">'+data[i].district_name+'</option>';
-				}
-				$("#nham_district").append(district);
-				loadCommuneData( $("#nham_district").val() );
+					$("#nham_district").append(district);
+					loadCommuneData( $("#nham_district option:selected").val() );
+				}			
 			}		
 	  });
   }
@@ -744,15 +761,20 @@ $(document).ready(function(){
 			success : function(data){
 				data = JSON.parse(data);
 				console.log(data);
-				$("#nham_commune").remove();
-				var commune = '<option >----- SELECT COMMUNE -----</option>';
-				for(var i=0 ; i< data.length; i++){
-					if(i == 0){
-						commune +='<option selected="selected" value="'+data[i].commune_id+'">'+data[i].commune_name+'</option>';
+				if(data.length > 0){
+					$("#nham_commune").remove();
+					var commune = '<option >----- SELECT COMMUNE -----</option>';
+					for(var i=0 ; i< data.length; i++){
+						if(i == 0){
+							commune +='<option selected="selected" value="'+data[i].commune_id+'">'+data[i].commune_name+'</option>';
+						}else{
+							commune +='<option value="'+data[i].commune_id+'">'+data[i].commune_name+'</option>';
+						}
+						
 					}
-					commune +='<option value="'+data[i].commune_id+'">'+data[i].commune_name+'</option>';
+					$("#nham_commune").append(commune);
 				}
-				$("#nham_commune").append(commune);
+				
 			}		
 	  });
   }
@@ -1246,21 +1268,30 @@ function uploadShopImageDetailToServer(){
 function getAddress(){//name of country, city........
 
 	var streetad = $("#shopstreetad").val().split(",");
-	var country = ;
-	var city = ;
-	var district = ;
-	var commune = ;
+	var country = $("#nham_country option:selected").text();
+	var city = $("#nham_city option:selected").text();
+	var district = $("#nham_district option:selected").text();
+	var commune = $("#nham_commune option:selected").text();
 
 	streetad = streetad[0];
+
+	return streetad +", "+commune+", "+district+", "+city+", "+country;
 }
 function getTechnicalAddress(){//country_id , city_id......
-	
+
+	var shopaddresstechnical = {
+		"country_id" : $("#nham_country").val(),
+		"city_id" : $("#nham_city").val(),
+		"district_id" : $("#nham_district").val(),
+		"commune_id" : $("#nham_commune").val()
+	};
+	return shopaddresstechnical;
 }
 function getDataToInsert(){
 	
 	var shopdata = {
 		"ShopData":{
-			"brand_id" : $("#selectedbrand").val(),
+			"branch_id" : $("#selectedbranch").val(),
 			"shop_name_en" : $("#shopengname").val() ,
 			"shop_name_kh" : $("#shopkhname").val(),
 			"shop_logo" : logoimagename,
@@ -1276,12 +1307,12 @@ function getDataToInsert(){
 			"shop_opening_time": $("#shopopentime").val(),
 			"shop_close_time": $("#shopclosetime").val(),
 			"shop_facilities" : getShopFacilityData(),
-			"shop_address_technical" : "",
+			"shop_address_technical" : getTechnicalAddress(),
 			"shop_map_address": {
 				"lat" : $("#lat-location").val(),
 				"lng" : $("#lng-location").val()
 			},
-			"shop_address": "",
+			"shop_address": getAddress(),
 			"shop_social_media": {
 				"facebook" : $("#shopfb").val(),
 				"instagram" : $("#shopinstagram").val(),
@@ -1318,29 +1349,29 @@ $("#saveshop").on("click",function(){
 
 
 
-$("#brandname").on("focus keyup",function(){
+$("#branchname").on("focus keyup",function(){
 	
-	var srchbrandname = $(this).val();
+	var srchbranchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/BrandRestController/getBrandByNameCombo", 
+		 url: "/NhameyWebBackEnd/API/BranchRestController/getBranchByNameCombo", 
 		 data : {			 
-			"srchname" : srchbrandname,
+			"srchname" : srchbranchname,
 			"limit" : 10		 	
 		 },
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
-			 var branddis = '';
+			 var branchdis = '';
 			if(data.length <= 0){
-				$("#text-search-dis1").html(cutString(srchbrandname , 35));
-				$("#text-search-dis2").html(cutString(srchbrandname , 20));
-				branddis +="<div class='no-data-wrapper' align='center'>";
-				branddis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
-				branddis +="  <span class='no-data-text'>No Record Found!</span>";
-				branddis +="</div>";
+				$("#text-search-dis1").html(cutString(srchbranchname , 35));
+				$("#text-search-dis2").html(cutString(srchbranchname , 20));
+				branchdis +="<div class='no-data-wrapper' align='center'>";
+				branchdis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				branchdis +="  <span class='no-data-text'>No Record Found!</span>";
+				branchdis +="</div>";
 				$("#display-searching-text").show();
 				$("#nham-dropdown-footer").show();
 				
@@ -1349,32 +1380,32 @@ $("#brandname").on("focus keyup",function(){
 				$("#display-searching-text").hide();
 				$("#nham-dropdown-footer").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 branddis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].brand_id+'" /><p><span class="title">'+data[i].brand_name+'</span></p></div>';
+					 branchdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].branch_id+'" /><p><span class="title">'+data[i].branch_name+'</span></p></div>';
 				 }				
 				
 			}
-			$("#display-result").html(branddis); 					 
+			$("#display-result").html(branchdis); 					 
    	 	 }
    });
 });
-$("#yesbrand").on("mousedown",function(){
-	var branddata = {
-		"BrandData" : {
-			"brand_name" : $("#brandname").val(),
-			"brand_remark": ""
+$("#yesbranch").on("mousedown",function(){
+	var branchdata = {
+		"BranchData" : {
+			"branch_name" : $("#branchname").val(),
+			"branch_remark": ""
 		}
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/BrandRestController/insertBrand",
-		data : branddata,
+		url : "/NhameyWebBackEnd/API/BranchRestController/insertBranch",
+		data : branchdata,
 		success : function(data){
 			 data = JSON.parse(data);
 			console.log(data);
 			if(data.is_insert == false){
 				alert("error");
 			}else{
-				$("#selectedbrand").val(data.brand_id);
+				$("#selectedbranch").val(data.branch_id);
 			}
 			//alert(data);
 			
@@ -1468,7 +1499,7 @@ $("#shoptypename").on("focus keyup",function(){
 				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
 				dis +='</div>';
 				dis +='<div class="nham-dropdown-question">';
-				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
+				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new branch?</p>';
 				dis +='</div>'; */
 				$("#text-search-shoptype-dis1").html(cutString(srchname , 35));
 				$("#text-search-shoptype-dis2").html(cutString(srchname , 20));
