@@ -26,8 +26,15 @@ class ShopRestController extends CI_Controller{
 	}	
 	
 	public function insertShop(){		
-		$shopdata = $this->input->post('ShopData');				
-		echo json_encode($shopdata["shop_social_media"]["facebook"]);	
+		$shopdata = $this->input->post('ShopData');	
+		
+		$datashop = array(
+			$shopdata["branch_id"],$shopdata["country_id"],$shopdata["city_id"],
+			$shopdata["district_id"],$shopdata["commune_id"],$shopdata["shop_name_en"],
+			$shopdata["shop_name_kh"],$shopdata["shop_logo"],$shopdata["shop_cover"],
+			$shopdata[]
+		); 		
+		echo json_encode($shopdata);	
 	}		
 }
 ?>
