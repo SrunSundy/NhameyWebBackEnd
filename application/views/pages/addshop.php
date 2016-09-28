@@ -435,7 +435,7 @@ span.select2-selection{
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-globe font-size-20" aria-hidden="true"></i></span>
 						                     <select class="form-control nham-control  select2" id="nham_country" style="width: 100%; border-radius: 0!important;">
-						                      	<option selected="selected">----- SELECT COUNTRY -----</option>
+						                      	
 						                    </select>
 						                  </div>
 						                
@@ -447,7 +447,7 @@ span.select2-selection{
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map " aria-hidden="true"  ></i></span>
 						                     <select class="form-control nham-control  select2" id="nham_city"  style="width: 100%; border-radius: 0!important;">
-						                     	<option  selected="selected">----- SELECT CITY -----</option>
+						                     	
 						                    </select>
 						                  </div>
 						                
@@ -459,7 +459,7 @@ span.select2-selection{
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
 						                     <select class="form-control nham-control  select2" id="nham_district"  style="width: 100%; border-radius: 0!important;">
-						                    	<option  selected="selected">----- SELECT DISTRICT -----</option>
+						                    	
 						                    </select>
 						                  </div>
 						                
@@ -471,7 +471,7 @@ span.select2-selection{
 						                 <div class="input-group top-gap">
 						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
 						                     <select class="form-control nham-control select2" id="nham_commune"  style="width: 100%; border-radius: 0!important;">
-						                     	<option  selected="selected">----- SELECT COMMUNE -----</option>
+						                     	
 						                    </select>
 						                  </div>
 						                
@@ -628,17 +628,17 @@ span.select2-selection{
 			var address = "";
 			geocoder.geocode( {'latLng': latLng}, function(results, status) {				
 				console.log(results);	
-				if($("#shopstreetno").val() == ""){
+				if($("#shopstreetad").val() == ""){
 					if(status == google.maps.GeocoderStatus.OK) {												  
 						if(results[0]) {												              
-							$("#shopstreetno").val(results[0].formatted_address);
+							$("#shopstreetad").val(results[0].formatted_address);
 						 }
 						else {
-							$("#shopstreetno").val("No results");
+							$("#shopstreetad").val("No results");
 						 }
 					}
 					else {
-						$("#shopstreetno").val(status);
+						$("#shopstreetad").val(status);
 					}
 				}												  										        															           
 			});
@@ -680,7 +680,7 @@ $(document).ready(function(){
 			console.log(data);
 			if(data.length > 0){
 				$("#nham_country").children().remove();
-				var country = '<option>----- SELECT COUNTRY -----</option>';
+				var country = '';
 				for(var i=0 ; i< data.length; i++){
 					if(i==0){
 						country += '<option selected="selected" value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
@@ -708,7 +708,7 @@ $(document).ready(function(){
 				console.log(data);
 				if(data.length > 0){
 					$("#nham_city").children().remove();
-					var city = '<option >----- SELECT CITY -----</option>';
+					var city = '';
 					for(var i=0 ; i< data.length; i++){
 						if(i == 0){
 							city +='<option selected="selected" value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
@@ -736,8 +736,8 @@ $(document).ready(function(){
 				data = JSON.parse(data);
 				console.log(data);
 				if(data.length > 0){
-					$("#nham_district").remove();
-					var district = '<option >----- SELECT DISTRICT -----</option>';
+					$("#nham_district").children().remove();
+					var district = '';
 					for(var i=0 ; i< data.length; i++){
 						if(i == 0){
 							district +='<option selected="selected" value="'+data[i].district_id+'">'+data[i].district_name+'</option>';
@@ -762,8 +762,8 @@ $(document).ready(function(){
 				data = JSON.parse(data);
 				console.log(data);
 				if(data.length > 0){
-					$("#nham_commune").remove();
-					var commune = '<option >----- SELECT COMMUNE -----</option>';
+					$("#nham_commune").children().remove();
+					var commune = '';
 					for(var i=0 ; i< data.length; i++){
 						if(i == 0){
 							commune +='<option selected="selected" value="'+data[i].commune_id+'">'+data[i].commune_name+'</option>';
@@ -1331,19 +1331,20 @@ function getDataToInsert(){
 
 $("#saveshop").on("click",function(){
 	// console.log(getDataToInsert());
-	 /* alert(0);
+	 // alert(0);
 	 $.ajax({
 		 type: "POST",
 		 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
 		 data: getDataToInsert(),
 		 success: function(data){
-         	alert(data);    
+			 data = JSON.parse(data);
+			console.log(data);    
      	 }
-     }); */
+     }); 
    /*  alert($("#logoupload").val());
     alert(logoimagename); */
   //  uploadShopImageDetailToServer();
-	  console.log(getDataToInsert());
+	//  console.log(getDataToInsert());
 });
 
 
