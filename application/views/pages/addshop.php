@@ -876,7 +876,7 @@ $(".shop-facility").on("change", function(){
 		$("#allfacilities").prop('checked', false);
 	}
 });
-function getShopFacilityData(){
+/* function getShopFacilityData(){
 	var shopfacilities = {
 		"wifi" : isCheckFacility("wifi"),
 		"parking-lot" : isCheckFacility("parking"),
@@ -885,7 +885,7 @@ function getShopFacilityData(){
 		"tax-invoice": isCheckFacility("taxinvoice")
 	};
 	return shopfacilities;
-}
+} */
 function isCheckFacility( radioid ){
 	var check = 0;
 	if($("#"+radioid).is(":checked")){
@@ -1277,53 +1277,51 @@ function getAddress(){//name of country, city........
 
 	return streetad +", "+commune+", "+district+", "+city+", "+country;
 }
-function getTechnicalAddress(){//country_id , city_id......
 
-	var shopaddresstechnical = {
-		"country_id" : $("#nham_country").val(),
-		"city_id" : $("#nham_city").val(),
-		"district_id" : $("#nham_district").val(),
-		"commune_id" : $("#nham_commune").val()
-	};
-	return shopaddresstechnical;
-}
 function getDataToInsert(){
 	
 	var shopdata = {
 		"ShopData":{
-			"branch_id" : $("#selectedbranch").val(),
-			"shop_name_en" : $("#shopengname").val() ,
-			"shop_name_kh" : $("#shopkhname").val(),
-			"shop_logo" : logoimagename,
-			"shop_cover" : coverimagename,
-			"cuisine_id" : $("#selectedcuisine").val(),
-			"shop_type_id" : $("#selectedshoptype").val(),
-			"shop_serve_type" : $("#shopservertype").val(),
-			"shop_short_description": $("#shopshortdes").val() ,
-			"shop_description" : $("#shopdes").val(),			
-			"shop_phone": shopphones.toString().replace(/[,]/g,"|").trim(),
-			"shop_email":$("#shopemail").val(),
-			"shop_working_day": countWorkingday().toString().replace(/[,]/g,"|").trim(),
-			"shop_opening_time": $("#shopopentime").val(),
-			"shop_close_time": $("#shopclosetime").val(),
-			"shop_facilities" : getShopFacilityData(),
-			"shop_address_technical" : getTechnicalAddress(),
-			"shop_map_address": {
-				"lat" : $("#lat-location").val(),
-				"lng" : $("#lng-location").val()
+			"datashop":{
+				"branch_id" : $("#selectedbranch").val(),
+				"country_id" : $("#nham_country").val(),
+				"city_id" : $("#nham_city").val(),
+				"district_id" : $("#nham_district").val(),
+				"commune_id" : $("#nham_commune").val(),
+				"shop_name_en" : $("#shopengname").val() ,
+				"shop_name_kh" : $("#shopkhname").val(),
+				"shop_logo" : logoimagename,
+				"shop_cover" : coverimagename,
+				"cuisine_id" : $("#selectedcuisine").val(),
+				"shop_type_id" : $("#selectedshoptype").val(),
+				"shop_serve_type" : $("#shopservertype").val(),
+				"shop_short_description": $("#shopshortdes").val() ,
+				"shop_description" : $("#shopdes").val(),
+				"shop_address": getAddress(),	
+				"shop_phone": shopphones.toString().replace(/[,]/g,"|").trim(),
+				"shop_email":$("#shopemail").val(),
+				"shop_working_day": countWorkingday().toString().replace(/[,]/g,"|").trim(),
+				"shop_opening_time": $("#shopopentime").val(),
+				"shop_close_time": $("#shopclosetime").val(),
+				"shop_has_wifi" : isCheckFacility("wifi"),
+				"shop_has_aircon" : isCheckFacility("aircon"),
+				"shop_has_reservation" : isCheckFacility("reserve"),
+				"shop_has_bikepark" : isCheckFacility("parking"),								
+				"shop_has_tax": isCheckFacility("taxinvoice"),
+				"shop_map_address": {
+					"lat" : $("#lat-location").val(),
+					"lng" : $("#lng-location").val()
+				},				
+				"shop_social_media": {
+					"facebook" : $("#shopfb").val(),
+					"instagram" : $("#shopinstagram").val(),
+					"googleplus" : $("#shopgoogleplus").val(),
+					"twitter": $("#shoptwitter").val()
+				},
+				"shop_remark": $("#shopremark").val(),
 			},
-			"shop_address": getAddress(),
-			"shop_social_media": {
-				"facebook" : $("#shopfb").val(),
-				"instagram" : $("#shopinstagram").val(),
-				"googleplus" : $("#shopgoogleplus").val(),
-				"twitter": $("#shoptwitter").val()
-			} ,
-			"shop_remark": $("#shopremark").val(),
-			"shop_image_detail": {
-				"image_type" : "3",
-				"image_detail" : splitNewShopImage()
-			}
+			"shop_image_detail": splitNewShopImage()
+						
 		}	
 	};
 	return shopdata;
