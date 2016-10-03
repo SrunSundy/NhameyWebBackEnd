@@ -20,7 +20,7 @@ class UploadRestController extends CI_Controller{
 			}
 
 			$config['upload_path'] = "./uploadimages/logo/original";
-			$config['allowed_types'] = 'gif|jpg|png';
+			$config['allowed_types'] =  'gif|jpg|png';
 			$config['max_size'] = '20120';
 			$config['max_width']  = '5000';
 			$config['max_height']  = '5000';
@@ -48,7 +48,7 @@ class UploadRestController extends CI_Controller{
 					
 				}else{
 					$this->resizeImage("./uploadimages/logo/big/","./uploadimages/logo/original/",1, 90 , $new_name);
-					$this->resizeImage("./uploadimages/logo/small/","./uploadimages/logo/original/",0.5,90 , $new_name);
+					$this->resizeImage("./uploadimages/logo/small/","./uploadimages/logo/original/",0.8,50 , $new_name);
 					
 				}
 				
