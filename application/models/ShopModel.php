@@ -53,30 +53,31 @@ class ShopModel extends CI_Model{
  		$shopimg = array();
  		 
  		$shopitemlogo["sh_img_name"] = $datashop["shop_logo"];
+ 		$shopitemlogo["sh_img_remark"] = "";
  		$shopitemlogo["sh_img_type"] = 1;
  		$shopitemlogo["shop_id"] = $insert_shop_id;
  		$shopitemlogo["sh_img_dis_order"] = 1;
  		array_push($shopimg , $shopitemlogo);
  		 
  		$shopitemcover["sh_img_name"] = $datashop["shop_cover"];
+ 		$shopitemcover["sh_img_remark"] = "";
  		$shopitemcover["sh_img_type"] = 2;
  		$shopitemcover["shop_id"] = $insert_shop_id;
  		$shopitemcover["sh_img_dis_order"] = 2;
  		array_push($shopimg , $shopitemcover);
  		 
  		for($i=0; $i< count($shopdata["shop_image_detail"]); $i++){
- 			$shopitem["sh_img_name"] = $shopdata["shop_image_detail"][$i];
+ 			$shopitem["sh_img_name"] = $shopdata["shop_image_detail"][$i]["sh_img_name"];
+ 			$shopitem["sh_img_remark"] = $shopdata["shop_image_detail"][$i]["sh_img_remark"];
  			$shopitem["sh_img_type"] = 3;
  			$shopitem["shop_id"] = $insert_shop_id;
- 			$shopitem["sh_img_dis_order"] = $i+2;
+ 			$shopitem["sh_img_dis_order"] = $i+3;
  			array_push($shopimg , $shopitem);
  		}
  		$this->db->insert_batch('nham_shop_image', $shopimg);
- 		
- 		
+ 				
 		if ($this->db->trans_status() === FALSE)
-		{
-			
+		{		
 		    $this->db->trans_rollback();
 		}
 		else
