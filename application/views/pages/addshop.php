@@ -11,7 +11,9 @@ span.select2-selection{
 		height: 40px;
 		border-radius: 0;
 }
-
+textarea:focus{
+    outline: none;
+}
 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -370,61 +372,73 @@ span.select2-selection{
 							<h5 class="gray-color">Informative Image</h5>
 							<div  class="form-group">
 								<label>Logo</label>
-								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">											                     		                  		                    	  
-			                    	<input type='file' id="logoupload" style="display: none;" accept="image/*"/>
-			                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
-			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>
-			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>
-			                    	</div> 									
-									<div id="logo-upload-image" class="upload-image-hover" ></div>
-									<div id="loading-wrapper" class="upload-image-loading" style="display:none" >
-										 <div class="progress progress-xxs">
-						                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
-						                    </div>
-						                  </div>
-										  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
-										  <i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
+								<div class="col-lg-12 logo-browsing-wrapper" align="center">
+									<div class="row">
+										<div class="col-lg-12 " align="center"  style="position:relative;">											                     		                  		                    	  
+					                    	<input type='file' id="logoupload" style="display: none;" accept="image/*"/>
+					                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
+					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>
+					                    		
+					                    	</div> 	
+					                    										
+											<div id="logo-upload-image" class="upload-image-hover" ></div>
+											<div id="loading-wrapper" class="upload-image-loading" style="display:none" >
+												 <div class="progress progress-xxs">
+								                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+								                    </div>
+								                  </div>
+												  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+												  <i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
+											</div>
+											<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
+											<div id="removelogoimagewrapper" class="upload-image-remove" style="display:none" >
+												<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>	
+												
+											</div>
+											<div id="removeloadingwrapper" class="upload-image-remove" style="display:none">
+												 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+											</div>
+														                    	  		                    	  		                    	  
+										</div>
+										<textarea rows="" placeholder="add description..." id="logo_description" style="width:98%;border:0;bottom:0px;display:none;resize:none;" cols=""></textarea>
 									</div>
-									<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
-									<div id="removelogoimagewrapper" class="upload-image-remove" style="display:none" >
-										<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>										
-									</div>
-									<div id="removeloadingwrapper" class="upload-image-remove" style="display:none">
-										 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
-									</div>
-												                    	  		                    	  		                    	  
 								</div>
 							</div>
 							
 							<div  class="form-group">
 								<label>Cover</label>
-								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">												                     		                  		                    	  
-			                    	<input type='file' id="coverupload" style="display: none;" accept="image/*"/>
-			                    	<div class="image-upload-wrapper-cover" id="cover-upload-wrapper">
-			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 700 x 500 </p>
-			                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
-			                    	</div> 
-									<div id="cover-upload-image" class="upload-image-hover"></div>
-									<div id="loading-wrapper-cover" class="upload-image-loading" style="display:none" >
-										 <div class="progress progress-xxs">
-						                    <div id="logoprogressbar-cover" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
-						                    </div>
-						                  </div>
-										  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
-										  <i class="fa fa-times disable-cover" id="cover-disable-cover" aria-hidden="true" title="close" ></i>
+								<div class="col-lg-12 logo-browsing-wrapper" align="center">
+									<div class="row">
+										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  
+					                    	<input type='file' id="coverupload" style="display: none;" accept="image/*"/>
+					                    	<div class="image-upload-wrapper-cover" id="cover-upload-wrapper">
+					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 700 x 500 </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
+					                    	</div> 
+											<div id="cover-upload-image" class="upload-image-hover"></div>
+											<div id="loading-wrapper-cover" class="upload-image-loading" style="display:none" >
+												 <div class="progress progress-xxs">
+								                    <div id="logoprogressbar-cover" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+								                    </div>
+								                  </div>
+												  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+												  <i class="fa fa-times disable-cover" id="cover-disable-cover" aria-hidden="true" title="close" ></i>
+											</div>
+											<div id="uploadimageremoveback-cover" class="upload-image-remove-background" style="display:none"></div>
+											<div id="removelogoimagewrapper-cover" class="upload-image-remove" style="display:none" >
+												<i id="removelogoimage-cover" class="fa fa-trash" aria-hidden="true"></i>										
+											</div>
+											<div id="removeloadingwrapper-cover" class="upload-image-remove" style="display:none">
+												 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+											</div>																				                    	  		                    	  		                    	  
+										</div>
+										<textarea rows="" placeholder="  add description..." id="cover_description" style="width:98%;bottom:0px;margin-top:5px;display:none;" cols=""></textarea>
 									</div>
-									<div id="uploadimageremoveback-cover" class="upload-image-remove-background" style="display:none"></div>
-									<div id="removelogoimagewrapper-cover" class="upload-image-remove" style="display:none" >
-										<i id="removelogoimage-cover" class="fa fa-trash" aria-hidden="true"></i>										
-									</div>
-									<div id="removeloadingwrapper-cover" class="upload-image-remove" style="display:none">
-										 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
-									</div>
-									
-											                    	  		                    	  		                    	  
 								</div>
+						
 							</div>
 							
 							
@@ -965,6 +979,7 @@ function removeLogoImageFromServer(){
 				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
 			$('#logo-upload-wrapper').html(txt);
 			$("#removeloadingwrapper").hide();
+			$("#logo_description").hide();
 		}
 	});
 }
@@ -997,6 +1012,7 @@ function upoloadLogoToServer(){
 					$("#logo-upload-image").removeClass("loading-box");
 					$("#uploadimageremoveback").show();
 					$("#removelogoimagewrapper").show();
+					$("#logo_description").show();
 				}
 				
 			},
@@ -1084,6 +1100,7 @@ function removeCoverImageFromServer(){
 				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
 			$('#cover-upload-wrapper').html(txt);
 			$("#removeloadingwrapper-cover").hide();
+			$("#cover_description").hide();
 		}
 	});	
 }
@@ -1116,6 +1133,7 @@ function upoloadCoverToServer(){
 					$("#cover-upload-image").removeClass("loading-box");
 					$("#uploadimageremoveback-cover").show();
 					$("#removelogoimagewrapper-cover").show();
+					$("#cover_description").show();
 				}
 				
 			},
@@ -1142,13 +1160,26 @@ $("#input-44").on("change", function(){
 	
 	uploadShopImageDetailToServer();
 });
-function splitNewShopImage(){
-	var shopimagetoinsert = [];
-	for(var i=0; i<arrnewfileimagename.length; i++){
-		var newimagetoinsert = arrnewfileimagename[i].split("|")[0];
-		shopimagetoinsert.push(newimagetoinsert);
-	}
-	return shopimagetoinsert;
+
+function splitNewShopImageAndDetail(){
+	
+	var arrshopimagedetail = [];
+	
+	var imglng = $(".file-preview-frame").length;
+	for(var i=0; i<imglng ; i++){
+		var clientimgname = $(".file-preview-frame").eq(i).find(".file-footer-caption").attr("title").trim();
+		for(var j=0; j<arrnewfileimagename.length; j++){
+			var serverimgname = arrnewfileimagename[j].split("|");
+			
+			if(clientimgname == serverimgname[1].trim()){
+				arrshopimagedetail.push({
+					"sh_img_name" : serverimgname[0],
+					"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
+				});
+			}
+		}
+	} 
+	return arrshopimagedetail;
 }
 
 function turnSpecialCharToUnderscore( str ){
@@ -1164,6 +1195,15 @@ function turnSpecialCharToUnderscore( str ){
 	mystr = mystr.replace(/[\']/gi,'_');
 	mystr = mystr.replace(/[-;#%&=+]/gi, '_');
 	return mystr;
+}
+
+function splitNewShopImage(){
+	var shopimagetoinsert = [];
+	for(var i=0; i<arrnewfileimagename.length; i++){
+		var newimagetoinsert = arrnewfileimagename[i].split("|")[0];
+		shopimagetoinsert.push(newimagetoinsert);
+	}
+	return shopimagetoinsert;
 }
 
 $(document).on("mousedown","button.kv-file-remove",function(){
@@ -1320,7 +1360,7 @@ function getDataToInsert(){
 				},
 				"shop_remark": $("#shopremark").val(),
 			},
-			"shop_image_detail": splitNewShopImage()
+			"shop_image_detail": splitNewShopImageAndDetail()
 						
 		}	
 	};
@@ -1328,9 +1368,9 @@ function getDataToInsert(){
 }
 
 $("#saveshop").on("click",function(){
-	// console.log(getDataToInsert());
+	 console.log(getDataToInsert());
 	 // alert(0);
-	 $.ajax({
+	  $.ajax({
 		 type: "POST",
 		 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
 		 data: getDataToInsert(),
@@ -1338,14 +1378,40 @@ $("#saveshop").on("click",function(){
 			 data = JSON.parse(data);
 			console.log(data);    
      	 }
-     }); 
+     });  
+	// console.log(test());
    /*  alert($("#logoupload").val());
     alert(logoimagename); */
   //  uploadShopImageDetailToServer();
 	//  console.log(getDataToInsert());
 });
 
-
+/* function test(){
+	alert($(".file-preview-frame").length);
+	alert(arrnewfileimagename.length);
+	var arrshopimagedetail = [];
+	
+	var imglng = $(".file-preview-frame").length;
+	for(var i=0; i<imglng ; i++){
+		var clientimgname = $(".file-preview-frame").eq(i).find(".file-footer-caption").attr("title").trim();
+		//console.log(clientimgname);
+		//alert($(".file-preview-frame").eq(i).find("textarea").val());
+		for(var j=0; j<arrnewfileimagename.length; j++){
+			var serverimgname = arrnewfileimagename[j].split("|");
+			console.log(clientimgname);
+			console.log(serverimgname[1]);
+			
+			if(clientimgname == serverimgname[1]){
+				alert(clientimgname);
+				arrshopimagedetail.push({
+					"sh_img_name" : serverimgname[0],
+					"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
+				});
+			}
+		}
+	} 
+	return arrshopimagedetail;
+} */
 
 
 $("#branchname").on("focus keyup",function(){
