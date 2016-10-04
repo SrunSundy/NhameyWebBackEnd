@@ -37,14 +37,19 @@ class ShopModel extends CI_Model{
 		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, shop_has_wifi, 
 		      shop_has_aircon, shop_has_reservation, shop_has_bikepark, shop_has_tax, shop_map_address, shop_social_media, 
 		      shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		
 		$shopmapadd = json_encode($datashop["shop_map_address"]);
 		$shopmedia = json_encode($datashop["shop_social_media"]);
-		$shopparams = array((int)$datashop["branch_id"], 1, (int)$datashop["country_id"],(int)$datashop["city_id"], (int)$datashop["district_id"], 
-			  (int)$datashop["commune_id"], $datashop["shop_name_en"], $datashop["shop_name_kh"], $datashop["shop_logo"], $datashop["shop_cover"],
-			  (int)$datashop["cuisine_id"], (int)$datashop["shop_type_id"], $datashop["shop_serve_type"], $datashop["shop_short_description"], 
-			  $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], $datashop["shop_email"], $datashop["shop_working_day"],
-			  $datashop["shop_opening_time"], $datashop["shop_close_time"], $datashop["shop_has_wifi"], $datashop["shop_has_aircon"],
-			  $datashop["shop_has_reservation"], $datashop["shop_has_bikepark"], $datashop["shop_has_tax"], $shopmapadd, 
+		
+		$shopparams = array( (int)$datashop["branch_id"], 1, (int)$datashop["country_id"],
+			  (int)$datashop["city_id"], (int)$datashop["district_id"], (int)$datashop["commune_id"],
+			  $datashop["shop_name_en"], $datashop["shop_name_kh"], $datashop["shop_logo"],
+			  $datashop["shop_cover"], (int)$datashop["cuisine_id"], (int)$datashop["shop_type_id"], 
+			  $datashop["shop_serve_type"], $datashop["shop_short_description"], $datashop["shop_description"], 
+			  $datashop["shop_address"], $datashop["shop_phone"], $datashop["shop_email"], 
+			  $datashop["shop_working_day"], $datashop["shop_opening_time"], $datashop["shop_close_time"],
+			  $datashop["shop_has_wifi"], $datashop["shop_has_aircon"], $datashop["shop_has_reservation"],
+			  $datashop["shop_has_bikepark"], $datashop["shop_has_tax"], $shopmapadd, 
 		      $shopmedia, $datashop["shop_remark"], 1);
 		
 		$query = $this->db->query($shopsql , $shopparams);
@@ -53,14 +58,14 @@ class ShopModel extends CI_Model{
  		$shopimg = array();
  		 
  		$shopitemlogo["sh_img_name"] = $datashop["shop_logo"];
- 		$shopitemlogo["sh_img_remark"] = "";
+ 		$shopitemlogo["sh_img_remark"] = $datashop["logo_description"];
  		$shopitemlogo["sh_img_type"] = 1;
  		$shopitemlogo["shop_id"] = $insert_shop_id;
  		$shopitemlogo["sh_img_dis_order"] = 1;
  		array_push($shopimg , $shopitemlogo);
  		 
  		$shopitemcover["sh_img_name"] = $datashop["shop_cover"];
- 		$shopitemcover["sh_img_remark"] = "";
+ 		$shopitemcover["sh_img_remark"] = $datashop["cover_description"];
  		$shopitemcover["sh_img_type"] = 2;
  		$shopitemcover["shop_id"] = $insert_shop_id;
  		$shopitemcover["sh_img_dis_order"] = 2;
