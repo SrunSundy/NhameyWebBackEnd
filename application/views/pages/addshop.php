@@ -1179,19 +1179,14 @@ function splitNewShopImageAndDetail(){
 	var arrshopimagedetail = [];
 	
 	var imglng = $(".file-preview-frame").length;
-	console.log(imglng);
-	console.log(arrnewfileimagename.length);
 	for(var i=0; i<imglng ; i++){
 		
 		var clientimgname = $(".file-preview-frame").eq(i).find(".file-footer-caption").attr("title").trim();
-		clientimgname = turnSpecialCharToUnderscore(clientimgname);
-		console.log(clientimgname);
-		console.log(arrnewfileimagename[0].split("|")[1]);
 		for(var j=0; j<arrnewfileimagename.length; j++){
 			var serverimgname = arrnewfileimagename[j].split("|");
 			//alert(arrnewfileimagename[j]);
-			if(clientimgname == serverimgname[1].trim()){
-				alert(serverimgname[0]);
+			serverimgnameold = turnSpecialCharToUnderscore(serverimgname[1].trim());
+			if(clientimgname == serverimgnameold){
 				arrshopimagedetail.push({
 					"sh_img_name" : serverimgname[0],
 					"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
@@ -1199,6 +1194,9 @@ function splitNewShopImageAndDetail(){
 			}
 		}
 	} 
+	var myresult = arrshopimagedetail;
+	myresult
+	
 	return arrshopimagedetail;
 }
 
@@ -1228,6 +1226,7 @@ $(document).on("mousedown","button.kv-file-remove",function(){
 			removeShopImageDetailFromServer(newimage).success(function (data) {	
 				
 			});
+			
 			console.log(arrnewfileimagename);
 			
 		}else{
@@ -1271,13 +1270,14 @@ function removeShopImageDetailFromServer(imagetoremove){
 }
 function uploadShopImageDetailToServer(){
 	alert(2);
-	$("#coveruploadimage").show();
-	$("#coveruploadimagewithload").show();
+	
 	
 	var inputFile = $("#input-44");
 	var filesToUpload = inputFile[0].files;
 	console.log(filesToUpload);
 	if (filesToUpload.length > 0) {
+		$("#coveruploadimage").show();
+		$("#coveruploadimagewithload").show();
 		var formData = new FormData();
 		for (var i = 0; i < filesToUpload.length; i++) {
 			var file = filesToUpload[i];
@@ -1294,20 +1294,63 @@ function uploadShopImageDetailToServer(){
 			    console.log(data);
 			    var filelen = data.fileupload.length;			 
 			    for(var i=0 ;i< filelen; i++){
+				   // alert(i);
 				    if(data.fileupload[i].is_upload == true){
+				    	
 				    		arrnewfileimagename.push( data.fileupload[i].filename);
+				    		  
 					}else{
 						alert(data.fileupload[i].filename+" :: "+data.fileupload[i].message);
-					}						
+					}	
 					console.log(data.fileupload[i].filename);
-				}				
-				console.log(arrnewfileimagename);
+
+				}	
+
+			    var $elems = $('.file-input').find('.file-preview-frame');
+			    console.log($elems);
+
+			 // count them
+			 var elemsCount = $elems.length;
+
+			 // the loaded elements flag
+			 var loadedCount = 0;
+			 console.log(loadedCount);
+
+			 // attach the load event to elements
+			 $elems.on('load', function () {
+			     // increase the loaded count 
+			     loadedCount++;
+			     console.log(loadedCount);
+			     // if loaded count flag is equal to elements count
+			     if (loadedCount == elemsCount) {
+			         // do what you want
+			         alert('elements loaded successfully');
+			     }
+			 });								
+			    setTimeout(function(){ 
+			    	
+			    	 for(var i=0 ;i< arrnewfileimagename.length; i++){
+			    		  $(".file-preview-frame").eq(i).find("textarea").val(arrnewfileimagename[i]);
+
+			    	 }
+	    			
+
+	    		  }, 3000);
+				
+				
+						
+				
 				$("#coveruploadimage").hide();
 				$("#coveruploadimagewithload").hide();	
 			}
 		});
+	}else{
+		
 	}
+	
 }
+
+
 
 
 function getAddress(){//name of country, city........
