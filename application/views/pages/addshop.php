@@ -1160,31 +1160,6 @@ $("#input-44").on("change", function(){
 	
 	uploadShopImageDetailToServer();
 });
-
-function splitNewShopImageAndDetail(){
-	
-	var arrshopimagedetail = [];
-	
-	var imglng = $(".file-preview-frame").length;
-	console.log(imglng);
-	console.log(arrnewfileimagename.length);
-	for(var i=0; i<imglng ; i++){
-		var clientimgname = $(".file-preview-frame").eq(i).find(".file-footer-caption").attr("title").trim();
-		for(var j=0; j<arrnewfileimagename.length; j++){
-			var serverimgname = arrnewfileimagename[j].split("|");
-			//alert(arrnewfileimagename[j]);
-			if(clientimgname == serverimgname[1].trim()){
-				alert(serverimgname[0]);
-				arrshopimagedetail.push({
-					"sh_img_name" : serverimgname[0],
-					"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
-				});
-			}
-		}
-	} 
-	return arrshopimagedetail;
-}
-
 function turnSpecialCharToUnderscore( str ){
 
 	var mystr = "";
@@ -1198,6 +1173,33 @@ function turnSpecialCharToUnderscore( str ){
 	mystr = mystr.replace(/[\']/gi,'_');
 	mystr = mystr.replace(/[-;#%&=+]/gi, '_');
 	return mystr;
+}
+function splitNewShopImageAndDetail(){
+	
+	var arrshopimagedetail = [];
+	
+	var imglng = $(".file-preview-frame").length;
+	console.log(imglng);
+	console.log(arrnewfileimagename.length);
+	for(var i=0; i<imglng ; i++){
+		
+		var clientimgname = $(".file-preview-frame").eq(i).find(".file-footer-caption").attr("title").trim();
+		clientimgname = turnSpecialCharToUnderscore(clientimgname);
+		console.log(clientimgname);
+		console.log(arrnewfileimagename[0].split("|")[1]);
+		for(var j=0; j<arrnewfileimagename.length; j++){
+			var serverimgname = arrnewfileimagename[j].split("|");
+			//alert(arrnewfileimagename[j]);
+			if(clientimgname == serverimgname[1].trim()){
+				alert(serverimgname[0]);
+				arrshopimagedetail.push({
+					"sh_img_name" : serverimgname[0],
+					"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
+				});
+			}
+		}
+	} 
+	return arrshopimagedetail;
 }
 
 function splitNewShopImage(){
