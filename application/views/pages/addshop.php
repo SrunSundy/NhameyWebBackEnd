@@ -1306,36 +1306,13 @@ function uploadShopImageDetailToServer(){
 
 				}	
 
-			    var $elems = $('.file-input').find('.file-preview-frame');
-			    console.log($elems);
-
-			 // count them
-			 var elemsCount = $elems.length;
-
-			 // the loaded elements flag
-			 var loadedCount = 0;
-			 console.log(loadedCount);
-
-			 // attach the load event to elements
-			 $elems.on('load', function () {
-			     // increase the loaded count 
-			     loadedCount++;
-			     console.log(loadedCount);
-			     // if loaded count flag is equal to elements count
-			     if (loadedCount == elemsCount) {
-			         // do what you want
-			         alert('elements loaded successfully');
-			     }
-			 });								
+			    console.time('div.file-input');							
 			    setTimeout(function(){ 
 			    	
-			    	 for(var i=0 ;i< arrnewfileimagename.length; i++){
-			    		  $(".file-preview-frame").eq(i).find("textarea").val(arrnewfileimagename[i]);
+			    	setNewimgName();
+			    	
 
-			    	 }
-	    			
-
-	    		  }, 3000);
+	    		  }, 1000);
 				
 				
 						
@@ -1350,7 +1327,25 @@ function uploadShopImageDetailToServer(){
 	
 }
 
-
+function setNewimgName(){
+	 for(var i=0 ;i< arrnewfileimagename.length; i++){
+		  $(".file-preview-frame").eq(i).find("textarea").val(arrnewfileimagename[i]);
+	 }	
+	 setTimeout(function(){checkIfSetimgNameFail();} , 100);
+}
+function checkIfSetimgNameFail(){
+	var lngcheck = 0;
+	var imglng = $(".file-preview-frame").length;
+	for(var i=0; i<imglng ; i++){
+		var newnameimg = $(".file-preview-frame").eq(i).find("textarea").val();
+		if(newnameimg != "") lngcheck++;
+	} 
+	alert(lngcheck);
+	alert("arrnew"+arrnewfileimagename.length);
+	if(arrnewfileimagename.length > lngcheck) {
+		setNewimgName();
+	}
+}
 
 
 function getAddress(){//name of country, city........
