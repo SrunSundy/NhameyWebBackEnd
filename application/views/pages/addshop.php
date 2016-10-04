@@ -402,7 +402,7 @@ textarea:focus{
 											</div>
 														                    	  		                    	  		                    	  
 										</div>
-										<textarea rows="" placeholder="add description..." id="logo_description" style="width:98%;border:0;bottom:0px;display:none;resize:none;" cols=""></textarea>
+										<textarea rows="" placeholder="have your word about this..." id="logo_description" class="nham_description" cols=""></textarea>
 									</div>
 								</div>
 							</div>
@@ -435,7 +435,7 @@ textarea:focus{
 												 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
 											</div>																				                    	  		                    	  		                    	  
 										</div>
-										<textarea rows="" placeholder="  add description..." id="cover_description" style="width:98%;bottom:0px;margin-top:5px;display:none;" cols=""></textarea>
+										<textarea rows="" placeholder="have your word about this..." id="cover_description"  class="nham_description"  cols=""></textarea>
 									</div>
 								</div>
 						
@@ -1166,12 +1166,15 @@ function splitNewShopImageAndDetail(){
 	var arrshopimagedetail = [];
 	
 	var imglng = $(".file-preview-frame").length;
+	console.log(imglng);
+	console.log(arrnewfileimagename.length);
 	for(var i=0; i<imglng ; i++){
 		var clientimgname = $(".file-preview-frame").eq(i).find(".file-footer-caption").attr("title").trim();
 		for(var j=0; j<arrnewfileimagename.length; j++){
 			var serverimgname = arrnewfileimagename[j].split("|");
-			
+			//alert(arrnewfileimagename[j]);
 			if(clientimgname == serverimgname[1].trim()){
+				alert(serverimgname[0]);
 				arrshopimagedetail.push({
 					"sh_img_name" : serverimgname[0],
 					"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
@@ -1331,6 +1334,8 @@ function getDataToInsert(){
 				"shop_name_en" : $("#shopengname").val() ,
 				"shop_name_kh" : $("#shopkhname").val(),
 				"shop_logo" : logoimagename,
+				"logo_description" : $("#logo_description").val(),
+				"cover_description" : $("#cover_description").val(),
 				"shop_cover" : coverimagename,
 				"cuisine_id" : $("#selectedcuisine").val(),
 				"shop_type_id" : $("#selectedshoptype").val(),
@@ -1385,33 +1390,6 @@ $("#saveshop").on("click",function(){
   //  uploadShopImageDetailToServer();
 	//  console.log(getDataToInsert());
 });
-
-/* function test(){
-	alert($(".file-preview-frame").length);
-	alert(arrnewfileimagename.length);
-	var arrshopimagedetail = [];
-	
-	var imglng = $(".file-preview-frame").length;
-	for(var i=0; i<imglng ; i++){
-		var clientimgname = $(".file-preview-frame").eq(i).find(".file-footer-caption").attr("title").trim();
-		//console.log(clientimgname);
-		//alert($(".file-preview-frame").eq(i).find("textarea").val());
-		for(var j=0; j<arrnewfileimagename.length; j++){
-			var serverimgname = arrnewfileimagename[j].split("|");
-			console.log(clientimgname);
-			console.log(serverimgname[1]);
-			
-			if(clientimgname == serverimgname[1]){
-				alert(clientimgname);
-				arrshopimagedetail.push({
-					"sh_img_name" : serverimgname[0],
-					"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
-				});
-			}
-		}
-	} 
-	return arrshopimagedetail;
-} */
 
 
 $("#branchname").on("focus keyup",function(){
