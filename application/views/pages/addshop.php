@@ -14,9 +14,12 @@ span.select2-selection{
 textarea:focus{
     outline: none;
 }
+.invalid-input{
+	border: 1px solid #dd4b39;
+}
 </style>
   </head>
-  <body class="hold-transition skin-red-light sidebar-mini">
+  <body class="hold-transition skin-red-light sidebar-mini" >
     <div class="wrapper">
 
       <header class="main-header">
@@ -49,8 +52,8 @@ textarea:focus{
                 	<div class=" col-sm-12 nham-dropdown-wrapper">
                 		<div class="row">
                 			<div class="selected-dropdown">
-                    		   <input id="branchname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search branch to insert shop">
-                    	       <input type="hidden" class="selectedbranchid" id="selectedbranch"/>
+                    		   <input id="branchname" type="text" class="form-control input-lg nham-dropdown-inputbox "  placeholder="Search branch to insert shop">
+                    	       <input type="hidden" class="selectedid" id="selectedbranch"/>
                     	    </div>
                     		<div class="nham-dropdown-detail"  >
                     			<div class="nham-dropdown-result-wrapper">
@@ -92,45 +95,13 @@ textarea:focus{
 			                      <input type="text" id="shopkhname" class="form-control top-gap" placeholder="Shop Name in Khmer">
 		                     </div>
 		                     
-		                     <div class="form-group nham-dropdown-wrapper">
-			                    <label>Shop Cuisine</label>
-			                    <div class=" col-sm-12 nham-dropdown-wrapper">
-			                		<div class="row">
-			                			<div class="selected-dropdown">
-			                    		    <input id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
-			                    	       <input type="hidden" class="selectedbranchid" id="selectedcuisine"/>
-			                    	    </div>
-			                    		<div class="nham-dropdown-detail"  >
-			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-cuisine" class="display-result-wrapper">
-			                    					
-			                    				</div>
-			       				
-			                  				</div>
-			                  				<div id="display-searching-text_cuisine" style="display:none;">
-			                  					<div  class="nham-dropdown-noresult">
-													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
-														Searching "<span id="text-search-cuisine-dis1"></span>" has no Result!</p>
-												</div>
-												<div class="nham-dropdown-question">	
-													<p>Do you want to register "<span id="text-search-cuisine-dis2"></span>" as a new cuisine?</p>
-												</div>
-			                  				</div>
-			                  				<div id="nham-dropdown-footer-cuisine" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yescuisine">Yes</button>
-			                  				</div>
-			                  			</div>
-			                    	</div>			                    	
-			                  	</div>
-		                     </div>
-		                     
 		                     <div class="form-group ">
 			                    <label>Shop Type</label>
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shoptypename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop type">
-			                    	        <input type="hidden" class="selectedbranchid" id="selectedshoptype"/>
+			                    	        <input type="hidden" class="selectedid" id="selectedshoptype"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -157,6 +128,40 @@ textarea:focus{
 			                    	</div>			                    	
 			                  	</div>
 		                     </div>
+		                     
+		                     <div class="form-group ">
+			                    <label>Shop Cuisine</label>
+			                    <div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="selected-dropdown">
+			                    		    <input id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
+			                    	       <input type="hidden" class="selectedid" id="selectedcuisine"/>
+			                    	    </div>
+			                    		<div class="nham-dropdown-detail"  >
+			                    			<div class="nham-dropdown-result-wrapper">
+			                    				<div id="display-result-cuisine" class="display-result-wrapper">
+			                    					
+			                    				</div>
+			       				
+			                  				</div>
+			                  				<div id="display-searching-text_cuisine" style="display:none;">
+			                  					<div  class="nham-dropdown-noresult">
+													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+														Searching "<span id="text-search-cuisine-dis1"></span>" has no Result!</p>
+												</div>
+												<div class="nham-dropdown-question">	
+													<p>Do you want to register "<span id="text-search-cuisine-dis2"></span>" as a new cuisine?</p>
+												</div>
+			                  				</div>
+			                  				<div id="nham-dropdown-footer-cuisine" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yescuisine">Yes</button>
+			                  				</div>
+			                  			</div>
+			                    	</div>			                    	
+			                  	</div>
+		                     </div>
+		                     
+		                     
 		                     
 		                     <div class="form-group">
 			                    <label>Shop Serve Type</label>
@@ -384,12 +389,12 @@ textarea:focus{
 					                    	</div> 	
 					                    										
 											<div id="logo-upload-image" class="upload-image-hover" ></div>
-											<div id="loading-wrapper" class="upload-image-loading" style="display:none" >
+											<div id="loading-wrapper" class="upload-image-loading" align="center" style="display:none;text-align:center" >
 												 <div class="progress progress-xxs">
 								                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 								                    </div>
 								                  </div>
-												  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+												  <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
 												  <i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
 											</div>
 											<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
@@ -397,8 +402,8 @@ textarea:focus{
 												<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>	
 												
 											</div>
-											<div id="removeloadingwrapper" class="upload-image-remove" style="display:none">
-												 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+											<div id="removeloadingwrapper" class="upload-image-remove" align="center" style="display:none;text-align:center">
+												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
 											</div>
 														                    	  		                    	  		                    	  
 										</div>
@@ -424,7 +429,7 @@ textarea:focus{
 								                    <div id="logoprogressbar-cover" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 								                    </div>
 								                  </div>
-												  <img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+												  <img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
 												  <i class="fa fa-times disable-cover" id="cover-disable-cover" aria-hidden="true" title="close" ></i>
 											</div>
 											<div id="uploadimageremoveback-cover" class="upload-image-remove-background" style="display:none"></div>
@@ -432,7 +437,7 @@ textarea:focus{
 												<i id="removelogoimage-cover" class="fa fa-trash" aria-hidden="true"></i>										
 											</div>
 											<div id="removeloadingwrapper-cover" class="upload-image-remove" style="display:none">
-												 <img  class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
 											</div>																				                    	  		                    	  		                    	  
 										</div>
 										<textarea rows="" placeholder="have your word about this..." id="cover_description"  class="nham_description"  cols=""></textarea>
@@ -446,49 +451,37 @@ textarea:focus{
 			                    <label>Shop Address</label>
 			                	<div class="col-lg-12 top-gap">
 			                		<div class="row">
-						                 <div class="input-group top-gap">
-						                    <span class="input-group-addon"><i class="fa fa-globe font-size-20" aria-hidden="true"></i></span>
-						                     <select class="form-control nham-control  select2" id="nham_country" style="width: 100%; border-radius: 0!important;">
+			                			<label>Country </label>						                						                    
+						                <select class="form-control nham-control  select2" id="nham_country" style="width: 100%; border-radius: 0!important;">
 						                      	
-						                    </select>
-						                  </div>
-						                
+						                </select>						                					                
 					                 </div>
 				                 </div>
 				                  
 				                 <div class="col-lg-12 ">
 			                		<div class="row">
-						                 <div class="input-group top-gap">
-						                    <span class="input-group-addon"><i class="fa fa-map " aria-hidden="true"  ></i></span>
-						                     <select class="form-control nham-control  select2" id="nham_city"  style="width: 100%; border-radius: 0!important;">
+						                 <label>City </label>	
+						                  <select class="form-control nham-control  select2" id="nham_city"  style="width: 100%; border-radius: 0!important;">
 						                     	
-						                    </select>
-						                  </div>
-						                
+						                  </select>						                  						                
 					                 </div>
 				                 </div>
 				                 
 				                 <div class="col-lg-12 ">
 			                		<div class="row">
-						                 <div class="input-group top-gap">
-						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
-						                     <select class="form-control nham-control  select2" id="nham_district"  style="width: 100%; border-radius: 0!important;">
+						                 <label>District </label>
+						                 <select class="form-control nham-control  select2" id="nham_district"  style="width: 100%; border-radius: 0!important;">
 						                    	
-						                    </select>
-						                  </div>
-						                
+						                 </select>						                 
 					                 </div>
 				                 </div>
 				                 
 				                  <div class="col-lg-12 ">
 			                		<div class="row">
-						                 <div class="input-group top-gap">
-						                    <span class="input-group-addon"><i class="fa fa-map-signs " aria-hidden="true"  ></i></span>
-						                     <select class="form-control nham-control select2" id="nham_commune"  style="width: 100%; border-radius: 0!important;">
+						                  <label>Commune </label>
+						                  <select class="form-control nham-control select2" id="nham_commune"  style="width: 100%; border-radius: 0!important;">
 						                     	
-						                    </select>
-						                  </div>
-						                
+						                   </select>						                
 					                 </div>
 				                 </div>
 				                 
@@ -537,7 +530,7 @@ textarea:focus{
 										<script type="text/javascript"
 											 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSDjBA-4xhfV7TGP1jrTBcBJ4p70mmezo"></script>
 										
-										<div id="map_canvas" style="width: 100%; height: 610px;"></div>
+										<div id="map_canvas" style="width: 100%; height: 580px;"></div>
 									</div>
 				                </div>
 			                 </div> 
@@ -553,7 +546,7 @@ textarea:focus{
 										<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
 										</div>
 										<div id="coveruploadimagewithload"  align="center" class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
-											<img class="loading-inside-box" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:23px;width:30px;" />
+											<img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:23px;width:30px;" />
 										</div>
 									</div>
 			                    </div>			            	
@@ -663,7 +656,8 @@ textarea:focus{
 </script>
  
  <script>
-
+ 
+	
 //phone adding
 $(document).ready(function(){
 
@@ -1160,7 +1154,7 @@ $("#input-44").on("change", function(){
 	
 	uploadShopImageDetailToServer();
 });
-function turnSpecialCharToUnderscore( str ){
+/* function turnSpecialCharToUnderscore( str ){
 
 	var mystr = "";
 	mystr = str.replace(/[\^]/gi,'_');
@@ -1198,18 +1192,18 @@ function splitNewShopImageAndDetail(){
 	myresult
 	
 	return arrshopimagedetail;
-}
+} */
 
-function splitNewShopImage(){
+/* function splitNewShopImage(){
 	var shopimagetoinsert = [];
 	for(var i=0; i<arrnewfileimagename.length; i++){
 		var newimagetoinsert = arrnewfileimagename[i].split("|")[0];
 		shopimagetoinsert.push(newimagetoinsert);
 	}
 	return shopimagetoinsert;
-}
+} */
 
-$(document).on("mousedown","button.kv-file-remove",function(){
+/* $(document).on("mousedown","button.kv-file-remove",function(){
 	var oldimagename = $(this).parents(".file-thumbnail-footer").find(".file-footer-caption").attr("title").trim();
 	 oldimagename = turnSpecialCharToUnderscore(oldimagename);
 	for(var i=0; i<arrnewfileimagename.length; i++){ 
@@ -1236,13 +1230,37 @@ $(document).on("mousedown","button.kv-file-remove",function(){
 		
 	}
 	
-});
-$(document).on("mousedown", "button.fileinput-remove-button", function(){
-	//console.log(splitNewShopImage());
-	//arrnewfileimagename = [];
-	//console.log(arrnewfileimagename);
+}); */
+function getImageNameAndDetail(){
+
+	var arrshopimagedetail = [];
 	
-	removeShopImageDetailFromServerMulti(splitNewShopImage()).success(function(data){
+	var imglng = $(".file-preview-frame").length;
+	for(var i=0; i<imglng ; i++){		
+		arrshopimagedetail.push({
+			"sh_img_name" : $(".file-preview-frame").eq(i).find("input.img-new-name").val(),
+			"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
+		});		
+	} 	
+	return arrshopimagedetail;
+	
+}
+$(document).on("mousedown","button.kv-file-remove",function(){
+	var imagename = $(this).parents(".file-thumbnail-footer").find("input.img-new-name").val();
+	removeShopImageDetailFromServer(imagename).success(function (data) {	
+		
+	});
+	for(var i=0; i<arrnewfileimagename.length; i++){ 
+		if(imagename == arrnewfileimagename[i]){
+			arrnewfileimagename.splice(i , 1);
+		}
+	}
+	
+	console.log(arrnewfileimagename);
+});
+$(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove", function(){
+	
+	removeShopImageDetailFromServerMulti(arrnewfileimagename).success(function(data){
 		arrnewfileimagename = [];
 		console.log(arrnewfileimagename);
 	});
@@ -1269,9 +1287,6 @@ function removeShopImageDetailFromServer(imagetoremove){
 	});
 }
 function uploadShopImageDetailToServer(){
-	alert(2);
-	
-	
 	var inputFile = $("#input-44");
 	var filesToUpload = inputFile[0].files;
 	console.log(filesToUpload);
@@ -1304,48 +1319,40 @@ function uploadShopImageDetailToServer(){
 					}	
 					console.log(data.fileupload[i].filename);
 
-				}	
-
-			    console.time('div.file-input');							
-			    setTimeout(function(){ 
-			    	
+				}						
+			    setTimeout(function(){ 			    	
 			    	setNewimgName();
-			    	
-
-	    		  }, 1000);
-				
-				
-						
-				
-				$("#coveruploadimage").hide();
-				$("#coveruploadimagewithload").hide();	
+	    		  }, 1000);							
 			}
 		});
-	}else{
-		
-	}
-	
+	}	
 }
 
 function setNewimgName(){
 	 for(var i=0 ;i< arrnewfileimagename.length; i++){
-		  $(".file-preview-frame").eq(i).find("textarea").val(arrnewfileimagename[i]);
+		  $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i]);
 	 }	
-	 setTimeout(function(){checkIfSetimgNameFail();} , 100);
+	 setTimeout(function(){checkIfSetimgNameFail();} , 300);
 }
 function checkIfSetimgNameFail(){
 	var lngcheck = 0;
 	var imglng = $(".file-preview-frame").length;
 	for(var i=0; i<imglng ; i++){
-		var newnameimg = $(".file-preview-frame").eq(i).find("textarea").val();
+		var newnameimg = $(".file-preview-frame").eq(i).find("input.img-new-name").val();
 		if(newnameimg != "") lngcheck++;
 	} 
-	alert(lngcheck);
-	alert("arrnew"+arrnewfileimagename.length);
+	//alert(lngcheck);
+	//alert("arrnew"+arrnewfileimagename.length);
 	if(arrnewfileimagename.length > lngcheck) {
 		setNewimgName();
+	}else{
+		$("#coveruploadimage").hide();
+		$("#coveruploadimagewithload").hide();	
 	}
 }
+
+
+
 
 
 function getAddress(){//name of country, city........
@@ -1361,6 +1368,116 @@ function getAddress(){//name of country, city........
 	return streetad +", "+commune+", "+district+", "+city+", "+country;
 }
 
+function inputValidation(){
+    var validate = [
+        {
+        	"is_validate" : validateNull("selectedbranch", 0 , "branchname"),
+        	"message" : "Branch Name" 
+        },
+        {
+        	"is_validate" : validateNull("shopengname" , 0),
+        	"message" : "Shop Name In English" 
+        },
+        {
+        	"is_validate" : validateNull("selectedshoptype", 0 , "shoptypename"),
+        	"message" : "Shop Type" 
+        },
+        {
+        	"is_validate" : validateNull("nham_country" , 1),
+        	"message" : "Country" 
+        },
+        {
+        	"is_validate" : validateNull("nham_city" , 1),
+        	"message" : "City" 
+        },
+        {
+        	"is_validate" : validateNull("nham_district" , 1),
+        	"message" : "District" 
+        },
+        {
+        	"is_validate" : validateNull("nham_commune" , 1),
+        	"message" : "Commune" 
+        },
+        {
+        	"is_validate" : validateNull("shopstreetad" , 0),
+        	"message" : "Street Address" 
+        },
+        {
+        	"is_validate" : validateNull("lat-location" , 0),
+        	"message" : "Latitude" 
+        },
+        {
+        	"is_validate" : validateNull("lng-location" , 0),
+        	"message" : "Longitude" 
+        }
+			
+	];
+	var iserror = false;
+	for(var i=0; i<validate.length; i++){
+		if(validate[i].is_validate == false){
+			alert(validate[i].message+" is Invalid!");
+			iserror = true;
+			break;
+		}
+	}
+	return iserror;
+}
+
+function validateNull( selector , isselect ,selectorreal){
+	if($("#"+selector).val() == "" || $("#"+selector).val() == null){
+		if(!selectorreal){			
+			if(isselect == 1){
+				$("#"+selector).siblings(".select2-container").addClass("invalid-input");
+			}else{
+				$("#"+selector).addClass("invalid-input");
+			}			
+		}else{
+			$("#"+selectorreal).addClass("invalid-input");
+		}
+		
+		return false;
+	}else{
+		if(!selectorreal){
+			if(isselect == 1){
+				$("#"+selector).siblings(".select2-container").removeClass("invalid-input");
+			}else{
+				$("#"+selector).removeClass("invalid-input");
+			}	
+		}else{
+			$("#"+selectorreal).removeClass("invalid-input");
+		}
+		return true;
+	}
+}
+function validateLeaveNull( selector ){
+	if($("#"+selector).val() == "" || $("#"+selector).val() == null){		
+		return false;
+	}else{		
+		return true;
+	}	
+}
+
+function validateLeavePage(){
+
+	var isleave = true;
+	var validate = [
+		validateLeaveNull("selectedbranch"),
+		validateLeaveNull("selectedshoptype"),
+		validateLeaveNull("shopshortdes"),
+		validateLeaveNull("shopdes"),
+	];
+	var isnull = true;
+	for(var i=0 ; i<validate.length; i++){
+		if(validate[i]){
+			isnull = false;
+			break;
+		}
+	}
+	if(isnull == false || arrnewfileimagename.length>0 || logoimagename != "" || coverimagename != ""){		
+		isleave = false;
+	}
+	return isleave;
+}
 function getDataToInsert(){
 	
 	var shopdata = {
@@ -1405,7 +1522,7 @@ function getDataToInsert(){
 				},
 				"shop_remark": $("#shopremark").val(),
 			},
-			"shop_image_detail": splitNewShopImageAndDetail()
+			"shop_image_detail": getImageNameAndDetail()
 						
 		}	
 	};
@@ -1414,16 +1531,20 @@ function getDataToInsert(){
 
 $("#saveshop").on("click",function(){
 	 console.log(getDataToInsert());
+	 if(!inputValidation()){
+		 $.ajax({
+			 type: "POST",
+			 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
+			 data: getDataToInsert(),
+			 success: function(data){
+				 data = JSON.parse(data);
+				console.log(data);    
+	     	 }
+	     });  
+	 }
+	 
 	 // alert(0);
-	  $.ajax({
-		 type: "POST",
-		 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
-		 data: getDataToInsert(),
-		 success: function(data){
-			 data = JSON.parse(data);
-			console.log(data);    
-     	 }
-     });  
+	 
 	// console.log(test());
    /*  alert($("#logoupload").val());
     alert(logoimagename); */
@@ -1629,6 +1750,54 @@ $("#yesshoptype").on("mousedown",function(){
 	});
 });
 
+
+function goodbye(e) {
+	if (!validateLeavePage()) {
+		if(navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv 11/))){
+			removeShopImageOnCondition();
+		}else{
+			if(!e) e = window.event;
+		  	   //e.cancelBubble is supported by IE - this will kill the bubbling process.
+		  	    e.cancelBubble = true;
+		  	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+		  	    //e.stopPropagation works in Firefox.
+		  	 if (e.stopPropagation) {
+		  	        e.stopPropagation();
+		  	        e.preventDefault();
+		  	 }
+		}
+		
+		
+	}
+}
+window.onbeforeunload=goodbye;
+/*support chrome 
+	enter link, reload btn,
+  NOT support chrome 
+  	 
+*/
+$( window ).unload(function() {     
+    //--> Here
+    removeShopImageOnCondition(); 
+}); 
+
+//support chrome on reload or refresh
+window.onunload = unloadPage;
+function unloadPage()
+{
+	 removeShopImageOnCondition();
+} 
+function removeShopImageOnCondition(){	
+	if (arrnewfileimagename.length > 0) {
+		
+		removeShopImageDetailFromServerMulti(arrnewfileimagename).success(function(data){
+			arrnewfileimagename = [];
+			console.log(arrnewfileimagename);
+		});
+	}
+	if(logoimagename != "") removeLogoImageFromServer();
+	if(coverimagename != "") removeCoverImageFromServer();		
+}
 
 
 
