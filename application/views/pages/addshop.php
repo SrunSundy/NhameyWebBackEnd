@@ -125,7 +125,8 @@ textarea:focus{
 			                  					<button class="btn nhamey-btn" id="yesshoptype">Yes</button>
 			                  				</div>
 			                  			</div>
-			                    	</div>			                    	
+			                    	</div>	
+			                    	<button type="button" id="shoptypebtnpop" style="display:none;" data-toggle="modal" data-target="#myModal">Open Modal</button>		                    	
 			                  	</div>
 		                     </div>
 		                     
@@ -574,6 +575,29 @@ textarea:focus{
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
+    
+    
+ <div class="modal fade" id="myModal" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal Default</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+ </div><!-- /.modal --><!-- Modal -->
+            
+ 
+            
+            
     <?php include 'imports/scriptimport.php'; ?>
    
 
@@ -1726,6 +1750,8 @@ $("#shoptypename").on("focus keyup",function(){
    });
 });
 $("#yesshoptype").on("mousedown",function(){
+
+	$("#shoptypebtnpop").click();
 	var shoptypedata = {
 		"ShoptypeData" : {
 			"shop_type_name" : $("#shoptypename").val(),
