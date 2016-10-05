@@ -184,3 +184,10 @@ div.upload-image-remove-background{
 	font-size:80px;
 	color:#9E9E9E;
 }
+textarea.nham_description{	
+	width:98%;
+	border:0;
+	bottom:0px;
+	display:none;
+	resize:none;
+}

@@ -23,3 +23,71 @@
 	
 	font-size: 20px;
 }
+input::-webkit-input-placeholder {
+    color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+input:focus::-webkit-input-placeholder {
+    color: #BDBDBD;
+}
+
+/* Firefox < 19 */
+input:-moz-placeholder {
+   color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+input:focus:-moz-placeholder {
+   color: #BDBDBD;
+}
+
+/* Firefox > 19 */
+input::-moz-placeholder {
+    color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+input:focus::-moz-placeholder {
+    color: #BDBDBD;
+}
+
+/* Internet Explorer 10 */
+input:-ms-input-placeholder {
+   color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+input:focus:-ms-input-placeholder {
+   color: #BDBDBD;
+}
+textarea::-webkit-input-placeholder {
+    color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+textarea:focus::-webkit-input-placeholder {
+    color: #BDBDBD;
+}
+
+/* Firefox < 19 */
+textarea:-moz-placeholder {
+   color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+textarea:focus:-moz-placeholder {
+   color: #BDBDBD;
+}
+
+/* Firefox > 19 */
+textarea::-moz-placeholder {
+    color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+textarea:focus::-moz-placeholder {
+    color: #BDBDBD;
+}
+
+/* Internet Explorer 10 */
+textarea:-ms-input-placeholder {
+   color: #9E9E9E;
+    font-family: Georgia, serif;
+}
+textarea:focus:-ms-input-placeholder {
+   color: #BDBDBD;
+}
