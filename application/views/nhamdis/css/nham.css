@@ -190,4 +190,5 @@ textarea.nham_description{
 	bottom:0px;
 	display:none;
 	resize:none;
+	height: 50px;
 }
