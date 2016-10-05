@@ -173,7 +173,7 @@ class UploadRestController extends CI_Controller{
 				}else{
 					$report['is_upload']= true;
 					$report["message"] = "File(s) upload successfully!";
-					$report["filename"] =$new_name."|".$_FILES['file']['name'];
+					$report["filename"] =$new_name;
 					array_push($reportwrapper , $report);
 				}
 			}
