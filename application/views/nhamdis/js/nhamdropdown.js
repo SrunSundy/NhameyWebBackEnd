@@ -48,7 +48,7 @@ $(".nham-dropdown-inputbox").on("focus keyup",function(){
 		 $(document).on("mousedown",".nham-dropdown-result",function(){		
 			 trigger = true;			 
 			  $(this).parents(".nham-dropdown-detail").siblings(".selected-dropdown").find(".nham-dropdown-inputbox").val($(this).find("p").text().trim());
-			  $(this).parents(".nham-dropdown-detail").siblings(".selected-dropdown").find(".selectedbrandid").val($(this).find("input").val());
+			  $(this).parents(".nham-dropdown-detail").siblings(".selected-dropdown").find(".selectedid").val($(this).find("input").val());
 			  $(this).parents(".nham-dropdown-detail").hide();
 			 			 
 		});
