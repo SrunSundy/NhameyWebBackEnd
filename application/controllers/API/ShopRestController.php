@@ -25,17 +25,12 @@ class ShopRestController extends CI_Controller{
 			
 	}	
 	
-	public function insertShop(){		
+	public function insertShop(){
+				
 		$shopdata = $this->input->post('ShopData');	
-		
-		/* $datashopdetail["type_1"] = $datashop["shop_logo"];
-		$datashopdetail["type_2"] = $datashop["shop_cover"];
-		$datashopdetail["type_3"] = count($shopdata["shop_image_detail"]); */
-		
-	 	
-		$response = $this->ShopModel->insertShop($shopdata);
-		 
-		echo json_encode($response);	
+		$response = $this->ShopModel->insertShop($shopdata);		 
+		echo json_encode($response);
+			
 	}		
 }
 ?>
