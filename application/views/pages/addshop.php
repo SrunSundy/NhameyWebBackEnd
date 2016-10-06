@@ -17,6 +17,7 @@ textarea:focus{
 .invalid-input{
 	border: 1px solid #dd4b39;
 }
+
 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini" >
@@ -649,9 +650,9 @@ textarea:focus{
 			        <label>Description</label>
 			        <textarea id="cuisinedescription" class="form-control" rows="3" placeholder="describe about the cuisine" style="resize:vertical;"></textarea>
 			   </div>
-               <div  class="form-group">
+               <div  class="form-group" >
 					<label>Image</label>
-					<div class="col-lg-12 logo-browsing-wrapper" align="center" style="display:block;">
+					<div class="col-lg-12 logo-browsing-wrapper" align="center" >
 						<div class="row">
 							<div class="col-lg-12 " align="center"  style="position:relative;">											                     		                  		                    	  
 					              <input type='file' id="cuisineupload" style="display: none;" accept="image/*"/>
