@@ -650,7 +650,7 @@ textarea:focus{
 			        <label>Description</label>
 			        <textarea id="cuisinedescription" class="form-control" rows="3" placeholder="describe about the cuisine" style="resize:vertical;"></textarea>
 			   </div>
-               <div  class="form-group" >
+               <div  class="form-group" style="overflow: hidden;" >
 					<label>Image</label>
 					<div class="col-lg-12 logo-browsing-wrapper" align="center" >
 						<div class="row">
