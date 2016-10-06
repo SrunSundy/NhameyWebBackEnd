@@ -846,7 +846,13 @@ $("#saveshop").on("click",function(){
 			 data: getDataToInsert(),
 			 success: function(data){
 				 data = JSON.parse(data);
-				console.log(data);    
+				 console.log(data);   
+				 if(data.is_insert){
+					 alert(data.message);
+				 }else{
+					 alert(data.message);
+				 }
+				 
 	     	 }
 	     });  
 	 }
@@ -962,6 +968,9 @@ $("#cuisinename").on("focus keyup",function(){
    });
 });
 $("#yescuisine").on("mousedown",function(){
+	
+	$("#cuisinebtnpop").click();
+	$("#cuisinenamepopup").val($("#cuisinename").val());
 	var cuisinedata = {
 		"CuisineData" : {
 			"cuisine_name" : $("#cuisinename").val(),
