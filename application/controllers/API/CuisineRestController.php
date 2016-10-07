@@ -30,7 +30,7 @@ class CuisineRestController extends CI_Controller{
 	public function insertCuisine(){
 		
 		$cuisinedata = $this->input->post('CuisineData');
-		$cuisinearr = array($cuisinedata['cuisine_name'],$cuisinedata['cuisine_remark']);
+		$cuisinearr = array($cuisinedata['cuisine_name'],$cuisinedata["cuisine_icon"],$cuisinedata['cuisine_remark']);
 		$data = $this->CuisineModel->insertCuisine( $cuisinearr );
 		$json = json_encode($data);
 		echo $json;
