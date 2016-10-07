@@ -20,7 +20,7 @@ class CuisineModel extends  CI_Model{
 	function insertCuisine( $cuisinearr ){
 		
 		$this->db->trans_start();
-		$query = $this->db->query('INSERT INTO nham_cuisine(cuisine_name, cuisine_remark) values (? , ?)', $cuisinearr);
+		$query = $this->db->query('INSERT INTO nham_cuisine(cuisine_name, cuisine_icon ,cuisine_remark) values (?, ?, ?)', $cuisinearr);
 		$insert_id = $this->db->insert_id();
 		$isinsert =  ($this->db->affected_rows() != 1) ? false : true;
 		$this->db->trans_complete();
