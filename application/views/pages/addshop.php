@@ -17,6 +17,12 @@ textarea:focus{
 .invalid-input{
 	border: 1px solid #dd4b39;
 }
+.relative-div{
+	position: relative;
+}
+.nham-btn{
+	border-radius: 0;
+}
 
 </style>
   </head>
@@ -638,7 +644,7 @@ textarea:focus{
      <div class="modal-dialog">
          <div class="modal-content">
              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" id="cuisineformclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"><i class="fa fa-home" aria-hidden="true"></i> Cuisine</h4>
              </div>
              <div class="modal-body">
@@ -683,7 +689,9 @@ textarea:focus{
 				</div>
              </div>
              <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Save changes</button>
+               <button type="button" id="belowclosecuisine" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+                <button type="button" id="cuisinesave" class="btn nham-btn btn-danger">Save changes</button>
+                
              </div>
          </div><!-- /.modal-content -->
      </div><!-- /.modal-dialog -->
@@ -695,9 +703,9 @@ textarea:focus{
     <?php include 'imports/scriptimport.php'; ?>
 	<script src="<?php echo base_url() ?>application/views/nhamdis/jscontroller/addshop.js"></script>
 	<script>
-var cuisineimgname = "";
+
 $("#cuisine-upload-image").on("click",function(){	
-		$("#cuisineupload").click();	
+	$("#cuisineupload").click();	
 });
 $("#removecuisineimage").on("click",function(){
 	removeCuisineImageFromServer();
@@ -722,8 +730,8 @@ function uploadCuisine(input) {
 		var reader = new FileReader();
  		reader.onload = function (e) {
  			upoloadCuisineToServer();
-		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		              $('#cuisine-upload-wrapper').html(myimg);
+		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		    $('#cuisine-upload-wrapper').html(myimg);
 		}
 		reader.readAsDataURL(input.files[0]);
 	}else{
@@ -734,14 +742,12 @@ function uploadCuisine(input) {
 
 function removeCuisineImageFromServer(){
 	$("#removeloadingwrapper-cuisine").show();
+	console.log(cuisineimgname);
 	$.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
 		type: "POST",
 		data : {
-			"removeimagedata":{
-				"image_type" : "1",
-				"imagename" : cuisineimgname
-			}			
+			"iconname": cuisineimgname	
 		},
 		success: function(data){
 			
@@ -756,6 +762,7 @@ function removeCuisineImageFromServer(){
 				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
 			$('#cuisine-upload-wrapper').html(txt);
 			$("#removeloadingwrapper-cuisine").hide();
+			console.log(cuisineimgname);
 		}
 	});
 }
@@ -771,7 +778,7 @@ function upoloadCuisineToServer(){
 		formData.append("file",  fileToUpload);
 		
 		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
+			url: "/NhameyWebBackEnd/API/UploadRestController/uploadIconImage",
 			type: "POST",
 			data : formData,
 			processData : false,
@@ -788,6 +795,7 @@ function upoloadCuisineToServer(){
 					$("#cuisine-upload-image").removeClass("loading-box");
 					$("#uploadimageremoveback-cuisine").show();
 					$("#removecuisineimagewrapper").show();
+					console.log(cuisineimgname);
 				}
 				
 			},
@@ -806,6 +814,66 @@ function upoloadCuisineToServer(){
 			}
 		});
 	} 
+}
+function validateCuisine(){
+	if(!validateNull("cuisinenamepopup", 0)){
+		alert("Cuisine name Invalid");
+		return false;
+	}
+	return true;
+}
+$("#cuisinesave").on("click", function(){
+	if(validateCuisine()){
+		var cuisinedata = {
+				"CuisineData" : {
+					"cuisine_name" : $("#cuisinenamepopup").val(),
+					"cuisine_icon" : cuisineimgname,
+					"cuisine_remark": $("#cuisinedescription").val()
+				}
+		};
+		console.log(cuisinedata);
+		$.ajax({
+			type : "POST",
+			url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
+			data : cuisinedata,
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_insert == false){
+					alert("Insert error!");
+				}else{
+					//alert(data);
+					$("#selectedcuisine").val(data.cuisine_id);
+					$("#cuisinename").val($("#cuisinenamepopup").val());
+					$("#belowclosecuisine").click();
+					clearCuisineSaveform();
+					
+				}
+					
+			}
+		});
+	}
+});
+$("#cuisineformclose").on("click",function(){
+	$("#cuisinenamepopup").val("");
+	$("#cuisinedescription").val("");
+	if(cuisineimgname != "") 
+		 removeCuisineImageFromServer();
+});
+function clearCuisineSaveform(){
+	$("#cuisinenamepopup").val("");
+	$("#cuisinedescription").val("");
+	cuisineimgname="";
+	$("#cuisineupload").val(null);
+	$("#uploadimageremoveback-cuisine").hide();
+	$("#removecuisineimagewrapper").hide();
+	var txt = '<label class="gray-image-plus">';
+		txt += '  <i class="fa fa-plus"></i>';
+		txt += '</label>';
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#cuisine-upload-wrapper').html(txt);
+	$("#removeloadingwrapper-cuisine").hide();
 }
 
 	</script>

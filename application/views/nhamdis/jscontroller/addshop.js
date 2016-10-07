@@ -92,6 +92,7 @@ var shopphones = [];
 var arrnewfileimagename = [];
 var logoimagename = "";
 var coverimagename = "";
+var cuisineimgname = "";
 
 /*load shop address section*/
 loadCountryData();
@@ -555,11 +556,12 @@ function getImageNameAndDetail(){
 }
 $(document).on("mousedown","button.kv-file-remove",function(){
 	var imagename = $(this).parents(".file-thumbnail-footer").find("input.img-new-name").val();
+	console.log(imagename);
 	removeShopImageDetailFromServer(imagename).success(function (data) {	
 		
 	});
 	for(var i=0; i<arrnewfileimagename.length; i++){ 
-		if(imagename == arrnewfileimagename[i]){
+		if(imagename == arrnewfileimagename[i].filename){
 			arrnewfileimagename.splice(i , 1);
 		}
 	}
@@ -618,14 +620,19 @@ function uploadShopImageDetailToServer(){
 			    var filelen = data.fileupload.length;			 
 			    for(var i=0 ;i< filelen; i++){
 				   // alert(i);
+			    	arrnewfileimagename.push({
+			    		"isupload" : data.fileupload[i].is_upload,
+			    		"filename" : data.fileupload[i].filename
+			    	});
+			    	
 				    if(data.fileupload[i].is_upload == true){
 				    	
-				    		arrnewfileimagename.push( data.fileupload[i].filename);
+				    		
 				    		  
 					}else{
 						alert(data.fileupload[i].filename+" :: "+data.fileupload[i].message);
 					}	
-					console.log(data.fileupload[i].filename);
+					console.log(arrnewfileimagename);
 
 				}						
 			    setTimeout(function(){ 			    	
@@ -638,10 +645,42 @@ function uploadShopImageDetailToServer(){
 
 function setNewimgName(){
 	 for(var i=0 ;i< arrnewfileimagename.length; i++){
-		  $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i]);
+		 if(arrnewfileimagename[i].isupload){
+			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);
+		 }else{
+			 $(".file-preview-frame").eq(i).removeClass("relative-div");
+			 $(".file-preview-frame").eq(i).find(".opacity-on-file").remove();
+			 $(".file-preview-frame").eq(i).find(".file-input-err-message").remove();
+			 
+			 $(".file-preview-frame").eq(i).addClass("relative-div");
+			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);			 
+			 var opacityDiv = '<div class="opacity-on-file" style="width:100%;height:100%;position:absolute;top:0;left:0;background:#fff;opacity:0.6;z-index:90;"></div>';
+			 var messageDiv = '<div class="file-input-err-message" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;" align="center">';
+				 messageDiv +='  <h4 style="color:#EF5350;font-weight:bold;">ERROR</h4>';
+				 messageDiv +='  <i style="font-size:40px; color:#EF5350;cursor:pointer;" class="fa fa-trash closeimgdetail" ></i>';
+				 messageDiv +='</div>';
+			 $(".file-preview-frame").eq(i).append(opacityDiv);
+			 $(".file-preview-frame").eq(i).append(messageDiv);
+			
+		 }
+		 
 	 }	
 	 setTimeout(function(){checkIfSetimgNameFail();} , 300);
 }
+
+$(document).on("click",".closeimgdetail",function(){
+	
+	$(this).parent().siblings(".file-thumbnail-footer").find(".file-actions").find(".kv-file-remove").click();
+	var imagename = $(this).parent().siblings(".file-thumbnail-footer").find("input.img-new-name").val().trim();
+	for(var i=0; i<arrnewfileimagename.length; i++){ 
+		
+		if(imagename == arrnewfileimagename[i].filename.trim()){
+			arrnewfileimagename.splice(i , 1);
+		}
+	}
+	console.log(arrnewfileimagename.length);
+	console.log(arrnewfileimagename);
+})
 function checkIfSetimgNameFail(){
 	var lngcheck = 0;
 	var imglng = $(".file-preview-frame").length;
@@ -971,28 +1010,7 @@ $("#yescuisine").on("mousedown",function(){
 	
 	$("#cuisinebtnpop").click();
 	$("#cuisinenamepopup").val($("#cuisinename").val());
-	var cuisinedata = {
-		"CuisineData" : {
-			"cuisine_name" : $("#cuisinename").val(),
-			"cuisine_remark": ""
-		}
-	};
-	$.ajax({
-		type : "POST",
-		url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
-		data : cuisinedata,
-		success : function(data){
-			data = JSON.parse(data);
-			console.log(data);
-			if(data.is_insert == false){
-				alert("Insert error!");
-			}else{
-				//alert(data);
-				$("#selectedcuisine").val(data.cuisine_id);
-			}
-			
-		}
-	});
+	
 });
 
 
@@ -1097,6 +1115,7 @@ window.onunload = unloadPage;
 function unloadPage()
 {
 	 removeShopImageOnCondition();
+	 
 } 
 function removeShopImageOnCondition(){	
 	if (arrnewfileimagename.length > 0) {		
@@ -1107,6 +1126,8 @@ function removeShopImageOnCondition(){
 	if(logoimagename != "") 
 		removeLogoImageFromServer();
 	if(coverimagename != "") 
-		removeCoverImageFromServer();		
+		removeCoverImageFromServer();	
+	if(cuisineimgname != "") 
+		 removeCuisineImageFromServer();
 }
 
