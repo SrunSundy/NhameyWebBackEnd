@@ -6,7 +6,13 @@
     <title>AdminLTE 2 | Dashboard</title>
  	
  	<?php include 'imports/cssimport.php' ?>
+ 	<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+ 	
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
+     <link rel="stylesheet" href="<?php echo base_url() ?>css/tokenize2.css"> 
+     <script src="<?php echo base_url() ?>js/tokenize2.js"></script>
+     
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     <div class="wrapper">
@@ -139,21 +145,48 @@
 			                 </div><!-- /.form-group -->
 							  <div class="form-group">
 			                    <label>Product Type</label>
-			                    <select class="form-control " style="width: 100%;" id="pro_servertype">
-			                      <option selected="selected" value="fast_food">Fast-food</option>
-			                      <option value="junk-food">junk-food</option>
-			                    
-			                    </select>
-			                 </div><!-- /.form-group -->
-	
+			                         <div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="selected-dropdown">
+			                    		    <input id="productype" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product taste">
+			                    	        <input type="hidden" class="selectedbrandid" id="selectedtype"/>
+			                    	    </div>
+			                    		<div class="nham-dropdown-detail"  >
+			                    			<div class="nham-dropdown-result-wrapper">
+			                    				<div id="display-result-type" class="display-result-wrapper">
+			                    					
+			                    				</div>
+			       				
+			                  				</div>
+			                  				<div id="nham-dropdown-footer-type" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesproductype">Yes</button>
+			                  				</div>
+			                  			</div>
+			                    	</div>			                    	
+			                  		</div>
+			                  </div><!-- /.form-group -->
+						       <div class="form-group nham-dropdown-wrapper">
+			                  
+			                    <div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="form-group">
+			                			    <div class="form-group">
+							                      <label>Product Price</label>
+							                      <input type="text" id="price" class="form-control" placeholder="Product Price ">
+							                      <input type="text" id="promote_price" class="form-control top-gap" placeholder="Product Promote Price">
+		                     				</div>
+			                    	    </div>
+                  			        </div>			                    	
+			                  	</div>
+		                     </div>
 			                  <div class="form-group">
 			                     <label>Short Description</label>
-			                     <textarea id="shopshortdes" class="form-control" rows="3" placeholder="describe shortly about the shop" style="resize:none;"></textarea>
+			                     <textarea id="productshortdes" class="form-control" rows="3" placeholder="describe shortly about the shop" style="resize:none;"></textarea>
 			                  </div>
 			                  
 			                  <div class="form-group">
 			                     <label>Description</label>
-			                     <textarea id="shopdes" class="form-control" rows="3" placeholder="describe briefly about the shop"  style="resize:vertical;"></textarea>
+			                     <textarea id="productdes" class="form-control" rows="3" placeholder="describe briefly about the shop"  style="resize:vertical;"></textarea>
 			                  </div>   
 			                   <div class="form-group">
 			                     <label>Remark</label>
@@ -176,6 +209,26 @@
 									<div id="cover-upload-image" class="upload-image-hover"></div>
 												                    	  		                    	  		                    	  
 								</div>
+							</div>
+			           
+							
+							 			      			
+			            </section><!-- right col -->
+			             <section class="col-lg-7 connectedSortable">
+							
+							<div  class="form-group">
+								<label>Tags</label>
+								 <div class="panel">
+			                        <select class="tokenize-custom-demo1" multiple>
+			                            <?php echo $tags; ?>
+			                        </select>
+                    			 </div>
+                    			 <script>
+                    			  $('.tokenize-custom-demo1').tokenize2({
+                    			      tokensAllowCustom: true,
+                    					
+                    			  });
+                    			 </script>
 							</div>
 			           
 							
@@ -208,7 +261,7 @@
 
  
   <script>
-//phone adding
+
 
  var logoimagename = "";
 
@@ -357,7 +410,7 @@ $("#saveshop").on("click",function(){
     alert($("#logoupload").val());
     alert(logoimagename);
 });
-
+/////////////// search and save shopname
 $("#shopname").on("focus keyup",function(){
 	
 	var srchshopname = $(this).val();
@@ -420,30 +473,134 @@ $("#yeshop").on("mousedown",function(){
 		}
 	});
 });
-$("#yesprocuisine").on("mousedown",function(){
-	var regiondata = {
-		"CuisineData" : {
-			"cuisine_name" : $("#pro_cuisine").val(),
-			"cuisine_remark": ""
+////////////////search and save shopname
+$("#productype").on("focus keyup",function(){
+	
+	var srchtypename = $(this).val();
+	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	$("#display-result-type").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
+	
+	$.ajax({
+		 type: "GET",
+		 url: "/NhameyWebBackEnd/API/ProductTypeRestController/getTypeByNameCombo", 
+		 data : {			 
+				"srchname" : srchtypename,
+				"limit" : 10		 	
+		 },
+		 success: function(data){
+			data = JSON.parse(data);
+			console.log(data);
+			 var typedis = '';
+			if(data.length <= 0){
+				typedis +='<div  class="nham-dropdown-noresult">';
+				typedis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
+				typedis +='  Searching "'+cutString(srchtypename , 35)+'" has no Result!</p>';
+				typedis +='</div>';
+				typedis +='<div class="nham-dropdown-question">';
+				typedis +='<p>Do you want to register "'+cutString(srchtypename , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
+				typedis +='</div>';
+				$("#nham-dropdown-footer-type").show();
+			}else{	
+		
+				$("#nham-dropdown-footer-type").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					 typedis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].product_type_id+'" /><p><span class="title">'+data[i].product_type_name+'</span></p></div>';
+				 }				
+				
+			}
+			$("#display-result-type").html(typedis); 					 
+   	 	 }
+   });
+});
+$("#yesproductype").on("mousedown",function(){
+	var tastedata = {
+		"tastedata" : {
+			"type_name" : $("#productype").val(),
+			"type_remark": ""
 		}
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
-		data : regiondata,
+		url : "/NhameyWebBackEnd/API/ProductTypeRestController/insertType",
+		data : tastedata,
 		success : function(data){
-			data = JSON.parse(data);
-			console.log(data);
+			 data = JSON.parse(data);
+			//console.log(data);
 			if(data.is_insert == false){
-				alert("Insert error!");
+				alert("error");
 			}else{
-				//alert(data);
-				$("#selectedprocuisine").val(data.cuisine_id);
+				$("#selectedtype").val(data.product_type_id);
 			}
+			//alert(data);
 			
 		}
 	});
 });
+////////////////search and save product type
+$("#shopname").on("focus keyup",function(){
+	
+	var srchshopname = $(this).val();
+	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
+	
+	$.ajax({
+		 type: "GET",
+		 url: "/NhameyWebBackEnd/API/ShopRestController/getShopByNameCombo", 
+		 data : {			 
+				"srchname" : srchshopname,
+				"limit" : 10		 	
+		 },
+		 success: function(data){
+			data = JSON.parse(data);
+			console.log(data);
+			 var shopdis = '';
+			if(data.length <= 0){
+				shopdis +='<div  class="nham-dropdown-noresult">';
+				shopdis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
+				shopdis +='  Searching "'+cutString(srchshopname , 35)+'" has no Result!</p>';
+				shopdis +='</div>';
+				shopdis +='<div class="nham-dropdown-question">';
+				shopdis +='<p>Do you want to register "'+cutString(srchshopname , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
+				shopdis +='</div>';
+				$("#nham-dropdown-footer").show();
+			}else{	
+		
+				$("#nham-dropdown-footer").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					 shopdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_id+'" /><p><span class="title">'+data[i].shop_name_en+'</span></p></div>';
+				 }				
+				
+			}
+			$("#display-result").html(shopdis); 					 
+   	 	 }
+   });
+});
+$("#yeshop").on("mousedown",function(){
+	var branddata = {
+		"BrandData" : {
+			"brand_name" : $("#shopname").val(),
+			"brand_remark": ""
+		}
+	};
+	$.ajax({
+		type : "POST",
+		url : "/NhameyWebBackEnd/API/BrandRestController/insertBrand",
+		data : branddata,
+		success : function(data){
+			 data = JSON.parse(data);
+			//console.log(data);
+			if(data.is_insert == false){
+				alert("error");
+			}else{
+				$("#selectedbrand").val(data.brand_id);
+			}
+			//alert(data);
+			
+		}
+	});
+});
+////////////////// search and save productaste
+
 $("#productaste").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
@@ -480,6 +637,31 @@ $("#productaste").on("focus keyup",function(){
    	 	 }
    });
 });
+$("#yesproductaste").on("mousedown",function(){
+	var tastedata = {
+		"tastedata" : {
+			"taste_name" : $("#productaste").val(),
+			"taste_remark": ""
+		}
+	};
+	$.ajax({
+		type : "POST",
+		url : "/NhameyWebBackEnd/API/ProductTasteRestController/insertTaste",
+		data : tastedata,
+		success : function(data){
+			data = JSON.parse(data);
+			console.log(data);
+			if(data.is_insert == false){
+				alert("Insert error!");
+			}else{
+				//alert(data);
+				$("#selectedtaste").val(data.taste_id);
+			}
+			
+		}
+	});
+});
+///////////////////////////////////////////// Searcg and Save pro_cuisine
 $("#pro_cuisine").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
@@ -516,17 +698,17 @@ $("#pro_cuisine").on("focus keyup",function(){
    	 	 }
    });
 });
-$("#yesproductaste").on("mousedown",function(){
-	var tastedata = {
-		"tastedata" : {
-			"taste_name" : $("#productaste").val(),
-			"taste_remark": ""
+$("#yesprocuisine").on("mousedown",function(){
+	var regiondata = {
+		"CuisineData" : {
+			"cuisine_name" : $("#pro_cuisine").val(),
+			"cuisine_remark": ""
 		}
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/ProductTasteRestController/insertTaste",
-		data : tastedata,
+		url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
+		data : regiondata,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
@@ -534,12 +716,13 @@ $("#yesproductaste").on("mousedown",function(){
 				alert("Insert error!");
 			}else{
 				//alert(data);
-				$("#selectedtaste").val(data.taste_id);
+				$("#selectedprocuisine").val(data.cuisine_id);
 			}
 			
 		}
 	});
 });
+
 	
   </script>
 </html>
