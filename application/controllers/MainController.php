@@ -26,15 +26,25 @@
 		}
 		
 		public function addproduct(){
-			$this->load->view('pages/addproduct');
+			$data['tags']=$this->select_options();
+		
+			$this->load->view('pages/addproduct',$data);
 		}
 		
 		public function addshop(){
+			
 			$this->load->view('pages/addshop');
 		}
 		
 		public function user(){
 			$this->load->view('pages/user');
 		}
+		private function select_options($selected = array()){
+			$output = '';
+			foreach(json_decode(file_get_contents(base_url().'API/TagRestController/listAllTags'), true) as $item){
+			$output.= '<option value="' . $item['tag_id'] . '"' . (in_array($item['tag_id'], $selected) ? ' selected' : '') . '>' . $item['tag_name'] . '</option>';
+		}
+    return $output;
+}
 	}
 ?>
