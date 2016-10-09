@@ -198,23 +198,62 @@
 			            <section class="col-lg-7 connectedSortable">
 							<h5 class="gray-color">Informative Image</h5>
 							
-							<div  class="form-group">
-								<label>Images</label>
-								<div class="col-lg-12 logo-browsing-wrapper" align="center"  style="position:relative;">												                     		                  		                    	  
-			                    	<input type='file' id="coverupload" style="display: none;" accept="image/*"/>
-			                    	<div class="image-upload-wrapper" id="cover-upload-wrapper">
-			                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-			                    		<p style="font-weight:bold;color:#9E9E9E"> Add Product image </p>
-			                    	</div> 
-									<div id="cover-upload-image" class="upload-image-hover"></div>
-												                    	  		                    	  		                    	  
+								<div  class="form-group">
+								<label>Logo</label>
+								<div class="col-lg-12 logo-browsing-wrapper" align="center">
+									<div class="row">
+										<div class="col-lg-12 " align="center"  style="position:relative;">											                     		                  		                    	  
+					                    	<input type='file' id="logoupload" style="display: none;" accept="image/*"/>
+					                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
+					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>
+					                    		
+					                    	</div> 	
+					                    										
+											<div id="logo-upload-image" class="upload-image-hover" ></div>
+											<div id="loading-wrapper" class="upload-image-loading" align="center" style="display:none;text-align:center" >
+												 <div class="progress progress-xxs">
+								                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+								                    </div>
+								                  </div>
+												  <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+												  <i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
+											</div>
+											<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
+											<div id="removelogoimagewrapper" class="upload-image-remove" style="display:none" >
+												<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>	
+												
+											</div>
+											<div id="removeloadingwrapper" class="upload-image-remove" align="center" style="display:none;text-align:center">
+												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+											</div>
+														                    	  		                    	  		                    	  
+										</div>
+										<textarea rows="" placeholder="have your word about this..." id="logo_description" class="nham_description" cols=""></textarea>
+									</div>
 								</div>
 							</div>
 			           
 							
 							 			      			
 			            </section><!-- right col -->
-			             <section class="col-lg-7 connectedSortable">
+			            <section class="col-lg-7 connectedSortable">
+			               
+			               <div class="form-group">
+		                      <label class="control-label">Shop images detail</label>
+		                        <div class="uploaddetailwrapper" style="width: 100%; height: auto;position:relative;">
+								    <input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
+									<div id="errorBlock" class="help-block"></div>
+									<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
+									</div>
+									<div id="coveruploadimagewithload"  align="center" class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
+										<img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:23px;width:30px;" />
+									</div>
+								</div>
+			                </div>		
+			            </section>
+			            <section class="col-lg-7 connectedSortable">
 							
 							<div  class="form-group">
 								<label>Tags</label>
@@ -260,156 +299,280 @@
   </body>
 
  
-  <script>
+<script>
+var logoimagename = "";
+//start upload logo 
 
-
- var logoimagename = "";
-
-
-$("#input-44").fileinput({
-     uploadUrl: '/file-upload-batch/2',
-     maxFilePreviewSize: 10240,
-     browseClass: "btn btn-danger",
-     allowedFileExtensions: ["jpg", "png", "gif"],
-     showUpload: false,
-});
- 
-	   
 $("#logo-upload-image").on("click",function(){	
-		$("#logoupload").click();	
+	$("#logoupload").click();	
 });
 $("#removelogoimage").on("click",function(){
-	removeLogoImageFromServer();
+removeLogoImageFromServer();
+});
+$("#logo-disable-cover").on("click", function(){
+$("#logoupload").val(null);
+$("#loading-wrapper").hide();
+$("#logo-upload-image").removeClass("loading-box");
+var txt = '<label class="gray-image-plus">';
+txt += '  <i class="fa fa-plus"></i>';
+txt += '</label>';
+txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
+txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+$('#logo-upload-wrapper').html(txt);	
 });
 $("#logoupload").change(function(){
-	uploadLogo(this);
+uploadLogo(this);
 });
 function uploadLogo(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
- 		reader.onload = function (e) {
- 			upoloadLogoToServer();
-		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		              $('#logo-upload-wrapper').html(myimg);
-		}
-		reader.readAsDataURL(input.files[0]);
-	}else{
-		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
-		$('#logo-upload-wrapper').html(txt);
+
+if (input.files && input.files[0]) {
+	var reader = new FileReader();
+		reader.onload = function (e) {
+			upoloadLogoToServer();
+	      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+	              $('#logo-upload-wrapper').html(myimg);
 	}
+	reader.readAsDataURL(input.files[0]);
+}else{
+	 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+	$('#logo-upload-wrapper').html(txt);
 }
+}
+
 function removeLogoImageFromServer(){
-	$("#removeloadingwrapper").show();
+$("#removeloadingwrapper").show();
+$.ajax({
+	url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+	type: "POST",
+	data : {
+		"removeimagedata":{
+			"image_type" : "1",
+			"imagename" : logoimagename
+		}			
+	},
+	success: function(data){
+		
+		logoimagename="";
+		$("#logoupload").val(null);
+		$("#uploadimageremoveback").hide();
+		$("#removelogoimagewrapper").hide();
+		var txt = '<label class="gray-image-plus">';
+			txt += '  <i class="fa fa-plus"></i>';
+			txt += '</label>';
+			txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
+			txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+		$('#logo-upload-wrapper').html(txt);
+		$("#removeloadingwrapper").hide();
+		$("#logo_description").hide();
+	}
+});
+}
+function upoloadLogoToServer(){
+var inputFile = $("#logoupload");
+$("#logo-upload-image").addClass("loading-box");
+$("#loading-wrapper").show();
+var fileToUpload = inputFile[0].files[0];
+console.log(fileToUpload);
+if(fileToUpload != 'undefined'){
+
+	var formData = new FormData();
+	formData.append("file",  fileToUpload);
+	
 	$.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopLogoImage",
+		url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
+		type: "POST",
+		data : formData,
+		processData : false,
+		contentType : false,
+		success: function(data){
+			data = JSON.parse(data);
+			console.log(data);
+			if(data.is_upload == false){
+				alert("error uploading!");
+				alert(data.message);
+			}else{
+				logoimagename = data.filename;
+				$("#loading-wrapper").hide();
+				$("#logo-upload-image").removeClass("loading-box");
+				$("#uploadimageremoveback").show();
+				$("#removelogoimagewrapper").show();
+				$("#logo_description").show();
+			}
+			
+		},
+		xhr: function() {
+			var xhr = new XMLHttpRequest();
+			xhr.upload.addEventListener("progress", function(event) {
+				if (event.lengthComputable) {
+					var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+					 //console.log(percentComplete);
+					
+					$("#logoprogressbar").css({width: percentComplete+"%"});
+				};
+			}, false);
+
+			return xhr;
+		}
+	});
+} 
+}
+//END upload logo
+//start Image detail
+
+$("#input-44").fileinput({
+    uploadUrl: '/file-upload-batch/2',
+    maxFilePreviewSize: 10240,
+    browseClass: "btn btn-danger",
+    allowedFileExtensions: ["jpg", "png", "gif"],
+    showUpload: false,
+});
+$("#input-44").on("change", function(){
+	
+	uploadShopImageDetailToServer();
+});
+function getImageNameAndDetail(){
+
+	var arrshopimagedetail = [];
+	
+	var imglng = $(".file-preview-frame").length;
+	for(var i=0; i<imglng ; i++){		
+		arrshopimagedetail.push({
+			"sh_img_name" : $(".file-preview-frame").eq(i).find("input.img-new-name").val(),
+			"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
+		});		
+	} 	
+	return arrshopimagedetail;
+	
+}
+$(document).on("mousedown","button.kv-file-remove",function(){
+	var imagename = $(this).parents(".file-thumbnail-footer").find("input.img-new-name").val();
+	console.log(imagename);
+	removeShopImageDetailFromServer(imagename).success(function (data) {	
+		
+	});
+	for(var i=0; i<arrnewfileimagename.length; i++){ 
+		if(imagename == arrnewfileimagename[i].filename){
+			arrnewfileimagename.splice(i , 1);
+		}
+	}
+	
+	console.log(arrnewfileimagename);
+});
+$(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove", function(){
+	
+	removeShopImageDetailFromServerMulti(arrnewfileimagename).success(function(data){
+		arrnewfileimagename = [];
+		console.log(arrnewfileimagename);
+	});
+});
+function removeShopImageDetailFromServerMulti(imagestoremove){
+	return $.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopMultipleImage",
 		type: "POST",
 		data : {
-			"logoimagename" : logoimagename
-		},
-		success: function(data){
-			
-			logoimagename="";
-			$("#logoupload").val(null);
-			$("#uploadimageremoveback").hide();
-			$("#removelogoimagewrapper").hide();
-			var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
-			$('#logo-upload-wrapper').html(txt);
-			$("#removeloadingwrapper").hide();
+			"removeimagedata": imagestoremove		
 		}
 	});
 }
-function upoloadLogoToServer(){
-	var inputFile = $("#logoupload");
-	$("#logo-upload-image").addClass("loading-box");
-	$("#loading-wrapper").show();
-	var fileToUpload = inputFile[0].files[0];
-	//console.log(fileToUpload);
-	if(fileToUpload != 'undefined'){
+function removeShopImageDetailFromServer(imagetoremove){
+	return $.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		type: "POST",
+		data : {
+			"removeimagedata":{
+				"image_type" : "3",
+				"imagename" : imagetoremove
+			}			
+		}
+	});
+}
+function uploadShopImageDetailToServer(){
+	var inputFile = $("#input-44");
+	var filesToUpload = inputFile[0].files;
+	console.log(filesToUpload);
+	if (filesToUpload.length > 0) {
+		$("#coveruploadimage").show();
+		$("#coveruploadimagewithload").show();
 		var formData = new FormData();
-		formData.append("file",  fileToUpload);
-		
+		for (var i = 0; i < filesToUpload.length; i++) {
+			var file = filesToUpload[i];
+			formData.append("file[]", file, file.name);				
+		}
 		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
-			type: "POST",
-			data : formData,
-			processData : false,
-			contentType : false,
-			success: function(data){
+			url: "/NhameyWebBackEnd/API/UploadRestController/shopImageDetailUpload",
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
 				data = JSON.parse(data);
-				//alert(data.filename);
-				if(data.is_upload == false){
-					alert("error uploading!");
-				}else{
-					logoimagename = data.filename;
-					$("#loading-wrapper").hide();
-					$("#logo-upload-image").removeClass("loading-box");
-					$("#uploadimageremoveback").show();
-					$("#removelogoimagewrapper").show();
-				}
-				
-			},
-			xhr: function() {
-				var xhr = new XMLHttpRequest();
-				xhr.upload.addEventListener("progress", function(event) {
-					if (event.lengthComputable) {
-						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						 //console.log(percentComplete);
-						
-						$("#logoprogressbar").css({width: percentComplete+"%"});
-					};
-				}, false);
-				return xhr;
+			    console.log(data);
+			    var filelen = data.fileupload.length;			 
+			    for(var i=0 ;i< filelen; i++){
+				   // alert(i);
+			    	arrnewfileimagename.push({
+			    		"isupload" : data.fileupload[i].is_upload,
+			    		"filename" : data.fileupload[i].filename
+			    	});
+			    	
+				    if(data.fileupload[i].is_upload == true){
+				    	
+				    		
+				    		  
+					}else{
+						alert(data.fileupload[i].filename+" :: "+data.fileupload[i].message);
+					}	
+					console.log(arrnewfileimagename);
+
+				}						
+			    setTimeout(function(){ 			    	
+			    	setNewimgName();
+	    		  }, 1000);							
 			}
 		});
-	} 
+	}	
 }
 
-function getDataToInsert(){
-	var shopdata = {
-		"ShopData":{
-			"brand_id" : $("#selectedbrand").val(),
-			"shop_name_en" : $("#shopengname").val() ,
-			"shop_name_kh" : $("#shopkhname").val(),
-			"shop_logo" : "123",
-			"shop_cover" : "34343",
-			"region_id" : 3,
-			"shop_type_id" : 2,
-			"shop_serve_type" : $("#shopservertype").val(),
-			"shop_short_description": $("#shopshortdes").val() ,
-			"shop_description" : $("#shopdes").val(),
-			"shop_address": $("#shopaddress").val(),
-			"shop_phone": shopphones.toString().replace(/[,]/g,"|").trim(),
-			"shop_email":$("#shopemail").val(),
-			"shop_working_day": countWorkingday().toString().replace(/[,]/g,"|").trim(),
-			"shop_opening_time": $("#shopopentime").val(),
-			"shop_close_time": $("#shopclosetime").val(),
-			"shop_map_address": "32424",
-			"shop_social_media": {
-				"facebook" : $("#shopfb").val(),
-				"instagram" : $("#shopinstagram").val(),
-				"googleplus" : $("#shopgoogleplus").val(),
-				"twitter": $("#shoptwitter").val()
-			} ,
-			"shop_remark": $("#shopremark").val(),
-			"shop_image_detail": "2343333333333333333333333"
-		}	
-	};
-	return shopdata;
+function setNewimgName(){
+	 for(var i=0 ;i< arrnewfileimagename.length; i++){
+		 if(arrnewfileimagename[i].isupload){
+			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);
+		 }else{
+			 $(".file-preview-frame").eq(i).removeClass("relative-div");
+			 $(".file-preview-frame").eq(i).find(".opacity-on-file").remove();
+			 $(".file-preview-frame").eq(i).find(".file-input-err-message").remove();
+			 
+			 $(".file-preview-frame").eq(i).addClass("relative-div");
+			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);			 
+			 var opacityDiv = '<div class="opacity-on-file" style="width:100%;height:100%;position:absolute;top:0;left:0;background:#fff;opacity:0.6;z-index:90;"></div>';
+			 var messageDiv = '<div class="file-input-err-message" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;" align="center">';
+				 messageDiv +='  <h4 style="color:#EF5350;font-weight:bold;">ERROR</h4>';
+				 messageDiv +='  <i style="font-size:40px; color:#EF5350;cursor:pointer;" class="fa fa-trash closeimgdetail" ></i>';
+				 messageDiv +='</div>';
+			 $(".file-preview-frame").eq(i).append(opacityDiv);
+			 $(".file-preview-frame").eq(i).append(messageDiv);
+			
+		 }
+		 
+	 }	
+	 setTimeout(function(){checkIfSetimgNameFail();} , 300);
 }
-$("#saveshop").on("click",function(){
-	// console.log(getDataToInsert());
-	 /* alert(0);
-	 $.ajax({
-		 type: "POST",
-		 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
-		 data: getDataToInsert(),
-		 success: function(data){
-         	alert(data);    
-     	 }
-     }); */
-    alert($("#logoupload").val());
-    alert(logoimagename);
-});
+
+$(document).on("click",".closeimgdetail",function(){
+	
+	$(this).parent().siblings(".file-thumbnail-footer").find(".file-actions").find(".kv-file-remove").click();
+	var imagename = $(this).parent().siblings(".file-thumbnail-footer").find("input.img-new-name").val().trim();
+	for(var i=0; i<arrnewfileimagename.length; i++){ 
+		
+		if(imagename == arrnewfileimagename[i].filename.trim()){
+			arrnewfileimagename.splice(i , 1);
+		}
+	}
+	console.log(arrnewfileimagename.length);
+	console.log(arrnewfileimagename);
+})
+
+
 /////////////// search and save shopname
 $("#shopname").on("focus keyup",function(){
 	
