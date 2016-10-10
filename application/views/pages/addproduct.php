@@ -302,7 +302,7 @@
 <script>
 var logoimagename = "";
 //start upload logo 
-
+var arrnewfileimagename = [];
 $("#logo-upload-image").on("click",function(){	
 	$("#logoupload").click();	
 });
@@ -572,7 +572,22 @@ $(document).on("click",".closeimgdetail",function(){
 	console.log(arrnewfileimagename);
 })
 
-
+function checkIfSetimgNameFail(){
+	var lngcheck = 0;
+	var imglng = $(".file-preview-frame").length;
+	for(var i=0; i<imglng ; i++){
+		var newnameimg = $(".file-preview-frame").eq(i).find("input.img-new-name").val();
+		if(newnameimg != "") lngcheck++;
+	} 
+	//alert(lngcheck);
+	//alert("arrnew"+arrnewfileimagename.length);
+	if(arrnewfileimagename.length > lngcheck) {
+		setNewimgName();
+	}else{
+		$("#coveruploadimage").hide();
+		$("#coveruploadimagewithload").hide();	
+	}
+}
 /////////////// search and save shopname
 $("#shopname").on("focus keyup",function(){
 	
