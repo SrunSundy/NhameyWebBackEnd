@@ -909,7 +909,7 @@ $("#saveshop").on("click",function(){
 $("#branchname").on("focus keyup",function(){
 	
 	var srchbranchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
@@ -972,7 +972,7 @@ $("#yesbranch").on("mousedown",function(){
 
 $("#cuisinename").on("focus keyup",function(){
 	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-cuisine").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
@@ -1017,7 +1017,7 @@ $("#yescuisine").on("mousedown",function(){
 
 $("#servecategoryname").on("focus keyup",function(){
 	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
