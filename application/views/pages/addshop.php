@@ -103,37 +103,37 @@ textarea:focus{
 		                     </div>
 		                     
 		                     <div class="form-group ">
-			                    <label>Shop Type</label>
+			                    <label>Serve Category</label>
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="shoptypename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop type">
-			                    	        <input type="hidden" class="selectedid" id="selectedshoptype"/>
+			                    		    <input id="servecategoryname" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop type">
+			                    	        <input type="hidden" class="selectedid" id="selectedservecategory"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-shoptype" class="display-result-wrapper">
+			                    				<div id="display-result-servecategory" class="display-result-wrapper">
 			                    					
 			                    				</div>
 			       				
 			                  				</div>
 			                  				
-			                  				<div id="display-searching-text_shoptype" style="display:none;">
+			                  				<div id="display-searching-text_servecategory" style="display:none;">
 			                  					<div  class="nham-dropdown-noresult">
 													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
-														Searching "<span id="text-search-shoptype-dis1"></span>" has no Result!</p>
+														Searching "<span id="text-search-servecategory-dis1"></span>" has no Result!</p>
 												</div>
 												<div class="nham-dropdown-question">	
-													<p>Do you want to register "<span id="text-search-shoptype-dis2"></span>" as a new shop type?</p>
+													<p>Do you want to register "<span id="text-search-servecategory-dis2"></span>" as a new shop type?</p>
 												</div>
 			                  				</div>
 			                  				
-			                  				<div id="nham-dropdown-footer-shoptype" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesshoptype">Yes</button>
+			                  				<div id="nham-dropdown-footer-servecategory" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesservecategory">Yes</button>
 			                  				</div>
 			                  			</div>
 			                    	</div>	
-			                    	<button type="button" id="shoptypebtnpop" style="display:none;" data-toggle="modal" data-target="#shoptypeModal">Open Modal</button>		                    	
+			                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" data-target="#shoptypeModal">Open Modal</button>		                    	
 			                  	</div>
 		                     </div>
 		                     
@@ -585,59 +585,65 @@ textarea:focus{
 
     
  <!-- modal section -->  
- <!-- shop type modal --> 
+ <!-- servecategory modal --> 
  <div class="modal fade" id="shoptypeModal" role="dialog">
      <div class="modal-dialog">
          <div class="modal-content">
              <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="fa fa-home" aria-hidden="true"></i>  Shop Type</h4>
+                <h4 class="modal-title"><i class="fa fa-home" aria-hidden="true"></i>  Serve Category</h4>
              </div>
              <div class="modal-body">
                 <div class="form-group">
-			        <label>Type's Name</label>
-			        <input type="text" id="typename" class="form-control" placeholder="Enter Type Name">			                      
+			        <label>Serve Category's Name</label>
+			        <input type="text" id="servecategorynamepopup" class="form-control" placeholder="enter serve category name">			                      
 		       </div>
-               <div  class="form-group">
+		       
+		        <div class="form-group">
+			        <label>Description</label>
+			        <textarea id="servecategorydescription" class="form-control" rows="3" placeholder="describe about the serve category" style="resize:vertical;"></textarea>
+			   </div>
+			   
+               <div  class="form-group" style="overflow: hidden">
 					<label>Image</label>
 					<div class="col-lg-12 logo-browsing-wrapper" align="center">
 						<div class="row">
 							<div class="col-lg-12 " align="center"  style="position:relative;">											                     		                  		                    	  
-					              <input type='file' id="typeupload" style="display: none;" accept="image/*"/>
-					              <div class="image-upload-wrapper" id="type-upload-wrapper">
+					              <input type='file' id="servecategoryupload" style="display: none;" accept="image/*"/>
+					              <div class="image-upload-wrapper" id="servecategory-upload-wrapper">
 					                   <label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-					                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 300 x 300 </p>
-					                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add Type image </p>					                    		
+					                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>
+					                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Serve Category image </p>					                    		
 					              </div> 						                    										
-								  <div id="logo-upload-image" class="upload-image-hover" ></div>
-								  <div id="loading-wrapper" class="upload-image-loading" align="center" style="display:none;text-align:center" >
+								  <div id="servecategory-upload-image" class="upload-image-hover" ></div>
+								  <div id="loading-wrapper-servecategory" class="upload-image-loading" align="center" style="display:none;text-align:center" >
 										<div class="progress progress-xxs">
-								            <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+								            <div id="servecategoryprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 								            </div>
 								        </div>
 										<img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
-										<i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
+										<i class="fa fa-times disable-cover" id="servecategory-disable-cover" aria-hidden="true" title="close" ></i>
 								  </div>
-								  <div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
-								  <div id="removelogoimagewrapper" class="upload-image-remove" style="display:none" >
-										<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>	
+								  <div id="uploadimageremoveback-servecategory" class="upload-image-remove-background" style="display:none"></div>
+								  <div id="removeservecategoryimagewrapper" class="upload-image-remove" style="display:none" >
+										<i id="removeservecategoryimage" class="fa fa-trash" aria-hidden="true"></i>	
 								  </div>
-								  <div id="removeloadingwrapper" class="upload-image-remove" align="center" style="display:none;text-align:center">
+								  <div id="removeloadingwrapper-servecategory" class="upload-image-remove" align="center" style="display:none;text-align:center">
 									    <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
 								  </div>														                    	  		                    	  		                    	  
 							</div>
-							<textarea rows="" placeholder="have your word about this..." id="logo_description" class="nham_description" cols=""></textarea>
 						</div>
 					</div>
 				</div>
              </div>
              <div class="modal-footer">
-                <button type="button" class="btn btn-danger">Save changes</button>
+                 <button type="button" id="belowcloseservecategory" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+               	<button type="button" id="servecategoryesave" class="btn nham-btn btn-danger">Save changes</button>
              </div>
          </div><!-- /.modal-content -->
      </div><!-- /.modal-dialog -->
  </div><!-- /.modal --><!-- Modal -->
-  <!--  end shop type modal -->    
+  <!--  end servecategory modal -->    
   
   <!-- cuisine modal -->
  <div class="modal fade" id="cuisineModal" role="dialog">
@@ -690,7 +696,7 @@ textarea:focus{
              </div>
              <div class="modal-footer">
                <button type="button" id="belowclosecuisine" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
-                <button type="button" id="cuisinesave" class="btn nham-btn btn-danger">Save changes</button>
+               <button type="button" id="cuisinesave" class="btn nham-btn btn-danger">Save changes</button>
                 
              </div>
          </div><!-- /.modal-content -->
@@ -725,6 +731,184 @@ $("#cuisineupload").change(function(){
 	uploadCuisine(this);
 });
 function uploadCuisine(input) {
+
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) {
+ 			upoloadCuisineToServer();
+		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		    $('#cuisine-upload-wrapper').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+		$('#cuisine-upload-wrapper').html(txt);
+	}
+}
+
+function removeCuisineImageFromServer(){
+	$("#removeloadingwrapper-cuisine").show();
+	console.log(cuisineimgname);
+	$.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
+		type: "POST",
+		data : {
+			"iconname": cuisineimgname	
+		},
+		success: function(data){
+			
+			cuisineimgname="";
+			$("#cuisineupload").val(null);
+			$("#uploadimageremoveback-cuisine").hide();
+			$("#removecuisineimagewrapper").hide();
+			var txt = '<label class="gray-image-plus">';
+				txt += '  <i class="fa fa-plus"></i>';
+				txt += '</label>';
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+			$('#cuisine-upload-wrapper').html(txt);
+			$("#removeloadingwrapper-cuisine").hide();
+			console.log(cuisineimgname);
+		}
+	});
+}
+function upoloadCuisineToServer(){
+	var inputFile = $("#cuisineupload");
+	$("#cuisine-upload-image").addClass("loading-box");
+	$("#loading-wrapper-cuisine").show();
+	var fileToUpload = inputFile[0].files[0];
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/uploadIconImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+				}else{
+					cuisineimgname = data.filename;
+					$("#loading-wrapper-cuisine").hide();
+					$("#cuisine-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback-cuisine").show();
+					$("#removecuisineimagewrapper").show();
+					console.log(cuisineimgname);
+				}
+				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						 //console.log(percentComplete);
+						
+						$("#cuisineprogressbar").css({width: percentComplete+"%"});
+					};
+				}, false);
+
+				return xhr;
+			}
+		});
+	} 
+}
+function validateCuisine(){
+	if(!validateNull("cuisinenamepopup", 0)){
+		alert("Cuisine name Invalid");
+		return false;
+	}
+	return true;
+}
+$("#cuisinesave").on("click", function(){
+	if(validateCuisine()){
+		var cuisinedata = {
+				"CuisineData" : {
+					"cuisine_name" : $("#cuisinenamepopup").val(),
+					"cuisine_icon" : cuisineimgname,
+					"cuisine_remark": $("#cuisinedescription").val()
+				}
+		};
+		console.log(cuisinedata);
+		$.ajax({
+			type : "POST",
+			url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
+			data : cuisinedata,
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_insert == false){
+					alert("Insert error!");
+				}else{
+					//alert(data);
+					$("#selectedcuisine").val(data.cuisine_id);
+					$("#cuisinename").val($("#cuisinenamepopup").val());
+					$("#belowclosecuisine").click();
+					clearCuisineSaveform();
+					
+				}
+					
+			}
+		});
+	}
+});
+$("#cuisineformclose").on("click",function(){
+	$("#cuisinenamepopup").val("");
+	$("#cuisinedescription").val("");
+	if(cuisineimgname != "") 
+		 removeCuisineImageFromServer();
+});
+function clearCuisineSaveform(){
+	$("#cuisinenamepopup").val("");
+	$("#cuisinedescription").val("");
+	cuisineimgname="";
+	$("#cuisineupload").val(null);
+	$("#uploadimageremoveback-cuisine").hide();
+	$("#removecuisineimagewrapper").hide();
+	var txt = '<label class="gray-image-plus">';
+		txt += '  <i class="fa fa-plus"></i>';
+		txt += '</label>';
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#cuisine-upload-wrapper').html(txt);
+	$("#removeloadingwrapper-cuisine").hide();
+}
+
+
+
+
+
+
+
+$("#cuisine-upload-image").on("click",function(){	
+	$("#cuisineupload").click();	
+});
+$("#removecuisineimage").on("click",function(){
+	removeCuisineImageFromServer();
+});
+$("#cuisine-disable-cover").on("click", function(){
+	$("#cuisineupload").val(null);
+	$("#loading-wrapper-cuisine").hide();
+	$("#cuisine-upload-image").removeClass("loading-box");
+	var txt = '<label class="gray-image-plus">';
+	txt += '  <i class="fa fa-plus"></i>';
+	txt += '</label>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#cuisine-upload-wrapper').html(txt);	
+});
+$("#cuisineupload").change(function(){
+	uploadCuisine(this);
+});
+function upload(input) {
 
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
