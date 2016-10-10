@@ -680,7 +680,7 @@ $(document).on("click",".closeimgdetail",function(){
 	}
 	console.log(arrnewfileimagename.length);
 	console.log(arrnewfileimagename);
-})
+});
 function checkIfSetimgNameFail(){
 	var lngcheck = 0;
 	var imglng = $(".file-preview-frame").length;
@@ -726,7 +726,7 @@ function inputValidation(){
         	"message" : "Shop Name In English" 
         },
         {
-        	"is_validate" : validateNull("selectedshoptype", 0 , "shoptypename"),
+        	"is_validate" : validateNull("selectedservecategory", 0 , "servecategoryname"),
         	"message" : "Shop Type" 
         },
         {
@@ -809,7 +809,7 @@ function validateLeavePage(){
 	var isleave = true;
 	var validate = [
 		validateLeaveNull("selectedbranch"),
-		validateLeaveNull("selectedshoptype"),
+		validateLeaveNull("selectedservecategory"),
 		validateLeaveNull("shopshortdes"),
 		validateLeaveNull("shopdes"),
 	];
@@ -842,7 +842,7 @@ function getDataToInsert(){
 				"cover_description" : $("#cover_description").val(),
 				"shop_cover" : coverimagename,
 				"cuisine_id" : $("#selectedcuisine").val(),
-				"shop_type_id" : $("#selectedshoptype").val(),
+				"shop_type_id" : $("#selectedservecategory").val(),
 				"shop_serve_type" : $("#shopservertype").val(),
 				"shop_short_description": $("#shopshortdes").val() ,
 				"shop_description" : $("#shopdes").val(),
@@ -909,7 +909,7 @@ $("#saveshop").on("click",function(){
 $("#branchname").on("focus keyup",function(){
 	
 	var srchbranchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
@@ -972,7 +972,7 @@ $("#yesbranch").on("mousedown",function(){
 
 $("#cuisinename").on("focus keyup",function(){
 	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-cuisine").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
@@ -1015,13 +1015,13 @@ $("#yescuisine").on("mousedown",function(){
 
 
 
-$("#shoptypename").on("focus keyup",function(){
+$("#servecategoryname").on("focus keyup",function(){
 	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-shoptype").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
+	$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ShopTypeRestController/getShopTypeByNameCombo", 
+		 url: "/NhameyWebBackEnd/API/ServeCategoryRestController/getServeCategoryByNameCombo", 
 		 data : {
 			"srchname" : srchname,
 			"limit" : 10
@@ -1031,45 +1031,39 @@ $("#shoptypename").on("focus keyup",function(){
 			console.log(data);
 			 var dis = '';
 			if(data.length <= 0){
-				/* dis +='<div  class="nham-dropdown-noresult">';
-				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
-				dis +='</div>';
-				dis +='<div class="nham-dropdown-question">';
-				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new branch?</p>';
-				dis +='</div>'; */
-				$("#text-search-shoptype-dis1").html(cutString(srchname , 35));
-				$("#text-search-shoptype-dis2").html(cutString(srchname , 20));
+				$("#text-search-servecategory-dis1").html(cutString(srchname , 35));
+				$("#text-search-servecategory-dis2").html(cutString(srchname , 20));
 				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
 				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
 				dis +="  <span class='no-data-text'>No Record Found!</span>";
 				dis +="</div>";
-				$("#display-searching-text_shoptype").show();
-				$("#nham-dropdown-footer-shoptype").show();
+				$("#display-searching-text_servecategory").show();
+				$("#nham-dropdown-footer-servecategory").show();
 			}else{	
-				$("#display-searching-text_shoptype").hide();
-				$("#nham-dropdown-footer-shoptype").hide();		
+				$("#display-searching-text_servecategory").hide();
+				$("#nham-dropdown-footer-servecategory").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_type_id+'" /><p><span class="title">'+data[i].shop_type_name+'</span></p></div>';
+					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].serve_category_id+'" /><p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
 				 }				
 				
 			}
-			$("#display-result-shoptype").html(dis); 					 
+			$("#display-result-servecategory").html(dis); 					 
    	 	 }
    });
 });
-$("#yesshoptype").on("mousedown",function(){
+$("#yesservecategory").on("mousedown",function(){
 
-	$("#shoptypebtnpop").click();
-	var shoptypedata = {
-		"ShoptypeData" : {
-			"shop_type_name" : $("#shoptypename").val(),
-			"shop_type_remark": ""
+	$("#servecategorybtnpop").click();
+	$("#servecategorynamepopup").val($("#servecategoryname").val());
+	/*var shoptypedata = {
+		"ServeCategoryData" : {
+			"serve_category_name" : $("#servecategoryname").val(),
+			"serve_category_remark": ""
 		}
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/ShopTypeRestController/insertShopType",
+		url : "/NhameyWebBackEnd/API/ServeCategoryRestController/insertServeCategory",
 		data : shoptypedata,
 		success : function(data){
 			data = JSON.parse(data);
@@ -1078,11 +1072,11 @@ $("#yesshoptype").on("mousedown",function(){
 				alert("Insert error!");
 			}else{
 				//alert(data);
-				$("#selectedshoptype").val(data.shop_type_id);
+				$("#selectedservecategory").val(data.serve_category_id);
 			}
 			
 		}
-	});
+	});*/
 });
 
 
