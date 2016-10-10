@@ -887,7 +887,7 @@ function clearCuisineSaveform(){
 
 
 
-
+var servecategory = "";
 $("#servecategory-upload-image").on("click",function(){	
 	$("#servecategoryupload").click();	
 });
@@ -909,7 +909,6 @@ $("#servecategoryupload").change(function(){
 	uploadServeCategory(this);
 });
 
-
 function uploadServeCategory(input) {
 
 	if (input.files && input.files[0]) {
@@ -928,16 +927,16 @@ function uploadServeCategory(input) {
 
 function removeServeCategoryImageFromServer(){
 	$("#removeloadingwrapper-servecategory").show();
-	console.log(cuisineimgname);
+	console.log(servecategory);
 	$.ajax({
 		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
 		type: "POST",
 		data : {
-			"iconname": cuisineimgname	
+			"iconname": servecategory	
 		},
 		success: function(data){
 			
-			cuisineimgname="";
+			servecategory="";
 			$("#servecategoryupload").val(null);
 			$("#uploadimageremoveback-servecategory").hide();
 			$("#removeservecategoryimagewrapper").hide();
@@ -946,20 +945,16 @@ function removeServeCategoryImageFromServer(){
 				txt += '</label>';
 				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
 				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-			$('#cuisine-upload-wrapper').html(txt);
-			$("#removeloadingwrapper-cuisine").hide();
-			console.log(cuisineimgname);
+			$('#servecategory-upload-wrapper').html(txt);
+			$("#removeloadingwrapper-servecategory").hide();
+			console.log(servecategory);
 		}
 	});
 }
-
-
-
-
 function upoloadServeCategoryToServer(){
-	var inputFile = $("#cuisineupload");
-	$("#cuisine-upload-image").addClass("loading-box");
-	$("#loading-wrapper-cuisine").show();
+	var inputFile = $("#servecategoryupload");
+	$("#servecategory-upload-image").addClass("loading-box");
+	$("#loading-wrapper-servecategory").show();
 	var fileToUpload = inputFile[0].files[0];
 	console.log(fileToUpload);
 	if(fileToUpload != 'undefined'){
@@ -980,12 +975,12 @@ function upoloadServeCategoryToServer(){
 					alert("error uploading!");
 					alert(data.message);
 				}else{
-					cuisineimgname = data.filename;
-					$("#loading-wrapper-cuisine").hide();
-					$("#cuisine-upload-image").removeClass("loading-box");
-					$("#uploadimageremoveback-cuisine").show();
-					$("#removecuisineimagewrapper").show();
-					console.log(cuisineimgname);
+					servecategory = data.filename;
+					$("#loading-wrapper-servecategory").hide();
+					$("#servecategory-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback-servecategory").show();
+					$("#removeservecategoryimagewrapper").show();
+					console.log(servecategory);
 				}
 				
 			},
@@ -996,7 +991,7 @@ function upoloadServeCategoryToServer(){
 						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
 						 //console.log(percentComplete);
 						
-						$("#cuisineprogressbar").css({width: percentComplete+"%"});
+						$("#servecategoryprogressbar").css({width: percentComplete+"%"});
 					};
 				}, false);
 
@@ -1005,6 +1000,11 @@ function upoloadServeCategoryToServer(){
 		});
 	} 
 }
+
+
+
+
+
 function validateServeCategory(){
 	if(!validateNull("cuisinenamepopup", 0)){
 		alert("Cuisine name Invalid");
@@ -1017,7 +1017,7 @@ $("#cuisinesave").on("click", function(){
 		var cuisinedata = {
 				"CuisineData" : {
 					"cuisine_name" : $("#cuisinenamepopup").val(),
-					"cuisine_icon" : cuisineimgname,
+					"cuisine_icon" : servecategory,
 					"cuisine_remark": $("#cuisinedescription").val()
 				}
 		};
@@ -1047,13 +1047,13 @@ $("#cuisinesave").on("click", function(){
 $("#cuisineformclose").on("click",function(){
 	$("#cuisinenamepopup").val("");
 	$("#cuisinedescription").val("");
-	if(cuisineimgname != "") 
+	if(servecategory != "") 
 		removeServeCategoryImageFromServer();
 });
 function clearServeCategorySaveform(){
 	$("#cuisinenamepopup").val("");
 	$("#cuisinedescription").val("");
-	cuisineimgname="";
+	servecategory="";
 	$("#cuisineupload").val(null);
 	$("#uploadimageremoveback-cuisine").hide();
 	$("#removecuisineimagewrapper").hide();
