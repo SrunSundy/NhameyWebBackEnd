@@ -707,7 +707,7 @@ textarea:focus{
             
             
     <?php include 'imports/scriptimport.php'; ?>
-	<script src="<?php echo base_url() ?>application/views/nhamdis/jscontroller/addshop.js"></script>
+	<script src="../assets/nhamdis/jscontroller/addshop.js"></script>
 	<script>
 
 $("#cuisine-upload-image").on("click",function(){	
@@ -888,44 +888,46 @@ function clearCuisineSaveform(){
 
 
 
-$("#cuisine-upload-image").on("click",function(){	
-	$("#cuisineupload").click();	
+$("#servecategory-upload-image").on("click",function(){	
+	$("#servecategoryupload").click();	
 });
-$("#removecuisineimage").on("click",function(){
-	removeCuisineImageFromServer();
+$("#removeservecategoryimage").on("click",function(){
+	removeServeCategoryImageFromServer();
 });
 $("#cuisine-disable-cover").on("click", function(){
-	$("#cuisineupload").val(null);
-	$("#loading-wrapper-cuisine").hide();
-	$("#cuisine-upload-image").removeClass("loading-box");
+	$("#servecategoryupload").val(null);
+	$("#loading-wrapper-servecategory").hide();
+	$("#servecategory-upload-image").removeClass("loading-box");
 	var txt = '<label class="gray-image-plus">';
 	txt += '  <i class="fa fa-plus"></i>';
 	txt += '</label>';
 	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
 	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-	$('#cuisine-upload-wrapper').html(txt);	
+	$('#servecategory-upload-wrapper').html(txt);	
 });
-$("#cuisineupload").change(function(){
-	uploadCuisine(this);
+$("#servecategoryupload").change(function(){
+	uploadServeCategory(this);
 });
-function upload(input) {
+
+
+function uploadServeCategory(input) {
 
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
  		reader.onload = function (e) {
- 			upoloadCuisineToServer();
+ 			upoloadServeCategoryToServer();
 		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		    $('#cuisine-upload-wrapper').html(myimg);
+		    $('#servecategory-upload-wrapper').html(myimg);
 		}
 		reader.readAsDataURL(input.files[0]);
 	}else{
 		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
-		$('#cuisine-upload-wrapper').html(txt);
+		$('#servecategory-upload-wrapper').html(txt);
 	}
 }
 
-function removeCuisineImageFromServer(){
-	$("#removeloadingwrapper-cuisine").show();
+function removeServeCategoryImageFromServer(){
+	$("#removeloadingwrapper-servecategory").show();
 	console.log(cuisineimgname);
 	$.ajax({
 		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
@@ -936,9 +938,9 @@ function removeCuisineImageFromServer(){
 		success: function(data){
 			
 			cuisineimgname="";
-			$("#cuisineupload").val(null);
-			$("#uploadimageremoveback-cuisine").hide();
-			$("#removecuisineimagewrapper").hide();
+			$("#servecategoryupload").val(null);
+			$("#uploadimageremoveback-servecategory").hide();
+			$("#removeservecategoryimagewrapper").hide();
 			var txt = '<label class="gray-image-plus">';
 				txt += '  <i class="fa fa-plus"></i>';
 				txt += '</label>';
@@ -950,7 +952,11 @@ function removeCuisineImageFromServer(){
 		}
 	});
 }
-function upoloadCuisineToServer(){
+
+
+
+
+function upoloadServeCategoryToServer(){
 	var inputFile = $("#cuisineupload");
 	$("#cuisine-upload-image").addClass("loading-box");
 	$("#loading-wrapper-cuisine").show();
@@ -999,7 +1005,7 @@ function upoloadCuisineToServer(){
 		});
 	} 
 }
-function validateCuisine(){
+function validateServeCategory(){
 	if(!validateNull("cuisinenamepopup", 0)){
 		alert("Cuisine name Invalid");
 		return false;
@@ -1007,7 +1013,7 @@ function validateCuisine(){
 	return true;
 }
 $("#cuisinesave").on("click", function(){
-	if(validateCuisine()){
+	if(validateServeCategory()){
 		var cuisinedata = {
 				"CuisineData" : {
 					"cuisine_name" : $("#cuisinenamepopup").val(),
@@ -1030,7 +1036,7 @@ $("#cuisinesave").on("click", function(){
 					$("#selectedcuisine").val(data.cuisine_id);
 					$("#cuisinename").val($("#cuisinenamepopup").val());
 					$("#belowclosecuisine").click();
-					clearCuisineSaveform();
+					clearServeCategorySaveform();
 					
 				}
 					
@@ -1042,9 +1048,9 @@ $("#cuisineformclose").on("click",function(){
 	$("#cuisinenamepopup").val("");
 	$("#cuisinedescription").val("");
 	if(cuisineimgname != "") 
-		 removeCuisineImageFromServer();
+		removeServeCategoryImageFromServer();
 });
-function clearCuisineSaveform(){
+function clearServeCategorySaveform(){
 	$("#cuisinenamepopup").val("");
 	$("#cuisinedescription").val("");
 	cuisineimgname="";
