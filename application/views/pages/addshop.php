@@ -106,16 +106,21 @@ textarea:focus{
 			                    <label>Serve Category</label>
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
-			                			<div class="selected-dropdown">
-			                    		    <input id="servecategoryname" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop type">
+			                			<div class="selected-dropdown" id="servecategory_selected_dropdown" style="position:relative;">
+			                			
+				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
+				                				<img class="icon-input" id="servecategoryicon"  src="../uploadimages/icon/default_serve_category.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="../uploadimages/icon/default_serve_category.png"/>				 
+				                			</div>
+				                			
+							                <input style="padding:4px 4px 4px 28px;" id="servecategoryname" type="text" class="form-control nham-dropdown-inputbox"  placeholder="Search or Select for shop type">						                  
 			                    	        <input type="hidden" class="selectedid" id="selectedservecategory"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
 			                    				<div id="display-result-servecategory" class="display-result-wrapper">
 			                    					
-			                    				</div>
-			       				
+			                    				</div>		       				
 			                  				</div>
 			                  				
 			                  				<div id="display-searching-text_servecategory" style="display:none;">
@@ -141,9 +146,15 @@ textarea:focus{
 			                    <label>Cuisine</label>
 			                    <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
-			                			<div class="selected-dropdown">
-			                    		    <input id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
+			                			<div class="selected-dropdown" style="position:relative;">
+			                			
+			                				<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
+				                				<img class="icon-input" id="servecategoryicon"  src="../uploadimages/icon/default_serve_category.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="../uploadimages/icon/default_serve_category.png"/>				 
+				                			</div>
+			                    		   <input style="padding:4px 4px 4px 28px;" id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
 			                    	       <input type="hidden" class="selectedid" id="selectedcuisine"/>
+			                    	       
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -590,7 +601,7 @@ textarea:focus{
      <div class="modal-dialog">
          <div class="modal-content">
              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" id="servecategoryclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"><i class="fa fa-home" aria-hidden="true"></i>  Serve Category</h4>
              </div>
              <div class="modal-body">
@@ -887,7 +898,7 @@ function clearCuisineSaveform(){
 
 
 
-var servecategory = "";
+
 $("#servecategory-upload-image").on("click",function(){	
 	$("#servecategoryupload").click();	
 });
@@ -1001,69 +1012,70 @@ function upoloadServeCategoryToServer(){
 	} 
 }
 
-
-
-
-
 function validateServeCategory(){
-	if(!validateNull("cuisinenamepopup", 0)){
-		alert("Cuisine name Invalid");
+	if(!validateNull("servecategorynamepopup", 0)){
+		alert("Serve-Category name Invalid");
 		return false;
 	}
 	return true;
 }
-$("#cuisinesave").on("click", function(){
+$("#servecategoryesave").on("click", function(){
 	if(validateServeCategory()){
-		var cuisinedata = {
-				"CuisineData" : {
-					"cuisine_name" : $("#cuisinenamepopup").val(),
-					"cuisine_icon" : servecategory,
-					"cuisine_remark": $("#cuisinedescription").val()
+		
+		var servecategorydata = {
+				"ServeCategoryData" : {
+					"serve_category_name" : $("#servecategorynamepopup").val(),
+					"serve_category_icon" :  servecategory,
+					"serve_category_remark": $("#servecategorydescription").val()
 				}
-		};
-		console.log(cuisinedata);
-		$.ajax({
-			type : "POST",
-			url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
-			data : cuisinedata,
-			success : function(data){
-				data = JSON.parse(data);
-				console.log(data);
-				if(data.is_insert == false){
-					alert("Insert error!");
-				}else{
-					//alert(data);
-					$("#selectedcuisine").val(data.cuisine_id);
-					$("#cuisinename").val($("#cuisinenamepopup").val());
-					$("#belowclosecuisine").click();
-					clearServeCategorySaveform();
+			};
+			$.ajax({
+				type : "POST",
+				url : "/NhameyWebBackEnd/API/ServeCategoryRestController/insertServeCategory",
+				data : servecategorydata,
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_insert == false){
+						alert("Insert error!");
+					}else{
+						//alert(data);
+						$("#selectedservecategory").val(data.serve_category_id);
+						$("#servecategoryname").val($("#servecategorynamepopup").val());
+
+						$("img#servecategoryicon").attr("src","../uploadimages/icon/"+servecategory);						  
+						$("#servecategoryname").attr('disabled','disabled');
+						$("#servecategory_selected_dropdown").find(".font-icon-cross").remove();
+						$("#servecategory_selected_dropdown").append("<i class='fa fa-times font-icon-cross'  aria-hidden='true'></i>");						 
+						$("#belowcloseservecategory").click();
+						clearServeCategorySaveform();
+					}
 					
 				}
-					
-			}
-		});
+			});
 	}
 });
-$("#cuisineformclose").on("click",function(){
-	$("#cuisinenamepopup").val("");
-	$("#cuisinedescription").val("");
+
+$("#servecategoryclose").on("click",function(){
+	$("#servecategorynamepopup").val("");
+	$("#servecategorydescription").val("");
 	if(servecategory != "") 
 		removeServeCategoryImageFromServer();
 });
 function clearServeCategorySaveform(){
-	$("#cuisinenamepopup").val("");
-	$("#cuisinedescription").val("");
+	$("#servecategorynamepopup").val("");
+	$("#servecategorydescription").val("");
 	servecategory="";
-	$("#cuisineupload").val(null);
-	$("#uploadimageremoveback-cuisine").hide();
-	$("#removecuisineimagewrapper").hide();
+	$("#servecategoryupload").val(null);
+	$("#uploadimageremoveback-servecategory").hide();
+	$("#removeservecategoryimagewrapper").hide();
 	var txt = '<label class="gray-image-plus">';
 		txt += '  <i class="fa fa-plus"></i>';
 		txt += '</label>';
 		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
 		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-	$('#cuisine-upload-wrapper').html(txt);
-	$("#removeloadingwrapper-cuisine").hide();
+	$('#servecategory-upload-wrapper').html(txt);
+	$("#removeloadingwrapper-servecategory").hide();
 }
 
 	</script>
