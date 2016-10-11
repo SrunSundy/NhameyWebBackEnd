@@ -93,6 +93,7 @@ var arrnewfileimagename = [];
 var logoimagename = "";
 var coverimagename = "";
 var cuisineimgname = "";
+var servecategory = "";
 
 /*load shop address section*/
 loadCountryData();
@@ -727,7 +728,7 @@ function inputValidation(){
         },
         {
         	"is_validate" : validateNull("selectedservecategory", 0 , "servecategoryname"),
-        	"message" : "Shop Type" 
+        	"message" : "Serve Category" 
         },
         {
         	"is_validate" : validateNull("nham_country" , 1),
@@ -998,7 +999,10 @@ $("#cuisinename").on("focus keyup",function(){
 				$("#display-searching-text_cuisine").hide();
 				$("#nham-dropdown-footer-cuisine").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].cuisine_id+'" /><p><span class="title">'+data[i].cuisine_name+'</span></p></div>';
+					 dis += '<div  class="nham-dropdown-result">';
+					 dis += ' <input type="hidden" value="'+data[i].cuisine_id+'" />';
+					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].cuisine_icon+'"/>';
+					 dis += ' <p><span class="title">'+data[i].cuisine_name+'</span></p></div>';
 				 }				
 				
 			}
@@ -1043,7 +1047,10 @@ $("#servecategoryname").on("focus keyup",function(){
 				$("#display-searching-text_servecategory").hide();
 				$("#nham-dropdown-footer-servecategory").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].serve_category_id+'" /><p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
+					 dis += '<div  class="nham-dropdown-result">';
+					 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
+					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+					 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
 				 }				
 				
 			}
@@ -1122,6 +1129,8 @@ function removeShopImageOnCondition(){
 	if(coverimagename != "") 
 		removeCoverImageFromServer();	
 	if(cuisineimgname != "") 
-		 removeCuisineImageFromServer();
+		removeCuisineImageFromServer();
+	if(cuisineimgname != "") 
+		removeServeCategoryImageFromServer();
 }
 
