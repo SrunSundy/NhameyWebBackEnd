@@ -5,7 +5,7 @@ class CuisineModel extends  CI_Model{
 		
     	$statusA = $status["statusA"];
     	$statusB = $status["statusB"];
-    	$sql = "SELECT cuisine_id,cuisine_name from nham_cuisine 
+    	$sql = "SELECT cuisine_id,cuisine_icon,cuisine_name from nham_cuisine 
     			WHERE  REPLACE(cuisine_name, ' ', '') LIKE REPLACE(?,' ','') AND cuisine_status in (?,?) 
     			ORDER BY cuisine_id DESC 
     			LIMIT ?";
