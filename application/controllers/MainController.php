@@ -39,6 +39,9 @@
 		public function updateshop(){
 			$this->load->view('pages/updateshop');
 		}
+		public function updateshop2(){
+			$this->load->view('pages/updateshop2');
+		}
 		
 		public function user(){
 			$this->load->view('pages/user');
