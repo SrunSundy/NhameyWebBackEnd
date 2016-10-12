@@ -12,7 +12,33 @@
   	}
   	div.cover-wrapper{
   		background: gray;
-  		min-height: 300px;
+  		min-height: 250px;
+  		max-height:330px;
+  	}
+  	div.profile-wrapper{
+  		background: yellow;
+  		height: 45px;
+  	}
+  	div.profile-box{
+  		width: 150px;
+  		height: 150px;
+  		position:absolute;
+  		top:-125px;
+  		z-index:50;
+  		left: 50px;
+  		background: blue;
+  	}
+  	div.content-nham-wrapper{
+  		width:90%;
+  		margin:0 auto;
+  	}
+  	div.menu-wrapper{
+  		background:green;
+  		height:45px;
+  		position: absolute;
+  		left:200px;
+  		z-index:20;
+  		min-width:280px;
   	}
   </style>
   </head>
@@ -33,29 +59,40 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+      <!--   <section class="content-header">
        
         </section>
-
+ -->
         <!-- Main content -->
-        <section class="content">
-           <div class="col-lg-12">
-	          <div class="col-lg-12">
-	           <div class="box" style="border-radius: 0;min-height: 500px;">           		
-			       <!-- wrapper updating form div -->       
-			       <div class="col-lg-12 update-shop-wrapper">
-			          <div class="row"> <!-- row of wrapper updating -->
-			             <!-- box of cover -->
-			             <div class="cover-wrapper col-lg-12">
-			               			
-			             </div> 
-			               			<!-- end box of cover -->
-			          </div> <!-- end of wrapper updating -->
-			       </div> <!--end wrapper updating form div -->		                       
-	           </div>
-           	 </div> 
-           </div>   
-        </section><!-- /.content -->
+      
+        <div class="content-nham-wrapper">
+		           <div class="" style="border-radius: 0;border:0;min-height: 500px;">           		
+				       <!-- wrapper updating form div -->       
+				       <div class="col-lg-12 update-shop-wrapper">
+				          <div class="row"> <!-- row of wrapper updating -->
+				             <!-- box of cover -->
+				             <div class="cover-wrapper col-lg-12">
+				               			
+				             </div> 
+				             <!-- end box of cover -->
+				             <!-- profile wrapper -->
+				             <div class="profile-wrapper col-lg-12">
+				             	<div class="profile-box">
+				             		
+				             	</div>
+				             	<div class="menu-wrapper">
+				             		
+				             	</div>
+				             </div>
+				             <!-- end of profile wrapper -->
+				              <div class="body-wrapper col-lg-12" style="background:white;margin-top:10px;height:500px;">
+				               			
+				             </div> 
+				          </div> <!-- end of wrapper updating -->
+				       </div> <!--end wrapper updating form div -->		                       
+		           </div>
+        </div>   
+      
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
       		<?php include 'elements/footnavbar.php';?>
