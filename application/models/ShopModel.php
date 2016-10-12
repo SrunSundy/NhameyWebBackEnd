@@ -133,6 +133,42 @@ class ShopModel extends CI_Model{
 		return $response;
 	}
 	
+	public function updateShopField( $shopdata ){
+		
+		$response = array();
+		
+		$param = $shopdata["param"];
+		$value = $shopdata["updated_value"];
+		$shopid = $shopdata["shop_id"];
+		
+		if($this->IsNullOrEmptyString($param)){
+			$response["is_updated"] = false;
+			$response["message"] = "PARAM is invalid";
+			return $response;
+		}
+		if($this->IsNullOrEmptyString($value)){
+			$response["is_updated"] = false;
+			$response["message"] = "UPDATED_VALUE is invalid";
+			return $response;
+		}
+		if($this->IsNullOrEmptyString($shopid)){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
+		$updatedata = array($value , (int)$shopid);
+		$sql = "UPDATE nham_shop SET ".trim($param)." = ? WHERE shop_id = ?";
+		$query = $this->db->query($sql , $updatedata);
+		
+		if($this->db->affected_rows() >=0){
+			$response["is_updated"] = true;
+			$response["message"] = "update successfully!";
+		}else{
+			$response["is_updated"] = false;
+			$response["message"] = "update error!";
+		}
+		return $response;
+	}
 	
 	function validateInput($datashop){
 

@@ -146,10 +146,10 @@ textarea:focus{
 			                    <label>Cuisine</label>
 			                    <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
-			                			<div class="selected-dropdown" style="position:relative;">
+			                			<div class="selected-dropdown" id="cuisine_selected_dropdown" style="position:relative;">
 			                			
 			                				<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="servecategoryicon"  src="../uploadimages/icon/default_serve_category.png" class="selected_icon"/>
+				                				<img class="icon-input" id="cuisineicon"  src="../uploadimages/icon/default_serve_category.png" class="selected_icon"/>
 				                				<input type="hidden" class="default_img_src" value="../uploadimages/icon/default_serve_category.png"/>				 
 				                			</div>
 			                    		   <input style="padding:4px 4px 4px 28px;" id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
@@ -862,8 +862,14 @@ $("#cuisinesave").on("click", function(){
 					//alert(data);
 					$("#selectedcuisine").val(data.cuisine_id);
 					$("#cuisinename").val($("#cuisinenamepopup").val());
+
+					$("img#cuisineicon").attr("src","../uploadimages/icon/"+cuisineimgname);						  
+					$("#cuisinename").attr('disabled','disabled');
+					$("#cuisine_selected_dropdown").find(".font-icon-cross").remove();
+					$("#cuisine_selected_dropdown").append("<i class='fa fa-times font-icon-cross'  aria-hidden='true'></i>");	
+					
 					$("#belowclosecuisine").click();
-					clearCuisineSaveform();
+					clearCuisineSaveform();				
 					
 				}
 					
