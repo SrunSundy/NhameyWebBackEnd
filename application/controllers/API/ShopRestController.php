@@ -32,5 +32,12 @@ class ShopRestController extends CI_Controller{
 		echo json_encode($response);
 			
 	}		
+	
+	public function updateShopField(){
+		
+		$shopdata = $this->input->post('shopdata');	
+		$response = $this->ShopModel->updateShopField($shopdata);
+		echo json_encode($response);
+	}
 }
 ?>
