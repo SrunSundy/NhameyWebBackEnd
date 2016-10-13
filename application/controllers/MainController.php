@@ -31,9 +31,12 @@
 			$this->load->view('pages/addproduct',$data);
 		}
 		
-		public function addshop(){
-			
+		public function addshop(){			
 			$this->load->view('pages/addshop');
+		}
+		
+		public function userinfo(){				
+			$this->load->view('pages/userinformation');
 		}
 		
 		public function updateshop(){
