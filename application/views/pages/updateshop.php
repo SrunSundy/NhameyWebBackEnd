@@ -23,8 +23,8 @@
   		
   	}
   	div.cover-box{
-  		height: 315px;
-  		background: white;
+  		height: 300px;
+  		background: pink;
   		position:relative;
   		z-index:0;
   	}
@@ -67,12 +67,13 @@
   				
   	}
   	div.small-logo-box{
-  		width: 130px;
-  		height: 130px;
+  		width: 135px;
+  		height: 135px;
+  		padding: 5px ;
   		position:absolute;
   		top: -70px;
   		left: 15px;
-  		background: gray;
+  		background: white;
   	}
   	div.space-logo-box{
   		float:left;
@@ -94,17 +95,32 @@
   	.shop-name-extra-text{
   	
   		font-size: 17px;
-  		margin-top:-8px;
+  		margin-top:-10px;
   		color:gray;
   	}
   	div.contact-shop-block{
   		width: 100%;
-  		height: 40px;
-  		background: brown;
+  		height: 50px;
+  		
   		position:absolute;
   		bottom: 0;
   	}
-  	
+  	.small-logo-img{
+  		width: 100%;
+  		height: 100%;
+  	}
+  
+  @media screen and (max-width: 1195px) {
+     .small-bar-box {
+        display:block !important;
+     }
+     .profilemenu-wrapper-right{
+     	display: none;
+     }
+     .bar-box{
+     	display: none;
+     }
+  }
   </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -131,19 +147,20 @@
 	       	 		<!-- wrapper of info and cover -->
 	       	 		<div class="bar-cover-wrapper">
 	       	 			<div class="img-cover-box">
-	       	 				 <img src="../assets/nhamdis/img/test.jpg" class="img-cover" /> 
+	       	 				   <img src="../assets/nhamdis/img/new2.jpg" class="img-cover" /> 
 	       	 			</div> 
 	       	 			<div class="cover-box">
 	       	 				
 	       	 			</div>
-	       	 			<div class="bar-box" style="display:none" >
+	       	 			<div class="bar-box"  >
 	       	 				
 	       	 			</div>
-	       	 			<div class="small-bar-box">	 
+	       	 			<div class="small-bar-box" style="display:none">	 
 	       	 				     	 				       	 				
 		       	 			<div class="small-logo-wrapper">
 		       	 				<div class="space-logo-box" >
 			       	 				<div class="small-logo-box">
+			       	 					<img src="../assets/nhamdis/img/logo.jpg" class="small-logo-img"/>
 			       	 				</div> 
 		       	 				</div>
 		       	 					
@@ -152,16 +169,11 @@
 		       	 					<p class="shop-name-extra-text" >( @the best munich )</p>	       	 	
 		       	 				</div>
 		       	 				<div style="clear:both;"></div>
-		       	 				<div class="">
-		       	 					<button type="button" class="btn btn-danger">Danger</button>	
+		       	 				<div class="contact-shop-block">		       	 				
+		       	 					<button type="button" class="btn btn-danger" style="border-radius:0;width:200px;float:right;margin-right:5px;margin-top:10px;">Notify</button>	
+		       	 						       	 					
 		       	 				</div>	
-		       	 				<div class="">
-		       	 					<button type="button" class="btn btn-danger">Danger</button>	
-		       	 				</div>	
-		       	 				<div class="">
-		       	 					<button type="button" class="btn btn-danger">Danger</button>	
-		       	 				</div>	
-		       	 						
+		       	 				
 		       	 			</div>
 		       	 			
 	       	 					       	 					       	 			
@@ -183,7 +195,7 @@
          <!--end wrapper of both profile and cover -->        
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
-      		<?php include 'elements/footnavbar.php';?>
+      	
       </footer>
 
       <!-- Control Sidebar -->
@@ -205,6 +217,7 @@
     
 
 	 $(window).on("resize",function(){
+		 if(checkHasCover()){
            var imgboxheight = $(".img-cover-box").height();
            var coverboxheight = $(".cover-box").height();
 		   console.log($(window).width());                                       
@@ -212,39 +225,46 @@
         	  $(".cover-box").height($(".img-cover-box").height());               
              //  $(".cover-box").height(newheight);
            }else{
-        	 var heightbigger = 0;
+        	
            	 var newheight =  $(".img-cover-box").height();
-               if(newheight < 315){
-               	heightbigger++;
-               	newheight += heightbigger;
+               if(newheight < 300){
+               	
+               	newheight++;
                 }else{
-               	 newheight =315;
+               	 newheight =300;
                 } 
            	//console.log(newheight);
            	$(".cover-box").height(newheight);
            }
+		 }else{
+			 $(".cover-box").height(250);
+
+		}
        	
        });
     function checkHasCover(){      
-		if($(".bar-cover-wrapper").find(".img-cover-box").length <= 0){		
-			$(".cover-box").height(250);
+		if($(".bar-cover-wrapper").find(".img-cover").length <= 0){		
 			return false;
 		}
 		return true;
      }
     function resizeOnWindow(){
-        console.log($(window).width());
-     
-    	   var imgboxheight = $(".img-cover-box").height();
-           var coverboxheight = $(".cover-box").height();
-           
-           if(coverboxheight < imgboxheight){
-       	  		$(".cover-box").height(315);
-        	}else{
-        		console.log($(".img-cover-box").height());
-        		console.log($(".bar-cover-wrapper").find(".img-cover-box").html());
-        		$(".cover-box").height($(".img-cover-box").height());
+      
+     	   if(checkHasCover()){
+     		  var imgboxheight = $(".img-cover-box").height();
+              var coverboxheight = $(".cover-box").height();
+              
+              if(coverboxheight < imgboxheight){
+          	  		$(".cover-box").height(300);
+           	  }else{
+           		console.log($(".img-cover-box").height());
+           		console.log($(".bar-cover-wrapper").find(".img-cover-box").html());
+           		$(".cover-box").height($(".img-cover-box").height());
+               }
+           }else{
+        	   $(".cover-box").height(250);
             }
+    	  
       
        
     }
