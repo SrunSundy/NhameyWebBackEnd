@@ -109,8 +109,8 @@ textarea:focus{
 			                			<div class="selected-dropdown" id="servecategory_selected_dropdown" style="position:relative;">
 			                			
 				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="servecategoryicon"  src="../uploadimages/icon/default_serve_category.png" class="selected_icon"/>
-				                				<input type="hidden" class="default_img_src" value="../uploadimages/icon/default_serve_category.png"/>				 
+				                				<img class="icon-input" id="servecategoryicon"  src="../assets/nhamdis/img/servecategory.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/servecategory.png"/>				 
 				                			</div>
 				                			
 							                <input style="padding:4px 4px 4px 28px;" id="servecategoryname" type="text" class="form-control nham-dropdown-inputbox"  placeholder="Search or Select for shop type">						                  
@@ -149,8 +149,8 @@ textarea:focus{
 			                			<div class="selected-dropdown" id="cuisine_selected_dropdown" style="position:relative;">
 			                			
 			                				<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="cuisineicon"  src="../uploadimages/icon/default_serve_category.png" class="selected_icon"/>
-				                				<input type="hidden" class="default_img_src" value="../uploadimages/icon/default_serve_category.png"/>				 
+				                				<img class="icon-input" id="cuisineicon"  src="../assets/nhamdis/img/cuisine.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/cuisine.png"/>				 
 				                			</div>
 			                    		   <input style="padding:4px 4px 4px 28px;" id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
 			                    	       <input type="hidden" class="selectedid" id="selectedcuisine"/>

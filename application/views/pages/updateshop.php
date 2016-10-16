@@ -287,7 +287,7 @@
 	       	 		<!-- wrapper of info and cover -->
 	       	 		<div class="bar-cover-wrapper">
 	       	 			<div class="img-cover-box">
-	       	 				   <img src="../assets/nhamdis/img/test.jpg"   class="img-cover" /> 
+	       	 				   <img src="../assets/nhamdis/img/new1.jpg"   class="img-cover" /> 
 	       	 			</div> 
 	       	 			<div class="cover-box">
 	       	 				
@@ -308,7 +308,7 @@
 		       	 			<div class="small-logo-wrapper">
 		       	 				<div class="space-logo-box" >
 			       	 				<div class="small-logo-box">
-			       	 					<img src="../assets/nhamdis/img/test.jpg" class="small-logo-img"/>
+			       	 					<img src="../assets/nhamdis/img/new2.jpg" class="small-logo-img"/>
 			       	 				</div> 
 		       	 				</div>
 		       	 					
@@ -354,7 +354,7 @@
 		    <div class="col-lg-3 profilemenu-wrapper-right">
 		    	<div class="col-lg-12 logo-wrapper" style="margin-left:35px;">
 		    		<div class="logo-box">
-		    			 <img src="../assets/nhamdis/img/test.jpg" class="logo-img"/> 
+		    			 <img src="../assets/nhamdis/img/new2.jpg" class="logo-img"/> 
 		    			 <div class="edit-logo"></div>
 		    			 <div class="edit-logo-button-wrapper">
 		    			 	<p style="color:white">ABC</p>
@@ -435,7 +435,7 @@
     
      $(window).scroll(function(){
     	   var scrollHeight = $(document).scrollTop(); 
-    	   if(scrollHeight >= 100){    		
+    	   if(scrollHeight >= 50){    		
 				$(".profilemenu-wrapper-right").addClass("top-zero");
 				
            }else{
@@ -475,7 +475,9 @@
               var coverboxheight = $(".cover-box").height();
               
               if(coverboxheight < imgboxheight){
-          	  		$(".cover-box").height(300);
+                   
+                    $(".cover-box").height(300);
+          	  		
            	  }else{
            		console.log($(".img-cover-box").height());
            		console.log($(".bar-cover-wrapper").find(".img-cover-box").html());
