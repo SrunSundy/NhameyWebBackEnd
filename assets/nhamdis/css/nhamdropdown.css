@@ -1,6 +1,6 @@
 @CHARSET "EUC-KR";
 
-div.nham-dropdown-detail {
+div.nham-dropdown-detail{
 	background: #fff;
 	display: none;
 	border: 1px solid #BDBDBD;
@@ -8,6 +8,7 @@ div.nham-dropdown-detail {
 	width: 100%;
 	z-index: 99999;
 }
+.nham-dropdown-detail-
 
 div.nham-dropdown-result-wrapper {
 	
@@ -20,7 +21,7 @@ div.nham-dropdown-result-wrapper {
 div.nham-dropdown-more{
 	display:none;
 }
-div.nham-dropdown-result, div.nham-dropdown-more {
+div.nham-dropdown-result, div.nham-dropdown-more, div.nham-dropdown-multi-result {
 	width: 100%;
 	height: 30px;
 	line-height: 30px;
@@ -28,7 +29,7 @@ div.nham-dropdown-result, div.nham-dropdown-more {
 	cursor: pointer;
 	
 }
-div.nham-dropdown-result p span.title{
+div.nham-dropdown-result p span.title, div.nham-dropdown-multi-result p span.title{
 	
 	font-weight: bold;
 }
@@ -55,7 +56,7 @@ div.nham-dropdown-question{
 	word-wrap: break-word;
 }
 
-div.nham-dropdown-result p {
+div.nham-dropdown-result p , div.nham-dropdown-multi-result p{
 	margin-left: 8px;
 }
 
@@ -67,7 +68,7 @@ div.nham-dropdown-result-footer {
 	
 }
 
-div.nham-dropdown-result:hover {
+div.nham-dropdown-result:hover , div.nham-dropdown-multi-result:hover{
 	background: #E0E0E0;
 }
 

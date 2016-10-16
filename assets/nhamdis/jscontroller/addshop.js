@@ -1047,11 +1047,17 @@ $("#servecategoryname").on("focus keyup",function(){
 				$("#display-searching-text_servecategory").hide();
 				$("#nham-dropdown-footer-servecategory").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result">';
+					/* dis += '<div  class="nham-dropdown-result">';
+					 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
+					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+					 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';*/
+					 dis += '<div  class="nham-dropdown-multi-result">';
 					 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
 					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].serve_category_icon+'"/>';
 					 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
-				 }				
+					 
+				 }			
+				 dis+="<div style='clear:both'></div>";
 				
 			}
 			$("#display-result-servecategory").html(dis); 					 
