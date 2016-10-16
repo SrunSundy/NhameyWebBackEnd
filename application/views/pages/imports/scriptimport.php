@@ -54,6 +54,7 @@
     
     <script src="../assets/nhamdis/js/nhamsetting.js"></script>
     <script src="../assets/nhamdis/js/nhamdropdown.js"></script>
+    <script src="../assets/nhamdis/js/nhamdropdownmulti.js"></script>
     
     
     

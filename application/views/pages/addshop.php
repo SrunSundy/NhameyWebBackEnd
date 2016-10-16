@@ -24,6 +24,43 @@ textarea:focus{
 	border-radius: 0;
 }
 
+
+
+
+.icon-after-select{
+	width:17px;
+	height:17px;
+	margin-top: 4px;
+	margin-left:5px;
+	margin-right: 5px;
+	border-radius: 2px;
+}
+
+div.selected-category-box{
+	height:25px;
+	margin-top:5px;
+	border-radius: 3px;
+	background: #BDBDBD;
+	
+	margin-right:5px;
+}
+p.text-serve-category-selected{
+	line-height: 25px;
+}
+i.close-item{
+	cursor: pointer;
+}
+div.error-selected-result{
+	height:0px;
+	margin-top:5px;
+	visibility: hidden;
+	-webkit-transition: all 0.1s ;
+	-moz-transition: all 0.1s ;
+	-ms-transition: all 0.1s;
+	-o-transition: all 0.1s ;
+	transition: all 0.1s ;
+}
+
 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini" >
@@ -101,8 +138,55 @@ textarea:focus{
 			                      <input type="text" id="shopengname" class="form-control" placeholder="Shop Name in English">
 			                      <input type="text" id="shopkhname" class="form-control top-gap" placeholder="Shop Name in Khmer">
 		                     </div>
-		                     
-		                     <div class="form-group ">
+		                   <div class="form-group "> 
+		                     <label>Serve Category</label>
+			                     <div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="selected-dropdown" id="servecategory_selected_dropdown" style="position:relative;">
+			                			
+				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
+				                				<img class="icon-input" id="servecategoryicon"  src="../assets/nhamdis/img/servecategory.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/servecategory.png"/>				 
+				                			</div>
+				                			
+							                <input style="padding:4px 4px 4px 28px;" id="servecategoryname" type="text" class="form-control nham-dropdown-inputbox-multi"  placeholder="Search or Select for shop type">
+							                
+							                <div class="error-selected-result">
+							                	<p>ITEM IS SELECTED!</p>
+							                </div>
+							                <div class="serve-category-result">
+							                	
+							                	
+							                </div>						                  
+			                    	       <!--  <input type="hidden" class="selectedid" id="selectedservecategory"/> -->
+			                    	    </div>
+			                    		<div class="nham-dropdown-detail"  >
+			                    			<div class="nham-dropdown-result-wrapper">
+			                    				<input type="hidden" value="selected-category-box1"/>
+			                    				<div id="display-result-servecategory" class="display-result-wrapper">
+			                    					
+			                    				</div>		       				
+			                  				</div>
+			                  				
+			                  				<div id="display-searching-text_servecategory" style="display:none;">
+			                  					<div  class="nham-dropdown-noresult">
+													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+														Searching "<span id="text-search-servecategory-dis1"></span>" has no Result!</p>
+												</div>
+												<div class="nham-dropdown-question">	
+													<p>Do you want to register "<span id="text-search-servecategory-dis2"></span>" as a new shop type?</p>
+												</div>
+			                  				</div>
+			                  				
+			                  				<div id="nham-dropdown-footer-servecategory" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesservecategory">Yes</button>
+			                  				</div>
+			                  			</div>
+			                    	</div>	
+			                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" data-target="#shoptypeModal">Open Modal</button>		                    	
+			                  	</div>
+		                     </div>
+		                 <!--<div class="form-group ">
 			                    <label>Serve Category</label>
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
@@ -141,8 +225,8 @@ textarea:focus{
 			                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" data-target="#shoptypeModal">Open Modal</button>		                    	
 			                  	</div>
 		                     </div>
-		                     
-		                     <div class="form-group ">
+		                  -->   
+		                 <!--<div class="form-group ">
 			                    <label>Cuisine</label>
 			                    <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
@@ -180,7 +264,7 @@ textarea:focus{
 			                    	<button type="button" id="cuisinebtnpop" style="display:none;" data-toggle="modal" data-target="#cuisineModal">Open Modal</button>		                    	
 			                  	</div>
 		                     </div>
-		                     
+		                      -->
 		                     
 		                     
 		                     <div class="form-group">
