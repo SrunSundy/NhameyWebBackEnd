@@ -132,3 +132,46 @@ i.font-icon-cross{
 	padding:5px;
 	font-size: 18px;
 }
+
+
+
+.icon-after-select{
+	width:17px;
+	height:17px;
+	margin-top: 4px;
+	margin-left:5px;
+	margin-right: 5px;
+	border-radius: 2px;
+}
+
+div.selected-category-box{
+	height:25px;
+	margin-top:5px;
+	border-radius: 3px;
+	background: #BDBDBD;
+	
+	margin-right:5px;
+}
+p.text-serve-category-selected{
+	line-height: 25px;
+}
+i.close-item{
+	cursor: pointer;
+}
+div.error-selected-result{
+	height:0px;
+	margin-top:5px;
+	visibility: hidden;
+	-webkit-transition: all 0.1s ;
+	-moz-transition: all 0.1s ;
+	-ms-transition: all 0.1s;
+	-o-transition: all 0.1s ;
+	transition: all 0.1s ;
+	background: #fff;
+	white-space: normal;
+}
+div.error-selected-result p{
+	color: #dd4b39;
+	font-weight: bold;
+
+}

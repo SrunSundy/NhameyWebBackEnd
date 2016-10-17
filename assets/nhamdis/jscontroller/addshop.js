@@ -92,7 +92,7 @@ var shopphones = [];
 var arrnewfileimagename = [];
 var logoimagename = "";
 var coverimagename = "";
-var cuisineimgname = "";
+//var cuisineimgname = "";
 var servecategory = "";
 
 /*load shop address section*/
@@ -727,10 +727,6 @@ function inputValidation(){
         	"message" : "Shop Name In English" 
         },
         {
-        	"is_validate" : validateNull("selectedservecategory", 0 , "servecategoryname"),
-        	"message" : "Serve Category" 
-        },
-        {
         	"is_validate" : validateNull("nham_country" , 1),
         	"message" : "Country" 
         },
@@ -761,6 +757,14 @@ function inputValidation(){
 			
 	];
 	var iserror = false;
+	if(getServeCategories().length <= 0){
+		iserror = true;
+		$("#servecategoryname").addClass("invalid-input");
+		alert("ServeCategory is Invalid!");
+		return iserror;
+	}else{
+		$("#servecategoryname").removeClass("invalid-input");
+	}
 	for(var i=0; i<validate.length; i++){
 		if(validate[i].is_validate == false){
 			alert(validate[i].message+" is Invalid!");
@@ -768,6 +772,7 @@ function inputValidation(){
 			break;
 		}
 	}
+	
 	return iserror;
 }
 
@@ -810,7 +815,6 @@ function validateLeavePage(){
 	var isleave = true;
 	var validate = [
 		validateLeaveNull("selectedbranch"),
-		validateLeaveNull("selectedservecategory"),
 		validateLeaveNull("shopshortdes"),
 		validateLeaveNull("shopdes"),
 	];
@@ -842,9 +846,9 @@ function getDataToInsert(){
 				"logo_description" : $("#logo_description").val(),
 				"cover_description" : $("#cover_description").val(),
 				"shop_cover" : coverimagename,
-				"cuisine_id" : $("#selectedcuisine").val(),
-				"shop_type_id" : $("#selectedservecategory").val(),
-				"shop_serve_type" : $("#shopservertype").val(),
+				/*"cuisine_id" : $("#selectedcuisine").val(),*/
+				/*"serve_category_id" : $("#selectedservecategory").val(),*/
+				"shop_serve_type" : $("#shopservetype").val(),
 				"shop_short_description": $("#shopshortdes").val() ,
 				"shop_description" : $("#shopdes").val(),
 				"shop_address": getAddress(),	
@@ -870,6 +874,7 @@ function getDataToInsert(){
 				},
 				"shop_remark": $("#shopremark").val(),
 			},
+			"serve_categories" : getServeCategories(),
 			"shop_image_detail": getImageNameAndDetail()
 						
 		}	
@@ -971,7 +976,7 @@ $("#yesbranch").on("mousedown",function(){
 
 
 
-$("#cuisinename").on("focus keyup",function(){
+/*$("#cuisinename").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-cuisine").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
@@ -1016,7 +1021,7 @@ $("#yescuisine").on("mousedown",function(){
 	$("#cuisinenamepopup").val($("#cuisinename").val());
 	
 });
-
+*/
 
 
 $("#servecategoryname").on("focus keyup",function(){
