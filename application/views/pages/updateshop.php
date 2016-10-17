@@ -296,7 +296,7 @@
   div.shop-edit-form-wrapper{
   	
   	  min-height: 500px;
-  	  background: #fff;
+  	  background: #ffffff;
   	  border: 1px solid #E0E0E0;
   }
   
@@ -320,6 +320,13 @@
   
   .nham-tab{
   	 display:none;
+  }
+  
+  .tab-header{
+  	background: #f6f7f9;
+  	height: 60px;
+  	border-bottom : 1px solid #E0E0E0;
+  	
   }
   
   </style>
@@ -397,7 +404,9 @@
 	       	 			<div class="col-lg-12 shop-edit-form-wrapper">
 	       	 				<div class="row">
 	       	 					<div class="nham-tab" id="overview" style="display:block">
-	       	 						Overview
+	       	 						<div class="tab-header col-lg-12">
+	       	 						
+	       	 						</div>
 	       	 					</div>
 	       	 					<div class="nham-tab" id="information">
 	       	 						Information
