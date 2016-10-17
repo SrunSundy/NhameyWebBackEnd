@@ -30,9 +30,48 @@
   	}
   	div.cover-box{
   		height: 300px;
-  		background: #263238;
+  		
   		position:relative;
-  		z-index:0;
+  		z-index:20;
+  		
+  	}
+  	div.nham-btn-upload-fake{
+  	    background: black;
+  	    position:absolute;
+  	    top:20px;
+  	    left: 20px;
+  	    height: 37px;
+  	    min-width: 150px;
+  	    border: 1px solid #E0E0E0;
+  	    opacity: 0.5;
+  	    border-radius: 5px;
+  	    
+  	}
+  	div.nham-btn-upload-real{
+  	    position:absolute;
+  	    top:20px;
+  	    left: 20px;
+  	    height: 37px;
+  	    min-width: 150px;
+  	    cursor:pointer;
+  	}
+  	div.nham-btn-upload-real:hover{
+  		opacity: 0.8;
+  	}
+  	
+  	div.nham-btn-upload-real p{
+  		color: #F5F5F5;
+  		font-weight: bold;
+  		
+  	}
+  	
+  	div.nham-btn-upload-real i{
+  		font-size: 20px;
+  		padding-left: 15px;
+  		padding-top: 8px;
+  	}
+  	div.nham-btn-upload-real span{
+  		padding-left: 8px;
   		
   	}
   	div.img-cover-box{
@@ -91,6 +130,16 @@
   		width:155px;
   		height:50px;	
   	}
+  	div.space-logo-box i{
+  		font-size: 24px;
+  		color: #fff;
+  		position:absolute;
+  		bottom: 12px;
+  		left:10px;
+  		opacity: 0.9;
+  		box-shadow: 1px 1px 4px #888888;
+  		cursor: pointer;
+  	}
   	
   	div.small-shop-name{
   		float:left;
@@ -145,39 +194,49 @@
   		position:relative;
   		border: 1px solid #E0E0E0;
   		
+  		
   	}
-  	.logo-box:hover div.edit-logo,.logo-box:hover div.edit-logo-button-wrapper{
-  		visibility: visible;
-  		height: 70px;
-  	}
-  	div.edit-logo{
+  	.logo-box i{
   		position:absolute;
-  		bottom: 0;
-  		left:0;
-  		width: 100%;
-  		height:0;
-  		background: black;
-  		opacity: 0.5;
-  		visibility: hidden;
+  		bottom: 15px;
+  		left: 18px;
+  		color: #F5F5F5;
+  		cursor: pointer;
+  		font-size: 27px;
+  		z-index: 9999;
   		-webkit-transition: all 0.1s ;
 		-moz-transition: all 0.1s ;
 		-ms-transition: all 0.1s;
 		-o-transition: all 0.1s ;
 		transition: all 0.1s ;
   	}
+  	p.intro-text{
+  		color: #fff;
+  		font-weight: bold;
+  	 		
+  	}
+  	.logo-box:hover i{
+  	   font-size: 18px;
+  	   opacity: 0.9;
+  	}
+  	div.edit-logo{
+  		position:absolute;
+  		bottom: 0;
+  		left:0;
+  		width: 100%;
+  		height:70px;
+  		background: black;
+  		opacity: 0.5;
+  		display:none;
+  	}
   	div.edit-logo-button-wrapper{
   		position:absolute;
   		bottom: 0;
   		left:0;
   		width: 100%;
-  		height:0; 		
-  		visibility: hidden;
-  		-webkit-transition: all 0.1s ;
-		-moz-transition: all 0.1s ;
-		-ms-transition: all 0.1s;
-		-o-transition: all 0.1s;
-		transition: all 0.1s ;
-  	
+  		height:70px; 		
+  		cursor: pointer;
+  		display:none;  	
   	}
   	div.shop-name{
   		width: 180px;
@@ -221,7 +280,7 @@
   	.li-click{
   		font-weight: bold;
   		background:rgba(0, 0, 0, .05);
-  		border-right: 5px solid #dd4b39; 
+  		border-right: 3px solid #dd4b39; 
   	}
   	ul.menu-ul li.item a{
   		text-decoration: none;  		
@@ -240,7 +299,9 @@
   	  background: #fff;
   	  border: 1px solid #E0E0E0;
   }
-  @media screen and (max-width: 1195px) {
+  
+ 
+  @media screen and (max-width: 1198px) {
      .small-bar-box {
         display:block !important;
      }
@@ -288,9 +349,16 @@
 	       	 		<div class="bar-cover-wrapper">
 	       	 			<div class="img-cover-box">
 	       	 				   <img src="../assets/nhamdis/img/new1.jpg"   class="img-cover" /> 
+	       	 				  
 	       	 			</div> 
 	       	 			<div class="cover-box">
-	       	 				
+	       	 				 <div class="nham-btn-upload-fake">       	 				   		
+	       	 				 </div>
+	       	 				  <div class="nham-btn-upload-real">     
+	       	 				  	  <p><i class="fa fa-camera" aria-hidden="true"></i> 
+	       	 				  	  	<span>Update Cover</span>
+	       	 				  	  </p>	 				   		
+	       	 				 </div>
 	       	 			</div>
 	       	 			<div class="bar-box"  >
 	       	 				<div class="col-lg-4">
@@ -309,6 +377,7 @@
 		       	 				<div class="space-logo-box" >
 			       	 				<div class="small-logo-box">
 			       	 					<img src="../assets/nhamdis/img/new2.jpg" class="small-logo-img"/>
+			       	 					 <i class="fa fa-camera" aria-hidden="true"></i>
 			       	 				</div> 
 		       	 				</div>
 		       	 					
@@ -355,9 +424,11 @@
 		    	<div class="col-lg-12 logo-wrapper" style="margin-left:35px;">
 		    		<div class="logo-box">
 		    			 <img src="../assets/nhamdis/img/new2.jpg" class="logo-img"/> 
+		    			 <i class="fa fa-camera" aria-hidden="true"></i>
 		    			 <div class="edit-logo"></div>
 		    			 <div class="edit-logo-button-wrapper">
-		    			 	<p style="color:white">ABC</p>
+		    			 	<p class="intro-text" style="padding-top:13px;line-height: 20px;padding-left:70px;">Click To </p>
+		    			 	<p class="intro-text" style="line-height: 0px;padding-left:80px;">Update Logo</p>
 		    			 </div>
 		    		</div>
 		    		<div class="shop-name">
@@ -462,7 +533,8 @@
            	 $(".cover-box").height(newheight);
            }
 		}else{
-			 $(".cover-box").height(250);
+			 $(".cover-box").height(250)
+				  .css("background", "#263238");
 		}
        	
     });
@@ -484,14 +556,24 @@
            		$(".cover-box").height($(".img-cover-box").height());
                }
            }else{
-        	   $(".cover-box").height(250);
+        	   $(".cover-box").height(250)
+        	   				  .css("background", "#263238");
             }
     	  
       
        
     }
-
-
+   
+//logo box
+   $(".logo-box").on("mouseover", function(){	
+		$(this).find(".edit-logo").slideDown(50);
+		$(this).find(".edit-logo-button-wrapper").slideDown(50);
+   });
+   $(".logo-box").on("mouseleave", function(){
+		
+		$(this).find(".edit-logo").slideUp(50);
+		$(this).find(".edit-logo-button-wrapper").slideUp(50);
+  });
 
 
 

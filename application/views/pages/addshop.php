@@ -27,39 +27,6 @@ textarea:focus{
 
 
 
-.icon-after-select{
-	width:17px;
-	height:17px;
-	margin-top: 4px;
-	margin-left:5px;
-	margin-right: 5px;
-	border-radius: 2px;
-}
-
-div.selected-category-box{
-	height:25px;
-	margin-top:5px;
-	border-radius: 3px;
-	background: #BDBDBD;
-	
-	margin-right:5px;
-}
-p.text-serve-category-selected{
-	line-height: 25px;
-}
-i.close-item{
-	cursor: pointer;
-}
-div.error-selected-result{
-	height:0px;
-	margin-top:5px;
-	visibility: hidden;
-	-webkit-transition: all 0.1s ;
-	-moz-transition: all 0.1s ;
-	-ms-transition: all 0.1s;
-	-o-transition: all 0.1s ;
-	transition: all 0.1s ;
-}
 
 </style>
   </head>
@@ -154,7 +121,7 @@ div.error-selected-result{
 							                <div class="error-selected-result">
 							                	<p>ITEM IS SELECTED!</p>
 							                </div>
-							                <div class="serve-category-result">
+							                <div class="serve-category-result" id="serve-categories">
 							                	
 							                	
 							                </div>						                  
@@ -269,7 +236,7 @@ div.error-selected-result{
 		                     
 		                     <div class="form-group">
 			                    <label>Shop Serve Type</label>
-			                    <select class="form-control " style="width: 100%;" id="shopservertype">
+			                    <select class="form-control " style="width: 100%;" id="shopservetype">
 			                      <option selected="selected" value="food">Food</option>
 			                      <option value="drink">Drink</option>
 			                    
@@ -805,7 +772,7 @@ div.error-selected-result{
 	<script src="../assets/nhamdis/jscontroller/addshop.js"></script>
 	<script>
 
-$("#cuisine-upload-image").on("click",function(){	
+/* $("#cuisine-upload-image").on("click",function(){	
 	$("#cuisineupload").click();	
 });
 $("#removecuisineimage").on("click",function(){
@@ -981,14 +948,24 @@ function clearCuisineSaveform(){
 		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
 	$('#cuisine-upload-wrapper').html(txt);
 	$("#removeloadingwrapper-cuisine").hide();
+} */
+
+
+
+
+
+
+function getServeCategories(){
+
+	var catesource = $("#serve-categories").find(".selected-category-box");
+	console.log(catesource.length);
+	var servecategories = [];
+	for(var i=0 ; i<catesource.length; i++){
+		var cateval = catesource.eq(i).find("input").val();
+		servecategories.push(cateval);
+	}
+	return servecategories;
 }
-
-
-
-
-
-
-
 $("#servecategory-upload-image").on("click",function(){	
 	$("#servecategoryupload").click();	
 });
@@ -1130,15 +1107,29 @@ $("#servecategoryesave").on("click", function(){
 						alert("Insert error!");
 					}else{
 						//alert(data);
-						$("#selectedservecategory").val(data.serve_category_id);
-						$("#servecategoryname").val($("#servecategorynamepopup").val());
-
+						//$("#selectedservecategory").val(data.serve_category_id);
+						/* $("#servecategoryname").val(); */
+/* 
 						$("img#servecategoryicon").attr("src","../uploadimages/icon/"+servecategory);						  
 						$("#servecategoryname").attr('disabled','disabled');
 						$("#servecategory_selected_dropdown").find(".font-icon-cross").remove();
-						$("#servecategory_selected_dropdown").append("<i class='fa fa-times font-icon-cross'  aria-hidden='true'></i>");						 
+						$("#servecategory_selected_dropdown").append("<i class='fa fa-times font-icon-cross'  aria-hidden='true'></i>");	 */
+						
+						console.log($("#servecategorynamepopup").textWidth());
+						var txtwidth = $("#servecategorynamepopup").textWidth()+55;
+						var checkcls = $("#display-result-servecategory").siblings("input").val();
+						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
+						 box += "<input type='hidden' value='"+data.serve_category_id+"' />";
+						 box += "<img class='pull-left icon-after-select' src='../uploadimages/icon/"+servecategory+"' />";
+						 box += "<p class='text-serve-category-selected'>";
+						 box += "<span>"+$("#servecategorynamepopup").val()+"</span>";
+				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
+				 		
+				 		 $("#serve-categories").append(box);
+											 
 						$("#belowcloseservecategory").click();
 						clearServeCategorySaveform();
+						
 					}
 					
 				}
