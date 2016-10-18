@@ -39,13 +39,12 @@
 			$this->load->view('pages/userinformation');
 		}
 		
-		public function updateshop(){
-			$this->load->view('pages/updateshop');
+		public function updateshop($tab = null){
+			if(isset($tab)) $this->load->view('pages/upsh_'.$tab);
+			else $this->load->view('pages/upsh_overview');
+			
 		}
-		public function updateshop2(){
-			$this->load->view('pages/updateshop2');
-		}
-		
+				
 		public function user(){
 			$this->load->view('pages/user');
 		}
