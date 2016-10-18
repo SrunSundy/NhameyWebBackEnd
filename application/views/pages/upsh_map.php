@@ -318,9 +318,7 @@
   
   
   
-  .nham-tab{
-  	 display:none;
-  }
+
   
   .tab-header{
   	background: #f6f7f9;
@@ -371,7 +369,7 @@
 	       	 		<!-- wrapper of info and cover -->
 	       	 		<div class="bar-cover-wrapper">
 	       	 			<div class="img-cover-box">
-	       	 				   <img src="../assets/nhamdis/img/new1.jpg"   class="img-cover" /> 
+	       	 				   <img src="<?php echo base_url(); ?>assets/nhamdis/img/new1.jpg"   class="img-cover" /> 
 	       	 				  
 	       	 			</div> 
 	       	 			<div class="cover-box">
@@ -399,7 +397,7 @@
 		       	 			<div class="small-logo-wrapper">
 		       	 				<div class="space-logo-box" >
 			       	 				<div class="small-logo-box">
-			       	 					<img src="../assets/nhamdis/img/new2.jpg" class="small-logo-img"/>
+			       	 					<img src="<?php echo base_url(); ?>assets/nhamdis/img/new2.jpg" class="small-logo-img"/>
 			       	 					 <i class="fa fa-camera" aria-hidden="true"></i>
 			       	 				</div> 
 		       	 				</div>
@@ -419,7 +417,7 @@
 	       	 			<div class="col-lg-12" style="height: 20px;"></div>
 	       	 			<div class="col-lg-12 shop-edit-form-wrapper">
 	       	 				<div class="row">	       	 						       	 						       	 					
-	       	 					<div class="nham-tab" id="map">	       	 				
+	       	 					<div  id="map">	       	 				
 	       	 						<div class="tab-header col-lg-12">
 	       	 							<p class="tab-intro-text">	<i class="fa fa-map-marker" aria-hidden="true"></i><span>Map</span></p>
 	       	 						</div>
@@ -515,7 +513,7 @@
 		    <div class="col-lg-3 profilemenu-wrapper-right">
 		    	<div class="col-lg-12 logo-wrapper" style="margin-left:35px;">
 		    		<div class="logo-box">
-		    			 <img src="../assets/nhamdis/img/new2.jpg" class="logo-img"/> 
+		    			 <img src="<?php echo base_url(); ?>assets/nhamdis/img/new2.jpg" class="logo-img"/> 
 		    			 <i class="fa fa-camera" aria-hidden="true"></i>
 		    			 <div class="edit-logo"></div>
 		    			 <div class="edit-logo-button-wrapper">
@@ -638,7 +636,7 @@
     		});
     	}
     }
- 
+    google.maps.event.addDomListener(window, 'load', initialize)
     /*end google map code*/			
     </script>
     <script>
@@ -684,8 +682,9 @@
            	 $(".cover-box").height(newheight);
            }
 		}else{
-			 $(".cover-box").height(250)
-				  .css("background", "#263238");
+			 $(".cover-box").css("background", "#263238")
+			 				.height(250);
+				  
 		}
        	
     });
@@ -707,8 +706,8 @@
            		$(".cover-box").height($(".img-cover-box").height());
                }
            }else{
-        	   $(".cover-box").height(250)
-        	   				  .css("background", "#263238");
+        	   $(".cover-box").css("background", "#263238")
+						      .height(250);
             }    	           
     }
    
