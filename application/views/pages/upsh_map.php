@@ -418,35 +418,7 @@
 	       	 		<div class="fake-info-wrapper">
 	       	 			<div class="col-lg-12" style="height: 20px;"></div>
 	       	 			<div class="col-lg-12 shop-edit-form-wrapper">
-	       	 				<div class="row">
-	       	 					<div class="nham-tab" id="overview" style="display:block">
-	       	 						<div class="tab-header col-lg-12">
-	       	 							<p class="tab-intro-text"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Overview</span></p>
-	       	 						</div>
-	       	 						<div class=""></div>
-	       	 					</div>
-	       	 					
-	       	 					<div class="nham-tab" id="information">
-	       	 						<div class="tab-header col-lg-12">
-	       	 							<p class="tab-intro-text"><i class="fa fa-book" aria-hidden="true"></i><span>Information</span></p>
-	       	 						</div>
-	       	 						<div class="tab-body col-lg-12" style="height: 1000px;">
-	       	 							
-	       	 						</div>
-	       	 					</div>
-	       	 					
-	       	 					<div class="nham-tab" id="photo">
-	       	 						<div class="tab-header col-lg-12">
-	       	 							<p class="tab-intro-text"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Photo</span></p>
-	       	 						</div>
-	       	 					</div>
-	       	 					
-	       	 					<div class="nham-tab" id="product">	       	 				
-	       	 						<div class="tab-header col-lg-12">
-	       	 							<p class="tab-intro-text"><i class="fa fa-product-hunt" aria-hidden="true"></i><span>Product</span></p>
-	       	 						</div>
-	       	 					</div>
-	       	 						       	 					
+	       	 				<div class="row">	       	 						       	 						       	 					
 	       	 					<div class="nham-tab" id="map">	       	 				
 	       	 						<div class="tab-header col-lg-12">
 	       	 							<p class="tab-intro-text">	<i class="fa fa-map-marker" aria-hidden="true"></i><span>Map</span></p>
@@ -557,24 +529,19 @@
 		    		</div>
 		    		<div class="menu-wrapper">
 		    			<ul class="menu-ul">
-		    				<li class="item">
-		    					<input type="hidden" value="overview"/>
+		    				<li class="item">		    		
 		    					<a href="javascript:;">Overview</a>
 		    				</li>
-		    				<li class="item">
-		    					<input type="hidden" value="information"/>
+		    				<li class="item">		    				
 		    					<a href="javascript:;">Inforamtion</a>
 		    				</li>
-		    				<li class="item">
-		    					<input type="hidden" value="photo"/>
+		    				<li class="item">		    					
 		    					<a href="javascript:;">Photo</a>
 		    				</li>
-		    				<li class="item">
-		    					<input type="hidden" value="product"/>
+		    				<li class="item">		    					
 		    					<a href="javascript:;">Product</a>
 		    				</li>
-		    				<li class="item">
-		    					<input type="hidden" value="map"/>
+		    				<li class="item">		    				
 		    					<a href="javascript:;">Map</a>
 		    				</li>
 		    			</ul>
@@ -687,19 +654,6 @@
     	 resizeOnWindow();
     });
 
-	$(".menu-ul li.item").on("click", function(){
-		$(".menu-ul li.item").removeClass("li-click");
-		$(this).addClass("li-click");
-		
-		var tabid = $(this).find("input").val();
-		if(tabid == "map"){  
-			setTimeout(function(){
-				initialize();
-        	},500);}
-		$(".nham-tab").css("display","none");
-		$("#"+tabid).css("display", "block");
-		
-	});
     
      $(window).scroll(function(){
     	   var scrollHeight = $(document).scrollTop(); 
