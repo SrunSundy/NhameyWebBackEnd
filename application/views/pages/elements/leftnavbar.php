@@ -16,7 +16,7 @@
 	<!-- sidebar menu: : style can be found in sidebar.less -->
 	<ul class="sidebar-menu">
 	
-		<li><a href="dashboard"> <i class="fa fa-th"></i> <span>Dashboard</span></a></li>
+		<li><a href="<?php echo base_url(); ?>MainController/dashboard"> <i class="fa fa-th"></i> <span>Dashboard</span></a></li>
 		<!-- <li><a href="category"> <i class="fa fa-sitemap" aria-hidden="true"></i> <span>Category</span></a></li> -->
 		
 		<li class="treeview">
@@ -24,7 +24,7 @@
                 <i class="fa fa-building" aria-hidden="true"></i> <span>Shop Management</span><i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="addshop"><i class="fa fa-circle-o"></i> Add Shop</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/addshop"><i class="fa fa-circle-o"></i> Add Shop</a></li>
                 <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Shop Detail</a></li>
           
               </ul>
@@ -34,7 +34,7 @@
                 <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Product Management</span><i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="addproduct"><i class="fa fa-circle-o"></i> Add Product</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/addproduct"><i class="fa fa-circle-o"></i> Add Product</a></li>
                
           
               </ul>
