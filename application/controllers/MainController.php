@@ -39,9 +39,16 @@
 			$this->load->view('pages/userinformation');
 		}
 		
-		public function updateshop($tab = null){
-			if(isset($tab)) $this->load->view('pages/upsh_'.$tab);
-			else $this->load->view('pages/upsh_overview');
+		public function updateshop($tab = null, $shopid = null){
+			
+			$shopid = $this->input->post('shopid');
+			if(!isset($shopid) || is_string ($shopid)){
+				$shopid["shopid"] = 100;
+				/* redirect('/MainController/addshop', 'refresh'); */
+			}
+					
+			if(isset($tab)) $this->load->view('pages/upsh_'.$tab , $shopid);
+			else $this->load->view('pages/upsh_overview', $shopid);
 			
 		}
 				
