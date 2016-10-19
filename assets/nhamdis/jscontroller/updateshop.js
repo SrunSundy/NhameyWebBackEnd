@@ -71,3 +71,27 @@ $(".logo-box").on("mouseleave", function() {
 	
 	$(this).find("form").submit();	
 });*/
+
+$("#btn-cover").on("click", function(){
+	$("#openCoverModel").click();
+});
+
+$("#trigger-cover-browse").on("click",function(){
+	$("#uploadcover").click();
+});
+$("#uploadcover").on("change", function(){	
+	uploadCover(this);
+});
+function uploadCover(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) { 			
+		      var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" alt="your image" />';
+		      $('#display-photo-upload').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+		$('#display-photo-upload').html(txt);
+	}
+}

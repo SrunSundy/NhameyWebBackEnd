@@ -28,7 +28,7 @@
       	 <!-- wrapper of both profile and cover -->  
        	 <div class="content-nham-wrapper">
        	 	<!-- wrapper of cover -->
-       	 	<div class="col-lg-9 cover-wrapper-left" >
+       	 	<div class="col-lg-9 cover-wrapper-left" style="background:gray;">
        	 		<div class="row">
 	       	 		<!-- wrapper of info and cover -->
 	       	 		<div class="bar-cover-wrapper">
@@ -58,7 +58,7 @@
        	 	</div>
        	 	<!-- end wrapper of cover -->
        	 	<!-- wrapper of profile -->
-		    <div class="col-lg-3 profilemenu-wrapper-right">
+		    <div class="col-lg-3 profilemenu-wrapper-right" >
 		    	<?php include 'elements/updateshop/logomenu.php';?>
 		    </div>
 		    <div style="clear:both;"></div>
