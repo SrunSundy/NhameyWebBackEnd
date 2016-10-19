@@ -53,7 +53,7 @@
 			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/information/<?php echo $shopid ?>">Inforamtion</a></li>
 			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/photo/<?php echo $shopid ?>">Photo</a></li>
 			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/product/<?php echo $shopid ?>">Product</a></li>
-			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/map/<?php echo $shopid ?>">Map</a></li>
+			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/location/<?php echo $shopid ?>">Location</a></li>
 		</ul>
 	</div>
 </div>
