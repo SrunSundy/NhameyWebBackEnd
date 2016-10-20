@@ -51,9 +51,29 @@
 			else $this->load->view('pages/upsh_overview', $shopid);
 			
 		}
+		
+		public function addshopaddress(){
+			$this->load->view('pages/addshopaddress');
+		}
+		
+		public function listshopcountry(){
+			$this->load->view('pages/listshopcountry');
+		}
+		
+		public function listshopcity(){
+			$this->load->view('pages/listshopcity');
+		}
+		
+		public function listshopdistrict(){
+			$this->load->view('pages/listshopdistrict');
+		}
+		
+		public function listshopcommune(){
+			$this->load->view('pages/listshopcommune');
+		}
 				
-		public function user(){
-			$this->load->view('pages/user');
+		public function adduser(){
+			$this->load->view('pages/adduser');
 		}
 		private function select_options($selected = array()){
 			$output = '';
