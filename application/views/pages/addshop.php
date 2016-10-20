@@ -465,7 +465,7 @@ textarea:focus{
 								                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 								                    </div>
 								                  </div>
-												  <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+												  <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg" />
 												  <i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
 											</div>
 											<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
@@ -474,7 +474,7 @@ textarea:focus{
 												
 											</div>
 											<div id="removeloadingwrapper" class="upload-image-remove" align="center" style="display:none;text-align:center">
-												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/reload.svg"  />										
 											</div>
 														                    	  		                    	  		                    	  
 										</div>
@@ -500,7 +500,7 @@ textarea:focus{
 								                    <div id="logoprogressbar-cover" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 								                    </div>
 								                  </div>
-												  <img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+												  <img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg"  />
 												  <i class="fa fa-times disable-cover" id="cover-disable-cover" aria-hidden="true" title="close" ></i>
 											</div>
 											<div id="uploadimageremoveback-cover" class="upload-image-remove-background" style="display:none"></div>
@@ -508,7 +508,7 @@ textarea:focus{
 												<i id="removelogoimage-cover" class="fa fa-trash" aria-hidden="true"></i>										
 											</div>
 											<div id="removeloadingwrapper-cover" class="upload-image-remove" style="display:none">
-												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/reload.svg"/>										
 											</div>																				                    	  		                    	  		                    	  
 										</div>
 										<textarea rows="" placeholder="have your word about this..." id="cover_description"  class="nham_description"  cols=""></textarea>
@@ -616,8 +616,8 @@ textarea:focus{
 										<div id="errorBlock" class="help-block"></div>
 										<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
 										</div>
-										<div id="coveruploadimagewithload"  align="center" class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
-											<img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:23px;width:30px;" />
+										<div id="coveruploadimagewithload"   class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
+											<img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ring.svg" />
 										</div>
 									</div>
 			                    </div>			            	
@@ -683,7 +683,7 @@ textarea:focus{
 								            <div id="servecategoryprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 								            </div>
 								        </div>
-										<img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+										<img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg" />
 										<i class="fa fa-times disable-cover" id="servecategory-disable-cover" aria-hidden="true" title="close" ></i>
 								  </div>
 								  <div id="uploadimageremoveback-servecategory" class="upload-image-remove-background" style="display:none"></div>
@@ -691,7 +691,7 @@ textarea:focus{
 										<i id="removeservecategoryimage" class="fa fa-trash" aria-hidden="true"></i>	
 								  </div>
 								  <div id="removeloadingwrapper-servecategory" class="upload-image-remove" align="center" style="display:none;text-align:center">
-									    <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+									    <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/reload.svg"  />										
 								  </div>														                    	  		                    	  		                    	  
 							</div>
 						</div>
@@ -741,7 +741,7 @@ textarea:focus{
 								            <div id="cuisineprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
 								            </div>
 								        </div>
-										<img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
+										<img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg" />
 										<i class="fa fa-times disable-cover" id="cuisine-disable-cover" aria-hidden="true" title="close" ></i>
 								  </div>
 								  <div id="uploadimageremoveback-cuisine" class="upload-image-remove-background" style="display:none"></div>
@@ -749,7 +749,7 @@ textarea:focus{
 										<i id="removecuisineimage" class="fa fa-trash" aria-hidden="true"></i>	
 								  </div>
 								  <div id="removeloadingwrapper-cuisine" class="upload-image-remove" align="center" style="display:none;text-align:center">
-									    <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
+									    <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/reload.svg"  />										
 								  </div>														                    	  		                    	  		                    	  
 							</div>
 						</div>
@@ -972,7 +972,7 @@ $("#servecategory-upload-image").on("click",function(){
 $("#removeservecategoryimage").on("click",function(){
 	removeServeCategoryImageFromServer();
 });
-$("#cuisine-disable-cover").on("click", function(){
+$("#servecategory-disable-cover").on("click", function(){
 	$("#servecategoryupload").val(null);
 	$("#loading-wrapper-servecategory").hide();
 	$("#servecategory-upload-image").removeClass("loading-box");
