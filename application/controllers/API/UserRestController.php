@@ -23,9 +23,8 @@ class UserRestController extends  CI_Controller{
 	}
 	
 	public function insertuser(){
-		
-		
-		$check = $this->UserModel->insertUser();
+		$req_data = $this->input->post('req_data');
+		$check = $this->UserModel->insertUser($req_data);
 		$data = array();
 		if($check){
 			$data['error'] = false;
