@@ -301,6 +301,7 @@ $("#removelogoimage").on("click",function(){
 	removeLogoImageFromServer();
 });
 $("#logo-disable-cover").on("click", function(){
+	logoimagename="";
 	$("#logoupload").val(null);
 	$("#loading-wrapper").hide();
 	$("#logo-upload-image").removeClass("loading-box");
@@ -381,6 +382,7 @@ function upoloadLogoToServer(){
 				if(data.is_upload == false){
 					alert("error uploading!");
 					alert(data.message);
+					logoimagename="";
 				}else{
 					logoimagename = data.filename;
 					$("#loading-wrapper").hide();
@@ -419,6 +421,7 @@ $("#removelogoimage-cover").on("click",function(){
 	removeCoverImageFromServer();
 }); 
 $("#cover-disable-cover").on("click", function(){
+	coverimagename="";
 	$("#coverupload").val(null);
 	$("#loading-wrapper-cover").hide();
 	$("#cover-upload-image").removeClass("loading-box");
@@ -500,6 +503,7 @@ function upoloadCoverToServer(){
 				data = JSON.parse(data);
 				console.log(data);
 				if(data.is_upload == false){
+					coverimagename="";
 					alert("error uploading!");
 					alert(data.message);
 				}else{

@@ -347,7 +347,7 @@ class UploadRestController extends CI_Controller{
 				if ($uploadok) {
 					
 					$report['is_upload']= false;
-					$report["message"] = "File(s) cannot be uploaded";
+					$report["message"] = "File(s) cannot be uploaded.".$message;
 					$report["filename"] = $_FILES['file']['name'][$i];
 					array_push($reportwrapper , $report);
 					

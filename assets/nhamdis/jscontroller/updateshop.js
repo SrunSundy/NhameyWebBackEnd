@@ -104,14 +104,6 @@ function uploadCover(input) {
 		}
 		reader.readAsDataURL(input.files[0]);
 	}else{
-		/*var txt  = '<div class="photo-upload-info" >';
-			txt += '   <p class="text-upload-info">';
-			txt += '      <i class="fa fa-plus"></i> ';
-			txt += '      <span>Browse Photo ( 700 x 500 )</span>';
-			txt += '   </p>';
-			txt += '</div>';
-		$('#display-photo-upload').html(txt);
-		*/
 		var myimg ='<img  class="photo-upload-output" src="'+backupcoverimage.target.result+'" alt="your image" />';
 	    $('#display-photo-upload').html(myimg);
 	}
@@ -152,6 +144,8 @@ function upoloadCoverToServer(){
 				if(data.is_upload == false){
 					alert("error uploading!");
 					alert(data.message);
+					coverimage = "";
+					$("#cover-fail-remove").show();
 				}else{
 					coverimage = data.filename;
 				}
