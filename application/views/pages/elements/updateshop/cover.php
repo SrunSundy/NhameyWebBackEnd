@@ -185,7 +185,7 @@
 			        <div class="photo-upload-loading" id="cover-upload-loading" align="center">
 			        	<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
 			        </div>
-			        <div class="photo-fail-remove">
+			        <div class="photo-fail-remove" id="cover-fail-remove">
 			        	<i class="fa fa-times" aria-hidden="true"></i>
 			        </div>
 			      
@@ -202,7 +202,7 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-<button type="button" id="openCoverModel" style="display:none;" data-toggle="modal" data-target="#coverModal">Open Modal</button>		                    	
+<button type="button" id="openCoverModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#coverModal">Open Modal</button>		                    	
 <!-- /.modal -->
 <!-- Modal -->
 <!-- end cuisine modal -->
