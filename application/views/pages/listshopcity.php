@@ -90,7 +90,7 @@ th, td {
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="shop_country" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for country">
+			                    		    <input id="shop_country" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select country">
 			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_country"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
@@ -111,7 +111,7 @@ th, td {
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="shop_city" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop city">
+			                    		    <input id="shop_city" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select city">
 			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_city"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
