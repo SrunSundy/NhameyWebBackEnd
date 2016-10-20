@@ -56,6 +56,8 @@
     <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamdropdown.js"></script>
     <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamdropdownmulti.js"></script>
     
+    <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamaddress.js"></script>
+    
     
     
     
