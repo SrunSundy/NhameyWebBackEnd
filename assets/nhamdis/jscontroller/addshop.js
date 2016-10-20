@@ -458,7 +458,7 @@ function removeCoverImageFromServer(){
 		type: "POST",
 		data : {
 			"removeimagedata":{
-				"image_type" : "1",
+				"image_type" : "2",
 				"imagename" : coverimagename
 			}			
 		},
@@ -569,6 +569,7 @@ $(document).on("mousedown","button.kv-file-remove",function(){
 	
 	console.log(arrnewfileimagename);
 });
+
 $(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove", function(){
 	
 	removeShopImageDetailFromServerMulti(arrnewfileimagename).success(function(data){
@@ -576,15 +577,17 @@ $(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove",
 		console.log(arrnewfileimagename);
 	});
 });
+
 function removeShopImageDetailFromServerMulti(imagestoremove){
 	return $.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopMultipleImage",
-		type: "POST",
+		url  : "/NhameyWebBackEnd/API/UploadRestController/removeShopMultipleImage",
+		type : "POST",
 		data : {
 			"removeimagedata": imagestoremove		
 		}
 	});
 }
+
 function removeShopImageDetailFromServer(imagetoremove){
 	return $.ajax({
 		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
@@ -915,7 +918,7 @@ $("#saveshop").on("click",function(){
 $("#branchname").on("focus keyup",function(){
 	
 	var srchbranchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url(); ?>/assets/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
@@ -1026,7 +1029,7 @@ $("#yescuisine").on("mousedown",function(){
 
 $("#servecategoryname").on("focus keyup",function(){
 	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url(); ?>assets/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",

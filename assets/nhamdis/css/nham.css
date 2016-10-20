@@ -123,6 +123,7 @@ img.upload-shop-img{
 img.loading-inside-box{
 	position:absolute;
 	 top: 50%;
+	 left: 45%;
 }
 .loading-box{
 	background:white;
