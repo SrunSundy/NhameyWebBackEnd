@@ -43,7 +43,27 @@
 		background: #ffffff;
 		z-index:20;
 		width:100%;
+		display:none;
 		height: 100%;
+	}
+	div.photo-fail-remove{
+		position:absolute;
+		top:0;
+		left:0;
+		background: #ffffff;
+		z-index:21;
+		width:100%;
+		display: none;
+		height: 100%;
+		opacity: 0.7;
+	}
+	div.photo-fail-remove i{
+		font-size: 22px;
+		position: absolute;
+		top: 8px;
+		right: 13px;
+		color: #dd4b39;
+		cursor: pointer;
 	}
 	div.trigger-browse-image{
 		position:absolute;
@@ -136,6 +156,7 @@
 <div class="modal fade" id="coverModal" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
+		
 			<div class="nham-modal-header">
 				<button type="button" id="coverformclose" class="close btn-close"
 					data-dismiss="modal" aria-label="Close">
@@ -145,6 +166,7 @@
 					<i class="fa fa-picture-o" aria-hidden="true"></i><span>Upload Cover</span>
 				</p>
 			</div>
+			
 			<div class="nham-modal-body">
 			
 				<input type='file' id="uploadcover" style="display:none" accept="image/*"/>
@@ -157,11 +179,14 @@
 						  	</p>  
 						</div>					  	        		
 			        </div> 	
-			        
+			        			        
 			        <!-- fake on -->
-			        <div class="trigger-browse-image" id="trigger-cover-browse"> </div>
-			        <div class="photo-upload-loading" align="center">
+			        <div class="trigger-browse-image" id="trigger-cover-browse"></div>
+			        <div class="photo-upload-loading" id="cover-upload-loading" align="center">
 			        	<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+			        </div>
+			        <div class="photo-fail-remove">
+			        	<i class="fa fa-times" aria-hidden="true"></i>
 			        </div>
 			      
 			        <!-- end fake on -->
