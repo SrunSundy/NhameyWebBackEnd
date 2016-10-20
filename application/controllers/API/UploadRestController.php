@@ -6,11 +6,9 @@ class UploadRestController extends CI_Controller{
 	}
 	
 	public function shopLogoUploadImage(){
-		
+	/* 	
 		if ( ! empty($_FILES))
 		{
-			
-
 			$config['upload_path'] = "./uploadimages/logo/original";
 			$config['allowed_types'] =  'gif|jpg|png';
 			$config['max_size'] = '20120';
@@ -44,7 +42,7 @@ class UploadRestController extends CI_Controller{
 					
 				}
 				
-				/* $percent = 0.5;
+				$percent = 0.5;
 				$source_img =$targetfolder."original/".$new_name;
 				$destination_img = "./uploadimages/logo/big/".$new_name;
 				$info = getimagesize($source_img);				
@@ -72,15 +70,86 @@ class UploadRestController extends CI_Controller{
 				$config_resize['height'] = (int)$new_height;
 				$config_resize['new_image'] = "./uploadimages/logo/small/".$new_name;
 				$this->load->library('image_lib' , $config_resize);
-				$this->image_lib->resize(); */
+				$this->image_lib->resize(); 
 			}
 			$json = json_encode($data);
 			echo $json;
-		}
+		} */
+			
+		$response = array();
+		if ( ! empty($_FILES))
+		{
+			$new_name = "icon_".$this->generateRandomString(20).".jpg";
+			$target_small_dir = "./uploadimages/logo/small/";
+			$target_big_dir = "./uploadimages/logo/big/";
+			
+				
+			$checkdirectory_small = $this->checkDirectory($target_small_dir);
+			$checkdirectory_big = $this->checkDirectory($target_big_dir);
+			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
+			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
+			$allowmindimension = $this->allowImageMinimumDimension(300, 300, $_FILES["file"]["tmp_name"]);
+			$allowmaxdimension = $this->allowImageMaximumDimension(5000, 5000, $_FILES["file"]["tmp_name"]);
+				
+			$permission = array();
+			array_push($permission , 
+					  $checkdirectory_small,
+					  $checkdirectory_big,
+					  $allowfiletype, 
+					  $allowsize,
+					  $allowmindimension,
+					  $allowmaxdimension
+			);
+			$check = $this->checkPermission($permission);
+		
+			$message = $check["message"];
+			$uploadok =  $check["error"];
+			if ($uploadok) {
+				$message = " File can not be uploaded.".$message;
+				$response['is_upload']= false;
+				$response["message"] = $message;
+			} else {
+															
+				$isuploadimg = array();
+				if($_FILES['file']['size'] > 100000){
+					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"],0.5,90);
+					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,100);
+						
+				}else{
+					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"],1, 90);
+					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.8,50);
+						
+				}
+				
+				$errorupload = false;
+				array_push($isuploadimg, $big, $small);
+				for($i=0 ; $i<count($isuploadimg); $i++){
+					if(!$isuploadimg[$i]){
+						$errorupload = true;
+						break;
+					}
+				}
+				if($errorupload){
+					$message = "There was an error uploading your file.";
+					$response['is_upload']= false;
+					$response["message"] = $message;
+				}else{					
+					$response['is_upload'] = true;
+					$response['message'] =" File upload successfully!";
+					$response['filename'] = $new_name;
+				}
+		
+			}
+		}else{
+			$response['is_upload']= false;
+			$response["message"] = "No File!";
+		}		
+		$json = json_encode($response);
+		echo $json;
 		
 	}
 	public function shopCoverUploadImage(){
-		if ( ! empty($_FILES))
+		/* if ( ! empty($_FILES))
 		{
 			if($_FILES['file']['size']<10240)
 			{
@@ -120,17 +189,80 @@ class UploadRestController extends CI_Controller{
 			}
 			$json = json_encode($data);
 			echo $json;
+		} */
+			
+		$response = array();
+		if ( ! empty($_FILES))
+		{
+			$new_name = "cover_".$this->generateRandomString(20).".jpg";
+			$target_small_dir = "./uploadimages/cover/small/";
+			$target_big_dir = "./uploadimages/cover/big/";
+				
+		
+			$checkdirectory_small = $this->checkDirectory($target_small_dir);
+			$checkdirectory_big = $this->checkDirectory($target_big_dir);
+			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
+			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
+			$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
+			$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
+		
+			$permission = array();
+			array_push($permission ,
+				$checkdirectory_small,
+				$checkdirectory_big,
+				$allowfiletype,
+				$allowsize,
+				$allowmindimension,
+				$allowmaxdimension
+			);
+			$check = $this->checkPermission($permission);
+		
+			$message = $check["message"];
+			$uploadok =  $check["error"];
+			if ($uploadok) {
+				$message = " File can not be uploaded.".$message;
+				$response['is_upload']= false;
+				$response["message"] = $message;
+			} else {
+
+				$isuploadimg = array();
+				$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"],0.5,50);
+				$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50);
+				$errorupload = false;
+				array_push($isuploadimg, $big, $small);
+				for($i=0 ; $i<count($isuploadimg); $i++){
+					if(!$isuploadimg[$i]){
+						$errorupload = true;
+						break;
+					}
+				}
+				if($errorupload){
+					$message = "There was an error uploading your file.";
+					$response['is_upload']= false;
+					$response["message"] = $message;
+				}else{
+					$response['is_upload'] = true;
+					$response['message'] =" File upload successfully!";
+					$response['filename'] = $new_name;
+				}
+		
+			}
+		}else{
+			$response['is_upload']= false;
+			$response["message"] = "No File!";
 		}
+		$json = json_encode($response);
+		echo $json;
 		
 	}
 	
 	public function shopImageDetailUpload(){
 		
-		if ( ! empty($_FILES))
+	/* 	if ( ! empty($_FILES))
 		{
 			$config['upload_path'] = "./uploadimages/shopimages";
 			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size'] = '200';
+			$config['max_size'] = '20000';
 			$config['max_width']  = '1024000';
 			$config['max_height']  = '768000';
 			
@@ -174,49 +306,111 @@ class UploadRestController extends CI_Controller{
 			$json = json_encode($data);
 			echo $json;
 		
+		} */
+		
+		
+		
+		$response = array();
+		if ( ! empty($_FILES))
+		{
+			
+			$target_small_dir = "./uploadimages/shopimages/small/";
+			$target_big_dir = "./uploadimages/shopimages/big/";
+	
+			$reportwrapper = array();
+		
+			$number_of_files = count($_FILES['file']['name']);		
+			for ($i = 0; $i < $number_of_files; $i++){
+								
+				$report = array();
+				$new_name = "detail_".$this->generateRandomString(20).".jpg";
+				$checkdirectory_small = $this->checkDirectory($target_small_dir);
+				$checkdirectory_big = $this->checkDirectory($target_big_dir);
+				$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type'][$i]);
+				$allowsize = $this->allowImageSize(100000 , 20000000, $_FILES["file"]["size"][$i]);//20MB
+				$allowmindimension = $this->allowImageMinimumDimension(20, 10, $_FILES["file"]["tmp_name"][$i]);
+				$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"][$i]);
+				
+				$permission = array();
+				array_push($permission ,
+					$checkdirectory_small,
+					$checkdirectory_big,
+					$allowfiletype,
+					$allowsize,
+					$allowmindimension,
+					$allowmaxdimension
+				);
+				$check = $this->checkPermission($permission);
+				
+				$message = $check["message"];
+				$uploadok =  $check["error"];
+				if ($uploadok) {
+					
+					$report['is_upload']= false;
+					$report["message"] = "File(s) cannot be uploaded";
+					$report["filename"] = $_FILES['file']['name'][$i];
+					array_push($reportwrapper , $report);
+					
+				} else {
+						
+					$isuploadimg = array();
+					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.8,50);
+					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.5,50);
+					
+					$errorupload = false;
+					array_push($isuploadimg, $big, $small);
+					for($j=0 ; $j<count($isuploadimg); $j++){
+						if(!$isuploadimg[$j]){
+							$errorupload = true;
+							break;
+						}
+					}
+					if($errorupload){
+						$report['is_upload']= false;
+						$report["message"] = "File(s) (small/big) cannot be uploaded!";
+						$report["filename"] = $_FILES['file']['name'][$i];
+					}else{
+						$report['is_upload']= true;
+						$report["message"] = "File(s) upload successfully!";
+						$report["filename"] =$new_name;
+					}
+					
+					
+					array_push($reportwrapper , $report);										
+				}
+			}
+			
+			$response["fileupload"] = $reportwrapper;
 		}
+				
+		$json = json_encode($response);
+		echo $json;
+		
 	}	
 	
 	public function uploadIconImage(){
+		
 		$response = array();
 		if ( ! empty($_FILES))
 		{		
 			$new_name = "icon_".$this->generateRandomString(20).".jpg";
 			$target_dir = "./uploadimages/icon/";
-			$target_file = $target_dir.$new_name;
-			$uploadOk = 1;
-			$message = "";
-			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			// Check if image file is a actual image or fake image
-			if(isset($_POST["submit"])) {
-				$check = getimagesize($_FILES["file"]["tmp_name"]);
-				if($check !== false) {
-					$message = " File is an image - " . $check["mime"] . ".";
-					$uploadOk = 1;
-				} else {
-					$message = " File is not an image.";
-					$uploadOk = 0;
-				}
-			}
+			$target_file = $target_dir.$new_name;		
 			
-			// Check file size
-			if ($_FILES["file"]["size"] > 5000000) {
-				$message = $message."Sorry, your file is too large.";
-				$uploadOk = 0;
-			}
-			// Allow certain file formats
-			if(strcasecmp ( $imageFileType , "jpg" )  != 0  && strcasecmp ( $imageFileType , "png" )  != 0 
-			&& strcasecmp ( $imageFileType , "jpeg" ) != 0  && strcasecmp ( $imageFileType , "gif" ) != 0
-			) {
-				$message = $message." Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-				$uploadOk = 0;
-			}
-			// Check if $uploadOk is set to 0 by an error
-			if ($uploadOk == 0) {
-				$message = $message." Sorry, your file was not uploaded.";
+			$checkdirectory = $this->checkDirectory($target_dir);
+			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
+			$allowsize = $this->allowImageSize(1 , 20000000, $_FILES["file"]["size"]);//20MB
+			
+			$permission = array();
+			array_push($permission , $checkdirectory ,$allowfiletype , $allowsize);			
+			$check = $this->checkPermission($permission);
+		
+			$message = $check["message"];
+			$uploadok =  $check["error"];
+			if ($uploadok) {
+				$message = " File can not be uploaded.".$message;
 				$response['is_upload']= false; 
 				$response["message"] = $message;
-				// if everything is ok, try to upload file
 			} else {	
 							
 				if($this->resizeImageFixpixel($target_file ,$_FILES["file"]["tmp_name"] , 60 ,80)){
@@ -225,7 +419,7 @@ class UploadRestController extends CI_Controller{
 					$response["message"] = $message;
 					$response['filename'] = $new_name;
 				}else{
-					$message = "Sorry, there was an error uploading your file.";
+					$message = "There was an error uploading your file.";
 					$response['is_upload']= false;
 					$response["message"] = $message;
 				}
@@ -258,6 +452,7 @@ class UploadRestController extends CI_Controller{
 	}
 	
 	public function removeShopSingleImage(){
+		
 		$removedata = $this->input->post('removeimagedata');
 		$removetype = $removedata["image_type"];
 		$imagename = $removedata["imagename"]; 
@@ -267,9 +462,11 @@ class UploadRestController extends CI_Controller{
 			$srcbig = "./uploadimages/logo/big/";
 			$srcsmall = "./uploadimages/logo/small/";
 		}else if($removetype == "2"){
-			$srcbig = "";
+			$srcbig = "./uploadimages/cover/big/";
+			$srcsmall = "./uploadimages/cover/small/";
 		}else if($removetype == "3"){
-			$srcbig = "./uploadimages/shopimages/";
+			$srcbig = "./uploadimages/shopimages/big/";
+			$srcsmall = "./uploadimages/shopimages/small/";
 		}
 		
 		$data['message'] = array();
@@ -298,8 +495,14 @@ class UploadRestController extends CI_Controller{
 		$num_image = count($removedata);
 		$data = array();
 		for($i=0; $i < $num_image; $i++){
-			if(file_exists("./uploadimages/shopimages/".$removedata[$i]["filename"])){
-				unlink("./uploadimages/shopimages/".$removedata[$i]["filename"]);
+			if(file_exists("./uploadimages/shopimages/big/".$removedata[$i]["filename"])){
+				unlink("./uploadimages/shopimages/big/".$removedata[$i]["filename"]);
+				$data[$removedata[$i]["filename"]]= "File is removed";
+			}else{
+				$data[$removedata[$i]["filename"]] = 'File not found';
+			}
+			if(file_exists("./uploadimages/shopimages/small/".$removedata[$i]["filename"])){
+				unlink("./uploadimages/shopimages/small/".$removedata[$i]["filename"]);
 				$data[$removedata[$i]["filename"]]= "File is removed";
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';
@@ -337,9 +540,11 @@ class UploadRestController extends CI_Controller{
 		if ($info['mime'] == 'image/jpeg')
 			$image = imagecreatefromjpeg($source_img);
 		elseif ($info['mime'] == 'image/gif')
-		$image = imagecreatefromgif($source_img);
+			$image = imagecreatefromgif($source_img);
 		elseif ($info['mime'] == 'image/png')
-		$image = imagecreatefrompng($source_img);
+			$image = imagecreatefrompng($source_img);
+		else 
+			return false;
 		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 		return imagejpeg($image_p, $destination_img, $quality);
 		
@@ -368,11 +573,117 @@ class UploadRestController extends CI_Controller{
 		if ($info['mime'] == 'image/jpeg')
 			$image = imagecreatefromjpeg($source_img);
 		elseif ($info['mime'] == 'image/gif')
-		$image = imagecreatefromgif($source_img);
+			$image = imagecreatefromgif($source_img);
 		elseif ($info['mime'] == 'image/png')
-		$image = imagecreatefrompng($source_img);
+			$image = imagecreatefrompng($source_img);
+		else 
+			return false;
 		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 		return imagejpeg($image_p, $destination_img, $quality);	
+		
+	}
+	
+	
+	function checkDirectory( $path ){
+		
+		$response = array();
+		if(!file_exists($path)){
+			$response['message'] = "The uploaded path does not appear to be valid!";
+			$response['is_allow'] = false;
+		}else{			
+			$response['message'] = "";
+			$response['is_allow'] = true;
+		}
+		return $response;
+		
+	}
+	
+	function allowImageType( $imagetypearr , $file ){
+		
+		$response = array();
+		if(!in_array($file , $imagetypearr)) {
+			$response['message'] = "The filetype you are attempting to upload is not allowed!";
+			$response['is_allow'] = false;
+		}else{			
+			$response['message'] = "";
+			$response['is_allow'] = true;
+		}
+		return $response;
+		
+	}
+	
+	function allowImageSize( $minsize , $maxsize, $file ){
+		$response = array();
+		if ($file > $maxsize) {
+			$show = $maxsize / 1024;
+			$show = $show / 1024;
+			$response['message'] = "The file you are attempting to upload is too large! (Maximum size: $show MB) ";
+			$response['is_allow'] = false;
+			return $response;
+		}
+		if ($file < $minsize) {
+			$show = $minsize / 1024;
+			$show = $show / 1024;
+			$response['message'] = "The file you are attempting to upload is too small! (Minimum size: $show MB)";
+			$response['is_allow'] = false;
+			return $response;
+		}
+		$response['message'] = "";
+		$response['is_allow'] = true;
+		return $response;
+	}
+	
+	function allowImageMinimumDimension( $minwidth , $minheight , $file){
+		
+		$response = array();
+		$info = getimagesize($file);
+		list($width, $height) = $info;
+		if($width < $minwidth || $height < $minheight){
+			$response['message'] = "The file you are attempting to upload doesn't fit into the allowed dimension!";
+			$response['is_allow'] = false;
+			return $response;
+		}
+		$response['message'] = "";
+		$response['is_allow'] = true;
+		return $response;
+		
+	}
+	
+	function allowImageMaximumDimension( $maxwidth , $maxheight , $file){
+	
+		$response = array();
+		$info = getimagesize($file);
+		list($width, $height) = $info;
+		if($width > $maxwidth || $height > $maxheight){
+			$response['message'] = "The file you are attempting to upload doesn't fit into the allowed dimension!";
+			$response['is_allow'] = false;
+			return $response;
+		}
+		$response['message'] = "";
+		$response['is_allow'] = true;
+		return $response;
+	
+	}
+	
+	function checkPermission( $permission ){
+		
+		$crash = false;
+		$response = array();
+		for($i=0 ; $i<count($permission) ; $i++){
+			if(!$permission[$i]["is_allow"]){
+				$crash = true; 
+				$response["error"] = true;
+				$response["message"] = $permission[$i]["message"];
+				break; 
+			}
+		} 
+		
+		if(!$crash){
+			$response["error"] = false;
+			$response["message"] = "Nice";
+		}
+		
+		return $response;
 		
 	}
 }
