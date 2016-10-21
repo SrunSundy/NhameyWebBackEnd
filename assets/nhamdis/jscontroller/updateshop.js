@@ -2,6 +2,7 @@
 
 var checkHasCover = true;
 var coverimage = "";
+var backupcoverimage;
 
 $(".img-cover").error(function() {
 	checkHasCover = false;
@@ -75,16 +76,33 @@ $(".logo-box").on("mouseleave", function() {
 
 
 /*============== update cover ==============*/
+
 $("#btn-cover").on("click", function(){
 	$("#openCoverModel").click();
 });
+
 $("#trigger-cover-browse").on("click",function(){
 	$("#uploadcover").click();
 });
+
 $("#uploadcover").on("change", function(){	
 	uploadCover(this);
 });
-var backupcoverimage;
+
+$("#cover-fail-event").on("click" , function(){
+	coverimage = "";
+	$("#uploadcover").val(null);
+	$(this).parent().hide();
+	
+	var txt  = '<div class="photo-upload-info" >';
+		txt	+= '	<p class="text-upload-info">';
+		txt	+= '		<i class="fa fa-plus"></i>';
+		txt	+= '		<span>Browse Photo ( 700 x 500 )</span>';
+		txt	+= '	</p>';
+		txt	+= '</div>';
+	$('#display-photo-upload').html(txt);
+});
+
 function uploadCover(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
@@ -98,8 +116,16 @@ function uploadCover(input) {
  				 upoloadCoverToServer();
  			  }
  			  
- 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" alt="your image" />';
+ 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="cropcover" alt="your image" />';
 		      $('#display-photo-upload').html(myimg);
+		     
+		      $('#cropcover').Jcrop({
+		    		aspectRatio: 16 / 9,
+		    		setSelect:   [50,0, 100,100]
+		    			
+		     });
+		    
+	     	
 		      backupcoverimage = e;
 		}
 		reader.readAsDataURL(input.files[0]);
@@ -108,19 +134,21 @@ function uploadCover(input) {
 	    $('#display-photo-upload').html(myimg);
 	}
 }
+
 function removeCoverImageFromServer(){
-	alert(coverimage);
+
 	return $.ajax({
 		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
 			"removeimagedata":{
 				"image_type" : "2",
-				"imagename" : coverimage.trim()
+				"imagename" : coverimage
 			}			
 		}
 	});	
 }
+
 function upoloadCoverToServer(){
 	var inputFile = $("#uploadcover");
 	
@@ -146,7 +174,9 @@ function upoloadCoverToServer(){
 					alert(data.message);
 					coverimage = "";
 					$("#cover-fail-remove").show();
+					$("#cover-description-box").hide();
 				}else{
+					$("#cover-description-box").show();
 					coverimage = data.filename;
 				}
 				$("#cover-upload-loading").hide();
@@ -155,4 +185,5 @@ function upoloadCoverToServer(){
 		});
 	} 
 }
+
 /*============ end update cover ============*/
