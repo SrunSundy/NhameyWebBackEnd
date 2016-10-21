@@ -36,6 +36,17 @@
 		padding: 5px;
 		
 	}
+	.photo-description-box{
+		width: 98%;
+		min-height: 60px;
+		margin: 0 auto;
+		border-bottom: 1px solid #E0E0E0;
+		border-left: 1px solid #E0E0E0;
+		border-right: 1px solid #E0E0E0;
+		position:relative;
+		padding: 5px;
+		display:none;
+	}
 	div.photo-upload-loading{
 		position:absolute;
 		top:0;
@@ -106,6 +117,13 @@
 		width: 100%;
 		height: auto;
 	}
+	.photo-description{
+		width:100%;
+		border:0;
+		bottom:0px;
+		resize:none;
+		min-height: 60px;
+	}
 </style>
 <div class="img-cover-box">
 	<img src="<?php echo base_url(); ?>assets/nhamdis/img/new1.jpg"
@@ -152,7 +170,7 @@
 	</div>
 </div>
 
-<!-- cuisine modal -->
+<!-- cover update modal -->
 <div class="modal fade" id="coverModal" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -163,12 +181,11 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<p class="nham-modal-title">
-					<i class="fa fa-picture-o" aria-hidden="true"></i><span>Upload Cover</span>
+					<i class="fa fa-picture-o" aria-hidden="true"></i><span>Update Cover</span>
 				</p>
 			</div>
 			
-			<div class="nham-modal-body">
-			
+			<div class="nham-modal-body">			
 				<input type='file' id="uploadcover" style="display:none" accept="image/*"/>
 				<div class="upload-photo-box" id="cover-upload-box">					
 					<div class="photo-upload-wrapper" align="center" id="display-photo-upload" >
@@ -178,31 +195,29 @@
 						  		<span>Browse Photo ( 700 x 500 )</span>
 						  	</p>  
 						</div>					  	        		
-			        </div> 	
-			        			        
+			        </div> 				        			        
 			        <!-- fake on -->
 			        <div class="trigger-browse-image" id="trigger-cover-browse"></div>
 			        <div class="photo-upload-loading" id="cover-upload-loading" align="center">
 			        	<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
 			        </div>
 			        <div class="photo-fail-remove" id="cover-fail-remove">
-			        	<i class="fa fa-times" aria-hidden="true"></i>
-			        </div>
-			      
+			        	<i class="fa fa-times" id="cover-fail-event" aria-hidden="true"></i>
+			        </div>			      
 			        <!-- end fake on -->
+				</div>
+				<div class="photo-description-box" id="cover-description-box">
+					<textarea rows="" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
 				</div>
 			</div>
 			
 			<div class="nham-modal-footer">
 				
-			</div>
-			
+			</div>			
 		</div>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
 </div>
 <button type="button" id="openCoverModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#coverModal">Open Modal</button>		                    	
-<!-- /.modal -->
-<!-- Modal -->
-<!-- end cuisine modal -->
+<!-- cover update modal -->
