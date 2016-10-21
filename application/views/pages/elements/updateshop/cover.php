@@ -47,12 +47,47 @@
 		padding: 5px;
 		display:none;
 	}
+	
+	.photo-btncrop-box{
+		width: 98%;
+		min-height: 50px;
+		margin: 0 auto;
+		border-bottom: 1px solid #E0E0E0;
+		border-left: 1px solid #E0E0E0;
+		border-right: 1px solid #E0E0E0;
+		position:relative;
+		padding: 5px;
+		display:none;
+		
+	}
+	button.btn-crop{
+		width: 100%;
+		font-weight: bold;
+		border-radius: 0;
+	}
+	button.btn-crop:hover{
+		background: #BDBDBD;
+	}
+	.photo-browse-box{
+		width: 98%;
+		height: 70px;
+		margin: 0 auto;
+		border-bottom: 1px solid #E0E0E0;
+		border-left: 1px solid #E0E0E0;
+		border-right: 1px solid #E0E0E0;
+		position:relative;
+		padding: 5px;
+		cursor:pointer;
+	}
+	.photo-browse-box:hover{
+		background: #EEEEEE;
+	}
 	div.photo-upload-loading{
 		position:absolute;
 		top:0;
 		left:0;
 		background: #ffffff;
-		z-index:20;
+		z-index:99999990;
 		width:100%;
 		display:none;
 		height: 100%;
@@ -95,10 +130,16 @@
 		margin: 0 auto;
 		
 	}
-	.photo-upload-info{
-		
-		
-		padding-top: 100px;
+	.photo-upload-info{		
+		padding-top: 16px;
+		font-weight: bold;
+	}
+	.photo-upload-info-2{
+		padding-top: 80px;
+	}
+	.photo-upload-info-2 i{
+		font-size: 100px;
+		opacity: 0.1;
 	}
 	p.text-upload-info{
 		color: #BDBDBD;
@@ -185,19 +226,24 @@
 				</p>
 			</div>
 			
-			<div class="nham-modal-body">			
+			<div class="nham-modal-body">
+				<div class="photo-browse-box" align="center">
+					<div class="photo-upload-info" id="trigger-cover-browse" >
+						<p class="text-upload-info">
+						  	<span>Browse Photo </span>
+						  	( 700 x 500 )
+						 </p>  
+					</div>	
+				</div>			
 				<input type='file' id="uploadcover" style="display:none" accept="image/*"/>
 				<div class="upload-photo-box" id="cover-upload-box">					
 					<div class="photo-upload-wrapper" align="center" id="display-photo-upload" >
-						<div class="photo-upload-info" >
-							<p class="text-upload-info">
-								<i class="fa fa-plus"></i>          
-						  		<span>Browse Photo ( 700 x 500 )</span>
-						  	</p>  
+						<div class="photo-upload-info-2" >
+						 	<i class="fa fa-picture-o" aria-hidden="true"></i>
 						</div>					  	        		
 			        </div> 				        			        
 			        <!-- fake on -->
-			        <div class="trigger-browse-image" id="trigger-cover-browse"></div>
+			        
 			        <div class="photo-upload-loading" id="cover-upload-loading" align="center">
 			        	<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
 			        </div>
@@ -208,6 +254,10 @@
 				</div>
 				<div class="photo-description-box" id="cover-description-box">
 					<textarea rows="" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+				</div>
+				
+				<div class="photo-btncrop-box" id="cover-btncrop-box">
+					<button type="button" id="photo-crop-btn" class="btn btn-crop">Crop image</button>
 				</div>
 			</div>
 			
