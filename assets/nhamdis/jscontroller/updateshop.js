@@ -76,6 +76,12 @@ $(".logo-box").on("mouseleave", function() {
 
 
 /*============== update cover ==============*/
+var img_x = 0;
+var img_y = 0;
+var img_w = 0;
+var img_h = 0;
+
+
 
 $("#btn-cover").on("click", function(){
 	$("#openCoverModel").click();
@@ -103,36 +109,71 @@ $("#cover-fail-event").on("click" , function(){
 	$('#display-photo-upload').html(txt);
 });
 
+$("#photo-crop-btn").on("click", function(){
+	alert(img_x+" "+img_y+" "+img_w+" "+img_h);
+	upoloadCoverToServer();
+});
+
 function uploadCover(input) {
+	
+	
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
  		reader.onload = function (e) { 
  			
- 			  if(coverimage) {
+ 			 /* if(coverimage) {
  				 removeCoverImageFromServer().success(function(data){
  					upoloadCoverToServer();
  				 });				  
  			  }else{
  				 upoloadCoverToServer();
- 			  }
- 			  
- 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="cropcover" alt="your image" />';
-		      $('#display-photo-upload').html(myimg);
-		     
-		      $('#cropcover').Jcrop({
-		    		aspectRatio: 16 / 9,
-		    		setSelect:   [50,0, 100,100]
-		    			
-		     });
-		    
-	     	
-		      backupcoverimage = e;
+ 			  }*/
+	 		var image = new Image();
+			image.src = e.target.result;			
+			image.onload = function () {
+				var height = this.height;
+				var width = this.width;
+	 			  $("#cover-btncrop-box").show();
+	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="cropcover" alt="your image" />';
+			      $('#display-photo-upload').html(myimg);
+			      $('#cropcover').Jcrop({
+			    	   aspectRatio: 16 / 9,
+			    	   onSelect: updateCoords,
+			    	   onChange: updateCoords,
+			    	   setSelect: [0,0,110,110],
+			    	   trueSize: [width,height]
+			   	 });			           	
+			     backupcoverimage = e;
+			}			
 		}
 		reader.readAsDataURL(input.files[0]);
 	}else{
-		var myimg ='<img  class="photo-upload-output" src="'+backupcoverimage.target.result+'" alt="your image" />';
+		var myimg ='<img  class="photo-upload-output" src="'+backupcoverimage.target.result+'" id="cropcover" alt="your image" />';
 	    $('#display-photo-upload').html(myimg);
+	    $('#cropcover').Jcrop({
+	  	   aspectRatio: 16 / 9,
+	  	   setSelect:   [50,0, 100,100],
+	  	   onSelect: updateCoords
+	 	});
 	}
+	
+}
+
+function updateCoords(c){
+	img_x = c.x;
+	img_y = c.y;
+	img_w = c.w;
+	img_h = c.h;
+}
+
+function getCropImgData(){
+	var crop_img_data = {		
+		"img_x" : img_x,
+		"img_y" : img_y,
+		"img_w" : img_w,
+		"img_h" : img_h						
+	};
+	return crop_img_data;	
 }
 
 function removeCoverImageFromServer(){
@@ -159,6 +200,7 @@ function upoloadCoverToServer(){
 
 		var formData = new FormData();
 		formData.append("file",  fileToUpload);
+		formData.append("json", JSON.stringify(getCropImgData()));
 		
 		$.ajax({
 			url: "/NhameyWebBackEnd/API/UploadRestController/shopCoverUploadImage",
