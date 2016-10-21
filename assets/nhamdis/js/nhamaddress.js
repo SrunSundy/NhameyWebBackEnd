@@ -1,51 +1,19 @@
-function addMultiListers(param) {
-		for(var i=0;i<param["events"].length;i++){
-			param["element"].addEventListener(param["events"][i],function(){
-					listAddress({"me": param["element"], 
-								"name": param["name"], 
-								"parent_id": param["parent_id"],
-								"isList": param["isList"]});
-			},false);
-		}
-}
-/*
-function save_address(param){
-	alert(param);
-	var data_name = document.getElementById("txtname"+param["id"]).value;
-	var status = document.getElementById("txtstatus"+param["id"]).value;
-	var req_data = {
-			"req_data" : {
-				"address_type": param["name"],
-				"id": id,
-				"data_name" : data_name,
-				"parent_id" : 1,
-				"status" : status,
-				"admin_id" : 1,
+	function addMultiListers(param) {
+			for(var i=0;i<param["events"].length;i++){
+				param["element"].addEventListener(param["events"][i],function(){
+						listAddress({"me": param["element"], 
+									"name": param["name"], 
+									"parent_id": param["parent_id"],
+									"isList": param["isList"]});
+				},false);
 			}
-		};
-	
-		$.ajax({
-			type : "POST",
-			url : "/NhameyWebBackEnd/API/ShopAddressRestController/updateShopAddress",
-			data : req_data,
-			success : function(data){
-				data = JSON.parse(data);
-				console.log(data);
-				if(data.is_insert == false){
-					alert("error");
-				}else{
-					 document.getElementById("row"+param["id"]).style.backgroundColor="#5def34";
-				}					
-			}
-		});		
-}
-*/
+	}
 	
 	function listAddress(param){
-				
-		var tb_data='<tr><th>no</th><th>'+param["name"]+'</th><th>status</th><th>action</th></tr>';
+		var tb_data='<col width="5%"><col width="30%"><col width="25%"><col width="5%">';
+		tb_data+='<tr><th>no</th><th>'+param["name"]+'</th><th>last updated</th><th>status</th><th>action</th></tr>';
 		var value = document.getElementById("shop_"+param["name"]).value;
-		var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
+		var loadingimgsrc = "";
 		$("#display_result_shop_"+param["name"]).html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
 		
 		$.ajax({
@@ -76,23 +44,88 @@ function save_address(param){
 						var id= data[i][param["name"]+"_id"];
 						var name=data[i][param["name"]+"_name"]; 
 						var status= data[i][param["name"]+"_status"];
+						var last_updated= data[i][param["name"]+"_last_update"];
 						
 						typedis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+ id +
 						'" /><p><span class="title">'+ name +'</span></p></div>';
 						if(param["isList"]){
 							tb_data+='<tr id="row'+id+'"><th>'+ (i+1) +'</th><th><input id="txtname'+id+'" type="text" value="'+ name +
-							'"></th><th><input id="txtstatus'+id+'" type="text" value="'+ status +
-							'"></th><th><button onclick="save_address('+id+')">save</button></th></tr>';
+							'"></th><th>'+ last_updated + '</th>'+
+							'</th><th><input id="txtstatus'+id+'" type="text" value="'+ status + 
+							'"></th><th><input type="button" onclick="updateAddress(this,'+id+','+param["parent_id"]+')" class="'+param["name"]+'" value="save">'+
+							'&nbsp;<input type="button" onclick="deleteAddress(this,'+id+')" class="'+param["name"]+'" value="delete"></th></tr>';
 						}
 					}
 				}
 				if(param["isList"])
-					$("#tb_list").html(tb_data);
-				$("#display_result_shop_"+param["name"]).html(typedis); 					 
+					document.getElementById("tb_list").innerHTML=tb_data;
+				document.getElementById("display_result_shop_"+param["name"]).innerHTML=typedis;
 	   	 	 }
 	   });
 	}
 	
+	//=================
+	function deleteAddress(me,id){
+		
+		var req_data = {
+				"req_data" : {
+					"address_type": me.className,
+					"id": id
+				}
+			};
+		
+			$.ajax({
+				type : "POST",
+				url : "/NhameyWebBackEnd/API/ShopAddressRestController/deleteShopAddress",
+				data : req_data,
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_insert == false){
+						alert("error");
+					}else{
+						 document.getElementById("row"+id).style.backgroundColor="#f9112c";
+						 location.reload();
+					}					
+				}
+			});		
+	}
+	
+	
+	//==================
+	 
+	 function updateAddress(me,id,parent_id){
+			var data_name = document.getElementById("txtname"+id).value;
+			var status = document.getElementById("txtstatus"+id).value;
+			var req_data = {
+					"req_data" : {
+						"address_type": me.className,
+						"id": id,
+						"data_name" : data_name,
+						"parent_id" : parent_id,
+						"status" : status,
+						"admin_id" : 1,
+					}
+				};
+			
+				$.ajax({
+					type : "POST",
+					url : "/NhameyWebBackEnd/API/ShopAddressRestController/updateShopAddress",
+					data : req_data,
+					success : function(data){
+						data = JSON.parse(data);
+						console.log(data);
+						if(data.is_insert == false){
+							alert("error");
+						}else{
+							 document.getElementById("row"+id).style.backgroundColor="#5def34";
+							 location.reload();
+						}					
+					}
+				});		
+	}
+
+	//==========================
 	function addAddress(param){
 		var tastedata = {
 				"req_data" : {
