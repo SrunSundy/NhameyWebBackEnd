@@ -34,6 +34,7 @@
 		border-right: 1px solid #E0E0E0;
 		position:relative;
 		padding: 5px;
+		transition: all 5s linear;
 		
 	}
 	.photo-description-box{
@@ -168,7 +169,7 @@
 </style>
 <div class="img-cover-box">
 	<img src="<?php echo base_url(); ?>assets/nhamdis/img/new1.jpg"
-		class="img-cover" />
+		class="img-cover" id="cover-image-display" />
 
 </div>
 <div class="cover-box">
@@ -194,7 +195,7 @@
 		<div class="space-logo-box">
 			<div class="small-logo-box">
 				<img src="<?php echo base_url(); ?>assets/nhamdis/img/new2.jpg"
-					class="small-logo-img" /> <i class="fa fa-camera"
+					class="small-logo-img"  /> <i class="fa fa-camera"
 					aria-hidden="true"></i>
 			</div>
 		</div>
