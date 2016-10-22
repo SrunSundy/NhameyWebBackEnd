@@ -218,8 +218,15 @@ function upoloadCoverToServer(){
 					$("#cover-fail-remove").show();
 					$("#cover-description-box").hide();
 				}else{
+					
+				  
 					$("#cover-description-box").show();
 					coverimage = data.filename;
+					var uploadedimg ='<img  class="photo-upload-output" ' 
+						+'src="/NhameyWebBackEnd/uploadimages/cover/big/'+coverimage+'"  '
+						+'alt="your image" />';
+					$('#display-photo-upload').html(uploadedimg);
+					$("#cover-image-display").attr("src","/NhameyWebBackEnd/uploadimages/cover/big/"+coverimage);
 				}
 				$("#cover-upload-loading").hide();
 				
