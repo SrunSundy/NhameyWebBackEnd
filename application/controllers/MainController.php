@@ -75,6 +75,11 @@
 		public function adduser(){
 			$this->load->view('pages/adduser');
 		}
+		
+		public function listuser(){
+			$this->load->view('pages/listuser');
+		}
+		
 		private function select_options($selected = array()){
 			$output = '';
 			foreach(json_decode(file_get_contents(base_url().'API/TagRestController/listAllTags'), true) as $item){
