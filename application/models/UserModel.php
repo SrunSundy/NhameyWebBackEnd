@@ -1,41 +1,24 @@
 <?php
 	class UserModel extends  CI_Model{
 		
-		function getAllUser(){
-			
-			$query = $this->db->query('SELECT * FROM nham_admin_user WHERE Name LIKE ? ', 'S%');
-			$data = $query->result();
-			return $data;
-			
-		}
-		
-		function insertUser($data){
+		function insertUser($req_data){
 			$this->db->trans_begin();
-			$fullname = $req_data["fullname"];
-			$gender = $req_data["gender"];
+			$name = $req_data["name"];
+			$type = $req_data["type"];
 			$email = $req_data["email"];
-			$username = $req_data["username"];
 			$password = $req_data["password"];
 			$remark = $req_data["remark"];
-			$admin_id = $req_data["admin_id"];
 			$photo = $req_data["photo"];
+			$response = array();
 			
-			$validate = $this->validateInput($fullname);
-			$validate2 = $this->validateInput($gender);
-			$validate3 = $this->validateInput($email);
-			$validate4 = $this->validateInput($username);
-			$validate5 = $this->validateInput($password);
-			$validate7 = $this->validateInput($admin_id);
-			$validate6 = $this->validateInput($remark);
-			
-			if($this->IsNullOrEmptyString($validate) && $this->IsNullOrEmptyString($validate2) && $this->IsNullOrEmptyString($validate3) && $this->IsNullOrEmptyString($validate4) && $this->IsNullOrEmptyString($validate5) ){
-					$strsql = "INSERT INTO nham_user_admin(fullname, gender, email, username, password, admin_id, remark, photo, status) VALUES (?,?,?,?,?,?,?,?,?)";
-					$params = array($fullname, $gender, $email, $username, $password, $admin_id, $remark, $photo, 1);
+			if($this->IsNullOrEmptyString($validate) && $this->IsNullOrEmptyString($validate2) && $this->IsNullOrEmptyString($validate3) && $this->IsNullOrEmptyString($validate5)){
+				$strsql = "INSERT INTO nham_admin(admin_name, admin_email, admin_password, admin_photo, admin_remark, admin_type, admin_status) VALUES(?,?,?,?,?,?,?)";
+				$params = array($name, $email, $password, $photo, $remark, $type, 1);
 				
 				$query = $this->db->query($strsql , $params);
-				$insert_get_id = $this->db->insert_id();
-				$response=$insert_get_id;
-				if($this->IsNullOrEmptyString($insert_get_id)){
+				$insert_shop_id = $this->db->insert_id();
+				$response=$insert_shop_id;
+				if($this->IsNullOrEmptyString($insert_shop_id)){
 					$response["is_insert"] = false;
 					$response["message"] = "Invalid ID!";
 				}
@@ -45,6 +28,98 @@
 				$response["is_insert"] = false;
 				$response["message"] = $validate;
 			}
+		
+			return $response;
+		}
+		
+		function getUser($srchname,$limit){
+			$sql = "SELECT * FROM nham_admin
+				WHERE admin_name LIKE ? ORDER BY admin_name ASC limit ?";
+			
+			$srchname = "%".$srchname."%";
+			$limit = (int)$limit;
+		
+			$query = $this->db->query($sql, array($srchname, $limit));
+		
+			$data = $query->result();
+		
+			return $data;
+				
+		
+		}
+		
+		public function deleteUserAdmin($req_data){
+			$this->db->trans_begin();
+			$id = $req_data["id"];
+		
+			$response = array();
+			$validate= $this->validateInput($id);
+		
+			if($this->IsNullOrEmptyString($validate)){
+				$strsql = "DELETE from nham_admin where admin_id=?";
+				$params = array($id);		
+				$query = $this->db->query($strsql , $params);
+				$insert_shop_id = $this->db->insert_id();
+				$response=$insert_shop_id;
+				if($this->IsNullOrEmptyString($insert_shop_id)){
+					$response["is_insert"] = false;
+					$response["message"] = "Invalid ID!";
+				}
+				return $response;
+		
+			}else{
+				$response["is_insert"] = false;
+				$response["message"] = $validate;
+			}
+		
+			return $response;
+		}
+		
+		public function updateUserAdmin($req_data){
+			$this->db->trans_begin();
+			$id = $req_data["id"];
+			$name = $req_data["name"];
+			$status = $req_data["status"];
+			$email = $req_data["email"];
+			$response = array();
+			$validate = $this->validateInput($name);
+			$validate2 = $this->validateInput($email);
+			$validate3 = $this->validateInput($id);
+			$validate4 = $this->validateInput($status);
+		
+			if($this->IsNullOrEmptyString($validate) && $this->IsNullOrEmptyString($validate2) && $this->IsNullOrEmptyString($validate3) && $this->IsNullOrEmptyString($validate4)){
+		
+				$strsql = "UPDATE nham_admin set admin_name=?, admin_email=?, admin_status=? where admin_id=?";
+				$params = array($name, $email, $status, $id);
+		
+				$query = $this->db->query($strsql , $params);
+				$insert_shop_id = $this->db->insert_id();
+				$response=$insert_shop_id;
+				if($this->IsNullOrEmptyString($insert_shop_id)){
+					$response["is_insert"] = false;
+					$response["message"] = "Invalid ID!";
+				}
+				return $response;
+		
+			}else{
+				$response["is_insert"] = false;
+				$response["message"] = $validate;
+			}
+		
+			return $response;
+		}
+		
+		function validateInput($data){
+		
+			if($this->IsNullOrEmptyString($data)){
+				return "Invalid Data!";
+			}
+			return "";
+		
+		}
+		
+		function IsNullOrEmptyString($variable){
+			return (!isset($variable) || trim($variable)==='');
 		}
 	}
 ?>
