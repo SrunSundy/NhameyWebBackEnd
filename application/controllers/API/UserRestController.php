@@ -11,30 +11,29 @@ class UserRestController extends  CI_Controller{
 		$this->load->view('index');
 	}
 
-	public function listuser(){
-		//echo "THIS IS THE SECOND STEP!!!";
-		
-		$data = $this->UserModel->getAllUser();
-		
-		$json = json_encode($data);
-		echo $json;
-		//$this->load->view('haha', $json);
-			
+	public function getUserByNameCombo(){
+		$srchname = $this->input->get('srchname');
+		$limit = $this->input->get('limit');
+		$response = $this->UserModel->getUser($srchname,$limit);
+		echo json_encode($response);
 	}
 	
-	public function insertuser(){
+	public function insertUser(){
 		$req_data = $this->input->post('req_data');
-		$check = $this->UserModel->insertUser($req_data);
-		$data = array();
-		if($check){
-			$data['error'] = false;
-			$data['message'] = 'success!';
-		}else{
-			$data['error'] = true;
-			$data['message'] = 'fail!';
-		}
-		$json = json_encode($data);
-		echo $json;
+		$response = $this->UserModel->insertUser($req_data);
+		echo json_encode($response);
+	}
+	
+	public function updateUserAdmin(){
+		$req_data = $this->input->post('req_data');
+		$response = $this->UserModel->updateUserAdmin($req_data);
+		echo json_encode($response);
+	}
+	
+	public function deleteUserAdmin(){
+		$req_data = $this->input->post('req_data');
+		$response = $this->UserModel->deleteUserAdmin($req_data);
+		echo json_encode($response);
 	}
 	
 }
