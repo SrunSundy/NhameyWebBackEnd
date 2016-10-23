@@ -79,7 +79,7 @@ span.select2-selection{
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_country" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select country">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_country"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_country"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -101,7 +101,7 @@ span.select2-selection{
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_city" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select city">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_city"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_city"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -124,7 +124,7 @@ span.select2-selection{
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_district" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select district">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_district"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_district"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -147,7 +147,7 @@ span.select2-selection{
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_commune" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select commune">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_commune"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_commune"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -163,16 +163,13 @@ span.select2-selection{
 			                    	</div>			                    	
 			                  	</div>
 		                     </div>
-			                 
-			                 
-			            </section><!-- /.Left col -->
-			           
-                </div>
-                
-              </div><!-- /.box (chat box) -->
-       	
-        </section><!-- /.content -->
+			            </section><!-- /.Left col -->  
+					</div>
+				</div>
+			</div><!-- /.box (chat box) -->
+		</section><!-- /.content -->
       </div><!-- /.content-wrapper -->
+      
       <footer class="main-footer">
       		<?php include 'elements/footnavbar.php';?>
       </footer>
@@ -194,45 +191,46 @@ span.select2-selection{
 	addMultiListers({"element": document.getElementById("shop_country"),
 		"events": ['keyup','focus'],
 		"name": 'country',
-		"parent_id": 1,
+		"parent_id": '',
 		"isList": false});
 
 	document.getElementById("yes_shop_country").addEventListener("mousedown",function(){
-		addAddress({"name":'country', "parent_id":1});
+		addAddress({"name":'country', "parent_id":'' ,"isList": false});
 	});
 
 	//===============city============
 	addMultiListers({"element": document.getElementById("shop_city"),
 		"events": ['keyup','focus'],
 		"name": 'city',
-		"parent_id": 1,
+		"parent_id": 'country',
 		"isList": false});
 	
 	document.getElementById("yes_shop_city").addEventListener("mousedown",function(){
-		addAddress({"name":'city', "parent_id":1});
+		addAddress({"name":'city', "parent_id":'country' ,"isList": false});
 	});
 
 	//============district============
 	addMultiListers({"element": document.getElementById("shop_district"),
 		"events": ['keyup','focus'],
 		"name": 'district',
-		"parent_id": 1,
+		"parent_id": 'city',
 		"isList": false});
 
 	document.getElementById("yes_shop_district").addEventListener("mousedown",function(){
-		addAddress({"name":'district', "parent_id":1});
+		addAddress({"name":'district', "parent_id":'city' ,"isList": false});
 	});
 	
 	//============commune==============
 	addMultiListers({"element": document.getElementById("shop_commune"),
 		"events": ['keyup','focus'],
 		"name": 'commune',
-		"parent_id": 1,
-		"isList": true});
+		"parent_id": 'district',
+		"isList": false});
 	
 	document.getElementById("yes_shop_commune").addEventListener("mousedown",function(){
-		addAddress({"name":'commune', "parent_id":1});
+		addAddress({"name":'commune', "parent_id":'district' ,"isList": false});
 	});
+
 		
 	</script>
 	

@@ -91,7 +91,7 @@ th, td {
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_country" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select country">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_country"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_country"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -113,7 +113,7 @@ th, td {
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_city" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select city">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_city"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_city"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -136,7 +136,7 @@ th, td {
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_district" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select district">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_district"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_district"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -185,63 +185,32 @@ th, td {
 	<script>
 
 	$(window).load(function() {
-		listAddress({"me": document.getElementById("shop_district"), "parent_id":1, "name": 'district', "isList": true});
+		listAddress({"parent_id":'city', "name": 'district', "isList": true});
 	});
-	
-	save_address=function(id){
-		var data_name = document.getElementById("txtname"+id).value;
-		var status = document.getElementById("txtstatus"+id).value;
-		var parent_id =1;
-		var req_data = {
-				"req_data" : {
-					"address_type": 'district',
-					"id": id,
-					"data_name" : data_name,
-					"parent_id" : parent_id,
-					"status" : status,
-					"admin_id" : 1,
-				}
-			};
-		
-			$.ajax({
-				type : "POST",
-				url : "/NhameyWebBackEnd/API/ShopAddressRestController/updateShopAddress",
-				data : req_data,
-				success : function(data){
-					data = JSON.parse(data);
-					console.log(data);
-					if(data.is_insert == false){
-						alert("error");
-					}else{
-						 document.getElementById("row"+id).style.backgroundColor="#5def34";
-					}					
-				}
-			});		
-	};
 
 	//============country============
 	addMultiListers({"element": document.getElementById("shop_country"),
 		"events": ['keyup','focus'],
 		"name": 'country',
-		"parent_id": 1,
+		"parent_id": '',
 		"isList": false});
 
 	//===============city============
 	addMultiListers({"element": document.getElementById("shop_city"),
 		"events": ['keyup','focus'],
 		"name": 'city',
-		"parent_id": 1,
+		"parent_id": 'country',
 		"isList": false});
 
 	//============district============
 	addMultiListers({"element": document.getElementById("shop_district"),
 		"events": ['keyup','focus'],
 		"name": 'district',
-		"parent_id": 1,
+		"parent_id": 'city',
 		"isList": true});
 
 	document.getElementById("yes_shop_district").addEventListener("mousedown",function(){
-		addAddress({"name":'district', "parent_id":1});
+		addAddress({"name":'district', "parent_id":'city' ,"isList": true});
 	});
 
 		

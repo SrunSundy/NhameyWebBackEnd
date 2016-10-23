@@ -91,7 +91,7 @@ th, td {
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_country" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select country">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_country"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_country"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -137,53 +137,21 @@ th, td {
   
 	
 	<script>
-	
+
 	$(window).load(function() {
-		listAddress({"me": document.getElementById("shop_country"), "name": 'country', "isList": true});
+		listAddress({"me": document.getElementById("shop_country"), "parent_id": '', "name": 'country', "isList": true});
 	});
-
-
-	save_address=function(id){
-		var data_name = document.getElementById("txtname"+id).value;
-		var status = document.getElementById("txtstatus"+id).value;
-		var req_data = {
-				"req_data" : {
-					"address_type": 'country',
-					"id": id,
-					"data_name" : data_name,
-					"parent_id" : 0,
-					"status" : status,
-					"admin_id" : 1,
-				}
-			};
-		
-			$.ajax({
-				type : "POST",
-				url : "/NhameyWebBackEnd/API/ShopAddressRestController/updateShopAddress",
-				data : req_data,
-				success : function(data){
-					data = JSON.parse(data);
-					console.log(data);
-					if(data.is_insert == false){
-						alert("error");
-					}else{
-						 document.getElementById("row"+id).style.backgroundColor="#5def34";
-					}					
-				}
-			});		
-	};
 	
-	//============country============
 	addMultiListers({"element": document.getElementById("shop_country"),
 		"events": ['keyup','focus'],
 		"name": 'country',
-		"parent_id": 0,
+		"parent_id": '',
 		"isList": true});
 
 	document.getElementById("yes_shop_country").addEventListener("mousedown",function(){
-		addAddress({"name":'country', "parent_id":0});
+		addAddress({"name":'country', "parent_id":'' ,"isList": true});
 	});
-		
+	
 	</script>
 	
 </html>

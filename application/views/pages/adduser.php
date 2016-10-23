@@ -70,8 +70,8 @@ span.select2-selection{
                 <div class="box-body" >
                   	 <!-- Small boxes (Stat box) -->
 		        
-			          <!-- Main row -->
-			          <div class="row">
+			        <!-- Main row -->
+					<div class="row">
 			            <!-- Left col -->
 			            <section class="col-lg-5 connectedSortable">
 			             	<h5 class="gray-color">Informative Text</h5>
@@ -79,15 +79,15 @@ span.select2-selection{
 		                     <div class="form-group">
 			          			<div class="form-group">
 							    	<label>Full name</label>
-							        <input type="text" id="user_fullname" class="form-control" placeholder="Your Full name in English">
+							        <input type="text" id="user_fullname" class="form-control" placeholder="Your fullname in English">
 							 	</div>
 			                 </div>
 		                     
 		                     <div class="form-group">
-			                    <label>Gender</label>
-			                    <select class="form-control " style="width: 100%;" id="user_gender">
-			                      <option selected="selected" value="food">Male</option>
-			                      <option value="drink">Female</option>
+			                    <label>Type</label>
+			                    <select class="form-control " style="width: 100%;" id="user_type">
+			                      <option value="1">Root</option>
+			                      <option selected="selected" value="2">Normal</option>
 			                    </select>
 			                 </div><!-- /.form-group -->
 			                 
@@ -95,13 +95,6 @@ span.select2-selection{
 			          			<div class="form-group">
 							    	<label>Email</label>
 							        <input type="text" id="user_email" class="form-control" placeholder="Your email">
-							 	</div>
-			                 </div>
-			                 
-			                 <div class="form-group">
-			          			<div class="form-group">
-							    	<label>Username</label>
-							        <input type="text" id="user_username" class="form-control" placeholder="Username">
 							 	</div>
 			                 </div>
 			                 
@@ -134,19 +127,19 @@ span.select2-selection{
 								</div>
 							</div>							 			      			
 			            </section><!-- right col -->
-			          </div><!-- /.row (main row) -->
-                </div>
-                <div class="box-footer">
-                 	<button type="button" class="btn btn-danger shop-save" id="saveuser"> Save </button>
+			    	</div><!-- /.row (main row) -->
                 </div>
                 
-              </div><!-- /.box (chat box) -->
-       	
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-      <footer class="main-footer">
+                <div class="box-footer">
+                 	<button type="button" class="btn btn-danger shop-save" onclick="saveAdmin()"><b>Save</b></button>
+                </div>
+		</div><!-- /.box (chat box) -->
+     
+     </section><!-- /.content -->
+     </div><!-- /.content-wrapper -->
+     <footer class="main-footer">
       		<?php include 'elements/footnavbar.php';?>
-      </footer>
+     </footer>
 
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
@@ -163,32 +156,34 @@ span.select2-selection{
 		function getDataToInsert(){
 			var userdata = {
 				"req_data" : {
-					"fullname":$("#user_fullname").val(),
-					"gender":$("#user_gender").val(),
+					"name":$("#user_fullname").val(),
+					"type":$("#user_type").val(),
 					"email":$("#user_email").val(),
-					"username":$("#user_username").val(),
 					"password":$("#user_password").val(),
 					"remark":$("#user_remark").val(),
-					"photo":"test",
-					"admin_id": 1
+					"photo":"test"
 				}
 			};
 			return userdata;
 		}
 		
-		$("#saveuser").on("click",function(){
+		function saveAdmin(){
 			console.log(getDataToInsert());
-			/*
 			 $.ajax({
 				 type: "POST",
 				 url: "/NhameyWebBackEnd/API/UserRestController/insertUser", 
 				 data: getDataToInsert(),
 				 success: function(data){
-		         	alert(data);    
+					//data = JSON.parse(data);
+					//console.log("return:"+data);
+					if(data.is_insert == false){
+						alert("error");
+					}else{
+						console.log('success');
+					}  
 		     	 }
 		    });
-		    */ 
-		});
+		}
 	
   </script>
 	

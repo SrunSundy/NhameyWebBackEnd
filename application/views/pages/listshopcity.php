@@ -91,7 +91,7 @@ th, td {
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_country" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select country">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_country"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_country"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
@@ -112,14 +112,13 @@ th, td {
 			                		<div class="row">
 			                			<div class="selected-dropdown">
 			                    		    <input id="shop_city" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or select city">
-			                    	        <input type="hidden" class="selectedbrandid" id="selected_shop_city"/>
+			                    	        <input type="hidden" class="selectedid" id="selected_shop_city"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
 			                    				<div id="display_result_shop_city" class="display-result-wrapper">
 			                    					
-			                    				</div>
-			       				
+			                    				</div>			       				
 			                  				</div>
 			                  				<div id="nham_dropdown_footer_shop_city" class="nham-dropdown-result-footer" align="center">
 			                  					<button class="btn nhamey-btn" id="yes_shop_city">Yes</button>
@@ -133,8 +132,8 @@ th, td {
 		                    	<table style="width:100%" id="tb_list">
 		                   		                    		
 		                    	</table>
-		                    </div> 
-									                     
+		                    </div>
+		                    
 			            </section><!-- /.Left col -->
 			          </div><!-- /.row (main row) -->
                 </div>
@@ -157,61 +156,29 @@ th, td {
     <?php include 'imports/scriptimport.php'; ?>
   </body>
   
-	
 	<script>
 
-
 	$(window).load(function() {
-		listAddress({"me": document.getElementById("shop_city"), "parent_id": 1, "name": 'city', "isList": true});
+		listAddress({"parent_id": 'country', "name": 'city', "isList": true});
 	});
 
-	save_address=function(id){
-		var data_name = document.getElementById("txtname"+id).value;
-		var status = document.getElementById("txtstatus"+id).value;
-		var parent_id =1;
-		var req_data = {
-				"req_data" : {
-					"address_type": 'city',
-					"id": id,
-					"data_name" : data_name,
-					"parent_id" : parent_id,
-					"status" : status,
-					"admin_id" : 1,
-				}
-			};
-		
-			$.ajax({
-				type : "POST",
-				url : "/NhameyWebBackEnd/API/ShopAddressRestController/updateShopAddress",
-				data : req_data,
-				success : function(data){
-					data = JSON.parse(data);
-					console.log(data);
-					if(data.is_insert == false){
-						alert("error");
-					}else{
-						 document.getElementById("row"+id).style.backgroundColor="#5def34";
-					}					
-				}
-			});		
-	};
 
 	//============country============
 	addMultiListers({"element": document.getElementById("shop_country"),
 		"events": ['keyup','focus'],
 		"name": 'country',
-		"parent_id": 0,
+		"parent_id": '',
 		"isList": false});
 
 	//===============city============
 	addMultiListers({"element": document.getElementById("shop_city"),
 		"events": ['keyup','focus'],
 		"name": 'city',
-		"parent_id": 1,
+		"parent_id":'country',
 		"isList": true});
 
 	document.getElementById("yes_shop_city").addEventListener("mousedown",function(){
-		addAddress({"name":'city', "parent_id":1});
+		addAddress({"name":'city', "parent_id":'country', "isList": true});
 	});
 		
 	</script>
