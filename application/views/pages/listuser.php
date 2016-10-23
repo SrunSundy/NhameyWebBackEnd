@@ -224,7 +224,7 @@ th, td {
 					if(data.is_insert == false){
 						alert("error");
 					}else{
-						 document.getElementById("row"+id).style.backgroundColor="#f9112c";
+						document.getElementById("row"+id).style.backgroundColor="#f9112c";
 						listUser();
 					}					
 				}
