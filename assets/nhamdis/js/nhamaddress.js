@@ -95,6 +95,7 @@
 						alert("error");
 					}else{
 						 document.getElementById("row"+id).style.backgroundColor="#f9112c";
+						 document.getElementById("shop_"+me.className).value="";
 						 listAddress({"parent_id": parent_id, "name": me.className, "isList": true});
 					}					
 				}
@@ -128,6 +129,7 @@
 							alert("error");
 						}else{
 							 document.getElementById("row"+id).style.backgroundColor="#5def34";
+							 document.getElementById("shop_"+me.className).value="";
 							 listAddress({"parent_id": parent_id, "name": me.className, "isList": true});
 							 //location.reload();
 						}					
