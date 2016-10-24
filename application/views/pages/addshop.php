@@ -150,88 +150,10 @@ textarea:focus{
 			                  				</div>
 			                  			</div>
 			                    	</div>	
-			                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" data-target="#shoptypeModal">Open Modal</button>		                    	
+			                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#serveCategoryModal">Open Modal</button>		                    	
 			                  	</div>
 		                     </div>
-		                 <!--<div class="form-group ">
-			                    <label>Serve Category</label>
-			                     <div class=" col-sm-12 nham-dropdown-wrapper">
-			                		<div class="row">
-			                			<div class="selected-dropdown" id="servecategory_selected_dropdown" style="position:relative;">
-			                			
-				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="servecategoryicon"  src="../assets/nhamdis/img/servecategory.png" class="selected_icon"/>
-				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/servecategory.png"/>				 
-				                			</div>
-				                			
-							                <input style="padding:4px 4px 4px 28px;" id="servecategoryname" type="text" class="form-control nham-dropdown-inputbox"  placeholder="Search or Select for shop type">						                  
-			                    	        <input type="hidden" class="selectedid" id="selectedservecategory"/>
-			                    	    </div>
-			                    		<div class="nham-dropdown-detail"  >
-			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-servecategory" class="display-result-wrapper">
-			                    					
-			                    				</div>		       				
-			                  				</div>
-			                  				
-			                  				<div id="display-searching-text_servecategory" style="display:none;">
-			                  					<div  class="nham-dropdown-noresult">
-													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
-														Searching "<span id="text-search-servecategory-dis1"></span>" has no Result!</p>
-												</div>
-												<div class="nham-dropdown-question">	
-													<p>Do you want to register "<span id="text-search-servecategory-dis2"></span>" as a new shop type?</p>
-												</div>
-			                  				</div>
-			                  				
-			                  				<div id="nham-dropdown-footer-servecategory" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesservecategory">Yes</button>
-			                  				</div>
-			                  			</div>
-			                    	</div>	
-			                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" data-target="#shoptypeModal">Open Modal</button>		                    	
-			                  	</div>
-		                     </div>
-		                  -->   
-		                 <!--<div class="form-group ">
-			                    <label>Cuisine</label>
-			                    <div class=" col-sm-12 nham-dropdown-wrapper">
-			                		<div class="row">
-			                			<div class="selected-dropdown" id="cuisine_selected_dropdown" style="position:relative;">
-			                			
-			                				<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="cuisineicon"  src="../assets/nhamdis/img/cuisine.png" class="selected_icon"/>
-				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/cuisine.png"/>				 
-				                			</div>
-			                    		   <input style="padding:4px 4px 4px 28px;" id="cuisinename" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for shop cuisine">
-			                    	       <input type="hidden" class="selectedid" id="selectedcuisine"/>
-			                    	       
-			                    	    </div>
-			                    		<div class="nham-dropdown-detail"  >
-			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-cuisine" class="display-result-wrapper">
-			                    					
-			                    				</div>
-			       				
-			                  				</div>
-			                  				<div id="display-searching-text_cuisine" style="display:none;">
-			                  					<div  class="nham-dropdown-noresult">
-													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
-														Searching "<span id="text-search-cuisine-dis1"></span>" has no Result!</p>
-												</div>
-												<div class="nham-dropdown-question">	
-													<p>Do you want to register "<span id="text-search-cuisine-dis2"></span>" as a new cuisine?</p>
-												</div>
-			                  				</div>
-			                  				<div id="nham-dropdown-footer-cuisine" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yescuisine">Yes</button>
-			                  				</div>
-			                  			</div>
-			                    	</div>	
-			                    	<button type="button" id="cuisinebtnpop" style="display:none;" data-toggle="modal" data-target="#cuisineModal">Open Modal</button>		                    	
-			                  	</div>
-		                     </div>
-		                      -->
+		  
 		                     
 		                     
 		                     <div class="form-group">
@@ -648,7 +570,7 @@ textarea:focus{
     
  <!-- modal section -->  
  <!-- servecategory modal --> 
- <div class="modal fade" id="shoptypeModal" role="dialog">
+ <div class="modal fade" id="serveCategoryModal" role="dialog">
      <div class="modal-dialog">
          <div class="modal-content">
              <div class="modal-header">
@@ -887,9 +809,9 @@ $("#servecategoryesave").on("click", function(){
 						 box += "<span>"+$("#servecategorynamepopup").val()+"</span>";
 				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
 				 		
-				 		 $("#serve-categories").append(box);
+				 		$("#serve-categories").append(box);
 											 
-						$("#belowcloseservecategory").click();
+				 		$('#serveCategoryModal').modal('hide');
 						clearServeCategorySaveform();
 						
 					}
