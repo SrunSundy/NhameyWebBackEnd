@@ -521,8 +521,6 @@ function upoloadCoverToServer(){
 				xhr.upload.addEventListener("progress", function(event) {
 					if (event.lengthComputable) {
 						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						 //console.log(percentComplete);
-						
 						$("#logoprogressbar-cover").css({width: percentComplete+"%"});
 					};
 				}, false);

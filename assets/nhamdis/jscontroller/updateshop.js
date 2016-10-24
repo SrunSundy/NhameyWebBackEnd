@@ -2,7 +2,8 @@
 
 var checkHasCover = true;
 var coverimage = "";
-var backupcoverimage;
+/*var backupcoverimage;*/
+var backuprealcoverimage;
 
 $(".img-cover").error(function() {
 	checkHasCover = false;
@@ -100,34 +101,68 @@ $("#cover-fail-event").on("click" , function(){
 	$("#uploadcover").val(null);
 	$(this).parent().hide();
 	
-	var txt  = '<div class="photo-upload-info" >';
-		txt	+= '	<p class="text-upload-info">';
-		txt	+= '		<i class="fa fa-plus"></i>';
-		txt	+= '		<span>Browse Photo ( 700 x 500 )</span>';
-		txt	+= '	</p>';
+	var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
 		txt	+= '</div>';
-	$('#display-photo-upload').html(txt);
+	$('#display-cover-upload').html(txt);
+});
+
+$("#coverformclose").on("click", function(){
+	
+	if(coverimage) {
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		$("#cover-description").val("");
+		$('#display-cover-upload').html(txt);
+		$("#cover-description-box").hide();
+		$("#cover-btncrop-box").hide();
+		removeCoverImageFromServer().success(function(data){
+			coverimage = "";
+			$("#uploadcover").val(null);
+		});				  
+	}
+	
 });
 
 $("#photo-crop-btn").on("click", function(){
 	alert(img_x+" "+img_y+" "+img_w+" "+img_h);
 	upoloadCoverToServer();
+	$(this).hide();
+	
+});
+
+$("#photo-save-btn").on("click", function(){
+	
+	alert(coverimage);
+	$('#coverModal').modal('hide');
+	$("#cover-image-display").attr("src","/NhameyWebBackEnd/uploadimages/cover/big/"+coverimage);
+	var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$("#cover-description").val("");
+	$('#display-cover-upload').html(txt);
+	$("#cover-description-box").hide();
+	$("#cover-btncrop-box").hide();
+	coverimage = "";
+	$("#uploadcover").val(null);
+
 });
 
 function uploadCover(input) {
-	
-	
+		
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
  		reader.onload = function (e) { 
  			
- 			 /* if(coverimage) {
- 				 removeCoverImageFromServer().success(function(data){
- 					upoloadCoverToServer();
- 				 });				  
- 			  }else{
- 				 upoloadCoverToServer();
- 			  }*/
+ 			if(coverimage) {
+ 				removeCoverImageFromServer().success(function(data){
+ 					coverimage = "";
+ 				});				  
+ 			}
+ 			$("#photo-crop-btn").show();
+ 			$("#photo-save-btn").hide();
+ 			$("#cover-description-box").hide();
 	 		var image = new Image();
 			image.src = e.target.result;			
 			image.onload = function () {
@@ -135,27 +170,30 @@ function uploadCover(input) {
 				var width = this.width;
 	 			  $("#cover-btncrop-box").show();
 	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="cropcover" alt="your image" />';
-			      $('#display-photo-upload').html(myimg);
+			      $('#display-cover-upload').html(myimg);
 			      $('#cropcover').Jcrop({
-			    	   aspectRatio: 16 / 9,
+			    	   aspectRatio: 16 / 7,
 			    	   onSelect: updateCoords,
 			    	   onChange: updateCoords,
 			    	   setSelect: [0,0,110,110],
 			    	   trueSize: [width,height]
 			   	 });			           	
-			     backupcoverimage = e;
+			     //backupcoverimage = e;
+			     backuprealcoverimage = $("#uploadcover")[0].files[0];
 			}			
 		}
 		reader.readAsDataURL(input.files[0]);
-	}else{
-		var myimg ='<img  class="photo-upload-output" src="'+backupcoverimage.target.result+'" id="cropcover" alt="your image" />';
-	    $('#display-photo-upload').html(myimg);
-	    $('#cropcover').Jcrop({
-	  	   aspectRatio: 16 / 9,
-	  	   setSelect:   [50,0, 100,100],
-	  	   onSelect: updateCoords
-	 	});
-	}
+	}/*else{
+		if(!coverimage) {
+			var myimg ='<img  class="photo-upload-output" src="'+backupcoverimage.target.result+'" id="cropcover" alt="your image" />';
+		    $('#display-cover-upload').html(myimg);
+		    $('#cropcover').Jcrop({
+		  	   aspectRatio: 16 / 9,
+		  	   setSelect:   [50,0, 100,100],
+		  	   onSelect: updateCoords
+		 	});
+		}		
+	}*/
 	
 }
 
@@ -191,10 +229,11 @@ function removeCoverImageFromServer(){
 }
 
 function upoloadCoverToServer(){
-	var inputFile = $("#uploadcover");
-	
+	//var inputFile = $("#uploadcover");
+	$("#cover-upload-progress").css({width:"0%"});
+	$("#cover-upload-percentage").html(0);
 	$("#cover-upload-loading").show();
-	var fileToUpload = inputFile[0].files[0];
+	var fileToUpload = backuprealcoverimage;
 	console.log(fileToUpload);
 	if(fileToUpload != 'undefined'){
 
@@ -209,6 +248,7 @@ function upoloadCoverToServer(){
 			processData : false,
 			contentType : false,
 			success: function(data){
+				
 				data = JSON.parse(data);
 				console.log(data);
 				if(data.is_upload == false){
@@ -217,20 +257,31 @@ function upoloadCoverToServer(){
 					coverimage = "";
 					$("#cover-fail-remove").show();
 					$("#cover-description-box").hide();
+					$("#cover-btncrop-box").hide();
 				}else{
-					
-				  
+					$("#photo-save-btn").show();
 					$("#cover-description-box").show();
 					coverimage = data.filename;
 					var uploadedimg ='<img  class="photo-upload-output" ' 
 						+'src="/NhameyWebBackEnd/uploadimages/cover/big/'+coverimage+'"  '
 						+'alt="your image" />';
-					$('#display-photo-upload').html(uploadedimg);
-					$("#cover-image-display").attr("src","/NhameyWebBackEnd/uploadimages/cover/big/"+coverimage);
+					$('#display-cover-upload').html(uploadedimg);
+					
 				}
-				$("#cover-upload-loading").hide();
-				
-			}			
+				$("#cover-upload-loading").hide();				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						console.log(percentComplete);
+						$("#cover-upload-progress").css({width: percentComplete+"%"});
+						$("#cover-upload-percentage").html(percentComplete+"%");
+					};
+				}, false);
+				return xhr;
+			}
 		});
 	} 
 }
