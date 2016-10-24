@@ -190,8 +190,11 @@ class UploadRestController extends CI_Controller{
 			$json = json_encode($data);
 			echo $json;
 		} */
+		
 		$cropdata = $_POST["json"];
 		$cropdata = json_decode($cropdata);
+		
+		$img_w = (int)$cropdata->img_w;
 		$response = array();
 		if ( ! empty($_FILES))
 		{
@@ -206,13 +209,15 @@ class UploadRestController extends CI_Controller{
 			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
 			//$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
 			//$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
+			$allowmincrop = $this->allowImageMinimumDimensionCrop(640, 200, $cropdata);
 		
 			$permission = array();
 			array_push($permission ,
 				$checkdirectory_small,
 				$checkdirectory_big,
 				$allowfiletype,
-				$allowsize
+				$allowsize,
+				$allowmincrop
 				//$allowmindimension,
 				//$allowmaxdimension
 			);
@@ -228,9 +233,13 @@ class UploadRestController extends CI_Controller{
 
 				$isuploadimg = array();
 				//$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"],0.5,50);
-				$big = $this->resizeImageAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 0.6, 80);
+				$big_crop = 960;
+				if($img_w < 960){
+					$big_crop = $img_w;
+				}
+				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				/* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
-				$small = $this->resizeImageAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 0.4, 80);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 160, 80);
 				$errorupload = false;
 				array_push($isuploadimg, $big, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){
@@ -330,8 +339,8 @@ class UploadRestController extends CI_Controller{
 				$checkdirectory_small = $this->checkDirectory($target_small_dir);
 				$checkdirectory_big = $this->checkDirectory($target_big_dir);
 				$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type'][$i]);
-				$allowsize = $this->allowImageSize(100000 , 20000000, $_FILES["file"]["size"][$i]);//20MB
-				$allowmindimension = $this->allowImageMinimumDimension(20, 10, $_FILES["file"]["tmp_name"][$i]);
+				$allowsize = $this->allowImageSize(5120 , 20000000, $_FILES["file"]["size"][$i]);//20MB
+				$allowmindimension = $this->allowImageMinimumDimension(100, 100, $_FILES["file"]["tmp_name"][$i]);
 				$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"][$i]);
 				
 				$permission = array();
@@ -416,7 +425,7 @@ class UploadRestController extends CI_Controller{
 				$response["message"] = $message;
 			} else {	
 							
-				if($this->resizeImageFixpixel($target_file ,$_FILES["file"]["tmp_name"] , 60 ,80)){
+				if($this->resizeImageFixpixel($target_file ,$_FILES["file"]["tmp_name"] , 50 ,80)){
 					$message = "File upload successfully!";
 					$response['is_upload']= true;
 					$response["message"] = $message;
@@ -618,6 +627,44 @@ class UploadRestController extends CI_Controller{
 		
 	}
 	
+	function resizeImageFixpixelAndCrop($targetfolder , $sourcefolder, $cropdata , $size , $quality){
+	
+		$img_x = (int)$cropdata->img_x;
+		$img_y = (int)$cropdata->img_y;
+		$img_w = (int)$cropdata->img_w;
+		$img_h = (int)$cropdata->img_h;
+		
+		$source_img = $sourcefolder;
+		$destination_img = $targetfolder;
+		$info = getimagesize($source_img);
+		
+		$new_width = $size;
+		$new_height = $size;
+		if($img_w > $img_h){
+			$widthbigger = $img_w/$img_h;
+			$new_width = $size;
+			$new_height = $size/$widthbigger;
+		}else{
+			$heightbigger = $img_h/$img_w;
+			$new_height = $size;
+			$new_width = $size/$heightbigger;
+		}
+			
+		// Resample
+		$image_p = imagecreatetruecolor($new_width, $new_height);
+		if ($info['mime'] == 'image/jpeg')
+			$image = imagecreatefromjpeg($source_img);
+		elseif ($info['mime'] == 'image/gif')
+		$image = imagecreatefromgif($source_img);
+		elseif ($info['mime'] == 'image/png')
+		$image = imagecreatefrompng($source_img);
+		else
+			return false;
+		imagecopyresampled($image_p, $image, 0, 0, $img_x, $img_y, $new_width, $new_height, $img_w, $img_h);
+		return imagejpeg($image_p, $destination_img, $quality);
+	
+	}
+	
 	
 	function checkDirectory( $path ){
 		
@@ -698,6 +745,22 @@ class UploadRestController extends CI_Controller{
 		$response['is_allow'] = true;
 		return $response;
 	
+	}
+	
+	function allowImageMinimumDimensionCrop($minwidth ,$minheight , $cropdata){
+		
+		$response = array();
+		$img_w = (int)$cropdata->img_w;
+		$img_h = (int)$cropdata->img_h;
+		
+		if($img_w < $minwidth || $img_h < $minheight){
+			$response['message'] = "The file you are attempting to upload doesn't fit into the allowed dimension!";
+			$response['is_allow'] = false;
+			return $response;
+		}
+		$response['message'] = "";
+		$response['is_allow'] = true;
+		return $response;
 	}
 	
 	function checkPermission( $permission ){
