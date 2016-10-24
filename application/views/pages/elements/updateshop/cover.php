@@ -66,6 +66,12 @@
 		font-weight: bold;
 		border-radius: 0;
 	}
+	button#photo-save-btn{
+		display: none;
+		width: 100%;
+		font-weight: bold;
+		border-radius: 0;
+	}
 	button.btn-crop:hover{
 		background: #BDBDBD;
 	}
@@ -79,9 +85,19 @@
 		position:relative;
 		padding: 5px;
 		cursor:pointer;
+		background: #fafbfc;
 	}
 	.photo-browse-box:hover{
 		background: #EEEEEE;
+	}
+	div.photo-upload-progress-box{
+		width: 100%;
+		height: 15px;
+		
+	}
+	p.photo-upload-percentage{
+		color: #E0E0E0;
+		font-weight: bold;
 	}
 	div.photo-upload-loading{
 		position:absolute;
@@ -98,7 +114,7 @@
 		top:0;
 		left:0;
 		background: #ffffff;
-		z-index:21;
+		z-index:999;
 		width:100%;
 		display: none;
 		height: 100%;
@@ -232,21 +248,33 @@
 					<div class="photo-upload-info" id="trigger-cover-browse" >
 						<p class="text-upload-info">
 						  	<span>Browse Photo </span>
-						  	( 700 x 500 )
 						 </p>  
 					</div>	
 				</div>			
 				<input type='file' id="uploadcover" style="display:none" accept="image/*"/>
 				<div class="upload-photo-box" id="cover-upload-box">					
-					<div class="photo-upload-wrapper" align="center" id="display-photo-upload" >
+					<div class="photo-upload-wrapper" align="center" id="display-cover-upload" >
 						<div class="photo-upload-info-2" >
 						 	<i class="fa fa-picture-o" aria-hidden="true"></i>
 						</div>					  	        		
-			        </div> 				        			        
-			        <!-- fake on -->
-			        
+			        </div>
+			         				        			        
+			        <!-- fake on -->			        
 			        <div class="photo-upload-loading" id="cover-upload-loading" align="center">
-			        	<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+			        	<div class="photo-upload-progress-box">
+			        		<div id="cover-upload-progress" 
+			        		 	class="progress-bar progress-bar-danger progress-bar-striped" 
+			        		 	role="progressbar" aria-valuenow="60" 
+			        		 	aria-valuemin="0" 
+			        		 	aria-valuemax="100" style="height:10px;">					                      
+							</div>
+			        	</div>
+			        	
+						<div style="width: 100%;">
+							<p id="cover-upload-percentage" class="photo-upload-percentage">0%</p>
+							<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+						</div>
+			        	
 			        </div>
 			        <div class="photo-fail-remove" id="cover-fail-remove">
 			        	<i class="fa fa-times" id="cover-fail-event" aria-hidden="true"></i>
@@ -254,11 +282,12 @@
 			        <!-- end fake on -->
 				</div>
 				<div class="photo-description-box" id="cover-description-box">
-					<textarea rows="" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+					<textarea rows="" id="cover-description" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
 				</div>
 				
 				<div class="photo-btncrop-box" id="cover-btncrop-box">
 					<button type="button" id="photo-crop-btn" class="btn btn-crop">Crop image</button>
+					<button type="button" id="photo-save-btn" class="btn btn-danger">Save</button>
 				</div>
 			</div>
 			
