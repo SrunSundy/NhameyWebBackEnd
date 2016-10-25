@@ -6,29 +6,11 @@
     <title>AdminLTE 2 | Dashboard</title>
  	
  	<?php include 'imports/cssimport.php' ?>
-<style>
-span.select2-selection{
-		height: 40px;
-		border-radius: 0;
-}
-textarea:focus{
-    outline: none;
-}
-.invalid-input{
-	border: 1px solid #dd4b39;
-}
-.relative-div{
-	position: relative;
-}
-.nham-btn{
-	border-radius: 0;
-}
-
-
-
-
-
-</style>
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-upload.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-validation.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-openmodal.css" />
+ 	
   </head>
   <body class="hold-transition skin-red-light sidebar-mini" >
     <div class="wrapper">
@@ -368,7 +350,8 @@ textarea:focus{
 			            <!-- right col (We are only adding the ID to make the widgets sortable)-->
 			            <section class="col-lg-7 connectedSortable">
 							<h5 class="gray-color">Informative Image</h5>
-							<div  class="form-group">
+							
+							<!--<div  class="form-group">
 								<label>Logo</label>
 								<div class="col-lg-12 logo-browsing-wrapper" align="center">
 									<div class="row">
@@ -403,9 +386,37 @@ textarea:focus{
 										<textarea rows="" placeholder="have your word about this..." id="logo_description" class="nham_description" cols=""></textarea>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							
 							<div  class="form-group">
+								<label>Logo</label>
+								<div class="col-lg-12 photo-browsing-wrapper" align="center">
+									<div class="row">
+										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
+					                    	<div class="photo-display-wrapper" style="width:180px;min-height:180px;" id="logo-display-wrapper">
+					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 960 </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add Logo image </p>
+					                    	</div> 
+											
+											<!-- fake on -->
+											<div class="photo-open-modal" id="logo-open-modal"></div>
+											<div class="photo-upload-remove-fake" id="logo-upload-remove-fake"></div>
+											<div class="photo-upload-remove" id="logo-upload-remove">
+												<i id="logo-upload-remove-icon" class="fa fa-trash" aria-hidden="true"></i>	
+											</div>
+											<div class="photo-remove-loading" id="logo-remove-loading" align="center">
+												<img class="loading-inside-box" 
+													src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg"  />	
+											</div>
+											<!-- end fake on -->														                    	  		                    	  		                    	  
+										</div>
+										<textarea rows="" placeholder="have your word about this..." id="logo_description"  class="nham_description"  cols=""></textarea>
+									</div>
+								</div>						
+							</div>
+							
+							<!--<div  class="form-group">
 								<label>Cover</label>
 								<div class="col-lg-12 logo-browsing-wrapper" align="center">
 									<div class="row">
@@ -437,6 +448,34 @@ textarea:focus{
 									</div>
 								</div>
 						
+							</div>-->
+							
+							<div  class="form-group">
+								<label>Cover</label>
+								<div class="col-lg-12 photo-browsing-wrapper" align="center">
+									<div class="row">
+										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
+					                    	<div class="photo-display-wrapper" style="width:320px;min-height:180px;" id="cover-display-wrapper">
+					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
+					                    	</div> 
+											
+											<!-- fake on -->
+											<div class="photo-open-modal" id="cover-open-modal"></div>
+											<div class="photo-upload-remove-fake" id="cover-upload-remove-fake"></div>
+											<div class="photo-upload-remove" id="cover-upload-remove">
+												<i id="cover-upload-remove-icon" class="fa fa-trash" aria-hidden="true"></i>	
+											</div>
+											<div class="photo-remove-loading" id="cover-remove-loading" align="center">
+												<img class="loading-inside-box" 
+													src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg"  />	
+											</div>
+											<!-- end fake on -->														                    	  		                    	  		                    	  
+										</div>
+										<textarea rows="" placeholder="have your word about this..." id="cover_description"  class="nham_description"  cols=""></textarea>
+									</div>
+								</div>						
 							</div>
 							
 							
@@ -628,12 +667,179 @@ textarea:focus{
      </div><!-- /.modal-dialog -->
  </div><!-- /.modal --><!-- Modal -->
   <!--  end servecategory modal -->    
-  
  
-<!-- close modal section -->
+	 <!-- cover upload modal -->
+	<div class="modal fade" id="coverModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			
+				<div class="nham-modal-header">
+					<button type="button" id="coverformclose" class="close btn-close"
+						data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<p class="nham-modal-title">
+						<i class="fa fa-picture-o" aria-hidden="true"></i><span>Upload Cover</span>
+					</p>
+				</div>
+				
+				<div class="nham-modal-body">
+					<div class="photo-browse-box" align="center">
+						<div class="photo-upload-info"  >
+							<p class="text-upload-info">
+							  	<span>Browse Photo </span>
+							 </p>  
+						</div>
+						
+						<!-- fake on -->	
+						<div class="trigger-photo-browse" id="trigger-cover-browse"></div>
+						<!-- end fake on -->
+					</div>			
+					<input type='file' id="uploadcover" style="display:none" accept="image/*"/>
+					<div class="upload-photo-box" id="cover-upload-box">					
+						<div class="photo-upload-wrapper" align="center" id="display-cover-upload" >
+							<div class="photo-upload-info-2" >
+							 	<i class="fa fa-picture-o" aria-hidden="true"></i>
+							</div>					  	        		
+				        </div>
+				         				        			        
+				        <!-- fake on -->			        
+				        <div class="photo-upload-loading" id="cover-upload-loading" align="center">
+				        	<div class="photo-upload-progress-box">
+				        		<div id="cover-upload-progress" 
+				        		 	class="progress-bar progress-bar-danger progress-bar-striped" 
+				        		 	role="progressbar" aria-valuenow="60" 
+				        		 	aria-valuemin="0" 
+				        		 	aria-valuemax="100" style="height:10px;">					                      
+								</div>
+				        	</div>
+				        	
+							<div style="width: 100%;">
+								<p id="cover-upload-percentage" class="photo-upload-percentage">0%</p>
+								<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+							</div>
+				        	
+				        </div>
+				        <div class="photo-fail-remove" id="cover-fail-remove">
+				        	<i class="fa fa-times" id="cover-fail-event" aria-hidden="true"></i>
+				        </div>			      
+				        <!-- end fake on -->
+					</div>
+					<!-- <div class="photo-description-box" id="cover-description-box">
+						<textarea rows="" id="cover_description" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+					</div> -->
+					
+					<div class="photo-btncrop-box" id="cover-btncrop-box">
+						<button type="button" id="cover-crop-btn" class="btn btn-crop">Crop image</button>
+						<button type="button" id="cover-save-btn" class="btn photo-save-btn btn-danger">Save</button>
+					</div>
+				</div>
+				
+				<div class="nham-modal-footer">
+					
+				</div>			
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<button type="button" id="openCoverModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#coverModal">Open Modal</button>		                    	
+	<!-- cover upload modal -->
+	
+	 <!-- logo upload modal -->
+	<div class="modal fade" id="logoModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			
+				<div class="nham-modal-header">
+					<button type="button" id="logoformclose" class="close btn-close"
+						data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<p class="nham-modal-title">
+						<i class="fa fa-picture-o" aria-hidden="true"></i><span>Upload logo</span>
+					</p>
+				</div>
+				
+				<div class="nham-modal-body">
+					<div class="photo-browse-box" align="center">
+						<div class="photo-upload-info"  >
+							<p class="text-upload-info">
+							  	<span>Browse Photo </span>
+							 </p>  
+						</div>
+						
+						<!-- fake on -->	
+						<div class="trigger-photo-browse" id="trigger-logo-browse"></div>
+						<!-- end fake on -->
+					</div>			
+					<input type='file' id="uploadlogo" style="display:none" accept="image/*"/>
+					<div class="upload-photo-box" id="logo-upload-box">					
+						<div class="photo-upload-wrapper" align="center" id="display-logo-upload" >
+							<div class="photo-upload-info-2" >
+							 	<i class="fa fa-picture-o" aria-hidden="true"></i>
+							</div>					  	        		
+				        </div>
+				         				        			        
+				        <!-- fake on -->			        
+				        <div class="photo-upload-loading" id="logo-upload-loading" align="center">
+				        	<div class="photo-upload-progress-box">
+				        		<div id="logo-upload-progress" 
+				        		 	class="progress-bar progress-bar-danger progress-bar-striped" 
+				        		 	role="progressbar" aria-valuenow="60" 
+				        		 	aria-valuemin="0" 
+				        		 	aria-valuemax="100" style="height:10px;">					                      
+								</div>
+				        	</div>
+				        	
+							<div style="width: 100%;">
+								<p id="logo-upload-percentage" class="photo-upload-percentage">0%</p>
+								<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+							</div>
+				        	
+				        </div>
+				        <div class="photo-fail-remove" id="logo-fail-remove">
+				        	<i class="fa fa-times" id="logo-fail-event" aria-hidden="true"></i>
+				        </div>			      
+				        <!-- end fake on -->
+					</div>
+					<!-- <div class="photo-description-box" id="logo-description-box">
+						<textarea rows="" id="logo_description" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+					</div> -->
+					
+					<div class="photo-btncrop-box" id="logo-btncrop-box">
+						<button type="button" id="logo-crop-btn" class="btn btn-crop">Crop image</button>
+						<button type="button" id="logo-save-btn" class="btn photo-save-btn btn-danger">Save</button>
+					</div>
+				</div>
+				
+				<div class="nham-modal-footer">
+					
+				</div>			
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<button type="button" id="openLogoModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#logoModal">Open Modal</button>		                    	
+	<!-- logo upload modal -->
+	 
+	<!-- close upload section -->
             
             
     <?php include 'imports/scriptimport.php'; ?>
+    <script type="text/javascript">
+	    jQuery.browser = {};
+	    (function () {
+	        jQuery.browser.msie = false;
+	        jQuery.browser.version = 0;
+	        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	            jQuery.browser.msie = true;
+	            jQuery.browser.version = RegExp.$1;
+	        }
+	    })();
+	</script>
+    <script src="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.js"></script>
 	<script src="../assets/nhamdis/jscontroller/addshop.js"></script>
 	<script>
 
