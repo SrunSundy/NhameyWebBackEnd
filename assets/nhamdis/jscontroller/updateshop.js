@@ -287,3 +287,40 @@ function upoloadCoverToServer(){
 }
 
 /*============ end update cover ============*/
+/*============ Leave page event ============*/
+
+function goodbye(e) {
+	if(coverimage){
+		if(navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv 11/))){
+			if(coverimage){
+				removeCoverImageFromServer();
+			}	
+		}else{
+			if(!e) e = window.event;
+			  	//e.cancelBubble is supported by IE - this will kill the bubbling process.
+			  	e.cancelBubble = true;
+			  	e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+			  	//e.stopPropagation works in Firefox.
+			if (e.stopPropagation){
+			  	e.stopPropagation();
+			  	e.preventDefault();
+			}
+		}
+	}	
+}
+
+window.onbeforeunload=goodbye;
+$( window ).unload(function() { 
+	if(coverimage){
+		removeCoverImageFromServer();
+	}	
+}); 
+
+window.onunload = unloadPage;
+function unloadPage()
+{
+	if(coverimage){
+		removeCoverImageFromServer();
+	}	
+} 
+/*============ End leave page event =============*/

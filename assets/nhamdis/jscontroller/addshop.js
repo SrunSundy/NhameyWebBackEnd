@@ -1,4 +1,4 @@
-/*google map code*/  
+/*================= google map code ================*/  
 var map;
 var geocoder;
 var mapOptions = { 
@@ -70,7 +70,7 @@ function initialize() {
 	}
 }
 google.maps.event.addDomListener(window, 'load', initialize)
-/*end google map code*/									
+/*=================== end google map code ===================*/									
  
 	
 
@@ -95,43 +95,50 @@ var coverimagename = "";
 //var cuisineimgname = "";
 var servecategory = "";
 
-/*load shop address section*/
+/*====================== load shop address section =======================*/
 loadCountryData();
+
 function loadCountryData(){
-	 $.ajax({
+	$.ajax({
 		type : "GET",
 		url  : "/NhameyWebBackEnd/API/CountryRestController/getCountryCombo",
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
-			if(data.length > 0){
-				$("#nham_country").children().remove();
+			$("#nham_country").children().remove();
+			if(data.length > 0){				
 				var country = '';
 				for(var i=0 ; i< data.length; i++){
 					if(i==0){
 						country += '<option selected="selected" value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
 					}else{
 						country +='<option value="'+data[i].country_id+'">'+data[i].country_name+'</option>';
-					}
-					
+					}					
 				}
-				$("#nham_country").append(country);
-				alert($("#nham_country option:selected").val());
-				loadCityData($("#nham_country option:selected").val());
-			}			
+				$("#nham_country").append(country);		
+			}		
+			loadCityData($("#nham_country option:selected").val());
 		}		
-	 });
+	});
 }
 
+$("#nham_country").on("change", function(){
+	loadCityData( $("#nham_country option:selected").val() );	
+});
+
 function loadCityData( countryid ){
-	 $.ajax({
+	
+	$("#nham_city").children().remove();
+	$("#nham_city").select2("val", "");
+	$.ajax({
 		type : "GET",
 		url  : "/NhameyWebBackEnd/API/CityRestController/getCityCombo/"+countryid,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
+						
 			if(data.length > 0){
-				$("#nham_city").children().remove();
+							
 				var city = '';
 				for(var i=0 ; i< data.length; i++){
 					if(i == 0){
@@ -140,16 +147,21 @@ function loadCityData( countryid ){
 						city +='<option value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
 					}						
 				}
-				$("#nham_city").append(city);
-				alert(city);
-				alert($("#nham_city option:selected").val());
-				loadDistrictData( $("#nham_city option:selected").val() );
-			}				
+				$("#nham_city").append(city);					
+			}	
+			loadDistrictData( $("#nham_city option:selected").val() );
 		}		
-	});
+	});	 
 }
 
+$("#nham_city").on("change", function(){
+	loadDistrictData( $("#nham_city option:selected").val() );	
+});
+
 function loadDistrictData( cityid ){
+	
+	$("#nham_district").children().remove();
+	$("#nham_district").select2("val", "");
 	$.ajax({
 		type : "GET",
 		url  : "/NhameyWebBackEnd/API/DistrictRestController/getDistrictCombo/"+cityid,
@@ -157,7 +169,7 @@ function loadDistrictData( cityid ){
 			data = JSON.parse(data);
 			console.log(data);
 			if(data.length > 0){
-				$("#nham_district").children().remove();
+					
 				var district = '';
 				for(var i=0 ; i< data.length; i++){
 					if(i == 0){
@@ -167,21 +179,29 @@ function loadDistrictData( cityid ){
 					}						
 				}
 				$("#nham_district").append(district);
-				loadCommuneData( $("#nham_district option:selected").val() );
+				loadCommuneData( $("#nham_district option:selected").val());
 			}			
 		}		
-	 });
+	});			
 }
 
+$("#nham_district").on("change", function(){
+	loadCommuneData( $("#nham_district option:selected").val());
+});
+
 function loadCommuneData( districtid ){
+	
+	$("#nham_commune").children().remove();
+	$("#nham_commune").select2("val", "");
 	 $.ajax({
 		type : "GET",
 		url  : "/NhameyWebBackEnd/API/CommuneRestController/getCommuneCombo/"+districtid,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
+			
 			if(data.length > 0){
-				$("#nham_commune").children().remove();
+				
 				var commune = '';
 				for(var i=0 ; i< data.length; i++){
 					if(i == 0){
@@ -195,7 +215,8 @@ function loadCommuneData( districtid ){
 		}		
 	});
 }
-/*end load shop address section*/  
+/*====================== end load shop address section =======================*/  
+
 $('#lat-location').keyup(function() {
 	  //code to not allow any changes to be made to input field
 	 // var boo = $(this).val().match(/[\d]/g,'');
@@ -206,8 +227,8 @@ $('#lat-location').keyup(function() {
 	 
 });
  
+/*=================== phone adding =================*/
 
-/*phone adding*/
 $(".nham-append-data").on("click",function(){
 	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
 	if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
@@ -217,6 +238,7 @@ $(".nham-append-data").on("click",function(){
 	console.log(shopphones);	
 	$("#shop_phonenum").val("");	
 });
+
 $(document).on("click",".close-phone",function(){
 	var arrayno = parseInt($(this).siblings(".phone-wrapper").find("input").val());
 	shopphones.splice(arrayno , 1);
@@ -225,6 +247,7 @@ $(document).on("click",".close-phone",function(){
 	//var shopphoneslash = shopphones.toString().replace(/[,]/g,"|").trim();
 	//alert(shopphoneslash);	
 });
+
 function displayPhones( data ){
 	var dis =""; 
 	for( var i=0 ; i<data.length ; i++){
@@ -235,9 +258,10 @@ function displayPhones( data ){
 	}
 	$("#phone-add-result").html(dis);
 }
-/*close phone adding*/
+/*================= close phone adding ==================*/
 
-/*working day section*/
+/*================= working day section ==================*/
+
 $("#allday").on("change", function () {
 	if($(this).is(":checked")){		
 		$(".work-day").prop('checked', true);
@@ -245,6 +269,7 @@ $("#allday").on("change", function () {
 		$(".work-day").prop('checked', false);
 	}
 });
+
 $(".work-day").on("change", function(){
 
 	if($(this).is(":checked")){
@@ -256,6 +281,7 @@ $(".work-day").on("change", function(){
 		$("#allday").prop('checked', false);
 	}
 });
+
 function countWorkingday(){
 	var workingday = [];
 	$('input.work-day:checked').each(function() {		
@@ -263,9 +289,10 @@ function countWorkingday(){
 	});
 	return workingday;
 }
-/*end working day section*/
+/*================= end working day section =================*/
 
-/*facility section*/
+/*================= facility section =================*/
+
 $("#allfacilities").on("change", function(){
 	if($(this).is(":checked")){		
 		$(".shop-facility").prop('checked', true);
@@ -273,6 +300,7 @@ $("#allfacilities").on("change", function(){
 		$(".shop-facility").prop('checked', false);
 	}
 });
+
 $(".shop-facility").on("change", function(){
 	
 	if($(this).is(":checked")){
@@ -284,6 +312,7 @@ $(".shop-facility").on("change", function(){
 		$("#allfacilities").prop('checked', false);
 	}
 });
+
 function isCheckFacility( radioid ){
 	var check = 0;
 	if($("#"+radioid).is(":checked")){
@@ -291,10 +320,10 @@ function isCheckFacility( radioid ){
 	}
 	return check;
 }
-/*end facility section*/
+/*================= end facility section ===================*/
 
  	   
-$("#logo-upload-image").on("click",function(){	
+/*$("#logo-upload-image").on("click",function(){	
 		$("#logoupload").click();	
 });
 $("#removelogoimage").on("click",function(){
@@ -408,12 +437,12 @@ function upoloadLogoToServer(){
 			}
 		});
 	} 
-}
+}*/
 
 
 
 
-
+/*
 $("#cover-upload-image").on("click",function(){	
 	$("#coverupload").click();
 });
@@ -529,7 +558,453 @@ function upoloadCoverToServer(){
 			}
 		});
 	} 
+}*/
+/*===================== upload logo event =============================*/
+
+var backupreallogoimage;
+var img_logo_x = 0;
+var img_logo_y = 0;
+var img_logo_w = 0;
+var img_logo_h = 0;
+
+$("#logo-open-modal").on("click", function(){
+	$("#openLogoModel").click();
+});
+
+$("#trigger-logo-browse").on("click",function(){
+	alert(logoimagename);
+	$("#uploadlogo").click();
+});
+
+$("#uploadlogo").on("change", function(){	
+	uploadLogo(this);
+});
+
+$("#logo-fail-event").on("click" , function(){
+	logoimagename = "";
+	$("#uploadlogo").val(null);
+	$(this).parent().hide();
+	
+	var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#display-logo-upload').html(txt);
+});
+
+$("#logoformclose").on("click", function(){
+	
+	if(logoimagename) {
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		
+		$('#display-logo-upload').html(txt);
+		$("#logo-btncrop-box").hide();
+		removeLogoImageFromServer().success(function(data){
+			logoimagename = "";
+			$("#uploadlogo").val(null);
+		});				  
+	}
+	
+});
+
+$("#logo-crop-btn").on("click", function(){
+	alert(img_logo_x+" "+img_logo_y+" "+img_logo_w+" "+img_logo_h);
+	upoloadLogoToServer();
+	$(this).hide();
+	
+});
+
+$("#logo-save-btn").on("click", function(){
+	
+	alert(logoimagename);
+	$('#logoModal').modal('hide');
+	$("#logo_description").show();	  
+	$("#logo-upload-remove-fake").show();
+	$("#logo-upload-remove").show();
+	var myimg  ='<img  class="upload-shop-img"'; 
+		myimg +='src="/NhameyWebBackEnd/uploadimages/logo/small/'+logoimagename+'" alt="your image" />';
+    $('#logo-display-wrapper').html(myimg);
+    var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#display-logo-upload').html(txt);
+	$("#logo-btncrop-box").hide();
+   
+});
+
+$("#logo-upload-remove-icon").on("click", function(){
+	
+	$(this).parent().hide();	
+	 var txt  = '<label class="gray-image-plus">';
+	 	 txt += '<i class="fa fa-plus"></i>';
+	 	 txt += '</label>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 960 </p>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+	$(this).parent().siblings(".photo-display-wrapper").html(txt);
+	$(this).parent().siblings(".photo-remove-loading").show();
+	
+	alert(logoimagename);
+	$("#logo-upload-remove-fake").hide();
+	$("#logo-remove-loading").hide();
+	$("#logo_description").hide();
+	removeLogoImageFromServer().success(function(data){
+		logoimagename = "";		
+		$("#uploadlogo").val(null);
+	});	
+});
+
+function uploadLogo(input) {
+		
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) { 
+ 			
+ 			if(logoimagename) {
+ 				removeLogoImageFromServer().success(function(data){
+ 					logoimagename = "";
+ 				});				  
+ 			}
+ 			$("#logo-crop-btn").show();
+ 			$("#logo-save-btn").hide();
+ 			//$("#logo-description-box").hide();
+	 		var image = new Image();
+			image.src = e.target.result;			
+			image.onload = function () {
+				var height = this.height;
+				var width = this.width;
+	 			  $("#logo-btncrop-box").show();
+	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="croplogo" alt="your image" />';
+			      $('#display-logo-upload').html(myimg);
+			      $('#croplogo').Jcrop({
+			    	   aspectRatio: 16 / 16,
+			    	   onSelect: updateLogoCoords,
+			    	   onChange: updateLogoCoords,
+			    	   setSelect: [0,0,110,110],
+			    	   trueSize: [width,height]
+			   	 });			           	
+			  
+			      backupreallogoimage = $("#uploadlogo")[0].files[0];
+			}			
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
 }
+
+function updateLogoCoords(c){
+	img_logo_x = c.x;
+	img_logo_y = c.y;
+	img_logo_w = c.w;
+	img_logo_h = c.h;
+}
+
+function getCropLogoImgData(){
+	var crop_img_data = {		
+		"img_x" : img_logo_x,
+		"img_y" : img_logo_y,
+		"img_w" : img_logo_w,
+		"img_h" : img_logo_h						
+	};
+	return crop_img_data;	
+}
+
+function removeLogoImageFromServer(){
+
+	return $.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		type: "POST",
+		data : {
+			"removeimagedata":{
+				"image_type" : "1",
+				"imagename" : logoimagename
+			}			
+		}
+	});	
+}
+
+function upoloadLogoToServer(){
+	//var inputFile = $("#uploadcover");
+	$("#logo-upload-progress").css({width:"0%"});
+	$("#logo-upload-percentage").html(0);
+	$("#logo-upload-loading").show();
+	var fileToUpload = backupreallogoimage;
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		formData.append("json", JSON.stringify(getCropLogoImgData()));
+		
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+					logoimagename = "";
+					$("#logo-fail-remove").show();
+					//$("#cover-description-box").hide();
+					$("#logo-btncrop-box").hide();
+				}else{
+					$("#logo-save-btn").show();
+					//$("#cover-description-box").show();
+					logoimagename = data.filename;
+					var uploadedimg ='<img  class="photo-upload-output" ' 
+						+'src="/NhameyWebBackEnd/uploadimages/logo/big/'+logoimagename+'"  '
+						+'alt="your image" />';
+					$('#display-logo-upload').html(uploadedimg);
+					
+				}
+				$("#logo-upload-loading").hide();				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						console.log(percentComplete);
+						$("#logo-upload-progress").css({width: percentComplete+"%"});
+						$("#logo-upload-percentage").html(percentComplete+"%");
+					};
+				}, false);
+				return xhr;
+			}
+		});
+	} 
+}
+
+/*===================== end upload logo event =========================*/
+
+/*===================== upload cover event =============================*/
+var backuprealcoverimage;
+var img_x = 0;
+var img_y = 0;
+var img_w = 0;
+var img_h = 0;
+
+$("#cover-open-modal").on("click", function(){
+	$("#openCoverModel").click();
+});
+
+$("#trigger-cover-browse").on("click",function(){
+	alert(coverimagename);
+	$("#uploadcover").click();
+});
+
+$("#uploadcover").on("change", function(){	
+	uploadCover(this);
+});
+
+$("#cover-fail-event").on("click" , function(){
+	coverimagename = "";
+	$("#uploadcover").val(null);
+	$(this).parent().hide();
+	
+	var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#display-cover-upload').html(txt);
+});
+
+$("#coverformclose").on("click", function(){
+	
+	if(coverimagename) {
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		//$("#cover-description").val("");
+		$('#display-cover-upload').html(txt);
+		//$("#cover-description-box").hide();
+		$("#cover-btncrop-box").hide();
+		removeCoverImageFromServer().success(function(data){
+			coverimagename = "";
+			$("#uploadcover").val(null);
+		});				  
+	}
+	
+});
+
+$("#cover-crop-btn").on("click", function(){
+	alert(img_x+" "+img_y+" "+img_w+" "+img_h);
+	upoloadCoverToServer();
+	$(this).hide();
+	
+});
+
+$("#cover-save-btn").on("click", function(){
+	
+	alert(coverimagename);
+	$('#coverModal').modal('hide');
+	$("#cover_description").show();	  
+	$("#cover-upload-remove-fake").show();
+	$("#cover-upload-remove").show();
+	var myimg  ='<img  class="upload-shop-img"'; 
+		myimg +='src="/NhameyWebBackEnd/uploadimages/cover/small/'+coverimagename+'" alt="your image" />';
+    $('#cover-display-wrapper').html(myimg);
+    var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#display-cover-upload').html(txt);
+	$("#cover-btncrop-box").hide();
+   // coverimagename = "";
+	//$("#uploadcover").val(null);
+});
+
+$("#cover-upload-remove-icon").on("click", function(){
+	
+	$(this).parent().hide();	
+	 var txt  = '<label class="gray-image-plus">';
+	 	 txt += '<i class="fa fa-plus"></i>';
+	 	 txt += '</label>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
+	$(this).parent().siblings(".photo-display-wrapper").html(txt);
+	$(this).parent().siblings(".photo-remove-loading").show();
+	
+	$("#cover-upload-remove-fake").hide();
+	$("#cover-remove-loading").hide();
+	$("#cover_description").hide();
+	removeCoverImageFromServer().success(function(data){
+		
+		coverimagename = "";		
+		$("#uploadcover").val(null);
+	});	
+});
+
+function uploadCover(input) {
+		
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) { 
+ 			
+ 			if(coverimagename) {
+ 				removeCoverImageFromServer().success(function(data){
+ 					coverimagename = "";
+ 				});				  
+ 			}
+ 			$("#cover-crop-btn").show();
+ 			$("#cover-save-btn").hide();
+ 			//$("#cover-description-box").hide();
+	 		var image = new Image();
+			image.src = e.target.result;			
+			image.onload = function () {
+				var height = this.height;
+				var width = this.width;
+	 			  $("#cover-btncrop-box").show();
+	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="cropcover" alt="your image" />';
+			      $('#display-cover-upload').html(myimg);
+			      $('#cropcover').Jcrop({
+			    	   aspectRatio: 16 / 7,
+			    	   onSelect: updateCoords,
+			    	   onChange: updateCoords,
+			    	   setSelect: [0,0,110,110],
+			    	   trueSize: [width,height]
+			   	 });			           	
+			  
+			     backuprealcoverimage = $("#uploadcover")[0].files[0];
+			}			
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+function updateCoords(c){
+	img_x = c.x;
+	img_y = c.y;
+	img_w = c.w;
+	img_h = c.h;
+}
+
+function getCropImgData(){
+	var crop_img_data = {		
+		"img_x" : img_x,
+		"img_y" : img_y,
+		"img_w" : img_w,
+		"img_h" : img_h						
+	};
+	return crop_img_data;	
+}
+
+function removeCoverImageFromServer(){
+
+	return $.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		type: "POST",
+		data : {
+			"removeimagedata":{
+				"image_type" : "2",
+				"imagename" : coverimagename
+			}			
+		}
+	});	
+}
+
+function upoloadCoverToServer(){
+	//var inputFile = $("#uploadcover");
+	$("#cover-upload-progress").css({width:"0%"});
+	$("#cover-upload-percentage").html(0);
+	$("#cover-upload-loading").show();
+	var fileToUpload = backuprealcoverimage;
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		formData.append("json", JSON.stringify(getCropImgData()));
+		
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/shopCoverUploadImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+					coverimagename = "";
+					$("#cover-fail-remove").show();
+					//$("#cover-description-box").hide();
+					$("#cover-btncrop-box").hide();
+				}else{
+					$("#cover-save-btn").show();
+					//$("#cover-description-box").show();
+					coverimagename = data.filename;
+					var uploadedimg ='<img  class="photo-upload-output" ' 
+						+'src="/NhameyWebBackEnd/uploadimages/cover/big/'+coverimagename+'"  '
+						+'alt="your image" />';
+					$('#display-cover-upload').html(uploadedimg);
+					
+				}
+				$("#cover-upload-loading").hide();				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						console.log(percentComplete);
+						$("#cover-upload-progress").css({width: percentComplete+"%"});
+						$("#cover-upload-percentage").html(percentComplete+"%");
+					};
+				}, false);
+				return xhr;
+			}
+		});
+	} 
+}
+
+/*===================== end upload cover event =========================*/
 
 $("#input-44").fileinput({
     uploadUrl: '/file-upload-batch/2',
