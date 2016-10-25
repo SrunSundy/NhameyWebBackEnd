@@ -218,7 +218,8 @@ class ShopModel extends CI_Model{
 		if($this->IsNullOrEmptyString($datashop["shop_address"])){
 			return "Invalid SHOP_ADDRESS";
 		}
-		if($this->IsNullOrEmptyString($datashop["shop_map_address"])){
+		if($this->IsNullOrEmptyString($datashop["shop_map_address"]["lat"]) 
+			|| $this->IsNullOrEmptyString($datashop["shop_map_address"]["lng"]) ){
 			return "Invalid SHOP_MAP_ADDRESS";
 		}
 		return "";
