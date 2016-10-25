@@ -1,188 +1,4 @@
-<style>
-	.nham-modal-header{
-		width: 100%;
-		min-height: 50px;
-		background: #f6f7f9;
-		border-bottom: 1px solid #E0E0E0;
-	}
-	.nham-modal-body{
-		width: 100%;
-		min-height: 70px;
-		
-	}
-	.nham-modal-title{
-		color: #616161;
-	    font-size: 17px;
-	    font-family: HelveticaNeue-Medium, helvetica, arial, sans-serif;
-	    padding-top: 14px;
-	    padding-left:15px;
-	    font-weight: bold;
-	}
-	.nham-modal-title span{
-		padding-left: 8px;
-	}
-	.nham-modal-header button.btn-close{
-		padding-top: 14px;
-		padding-right: 15px;
-	}
-	.upload-photo-box{
-		width: 98%;
-		min-height: 250px;
-		margin: 0 auto;
-		border-bottom: 1px solid #E0E0E0;
-		border-left: 1px solid #E0E0E0;
-		border-right: 1px solid #E0E0E0;
-		position:relative;
-		padding: 5px;
-		transition: all 5s linear;
-		
-	}
-	.photo-description-box{
-		width: 98%;
-		min-height: 60px;
-		margin: 0 auto;
-		border-bottom: 1px solid #E0E0E0;
-		border-left: 1px solid #E0E0E0;
-		border-right: 1px solid #E0E0E0;
-		position:relative;
-		padding: 5px;
-		display:none;
-	}
-	
-	.photo-btncrop-box{
-		width: 98%;
-		min-height: 50px;
-		margin: 0 auto;
-		border-bottom: 1px solid #E0E0E0;
-		border-left: 1px solid #E0E0E0;
-		border-right: 1px solid #E0E0E0;
-		position:relative;
-		padding: 5px;
-		display:none;
-		
-	}
-	button.btn-crop{
-		width: 100%;
-		font-weight: bold;
-		border-radius: 0;
-	}
-	button#photo-save-btn{
-		display: none;
-		width: 100%;
-		font-weight: bold;
-		border-radius: 0;
-	}
-	button.btn-crop:hover{
-		background: #BDBDBD;
-	}
-	.photo-browse-box{
-		width: 98%;
-		height: 70px;
-		margin: 0 auto;
-		border-bottom: 1px solid #E0E0E0;
-		border-left: 1px solid #E0E0E0;
-		border-right: 1px solid #E0E0E0;
-		position:relative;
-		padding: 5px;
-		cursor:pointer;
-		background: #fafbfc;
-	}
-	.photo-browse-box:hover{
-		background: #EEEEEE;
-	}
-	div.photo-upload-progress-box{
-		width: 100%;
-		height: 15px;
-		
-	}
-	p.photo-upload-percentage{
-		color: #E0E0E0;
-		font-weight: bold;
-	}
-	div.photo-upload-loading{
-		position:absolute;
-		top:0;
-		left:0;
-		background: #ffffff;
-		z-index:99999990;
-		width:100%;
-		display:none;
-		height: 100%;
-	}
-	div.photo-fail-remove{
-		position:absolute;
-		top:0;
-		left:0;
-		background: #ffffff;
-		z-index:999;
-		width:100%;
-		display: none;
-		height: 100%;
-		opacity: 0.7;
-	}
-	div.photo-fail-remove i{
-		font-size: 22px;
-		position: absolute;
-		top: 8px;
-		right: 13px;
-		color: #dd4b39;
-		cursor: pointer;
-	}
-	div.trigger-browse-image{
-		position:absolute;
-		top:0;
-		left:0;
-		z-index:1;
-		width:100%;
-		cursor: pointer;
-		height: 100%;
-	}
-	.nham-modal-footer{
-		min-height: 60px;
-		
-	}
-	.photo-upload-wrapper{
-		width: 100%;
-		min-height:250px;
-		margin: 0 auto;
-		
-	}
-	.photo-upload-info{		
-		padding-top: 16px;
-		font-weight: bold;
-	}
-	.photo-upload-info-2{
-		padding-top: 80px;
-	}
-	.photo-upload-info-2 i{
-		font-size: 100px;
-		opacity: 0.1;
-	}
-	p.text-upload-info{
-		color: #BDBDBD;
-	    font-family: HelveticaNeue-Medium, helvetica, arial, sans-serif;
-	}
-	p.text-upload-info i{
-		font-size: 25px;
-		
-	}
-	p.text-upload-info span{
-		font-size: 18px;
-		padding-left: 7px;
-		margin-top:-10px;
-	}
-	img.photo-upload-output{
-		width: 100%;
-		height: auto;
-	}
-	.photo-description{
-		width:100%;
-		border:0;
-		bottom:0px;
-		resize:none;
-		min-height: 60px;
-	}
-</style>
+
 <div class="img-cover-box">
 	<img src="<?php echo base_url(); ?>assets/nhamdis/img/new1.jpg"
 		class="img-cover" id="cover-image-display" />
@@ -245,11 +61,15 @@
 			
 			<div class="nham-modal-body">
 				<div class="photo-browse-box" align="center">
-					<div class="photo-upload-info" id="trigger-cover-browse" >
+					<div class="photo-upload-info"  >
 						<p class="text-upload-info">
 						  	<span>Browse Photo </span>
 						 </p>  
-					</div>	
+					</div>
+					
+					<!-- fake on -->	
+					<div class="trigger-photo-browse" id="trigger-cover-browse"></div>
+					<!-- end fake on -->
 				</div>			
 				<input type='file' id="uploadcover" style="display:none" accept="image/*"/>
 				<div class="upload-photo-box" id="cover-upload-box">					
