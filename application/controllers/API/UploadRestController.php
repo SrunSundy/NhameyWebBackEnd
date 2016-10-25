@@ -379,8 +379,8 @@ class UploadRestController extends CI_Controller{
 				} else {
 						
 					$isuploadimg = array();
-					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.8,50);
-					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.5,50);
+					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.4,50);
+					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.2,50);
 					
 					$errorupload = false;
 					array_push($isuploadimg, $big, $small);
