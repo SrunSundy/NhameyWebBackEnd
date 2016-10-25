@@ -75,7 +75,11 @@ class UploadRestController extends CI_Controller{
 			$json = json_encode($data);
 			echo $json;
 		} */
-			
+		
+		$cropdata = $_POST["json"];
+		$cropdata = json_decode($cropdata);
+		
+		$img_w = (int)$cropdata->img_w;
 		$response = array();
 		if ( ! empty($_FILES))
 		{
@@ -88,17 +92,19 @@ class UploadRestController extends CI_Controller{
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
 			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
 			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
-			$allowmindimension = $this->allowImageMinimumDimension(300, 300, $_FILES["file"]["tmp_name"]);
-			$allowmaxdimension = $this->allowImageMaximumDimension(5000, 5000, $_FILES["file"]["tmp_name"]);
-				
+			//$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
+			//$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
+			$allowmincrop = $this->allowImageMinimumDimensionCrop(200, 200, $cropdata);
+		
 			$permission = array();
-			array_push($permission , 
-					  $checkdirectory_small,
-					  $checkdirectory_big,
-					  $allowfiletype, 
-					  $allowsize,
-					  $allowmindimension,
-					  $allowmaxdimension
+			array_push($permission ,
+				$checkdirectory_small,
+				$checkdirectory_big,
+				$allowfiletype,
+				$allowsize,
+				$allowmincrop
+				//$allowmindimension,
+				//$allowmaxdimension
 			);
 			$check = $this->checkPermission($permission);
 		
@@ -111,7 +117,7 @@ class UploadRestController extends CI_Controller{
 			} else {
 															
 				$isuploadimg = array();
-				if($_FILES['file']['size'] > 100000){
+				/* if($_FILES['file']['size'] > 100000){
 					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"],0.5,90);
 					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,100);
 						
@@ -119,7 +125,14 @@ class UploadRestController extends CI_Controller{
 					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"],1, 90);
 					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.8,50);
 						
+				} */
+				
+				$big_crop = 960;
+				if($img_w < 960){
+					$big_crop = $img_w;
 				}
+				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
 				
 				$errorupload = false;
 				array_push($isuploadimg, $big, $small);
@@ -239,7 +252,7 @@ class UploadRestController extends CI_Controller{
 				}
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				/* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
-				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 160, 80);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 640, 80);
 				$errorupload = false;
 				array_push($isuploadimg, $big, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){
