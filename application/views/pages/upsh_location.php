@@ -7,7 +7,8 @@
  	
  	<?php include 'imports/cssimport.php' ?>
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop.css" />
- 	
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-upload.css" />
   <style>
   	
   
@@ -165,9 +166,22 @@
 
    
     <?php include 'imports/scriptimport.php'; ?>
+    <script type="text/javascript">
+	    jQuery.browser = {};
+	    (function () {
+	        jQuery.browser.msie = false;
+	        jQuery.browser.version = 0;
+	        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	            jQuery.browser.msie = true;
+	            jQuery.browser.version = RegExp.$1;
+	        }
+	    })();
+	</script>
+    <script src="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.js"></script>
     <script src="<?php echo base_url(); ?>assets/nhamdis/jscontroller/updateshop.js"></script>
+    
     <script>
-    /*google map code*/  
+    /*=================  google map code  =================*/  
    						
     function initialize() {
     	var map;
@@ -235,7 +249,7 @@
     	}
     }
     google.maps.event.addDomListener(window, 'load', initialize)
-    /*end google map code*/			
+    /*=================  end google map code  =================*/			
     </script>
     <script>
    
