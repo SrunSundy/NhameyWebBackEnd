@@ -455,7 +455,7 @@
 								<div class="col-lg-12 photo-browsing-wrapper" align="center">
 									<div class="row">
 										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
-					                    	<div class="photo-display-wrapper" style="width:320px;min-height:180px;" id="cover-display-wrapper">
+					                    	<div class="photo-display-wrapper" style="width:400px;min-height:180px;" id="cover-display-wrapper">
 					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
 					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>
 					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
