@@ -29,7 +29,10 @@
           
               </ul>
         </li>
-			<li class="treeview">
+        
+       
+        
+		<li class="treeview">
               <a href="#">
                 <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Product Management</span><i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -42,7 +45,18 @@
 		<li><a href="user"> <i class="fa fa-users" aria-hidden="true"></i> <span>User Management</span></a></li>
 		<!-- <li><a href="post"> <i class="fa fa-pencil-square" aria-hidden="true"></i> <span>Post Management</span></a></li>
 		<li><a href="comment"> <i class="fa fa-comments" aria-hidden="true"></i> <span>Comment Management</span></a></li> -->
-
+ 		<li class="treeview">
+              <a href="#">
+                <i class="fa fa-building" aria-hidden="true"></i> <span>Location Management</span><i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo base_url(); ?>MainController/listshopcountry"><i class="fa fa-circle-o"></i> Add Country</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/listshopcity"><i class="fa fa-circle-o"></i>Add City</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/listshopdistrict"><i class="fa fa-circle-o"></i>Add District</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/listshopcommune"><i class="fa fa-circle-o"></i>Add Commune</a></li>
+          
+              </ul>
+        </li>
 	</ul>
 </section>
 <!-- /.sidebar -->

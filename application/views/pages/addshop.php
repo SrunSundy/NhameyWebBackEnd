@@ -13,6 +13,8 @@
  	
   </head>
   <body class="hold-transition skin-red-light sidebar-mini" >
+  
+  	<input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
     <div class="wrapper">
 
       <header class="main-header">
@@ -136,7 +138,54 @@
 			                  	</div>
 		                     </div>
 		  
-		                     
+		                     <div class="form-group "> 
+		                         <label>Shop Facility</label>
+			                     <div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="selected-dropdown" style="position:relative;">
+			                			
+				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
+				                				<img class="icon-input" id="shopfacilityicon"  src="../assets/nhamdis/img/servecategory.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/servecategory.png"/>				 
+				                			</div>
+				                			
+							                <input style="padding:4px 4px 4px 28px;" id="shopfacilityname" type="text" class="form-control nham-dropdown-inputbox-multi"  placeholder="Search or Select for shop type">
+							                
+							                <div class="error-selected-result">
+							                	<p>ITEM IS SELECTED!</p>
+							                </div>
+							                <div class="serve-category-result" id="shop-facilities">
+							                	
+							                	
+							                </div>						                  
+			                    	       <!--  <input type="hidden" class="selectedid" id="selectedservecategory"/> -->
+			                    	    </div>
+			                    		<div class="nham-dropdown-detail"  >
+			                    			<div class="nham-dropdown-result-wrapper">
+			                    				<input type="hidden" value="selected-category-box2"/>
+			                    				<div id="display-result-shopfacility" class="display-result-wrapper">
+			                    					
+			                    				</div>		       				
+			                  				</div>
+			                  				
+			                  				<div id="display-searching-text_shopfacility" style="display:none;">
+			                  					<div  class="nham-dropdown-noresult">
+													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+														Searching "<span id="text-search-shopfacility-dis1"></span>" has no Result!</p>
+												</div>
+												<div class="nham-dropdown-question">	
+													<p>Do you want to register "<span id="text-search-shopfacility-dis2"></span>" as a new shop type?</p>
+												</div>
+			                  				</div>
+			                  				
+			                  				<div id="nham-dropdown-footer-shopfacility" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yesshopfacility">Yes</button>
+			                  				</div>
+			                  			</div>
+			                    	</div>	
+			                    	<button type="button" id="shopfacilitybtnpop" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#shopFacilityModal">Open Modal</button>		                    	
+			                  	</div>
+		                     </div>
 		                     
 		                     <div class="form-group">
 			                    <label>Shop Serve Type</label>
@@ -146,6 +195,8 @@
 			                    
 			                    </select>
 			                  </div><!-- /.form-group -->
+
+		                  
 			                  
 			                  <div class="form-group">
 			                     <label>Short Description</label>
@@ -178,7 +229,7 @@
 			                      <input id="shopemail" type="text" class="form-control" placeholder="Shop Email address">			                      
 		                      </div>
 		                      
-		                      <div class="form-group" style="min-height:100px;"  >
+		                      <div class="form-group" style="overflow:hidden"  >
 		                      	<div class="col-lg-12">
 		                      		<div class="row">
 				                      <div style="float: left;">
@@ -201,43 +252,43 @@
 				                  <div class="col-lg-12" style="margin-bottom:20px;;margin-top:-10px;">
 				                  	<div class="row">
 					                   					                    
-					                     <div class="nham-control-group div-top-gap">
+					                     <div class="col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Monday
 											    <input type="checkbox"  id="mon" value="1"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class="col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Tuesday
 											    <input type="checkbox"  id="tue" value="2"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class="col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Wednesday
 											    <input type="checkbox" id="wed" value="3"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class="col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Thursday
 											    <input type="checkbox"  id="thur" value="4"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class="col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Friday
 											    <input type="checkbox"  id="fri" value="5"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class="col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Saturday
 											    <input type="checkbox"  id="sat" value="6"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
 											 </label>
 										</div>	
-										<div class="nham-control-group div-top-gap">
+										<div class="col-lg-12 div-top-gap">
 											  <label class="nham-control nham-control--checkbox">Sunday
 											    <input type="checkbox"  id="sun" value="7"  class="work-day"/>
 											    <div class="nham-control__indicator"></div>
@@ -262,7 +313,7 @@
 			                    </div><!-- /.form group -->
 			                  </div>
                            		                 	                      
-		                      <div class="form-group" >
+		                      <!--  <div class="form-group" >
 		                      	<div class="col-lg-12">
 		                      		<div class="row">
 				                      <div style="float: left;">
@@ -319,7 +370,7 @@
 					                    					                    
 				                    </div>
 			                  	  </div>	                      
-		                      </div>
+		                      </div>-->
 		                      
 		                      <div class="input-group top-gap">
 			                    <span class="input-group-addon "><i class="fa fa-facebook-square font-size-20" aria-hidden="true"  ></i></span>
@@ -455,7 +506,7 @@
 								<div class="col-lg-12 photo-browsing-wrapper" align="center">
 									<div class="row">
 										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
-					                    	<div class="photo-display-wrapper" style="width:400px;min-height:180px;" id="cover-display-wrapper">
+					                    	<div class="photo-display-wrapper" style="width:67%;min-height:180px;" id="cover-display-wrapper">
 					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
 					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>
 					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
@@ -668,6 +719,66 @@
  </div><!-- /.modal --><!-- Modal -->
   <!--  end servecategory modal -->    
  
+ <!-- shop facility modal --> 
+ <div class="modal fade" id="shopFacilityModal" role="dialog">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="fa fa-home" aria-hidden="true"></i>  Serve Category</h4>
+             </div>
+             <div class="modal-body">
+                <div class="form-group">
+			        <label>Serve Category's Name</label>
+			        <input type="text" id="shopfacilitynamepopup" class="form-control" placeholder="enter shop facility name">			                      
+		       </div>
+		       
+		        <div class="form-group">
+			        <label>Description</label>
+			        <textarea id="shopfacilitydescription" class="form-control" rows="3" placeholder="describe about the shop facility" style="resize:vertical;"></textarea>
+			   </div>
+			   
+               <div  class="form-group" style="overflow: hidden">
+					<label>Image</label>
+					<div class="col-lg-12 logo-browsing-wrapper" align="center">
+						<div class="row">
+							<div class="col-lg-12 " align="center"  style="position:relative;">											                     		                  		                    	  
+					              <input type='file' id="shopfacilityupload" style="display: none;" accept="image/*"/>
+					              <div class="image-upload-wrapper" id="shopfacility-upload-wrapper">
+					                   <label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>
+					                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Shop facility image </p>					                    		
+					              </div> 						                    										
+								  <div id="shopfacility-upload-image" class="upload-image-hover" ></div>
+								  <div id="loading-wrapper-shopfacility" class="upload-image-loading" align="center" style="display:none;text-align:center" >
+										<div class="progress progress-xxs">
+								            <div id="shopfacilityprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+								            </div>
+								        </div>
+										<img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg" />
+										<i class="fa fa-times disable-cover" id="shopfacility-disable-cover" aria-hidden="true" title="close" ></i>
+								  </div>
+								  <div id="uploadimageremoveback-shopfacility" class="upload-image-remove-background" style="display:none"></div>
+								  <div id="removeshopfacilityimagewrapper" class="upload-image-remove" style="display:none" >
+										<i id="removeshopfacilityimage" class="fa fa-trash" aria-hidden="true"></i>	
+								  </div>
+								  <div id="removeloadingwrapper-shopfacility" class="upload-image-remove" align="center" style="display:none;text-align:center">
+									    <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/reload.svg"  />										
+								  </div>														                    	  		                    	  		                    	  
+							</div>
+						</div>
+					</div>
+				</div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" id="belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+               	<button type="button" id="shopfacilitysave" class="btn nham-btn btn-danger">Save changes</button>
+             </div>
+         </div><!-- /.modal-content -->
+     </div><!-- /.modal-dialog -->
+ </div><!-- /.modal --><!-- Modal -->
+  <!--  end shop facility modal -->   
+   
 	 <!-- cover upload modal -->
 	<div class="modal fade" id="coverModal" role="dialog">
 		<div class="modal-dialog">
@@ -844,7 +955,7 @@
 	<script>
 
 
-
+/*======================= serve category event =============================*/
 function getServeCategories(){
 
 	var catesource = $("#serve-categories").find(".selected-category-box");
@@ -1048,7 +1159,259 @@ function clearServeCategorySaveform(){
 	$('#servecategory-upload-wrapper').html(txt);
 	$("#removeloadingwrapper-servecategory").hide();
 }
+/*======================= End serve category event =============================*/
+ 
+ /*======================= Shop facility event =============================*/
+ 
+ var shopfacilityicon="";
+ $("#shopfacilityname").on("focus keyup",function(){
+	var srchname = $(this).val();
+	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
+	$("#display-result-shopfacility").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	$.ajax({
+		 type: "GET",
+		 url: $("#base_url").val()+"API/ShopFacilityRestController/getShopFacilityByNameCombo", 
+		 data : {
+			"srchname" : srchname,
+			"limit" : 10
+		 },
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var dis = '';
+			if(data.length <= 0){
+				$("#text-search-shopfacility-dis1").html(cutString(srchname , 35));
+				$("#text-search-shopfacility-dis2").html(cutString(srchname , 20));
+				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				dis +="  <span class='no-data-text'>No Record Found!</span>";
+				dis +="</div>";
+				$("#display-searching-text_shopfacility").show();
+				$("#nham-dropdown-footer-shopfacility").show();
+			}else{	
+				$("#display-searching-text_shopfacility").hide();
+				$("#nham-dropdown-footer-shopfacility").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					
+					 dis += '<div  class="nham-dropdown-multi-result">';
+					 dis += ' <input type="hidden" value="'+data[i].sh_facility_id+'" />';
+					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].sh_facility_icon+'"/>';
+					 dis += ' <p><span class="title">'+data[i].sh_facility_name+'</span></p></div>';
+					 
+				 }			
+				 dis+="<div style='clear:both'></div>";
+				
+			}
+			$("#display-result-shopfacility").html(dis); 					 
+   	 	 }
+   });
+});
+$("#yesshopfacility").on("mousedown",function(){
 
+	$("#shopfacilitybtnpop").click();
+	$("#shopfacilitynamepopup").val($("#shopfacilityname").val());
+	
+});
+
+
+
+function getShopFacilities(){
+
+	var facilitysource = $("#shop-facilities").find(".selected-category-box");
+	console.log(facilitysource.length);
+	var shopfacilities = [];
+	for(var i=0 ; i<facilitysource.length; i++){
+		var facility = facilitysource.eq(i).find("input").val();
+		shopfacilities.push(facility);
+	}
+	return shopfacilities;
+}
+$("#shopfacility-upload-image").on("click",function(){	
+	$("#shopfacilityupload").click();	
+});
+$("#removeshopfacilityimage").on("click",function(){
+	removeShopFacilityImageFromServer();
+});
+$("#shopfacility-disable-cover").on("click", function(){
+	$("#shopfacilityupload").val(null);
+	$("#loading-wrapper-shopfacility").hide();
+	$("#shopfacility-upload-image").removeClass("loading-box");
+	var txt = '<label class="gray-image-plus">';
+	txt += '  <i class="fa fa-plus"></i>';
+	txt += '</label>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#shopfacility-upload-wrapper').html(txt);	
+});
+$("#shopfacilityupload").change(function(){
+	uploadShopFacility(this);
+});
+
+function uploadShopFacility(input) {
+
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) {
+ 			upoloadShopFacilityToServer();
+		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		    $('#shopfacility-upload-wrapper').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+		$('#shopfacility-upload-wrapper').html(txt);
+	}
+}
+
+function removeShopFacilityImageFromServer(){
+	$("#removeloadingwrapper-shopfacility").show();
+	console.log(shopfacilityicon);
+	$.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
+		type: "POST",
+		data : {
+			"iconname": shopfacilityicon	
+		},
+		success: function(data){
+			
+			shopfacilityicon="";
+			$("#shopfacilityupload").val(null);
+			$("#uploadimageremoveback-shopfacility").hide();
+			$("#removeshopfacilityimagewrapper").hide();
+			var txt = '<label class="gray-image-plus">';
+				txt += '  <i class="fa fa-plus"></i>';
+				txt += '</label>';
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+			$('#shopfacility-upload-wrapper').html(txt);
+			$("#removeloadingwrapper-shopfacility").hide();
+			console.log(servecategory);
+		}
+	});
+}
+function upoloadShopFacilityToServer(){
+	var inputFile = $("#shopfacilityupload");
+	$("#shopfacility-upload-image").addClass("loading-box");
+	$("#loading-wrapper-shopfacility").show();
+	var fileToUpload = inputFile[0].files[0];
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/uploadIconImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+				}else{
+					shopfacilityicon = data.filename;
+					$("#loading-wrapper-shopfacility").hide();
+					$("#shopfacility-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback-shopfacility").show();
+					$("#removeshopfacilityimagewrapper").show();
+					console.log(shopfacilityicon);
+				}
+				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						 //console.log(percentComplete);
+						
+						$("#shopfacilityprogressbar").css({width: percentComplete+"%"});
+					};
+				}, false);
+
+				return xhr;
+			}
+		});
+	} 
+}
+
+function validateShopFacility(){
+	if(!validateNull("shopfacilitynamepopup", 0)){
+		alert("Shop Facility name Invalid");
+		return false;
+	}
+	return true;
+}
+$("#shopfacilitysave").on("click", function(){
+	if(validateShopFacility()){
+		
+		var shopfacilitydata = {
+				"ShopFacilityData" : {
+					"sh_facility_name" : $("#shopfacilitynamepopup").val(),
+					"sh_facility_icon" :  shopfacilityicon,
+					"sh_facility_remark": $("#shopfacilitydescription").val()
+				}
+			};
+			$.ajax({
+				type : "POST",
+				url : "/NhameyWebBackEnd/API/ShopFacilityRestController/insertShopFacility",
+				data : shopfacilitydata,
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_insert == false){
+						alert("Insert error!");
+					}else{
+					
+						console.log($("#shopfacilitynamepopup").textWidth());
+						var txtwidth = $("#shopfacilitynamepopup").textWidth()+55;
+						var checkcls = $("#display-result-shopfacility").siblings("input").val();
+						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
+						 box += "<input type='hidden' value='"+data.sh_facility_id+"' />";
+						 box += "<img class='pull-left icon-after-select' src='../uploadimages/icon/"+shopfacilityicon+"' />";
+						 box += "<p class='text-serve-category-selected'>";
+						 box += "<span>"+$("#shopfacilitynamepopup").val()+"</span>";
+				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
+				 		
+				 		$("#shop-facilities").append(box);
+											 
+				 		$('#shopFacilityModal').modal('hide');
+						clearShopFacilitySaveform();
+						
+					}
+					
+				}
+			});
+	}
+});
+
+$("#shopfacilityclose").on("click",function(){
+	$("#shopfacilitynamepopup").val("");
+	$("#shopfacilitydescription").val("");
+	if(shopfacilityicon != "") 
+		removeShopFacilityImageFromServer();
+});
+function clearShopFacilitySaveform(){
+	$("#shopfacilitynamepopup").val("");
+	$("#shopfacilitydescription").val("");
+	shopfacilityicon ="";
+	$("#shopfacilityupload").val(null);
+	$("#uploadimageremoveback-shopfacility").hide();
+	$("#removeshopfacilityimagewrapper").hide();
+	var txt = '<label class="gray-image-plus">';
+		txt += '  <i class="fa fa-plus"></i>';
+		txt += '</label>';
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#shopfacility-upload-wrapper').html(txt);
+	$("#removeloadingwrapper-shopfacility").hide();
+}
+/*=======================End shop facility event =============================*/
+	
 	</script>
   </body>   
 </html>
