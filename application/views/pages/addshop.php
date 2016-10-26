@@ -145,8 +145,8 @@
 			                			<div class="selected-dropdown" style="position:relative;">
 			                			
 				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="shopfacilityicon"  src="../assets/nhamdis/img/servecategory.png" class="selected_icon"/>
-				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/servecategory.png"/>				 
+				                				<img class="icon-input" id="shopfacilityicon"  src="../assets/nhamdis/img/service.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/service.png"/>				 
 				                			</div>
 				                			
 							                <input style="padding:4px 4px 4px 28px;" id="shopfacilityname" type="text" class="form-control nham-dropdown-inputbox-multi"  placeholder="Search or Select for shop type">
