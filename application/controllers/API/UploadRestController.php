@@ -85,10 +85,12 @@ class UploadRestController extends CI_Controller{
 		{
 			$new_name = "icon_".$this->generateRandomString(20).".jpg";
 			$target_small_dir = "./uploadimages/logo/small/";
+			$target_medium_dir = "./uploadimages/logo/medium/";
 			$target_big_dir = "./uploadimages/logo/big/";
 			
 				
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
+			$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
 			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
 			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
@@ -99,6 +101,7 @@ class UploadRestController extends CI_Controller{
 			$permission = array();
 			array_push($permission ,
 				$checkdirectory_small,
+				$checkdirectory_medium,
 				$checkdirectory_big,
 				$allowfiletype,
 				$allowsize,
@@ -132,10 +135,11 @@ class UploadRestController extends CI_Controller{
 					$big_crop = $img_w;
 				}
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
-				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
+				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
 				
 				$errorupload = false;
-				array_push($isuploadimg, $big, $small);
+				array_push($isuploadimg, $big, $medium, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){
 					if(!$isuploadimg[$i]){
 						$errorupload = true;
@@ -213,10 +217,12 @@ class UploadRestController extends CI_Controller{
 		{
 			$new_name = "cover_".$this->generateRandomString(20).".jpg";
 			$target_small_dir = "./uploadimages/cover/small/";
+			$target_medium_dir = "./uploadimages/cover/medium/";
 			$target_big_dir = "./uploadimages/cover/big/";
 				
 		
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
+			$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
 			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
 			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
@@ -227,6 +233,7 @@ class UploadRestController extends CI_Controller{
 			$permission = array();
 			array_push($permission ,
 				$checkdirectory_small,
+				$checkdirectory_medium,
 				$checkdirectory_big,
 				$allowfiletype,
 				$allowsize,
@@ -252,9 +259,10 @@ class UploadRestController extends CI_Controller{
 				}
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				/* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
-				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 640, 80);
+				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 640, 80);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 320, 80);
 				$errorupload = false;
-				array_push($isuploadimg, $big, $small);
+				array_push($isuploadimg, $big, $medium, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){
 					if(!$isuploadimg[$i]){
 						$errorupload = true;
@@ -340,6 +348,7 @@ class UploadRestController extends CI_Controller{
 		{
 			
 			$target_small_dir = "./uploadimages/shopimages/small/";
+			$target_medium_dir = "./uploadimages/shopimages/medium/";
 			$target_big_dir = "./uploadimages/shopimages/big/";
 	
 			$reportwrapper = array();
@@ -350,15 +359,17 @@ class UploadRestController extends CI_Controller{
 				$report = array();
 				$new_name = "detail_".$this->generateRandomString(20).".jpg";
 				$checkdirectory_small = $this->checkDirectory($target_small_dir);
+				$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 				$checkdirectory_big = $this->checkDirectory($target_big_dir);
 				$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type'][$i]);
 				$allowsize = $this->allowImageSize(5120 , 20000000, $_FILES["file"]["size"][$i]);//20MB
-				$allowmindimension = $this->allowImageMinimumDimension(100, 100, $_FILES["file"]["tmp_name"][$i]);
+				$allowmindimension = $this->allowImageMinimumDimension(200, 200, $_FILES["file"]["tmp_name"][$i]);
 				$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"][$i]);
 				
 				$permission = array();
 				array_push($permission ,
 					$checkdirectory_small,
+					$checkdirectory_medium,
 					$checkdirectory_big,
 					$allowfiletype,
 					$allowsize,
@@ -379,11 +390,38 @@ class UploadRestController extends CI_Controller{
 				} else {
 						
 					$isuploadimg = array();
-					$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.4,50);
-					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.2,50);
+					/* $big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.4,50);
+					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.2,50); */
+					
+					$info = getimagesize($_FILES["file"]["tmp_name"][$i]);
+					list($width, $height) = $info;
+					
+					
+					$my_img_size = 0;
+					$my_img_medium_size = 0;
+					if($width > $height){
+						$my_img_size = $width;
+						$my_img_medium_size = $width;
+					}else{
+						$my_img_size = $height;
+						$my_img_medium_size = $height;
+					}
+					
+					if($my_img_size > 960){
+						$my_img_size = 960;
+					}
+					
+					if($my_img_medium_size > 640){
+						$my_img_medium_size = 640;
+					}
+					
+					
+					$big = $this->resizeImageFixpixel($target_big_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , $my_img_size, 80);
+					$medium = $this->resizeImageFixpixel($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , $my_img_medium_size, 80);
+					$small = $this->resizeImageFixpixel($target_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 200, 80);
 					
 					$errorupload = false;
-					array_push($isuploadimg, $big, $small);
+					array_push($isuploadimg, $big, $medium, $small);
 					for($j=0 ; $j<count($isuploadimg); $j++){
 						if(!$isuploadimg[$j]){
 							$errorupload = true;
@@ -482,15 +520,19 @@ class UploadRestController extends CI_Controller{
 		$removetype = $removedata["image_type"];
 		$imagename = $removedata["imagename"]; 
 		$srcbig = "";
+		$srcmedium = "";
 		$srcsmall = "";
 		if($removetype == "1"){
 			$srcbig = "./uploadimages/logo/big/";
+			$srcmedium = "./uploadimages/logo/medium";
 			$srcsmall = "./uploadimages/logo/small/";
 		}else if($removetype == "2"){
 			$srcbig = "./uploadimages/cover/big/";
+			$srcmedium = "./uploadimages/cover/medium";
 			$srcsmall = "./uploadimages/cover/small/";
 		}else if($removetype == "3"){
 			$srcbig = "./uploadimages/shopimages/big/";
+			$srcmedium = "./uploadimages/shopimages/medium";
 			$srcsmall = "./uploadimages/shopimages/small/";
 		}
 		
@@ -510,6 +552,13 @@ class UploadRestController extends CI_Controller{
 		}else{
 			$report['small_image_message'] ="File not found";
 		}
+		if(file_exists($srcmedium.$imagename)){
+			unlink($srcmedium.$imagename);
+			$report['medium_image_message'] ="File is removed";
+		
+		}else{
+			$report['medium_image_message'] ="File not found";
+		}
 		array_push($data , $report);
 		$json = json_encode($data);
 		echo $json;
@@ -528,6 +577,12 @@ class UploadRestController extends CI_Controller{
 			}
 			if(file_exists("./uploadimages/shopimages/small/".$removedata[$i]["filename"])){
 				unlink("./uploadimages/shopimages/small/".$removedata[$i]["filename"]);
+				$data[$removedata[$i]["filename"]]= "File is removed";
+			}else{
+				$data[$removedata[$i]["filename"]] = 'File not found';
+			}
+			if(file_exists("./uploadimages/shopimages/medium/".$removedata[$i]["filename"])){
+				unlink("./uploadimages/shopimages/medium/".$removedata[$i]["filename"]);
 				$data[$removedata[$i]["filename"]]= "File is removed";
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';
