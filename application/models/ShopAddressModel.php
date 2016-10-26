@@ -3,7 +3,7 @@
 class ShopAddressModel extends CI_Model{
 	
 	public function insertShopAddress($req_data){
-		$this->db->trans_begin();
+		//$this->db->trans_begin();
 		$address_type = $req_data["address_type"];
 		$data_name = $req_data["data_name"];
 		$parent_id = $req_data["parent_id"];
@@ -46,7 +46,7 @@ class ShopAddressModel extends CI_Model{
 	}
 	
 	public function deleteShopAddress($req_data){
-		$this->db->trans_begin();
+		//$this->db->trans_begin();
 		$address_type = $req_data["address_type"];
 		$id = $req_data["id"];
 	
@@ -76,7 +76,7 @@ class ShopAddressModel extends CI_Model{
 	}
 		
 	public function updateShopAddress($req_data){
-		$this->db->trans_begin();
+		//$this->db->trans_begin();
 		$id = $req_data["id"];
 		$address_type = $req_data["address_type"];
 		$data_name = $req_data["data_name"];
