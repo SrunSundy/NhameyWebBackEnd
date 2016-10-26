@@ -72,7 +72,8 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize)
 /*=================== end google map code ===================*/									
  
-	
+
+
 
 $(document).ready(function(){
 	
@@ -101,11 +102,12 @@ loadCountryData();
 function loadCountryData(){
 	$.ajax({
 		type : "GET",
-		url  : "/NhameyWebBackEnd/API/CountryRestController/getCountryCombo",
+		url  : $("#base_url").val()+"API/CountryRestController/getCountryCombo",
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
 			$("#nham_country").children().remove();
+			
 			if(data.length > 0){				
 				var country = '';
 				for(var i=0 ; i< data.length; i++){
@@ -116,6 +118,8 @@ function loadCountryData(){
 					}					
 				}
 				$("#nham_country").append(country);		
+			//	$("#nham_country").select2("val", 1);
+				$("#select2-nham_country-container").html($("#nham_country option:selected").text());
 			}		
 			loadCityData($("#nham_country option:selected").val());
 		}		
@@ -128,15 +132,15 @@ $("#nham_country").on("change", function(){
 
 function loadCityData( countryid ){
 	
-	$("#nham_city").children().remove();
-	$("#nham_city").select2("val", "");
 	$.ajax({
 		type : "GET",
-		url  : "/NhameyWebBackEnd/API/CityRestController/getCityCombo/"+countryid,
+		url  : $("#base_url").val()+"API/CityRestController/getCityCombo/"+countryid,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
-						
+			$("#nham_city").children().remove();
+			//$("#nham_city").select2("val", "");
+			$("#select2-nham_city-container").html("");
 			if(data.length > 0){
 							
 				var city = '';
@@ -147,7 +151,9 @@ function loadCityData( countryid ){
 						city +='<option value="'+data[i].city_id+'">'+data[i].city_name+'</option>';
 					}						
 				}
-				$("#nham_city").append(city);					
+				$("#nham_city").append(city);
+				$("#select2-nham_city-container").html($("#nham_city option:selected").text());
+				//$("#nham_city").select2("val", 1);
 			}	
 			loadDistrictData( $("#nham_city option:selected").val() );
 		}		
@@ -160,14 +166,16 @@ $("#nham_city").on("change", function(){
 
 function loadDistrictData( cityid ){
 	
-	$("#nham_district").children().remove();
-	$("#nham_district").select2("val", "");
 	$.ajax({
 		type : "GET",
-		url  : "/NhameyWebBackEnd/API/DistrictRestController/getDistrictCombo/"+cityid,
+		url  : $("#base_url").val()+"API/DistrictRestController/getDistrictCombo/"+cityid,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
+			$("#nham_district").children().remove();
+			//$("#nham_district").select2("val", "");"
+			$("#select2-nham_district-container").html("");
+			
 			if(data.length > 0){
 					
 				var district = '';
@@ -179,8 +187,11 @@ function loadDistrictData( cityid ){
 					}						
 				}
 				$("#nham_district").append(district);
-				loadCommuneData( $("#nham_district option:selected").val());
-			}			
+				$("#select2-nham_district-container").html($("#nham_district option:selected").text());
+			//	$("#nham_district").select2("val", 1);
+				
+			}
+			loadCommuneData( $("#nham_district option:selected").val());
 		}		
 	});			
 }
@@ -190,16 +201,17 @@ $("#nham_district").on("change", function(){
 });
 
 function loadCommuneData( districtid ){
-	
-	$("#nham_commune").children().remove();
-	$("#nham_commune").select2("val", "");
+		
 	 $.ajax({
 		type : "GET",
-		url  : "/NhameyWebBackEnd/API/CommuneRestController/getCommuneCombo/"+districtid,
+		url  : $("#base_url").val()+"API/CommuneRestController/getCommuneCombo/"+districtid,
 		success : function(data){
 			data = JSON.parse(data);
 			console.log(data);
-			
+		
+			$("#nham_commune").children().remove();
+			$("#select2-nham_commune-container").html("");
+			//$("#nham_commune").select2("val", "");
 			if(data.length > 0){
 				
 				var commune = '';
@@ -211,6 +223,8 @@ function loadCommuneData( districtid ){
 					}						
 				}
 				$("#nham_commune").append(commune);
+				$("#select2-nham_commune-container").html($("#nham_commune option:selected").text());
+				//$("#nham_commune").select2("val", 1);
 			}				
 		}		
 	});
@@ -292,7 +306,7 @@ function countWorkingday(){
 /*================= end working day section =================*/
 
 /*================= facility section =================*/
-
+/*
 $("#allfacilities").on("change", function(){
 	if($(this).is(":checked")){		
 		$(".shop-facility").prop('checked', true);
@@ -319,7 +333,7 @@ function isCheckFacility( radioid ){
 		check = 1;
 	}
 	return check;
-}
+}*/
 /*================= end facility section ===================*/
 
  	   
@@ -623,7 +637,7 @@ $("#logo-save-btn").on("click", function(){
 	$("#logo-upload-remove-fake").show();
 	$("#logo-upload-remove").show();
 	var myimg  ='<img  class="upload-shop-img"'; 
-		myimg +='src="/NhameyWebBackEnd/uploadimages/logo/small/'+logoimagename+'" alt="your image" />';
+		myimg +='src="/NhameyWebBackEnd/uploadimages/logo/medium/'+logoimagename+'" alt="your image" />';
     $('#logo-display-wrapper').html(myimg);
     var txt  = '<div class="photo-upload-info-2" >';
 		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
@@ -711,7 +725,7 @@ function getCropLogoImgData(){
 function removeLogoImageFromServer(){
 
 	return $.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
 			"removeimagedata":{
@@ -736,7 +750,7 @@ function upoloadLogoToServer(){
 		formData.append("json", JSON.stringify(getCropLogoImgData()));
 		
 		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
+			url: $("#base_url").val()+"API/UploadRestController/shopLogoUploadImage",
 			type: "POST",
 			data : formData,
 			processData : false,
@@ -846,7 +860,7 @@ $("#cover-save-btn").on("click", function(){
 	$("#cover-upload-remove-fake").show();
 	$("#cover-upload-remove").show();
 	var myimg  ='<img  class="upload-shop-img"'; 
-		myimg +='src="/NhameyWebBackEnd/uploadimages/cover/small/'+coverimagename+'" alt="your image" />';
+		myimg +='src="/NhameyWebBackEnd/uploadimages/cover/medium/'+coverimagename+'" alt="your image" />';
     $('#cover-display-wrapper').html(myimg);
     var txt  = '<div class="photo-upload-info-2" >';
 		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
@@ -935,7 +949,7 @@ function getCropImgData(){
 function removeCoverImageFromServer(){
 
 	return $.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
 			"removeimagedata":{
@@ -960,7 +974,7 @@ function upoloadCoverToServer(){
 		formData.append("json", JSON.stringify(getCropImgData()));
 		
 		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopCoverUploadImage",
+			url: $("#base_url").val()+"API/UploadRestController/shopCoverUploadImage",
 			type: "POST",
 			data : formData,
 			processData : false,
@@ -1057,7 +1071,7 @@ $(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove",
 
 function removeShopImageDetailFromServerMulti(imagestoremove){
 	return $.ajax({
-		url  : "/NhameyWebBackEnd/API/UploadRestController/removeShopMultipleImage",
+		url  : $("#base_url").val()+"API/UploadRestController/removeShopMultipleImage",
 		type : "POST",
 		data : {
 			"removeimagedata": imagestoremove		
@@ -1067,7 +1081,7 @@ function removeShopImageDetailFromServerMulti(imagestoremove){
 
 function removeShopImageDetailFromServer(imagetoremove){
 	return $.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
 			"removeimagedata":{
@@ -1090,7 +1104,7 @@ function uploadShopImageDetailToServer(){
 			formData.append("file[]", file, file.name);				
 		}
 		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopImageDetailUpload",
+			url: $("#base_url").val()+"API/UploadRestController/shopImageDetailUpload",
 			type: 'POST',
 			data: formData,
 			processData: false,
@@ -1337,11 +1351,11 @@ function getDataToInsert(){
 				"shop_working_day": countWorkingday().toString().replace(/[,]/g,"|").trim(),
 				"shop_opening_time": $("#shopopentime").val(),
 				"shop_close_time": $("#shopclosetime").val(),
-				"shop_has_wifi" : isCheckFacility("wifi"),
+				/*"shop_has_wifi" : isCheckFacility("wifi"),
 				"shop_has_aircon" : isCheckFacility("aircon"),
 				"shop_has_reservation" : isCheckFacility("reserve"),
 				"shop_has_bikepark" : isCheckFacility("parking"),								
-				"shop_has_tax": isCheckFacility("taxinvoice"),
+				"shop_has_tax": isCheckFacility("taxinvoice"),*/
 				"shop_map_address": {
 					"lat" : $("#lat-location").val(),
 					"lng" : $("#lng-location").val()
@@ -1355,6 +1369,7 @@ function getDataToInsert(){
 				"shop_remark": $("#shopremark").val(),
 			},
 			"serve_categories" : getServeCategories(),
+			"shop_facilities" : getShopFacilities(),
 			"shop_image_detail": getImageNameAndDetail()
 						
 		}	
@@ -1362,22 +1377,26 @@ function getDataToInsert(){
 	return shopdata;
 }
 
+
 $("#saveshop").on("click",function(){
 	 console.log(getDataToInsert());
+	 
 	 if(!inputValidation()){
+		 progressbar.start();
 		 $.ajax({
 			 type: "POST",
-			 url: "/NhameyWebBackEnd/API/ShopRestController/insertShop", 
+			 url: $("#base_url").val()+"API/ShopRestController/insertShop", 
 			 data: getDataToInsert(),
 			 success: function(data){
 				 data = JSON.parse(data);
-				 console.log(data);   
+				 console.log(data);  
+				 progressbar.stop();
 				 if(data.is_insert){
-					 alert(data.message);
+					// alert(data.message);
 				 }else{
-					 alert(data.message);
+					// alert(data.message);
 				 }
-				 
+				
 	     	 }
 	     });  
 	 }
@@ -1399,7 +1418,7 @@ $("#branchname").on("focus keyup",function(){
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/BranchRestController/getBranchByNameCombo", 
+		 url: $("#base_url").val()+"API/BranchRestController/getBranchByNameCombo", 
 		 data : {			 
 			"srchname" : srchbranchname,
 			"limit" : 10		 	
@@ -1440,7 +1459,7 @@ $("#yesbranch").on("mousedown",function(){
 	};
 	$.ajax({
 		type : "POST",
-		url : "/NhameyWebBackEnd/API/BranchRestController/insertBranch",
+		url : $("#base_url").val()+"API/BranchRestController/insertBranch",
 		data : branchdata,
 		success : function(data){
 			 data = JSON.parse(data);
@@ -1510,7 +1529,7 @@ $("#servecategoryname").on("focus keyup",function(){
 	$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ServeCategoryRestController/getServeCategoryByNameCombo", 
+		 url: $("#base_url").val()+"API/ServeCategoryRestController/getServeCategoryByNameCombo", 
 		 data : {
 			"srchname" : srchname,
 			"limit" : 10
