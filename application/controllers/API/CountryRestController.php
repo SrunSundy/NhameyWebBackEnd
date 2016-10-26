@@ -20,6 +20,13 @@ class CountryRestController extends CI_Controller{
 		echo $json;
 		
 	}
+	
+	public function insertCountry(){
+		$reqdata = $this->input->post('reqdata');
+		$data = $this->CountryModel->insertCountry( $reqdata['country_name'] );
+		$json = json_encode($data);
+		echo $json;
+	}
 }
 
 ?>
