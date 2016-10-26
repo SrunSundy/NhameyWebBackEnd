@@ -2,7 +2,7 @@
 	class UserModel extends  CI_Model{
 		
 		function insertUser($req_data){
-			$this->db->trans_begin();
+			//$this->db->trans_begin();
 			$name = $req_data["name"];
 			$type = $req_data["type"];
 			$email = $req_data["email"];
@@ -49,7 +49,7 @@
 		}
 		
 		public function deleteUserAdmin($req_data){
-			$this->db->trans_begin();
+			//$this->db->trans_begin();
 			$id = $req_data["id"];
 		
 			$response = array();
@@ -76,7 +76,7 @@
 		}
 		
 		public function updateUserAdmin($req_data){
-			$this->db->trans_begin();
+			//$this->db->trans_begin();
 			$id = $req_data["id"];
 			$name = $req_data["name"];
 			$status = $req_data["status"];
