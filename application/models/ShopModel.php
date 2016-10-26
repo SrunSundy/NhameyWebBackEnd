@@ -40,22 +40,17 @@ class ShopModel extends CI_Model{
 			
 			$shopmapadd = json_encode($datashop["shop_map_address"]);
 			$shopmedia = json_encode($datashop["shop_social_media"]);
-			/* $cuisineid = "";
-			if(!$this->IsNullOrEmptyString($datashop["cuisine_id"])){
-				$cuisineid = (int)$datashop["cuisine_id"];
-			} */
-				
-			/* $shopsql = "INSERT INTO nham_shop(branch_id, category_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
-		      shop_logo, shop_cover, cuisine_id, serve_category_id, shop_serve_type, shop_short_description, shop_description,
-		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, shop_has_wifi,
-		      shop_has_aircon, shop_has_reservation, shop_has_bikepark, shop_has_tax, shop_map_address, shop_social_media,
-		      shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-			 */
-			$shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
+			
+			/* $shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
 		      shop_logo, shop_cover, shop_serve_type, shop_short_description, shop_description,
 		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, shop_has_wifi,
 		      shop_has_aircon, shop_has_reservation, shop_has_bikepark, shop_has_tax, shop_map_address, shop_social_media,
-		      shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		      shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "; */
+			
+			$shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
+		      shop_logo, shop_cover, shop_serve_type, shop_short_description, shop_description,
+		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, 
+		      shop_map_address, shop_social_media,shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 			$shopparams = array( (int)$datashop["branch_id"], 1, (int)$datashop["country_id"],
 					(int)$datashop["city_id"], (int)$datashop["district_id"], (int)$datashop["commune_id"],
@@ -63,9 +58,7 @@ class ShopModel extends CI_Model{
 					$datashop["shop_cover"], $datashop["shop_serve_type"], $datashop["shop_short_description"],
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
-					$datashop["shop_close_time"], $datashop["shop_has_wifi"], $datashop["shop_has_aircon"], 
-					$datashop["shop_has_reservation"], $datashop["shop_has_bikepark"], $datashop["shop_has_tax"], 
-					$shopmapadd, $shopmedia, $datashop["shop_remark"], 1);
+					$datashop["shop_close_time"], $shopmapadd, $shopmedia, $datashop["shop_remark"], 1);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();
@@ -84,6 +77,16 @@ class ShopModel extends CI_Model{
 				array_push($servecategories , $cateitem);
 			}
 			$this->db->insert_batch('nham_serve_cate_map_shop', $servecategories);
+			
+			$shopfacilities = array();
+			$shopdata["shop_facilities"] = array_unique($shopdata["shop_facilities"]);
+			for($i=0; $i< count($shopdata["shop_facilities"]); $i++){
+				
+				$facilityitem["sh_facility_id"] = $shopdata["shop_facilities"][$i];
+				$facilityitem["shop_id"] = $insert_shop_id;
+				array_push($shopfacilities , $facilityitem);				
+			}
+			$this->db->insert_batch('nham_shop_facility_map', $shopfacilities);
 			
 			$shopimg = array();
 			$display_img_order = 1;
