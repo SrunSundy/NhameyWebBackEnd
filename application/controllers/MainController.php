@@ -35,6 +35,10 @@
 			$this->load->view('pages/addshop');
 		}
 		
+		public function listshop(){
+			$this->load->view('pages/listshop');
+		}
+		
 		public function userinfo(){				
 			$this->load->view('pages/userinformation');
 		}
