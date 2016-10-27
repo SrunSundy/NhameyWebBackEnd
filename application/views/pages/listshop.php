@@ -61,6 +61,18 @@
   	th{
   		color: #757575;
   	}
+  	
+  	span.shop-open-time{
+  		color: #9E9E9E;
+  		padding-left: 8px;
+  		font-style: italic;
+  	}
+  	
+  	i.active-shop{
+  		
+  		font-size: 10px;
+  		padding-right: 5px;
+  	}
   </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -175,7 +187,7 @@
                   						 <div class="col-lg-6">
                   						 	<div class="row">
                   						 		<div class="input-group ">
-							                       <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+							                       <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search shop name, address...">
 							                       <div class="input-group-btn">
 							                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
 							                       </div>
@@ -221,21 +233,21 @@
                 <div class="box-body table-responsive no-padding" style="margin-top:-10px;" >
                   <table class="table table-hover" >
                     <tr>
-                      <th>Logo</th>
-                      <th>Name</th>
-                      <th>serve_type</th>
-                      <th>created_date</th>
-                      <th>address</th>
-                      <th>view</th>
-                      <th>status</th>
-                      <th>remark</th>
-                      <th>creator</th>
-                      <th>photo</th>
-                      <th>action</th>
+                      <th style="width:7%">Logo</th>
+                      <th style="width:15%">Name</th>
+                      <th style="width:5%">serve_type</th>
+                      <th style="width:10%">created_date</th>
+                      <th style="width:15%">address</th>
+                      <th style="width:5%">view</th>
+                      <th style="width:5%">status</th>
+                      <th style="width:13%">remark</th>
+                      <th style="width:10%">creator</th>
+                      <th style="width:5%">photo</th>
+                      <th style="width:10%">action</th>
                     </tr>
                     <tr>
                       <td>183</td>
-                      <td>John Doe</td>
+                      <td><i class="fa fa-circle active-shop" style="color:#4CAF50;" aria-hidden="true"></i>John Doe (Jobora tomani)<span class="shop-open-time">[opening : 9:00 - 21:00 ]</span></td>
                       <td>11-7-2014</td>
                       <td><span class="label label-success">Approved</span></td>
                       <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
