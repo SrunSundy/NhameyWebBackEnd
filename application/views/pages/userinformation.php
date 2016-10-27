@@ -110,18 +110,15 @@
    
     <?php include 'imports/scriptimport.php'; ?>
     <script>
-    updateShopField("Pizza Company","shop_name_en");
-    updateShopField("Pizza Company","shop_name_kh");
-	
-	function updateShopField(value , param){
+  
+    updateShopField();
+	function updateShopField(){
 		$.ajax({
 			type : "POST",
-			url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
+			url : "/NhameyWebBackEnd/API/CountryRestController/insertCountry",
 			data : {
-				"shopdata" : {
-					"updated_value" : value,
-					"shop_id" : $("#shop_id").val(),
-					"param" : param
+				"reqdata" : {
+					"country_name" : "Thailand"
 				}
 			},
 			success : function(data){
