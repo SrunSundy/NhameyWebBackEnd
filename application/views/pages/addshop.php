@@ -11,6 +11,20 @@
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-validation.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-openmodal.css" />
  	
+  <style>
+  	.swal-style{
+  		border-radius: 0;
+  		
+  	}
+  	h4.pop-title{
+  		font-weight: bold;
+  		color: #9E9E9E;
+  		font-size: 20px;
+  	}
+  	h4.pop-title i{
+  		margin-right:7px;
+  	}
+  </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini" >
   
@@ -96,8 +110,8 @@
 			                			<div class="selected-dropdown" id="servecategory_selected_dropdown" style="position:relative;">
 			                			
 				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="servecategoryicon"  src="../assets/nhamdis/img/servecategory.png" class="selected_icon"/>
-				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/servecategory.png"/>				 
+				                				<img class="icon-input" id="servecategoryicon"  src="<?php echo base_url() ?>assets/nhamdis/img/servecategory.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="<?php echo base_url() ?>assets/nhamdis/img/servecategory.png"/>				 
 				                			</div>
 				                			
 							                <input style="padding:4px 4px 4px 28px;" id="servecategoryname" type="text" class="form-control nham-dropdown-inputbox-multi"  placeholder="Search or Select for shop type">
@@ -145,8 +159,8 @@
 			                			<div class="selected-dropdown" style="position:relative;">
 			                			
 				                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
-				                				<img class="icon-input" id="shopfacilityicon"  src="../assets/nhamdis/img/service.png" class="selected_icon"/>
-				                				<input type="hidden" class="default_img_src" value="../assets/nhamdis/img/service.png"/>				 
+				                				<img class="icon-input" id="shopfacilityicon"  src="<?php echo base_url() ?>assets/nhamdis/img/service.png" class="selected_icon"/>
+				                				<input type="hidden" class="default_img_src" value="<?php echo base_url() ?>assets/nhamdis/img/service.png"/>				 
 				                			</div>
 				                			
 							                <input style="padding:4px 4px 4px 28px;" id="shopfacilityname" type="text" class="form-control nham-dropdown-inputbox-multi"  placeholder="Search or Select for shop type">
@@ -651,9 +665,9 @@
       </footer>
 
       <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
+      <!--<aside class="control-sidebar control-sidebar-dark">
         	<?php include 'elements/settingnavbar.php';?>
-      </aside>
+      </aside>-->
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
@@ -665,13 +679,21 @@
          <div class="modal-content">
              <div class="modal-header">
                 <button type="button" id="servecategoryclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="fa fa-home" aria-hidden="true"></i>  Serve Category</h4>
+                <h4 class="modal-title pop-title"><i class="fa fa-cutlery" aria-hidden="true"></i>  Serve Category</h4>
              </div>
              <div class="modal-body">
                 <div class="form-group">
 			        <label>Serve Category's Name</label>
 			        <input type="text" id="servecategorynamepopup" class="form-control" placeholder="enter serve category name">			                      
 		       </div>
+		       
+		       <div class="form-group">
+			        <label>Serve Category's Type</label>
+			        <select class="form-control " style="width: 100%;" id="serve-category-type">
+			        	<option selected="selected" value="0">Nation</option>
+			            <option value="1">Others</option>
+			        </select>
+			   </div><!-- /.form-group -->
 		       
 		        <div class="form-group">
 			        <label>Description</label>
@@ -712,7 +734,7 @@
              </div>
              <div class="modal-footer">
                  <button type="button" id="belowcloseservecategory" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
-               	<button type="button" id="servecategoryesave" class="btn nham-btn btn-danger">Save changes</button>
+               	<button type="button" id="servecategoryesave" class="btn nham-btn btn-danger">Save</button>
              </div>
          </div><!-- /.modal-content -->
      </div><!-- /.modal-dialog -->
@@ -725,11 +747,11 @@
          <div class="modal-content">
              <div class="modal-header">
                 <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><i class="fa fa-home" aria-hidden="true"></i>  Serve Category</h4>
+                <h4 class="modal-title pop-title"><i class="fa fa-th-large" aria-hidden="true"></i>  Shop Facility</h4>
              </div>
              <div class="modal-body">
                 <div class="form-group">
-			        <label>Serve Category's Name</label>
+			        <label>Shop facility's Name</label>
 			        <input type="text" id="shopfacilitynamepopup" class="form-control" placeholder="enter shop facility name">			                      
 		       </div>
 		       
@@ -951,467 +973,7 @@
 	    })();
 	</script>
     <script src="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.js"></script>
-	<script src="../assets/nhamdis/jscontroller/addshop.js"></script>
-	<script>
+	<script src="<?php echo base_url() ?>assets/nhamdis/jscontroller/addshop.js"></script>
 
-
-/*======================= serve category event =============================*/
-function getServeCategories(){
-
-	var catesource = $("#serve-categories").find(".selected-category-box");
-	console.log(catesource.length);
-	var servecategories = [];
-	for(var i=0 ; i<catesource.length; i++){
-		var cateval = catesource.eq(i).find("input").val();
-		servecategories.push(cateval);
-	}
-	return servecategories;
-}
-$("#servecategory-upload-image").on("click",function(){	
-	$("#servecategoryupload").click();	
-});
-$("#removeservecategoryimage").on("click",function(){
-	removeServeCategoryImageFromServer();
-});
-$("#servecategory-disable-cover").on("click", function(){
-	$("#servecategoryupload").val(null);
-	$("#loading-wrapper-servecategory").hide();
-	$("#servecategory-upload-image").removeClass("loading-box");
-	var txt = '<label class="gray-image-plus">';
-	txt += '  <i class="fa fa-plus"></i>';
-	txt += '</label>';
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-	$('#servecategory-upload-wrapper').html(txt);	
-});
-$("#servecategoryupload").change(function(){
-	uploadServeCategory(this);
-});
-
-function uploadServeCategory(input) {
-
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
- 		reader.onload = function (e) {
- 			upoloadServeCategoryToServer();
-		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		    $('#servecategory-upload-wrapper').html(myimg);
-		}
-		reader.readAsDataURL(input.files[0]);
-	}else{
-		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
-		$('#servecategory-upload-wrapper').html(txt);
-	}
-}
-
-function removeServeCategoryImageFromServer(){
-	$("#removeloadingwrapper-servecategory").show();
-	console.log(servecategory);
-	$.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
-		type: "POST",
-		data : {
-			"iconname": servecategory	
-		},
-		success: function(data){
-			
-			servecategory="";
-			$("#servecategoryupload").val(null);
-			$("#uploadimageremoveback-servecategory").hide();
-			$("#removeservecategoryimagewrapper").hide();
-			var txt = '<label class="gray-image-plus">';
-				txt += '  <i class="fa fa-plus"></i>';
-				txt += '</label>';
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-			$('#servecategory-upload-wrapper').html(txt);
-			$("#removeloadingwrapper-servecategory").hide();
-			console.log(servecategory);
-		}
-	});
-}
-function upoloadServeCategoryToServer(){
-	var inputFile = $("#servecategoryupload");
-	$("#servecategory-upload-image").addClass("loading-box");
-	$("#loading-wrapper-servecategory").show();
-	var fileToUpload = inputFile[0].files[0];
-	console.log(fileToUpload);
-	if(fileToUpload != 'undefined'){
-
-		var formData = new FormData();
-		formData.append("file",  fileToUpload);
-		
-		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/uploadIconImage",
-			type: "POST",
-			data : formData,
-			processData : false,
-			contentType : false,
-			success: function(data){
-				data = JSON.parse(data);
-				console.log(data);
-				if(data.is_upload == false){
-					alert("error uploading!");
-					alert(data.message);
-				}else{
-					servecategory = data.filename;
-					$("#loading-wrapper-servecategory").hide();
-					$("#servecategory-upload-image").removeClass("loading-box");
-					$("#uploadimageremoveback-servecategory").show();
-					$("#removeservecategoryimagewrapper").show();
-					console.log(servecategory);
-				}
-				
-			},
-			xhr: function() {
-				var xhr = new XMLHttpRequest();
-				xhr.upload.addEventListener("progress", function(event) {
-					if (event.lengthComputable) {
-						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						 //console.log(percentComplete);
-						
-						$("#servecategoryprogressbar").css({width: percentComplete+"%"});
-					};
-				}, false);
-
-				return xhr;
-			}
-		});
-	} 
-}
-
-function validateServeCategory(){
-	if(!validateNull("servecategorynamepopup", 0)){
-		alert("Serve-Category name Invalid");
-		return false;
-	}
-	return true;
-}
-$("#servecategoryesave").on("click", function(){
-	if(validateServeCategory()){
-		
-		var servecategorydata = {
-				"ServeCategoryData" : {
-					"serve_category_name" : $("#servecategorynamepopup").val(),
-					"serve_category_icon" :  servecategory,
-					"serve_category_remark": $("#servecategorydescription").val()
-				}
-			};
-			$.ajax({
-				type : "POST",
-				url : "/NhameyWebBackEnd/API/ServeCategoryRestController/insertServeCategory",
-				data : servecategorydata,
-				success : function(data){
-					data = JSON.parse(data);
-					console.log(data);
-					if(data.is_insert == false){
-						alert("Insert error!");
-					}else{
-						//alert(data);
-						//$("#selectedservecategory").val(data.serve_category_id);
-						/* $("#servecategoryname").val(); */
-/* 
-						$("img#servecategoryicon").attr("src","../uploadimages/icon/"+servecategory);						  
-						$("#servecategoryname").attr('disabled','disabled');
-						$("#servecategory_selected_dropdown").find(".font-icon-cross").remove();
-						$("#servecategory_selected_dropdown").append("<i class='fa fa-times font-icon-cross'  aria-hidden='true'></i>");	 */
-						
-						console.log($("#servecategorynamepopup").textWidth());
-						var txtwidth = $("#servecategorynamepopup").textWidth()+55;
-						var checkcls = $("#display-result-servecategory").siblings("input").val();
-						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
-						 box += "<input type='hidden' value='"+data.serve_category_id+"' />";
-						 box += "<img class='pull-left icon-after-select' src='../uploadimages/icon/"+servecategory+"' />";
-						 box += "<p class='text-serve-category-selected'>";
-						 box += "<span>"+$("#servecategorynamepopup").val()+"</span>";
-				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
-				 		
-				 		$("#serve-categories").append(box);
-											 
-				 		$('#serveCategoryModal').modal('hide');
-						clearServeCategorySaveform();
-						
-					}
-					
-				}
-			});
-	}
-});
-
-$("#servecategoryclose").on("click",function(){
-	$("#servecategorynamepopup").val("");
-	$("#servecategorydescription").val("");
-	if(servecategory != "") 
-		removeServeCategoryImageFromServer();
-});
-function clearServeCategorySaveform(){
-	$("#servecategorynamepopup").val("");
-	$("#servecategorydescription").val("");
-	servecategory="";
-	$("#servecategoryupload").val(null);
-	$("#uploadimageremoveback-servecategory").hide();
-	$("#removeservecategoryimagewrapper").hide();
-	var txt = '<label class="gray-image-plus">';
-		txt += '  <i class="fa fa-plus"></i>';
-		txt += '</label>';
-		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
-		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-	$('#servecategory-upload-wrapper').html(txt);
-	$("#removeloadingwrapper-servecategory").hide();
-}
-/*======================= End serve category event =============================*/
- 
- /*======================= Shop facility event =============================*/
- 
- var shopfacilityicon="";
- $("#shopfacilityname").on("focus keyup",function(){
-	var srchname = $(this).val();
-	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
-	$("#display-result-shopfacility").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
-	$.ajax({
-		 type: "GET",
-		 url: $("#base_url").val()+"API/ShopFacilityRestController/getShopFacilityByNameCombo", 
-		 data : {
-			"srchname" : srchname,
-			"limit" : 10
-		 },
-		 success: function(data){
-			 data = JSON.parse(data);
-			console.log(data);
-			 var dis = '';
-			if(data.length <= 0){
-				$("#text-search-shopfacility-dis1").html(cutString(srchname , 35));
-				$("#text-search-shopfacility-dis2").html(cutString(srchname , 20));
-				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
-				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
-				dis +="  <span class='no-data-text'>No Record Found!</span>";
-				dis +="</div>";
-				$("#display-searching-text_shopfacility").show();
-				$("#nham-dropdown-footer-shopfacility").show();
-			}else{	
-				$("#display-searching-text_shopfacility").hide();
-				$("#nham-dropdown-footer-shopfacility").hide();		
-				 for(var i=0 ; i<data.length ; i++){			
-					
-					 dis += '<div  class="nham-dropdown-multi-result">';
-					 dis += ' <input type="hidden" value="'+data[i].sh_facility_id+'" />';
-					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].sh_facility_icon+'"/>';
-					 dis += ' <p><span class="title">'+data[i].sh_facility_name+'</span></p></div>';
-					 
-				 }			
-				 dis+="<div style='clear:both'></div>";
-				
-			}
-			$("#display-result-shopfacility").html(dis); 					 
-   	 	 }
-   });
-});
-$("#yesshopfacility").on("mousedown",function(){
-
-	$("#shopfacilitybtnpop").click();
-	$("#shopfacilitynamepopup").val($("#shopfacilityname").val());
-	
-});
-
-
-
-function getShopFacilities(){
-
-	var facilitysource = $("#shop-facilities").find(".selected-category-box");
-	console.log(facilitysource.length);
-	var shopfacilities = [];
-	for(var i=0 ; i<facilitysource.length; i++){
-		var facility = facilitysource.eq(i).find("input").val();
-		shopfacilities.push(facility);
-	}
-	return shopfacilities;
-}
-$("#shopfacility-upload-image").on("click",function(){	
-	$("#shopfacilityupload").click();	
-});
-$("#removeshopfacilityimage").on("click",function(){
-	removeShopFacilityImageFromServer();
-});
-$("#shopfacility-disable-cover").on("click", function(){
-	$("#shopfacilityupload").val(null);
-	$("#loading-wrapper-shopfacility").hide();
-	$("#shopfacility-upload-image").removeClass("loading-box");
-	var txt = '<label class="gray-image-plus">';
-	txt += '  <i class="fa fa-plus"></i>';
-	txt += '</label>';
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-	$('#shopfacility-upload-wrapper').html(txt);	
-});
-$("#shopfacilityupload").change(function(){
-	uploadShopFacility(this);
-});
-
-function uploadShopFacility(input) {
-
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
- 		reader.onload = function (e) {
- 			upoloadShopFacilityToServer();
-		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		    $('#shopfacility-upload-wrapper').html(myimg);
-		}
-		reader.readAsDataURL(input.files[0]);
-	}else{
-		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
-		$('#shopfacility-upload-wrapper').html(txt);
-	}
-}
-
-function removeShopFacilityImageFromServer(){
-	$("#removeloadingwrapper-shopfacility").show();
-	console.log(shopfacilityicon);
-	$.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
-		type: "POST",
-		data : {
-			"iconname": shopfacilityicon	
-		},
-		success: function(data){
-			
-			shopfacilityicon="";
-			$("#shopfacilityupload").val(null);
-			$("#uploadimageremoveback-shopfacility").hide();
-			$("#removeshopfacilityimagewrapper").hide();
-			var txt = '<label class="gray-image-plus">';
-				txt += '  <i class="fa fa-plus"></i>';
-				txt += '</label>';
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-			$('#shopfacility-upload-wrapper').html(txt);
-			$("#removeloadingwrapper-shopfacility").hide();
-			console.log(servecategory);
-		}
-	});
-}
-function upoloadShopFacilityToServer(){
-	var inputFile = $("#shopfacilityupload");
-	$("#shopfacility-upload-image").addClass("loading-box");
-	$("#loading-wrapper-shopfacility").show();
-	var fileToUpload = inputFile[0].files[0];
-	console.log(fileToUpload);
-	if(fileToUpload != 'undefined'){
-
-		var formData = new FormData();
-		formData.append("file",  fileToUpload);
-		
-		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/uploadIconImage",
-			type: "POST",
-			data : formData,
-			processData : false,
-			contentType : false,
-			success: function(data){
-				data = JSON.parse(data);
-				console.log(data);
-				if(data.is_upload == false){
-					alert("error uploading!");
-					alert(data.message);
-				}else{
-					shopfacilityicon = data.filename;
-					$("#loading-wrapper-shopfacility").hide();
-					$("#shopfacility-upload-image").removeClass("loading-box");
-					$("#uploadimageremoveback-shopfacility").show();
-					$("#removeshopfacilityimagewrapper").show();
-					console.log(shopfacilityicon);
-				}
-				
-			},
-			xhr: function() {
-				var xhr = new XMLHttpRequest();
-				xhr.upload.addEventListener("progress", function(event) {
-					if (event.lengthComputable) {
-						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						 //console.log(percentComplete);
-						
-						$("#shopfacilityprogressbar").css({width: percentComplete+"%"});
-					};
-				}, false);
-
-				return xhr;
-			}
-		});
-	} 
-}
-
-function validateShopFacility(){
-	if(!validateNull("shopfacilitynamepopup", 0)){
-		alert("Shop Facility name Invalid");
-		return false;
-	}
-	return true;
-}
-$("#shopfacilitysave").on("click", function(){
-	if(validateShopFacility()){
-		
-		var shopfacilitydata = {
-				"ShopFacilityData" : {
-					"sh_facility_name" : $("#shopfacilitynamepopup").val(),
-					"sh_facility_icon" :  shopfacilityicon,
-					"sh_facility_remark": $("#shopfacilitydescription").val()
-				}
-			};
-			$.ajax({
-				type : "POST",
-				url : "/NhameyWebBackEnd/API/ShopFacilityRestController/insertShopFacility",
-				data : shopfacilitydata,
-				success : function(data){
-					data = JSON.parse(data);
-					console.log(data);
-					if(data.is_insert == false){
-						alert("Insert error!");
-					}else{
-					
-						console.log($("#shopfacilitynamepopup").textWidth());
-						var txtwidth = $("#shopfacilitynamepopup").textWidth()+55;
-						var checkcls = $("#display-result-shopfacility").siblings("input").val();
-						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
-						 box += "<input type='hidden' value='"+data.sh_facility_id+"' />";
-						 box += "<img class='pull-left icon-after-select' src='../uploadimages/icon/"+shopfacilityicon+"' />";
-						 box += "<p class='text-serve-category-selected'>";
-						 box += "<span>"+$("#shopfacilitynamepopup").val()+"</span>";
-				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
-				 		
-				 		$("#shop-facilities").append(box);
-											 
-				 		$('#shopFacilityModal').modal('hide');
-						clearShopFacilitySaveform();
-						
-					}
-					
-				}
-			});
-	}
-});
-
-$("#shopfacilityclose").on("click",function(){
-	$("#shopfacilitynamepopup").val("");
-	$("#shopfacilitydescription").val("");
-	if(shopfacilityicon != "") 
-		removeShopFacilityImageFromServer();
-});
-function clearShopFacilitySaveform(){
-	$("#shopfacilitynamepopup").val("");
-	$("#shopfacilitydescription").val("");
-	shopfacilityicon ="";
-	$("#shopfacilityupload").val(null);
-	$("#uploadimageremoveback-shopfacility").hide();
-	$("#removeshopfacilityimagewrapper").hide();
-	var txt = '<label class="gray-image-plus">';
-		txt += '  <i class="fa fa-plus"></i>';
-		txt += '</label>';
-		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
-		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
-	$('#shopfacility-upload-wrapper').html(txt);
-	$("#removeloadingwrapper-shopfacility").hide();
-}
-/*=======================End shop facility event =============================*/
-	
-	</script>
   </body>   
 </html>

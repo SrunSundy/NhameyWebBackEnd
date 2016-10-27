@@ -1,4 +1,4 @@
-$(".nham-dropdown-inputbox-multi").on("focus keyup",function(){
+$(".nham-dropdown-inputbox-multi").on("focus",function(){
  	var trigger = false;
  	$(this).parent().siblings(".nham-dropdown-detail").css("top", 34);
 	$(this).parent().siblings(".nham-dropdown-detail").show();
@@ -10,17 +10,17 @@ $(".nham-dropdown-inputbox-multi").on("focus keyup",function(){
 		 var selectedcls =  $(this).parent().siblings("input").val();
 		 var boxlng = $("."+selectedcls).length;
 		 var selectedval = $(this).find("input").val();
-		 console.log(textlng);
+		
 		 $(this).parents(".nham-dropdown-detail").siblings(".selected-dropdown").find(".error-selected-result").css({
 			 "height" : "0px",
 			 "visibility" : "hidden"
 		 });
 		 var iserror = false;
-		 console.log($("."+selectedcls).length);
+		
 		 for(var i=0; i<boxlng; i++){
 			 
 			var val = $("."+selectedcls).eq(i).find("input").val();
-			console.log(val);
+			console.log("VAULE:  "+val);
 			if(val == selectedval){
 				iserror = true;
 				break;				

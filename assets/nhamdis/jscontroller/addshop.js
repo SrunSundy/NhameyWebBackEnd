@@ -40,19 +40,49 @@ function initialize() {
 	}
 
 	$("#detectlocation").on("click", function(){
+		var latpoint = $("#lat-location").val();
+		var lngpoint = $("#lng-location").val();
 		
-		var delocation = {lat: parseFloat($("#lat-location").val()) , lng: parseFloat($("#lng-location").val())};
-		getAddress(delocation);
-		marker.setPosition(delocation);												
-		map.panTo(delocation); 
-		//map.setCenter(test);
-		marker.setAnimation(google.maps.Animation.DROP);												
+		if( latpoint && lngpoint ){
+			
+			if(isNaN(latpoint)){
+				alert("Invalid lat point");
+				return;
+			}
+			if(isNaN(lngpoint)){
+				alert("Invalid lng point");
+				return;
+			}
+			
+			latpoint = parseFloat(latpoint);
+			lngpoint = parseFloat(lngpoint);
+			
+			if(latpoint > 90 || latpoint <-90){
+				alert("Invalid lat point");
+				return;
+			}		
+			if(lngpoint > 180 || lngpoint <-180){
+				alert("Invalid lng point");
+				return;
+			}
+			var delocation = {lat: latpoint , lng: lngpoint};
+			getAddress(delocation);
+			marker.setPosition(delocation);												
+			map.panTo(delocation); 
+			//map.setCenter(test);
+			marker.setAnimation(google.maps.Animation.DROP);	
+		}else{
+			
+			alert("Invalid location point!");
+		}
+		
+													
 	});
 									      
 	function getAddress(latLng) {
 		var address = "";
 		geocoder.geocode( {'latLng': latLng}, function(results, status) {				
-			console.log(results);	
+		
 			if($("#shopstreetad").val() == ""){
 				if(status == google.maps.GeocoderStatus.OK) {												  
 					if(results[0]) {												              
@@ -95,6 +125,7 @@ var logoimagename = "";
 var coverimagename = "";
 //var cuisineimgname = "";
 var servecategory = "";
+var shopfacilityicon="";
 
 /*====================== load shop address section =======================*/
 loadCountryData();
@@ -105,7 +136,7 @@ function loadCountryData(){
 		url  : $("#base_url").val()+"API/CountryRestController/getCountryCombo",
 		success : function(data){
 			data = JSON.parse(data);
-			console.log(data);
+		
 			$("#nham_country").children().remove();
 			
 			if(data.length > 0){				
@@ -137,7 +168,7 @@ function loadCityData( countryid ){
 		url  : $("#base_url").val()+"API/CityRestController/getCityCombo/"+countryid,
 		success : function(data){
 			data = JSON.parse(data);
-			console.log(data);
+			
 			$("#nham_city").children().remove();
 			//$("#nham_city").select2("val", "");
 			$("#select2-nham_city-container").html("");
@@ -171,7 +202,7 @@ function loadDistrictData( cityid ){
 		url  : $("#base_url").val()+"API/DistrictRestController/getDistrictCombo/"+cityid,
 		success : function(data){
 			data = JSON.parse(data);
-			console.log(data);
+			
 			$("#nham_district").children().remove();
 			//$("#nham_district").select2("val", "");"
 			$("#select2-nham_district-container").html("");
@@ -207,7 +238,7 @@ function loadCommuneData( districtid ){
 		url  : $("#base_url").val()+"API/CommuneRestController/getCommuneCombo/"+districtid,
 		success : function(data){
 			data = JSON.parse(data);
-			console.log(data);
+			
 		
 			$("#nham_commune").children().remove();
 			$("#select2-nham_commune-container").html("");
@@ -231,15 +262,7 @@ function loadCommuneData( districtid ){
 }
 /*====================== end load shop address section =======================*/  
 
-$('#lat-location').keyup(function() {
-	  //code to not allow any changes to be made to input field
-	 // var boo = $(this).val().match(/[\d]/g,'');
-	  //var filter = /[^\d\.]/g;
-	 //$(this).val($(this).val().replace(/[^\d\.\-]/g,''));
-	 $(this).val($(this).val().replace(/\d\-\d/,''));
-	 // console.log(filter.test($(this).val()));
-	 
-});
+
  
 /*=================== phone adding =================*/
 
@@ -249,7 +272,7 @@ $(".nham-append-data").on("click",function(){
 	
 	shopphones.push(phonenum);
 	displayPhones(shopphones);
-	console.log(shopphones);	
+	
 	$("#shop_phonenum").val("");	
 });
 
@@ -257,7 +280,7 @@ $(document).on("click",".close-phone",function(){
 	var arrayno = parseInt($(this).siblings(".phone-wrapper").find("input").val());
 	shopphones.splice(arrayno , 1);
 	displayPhones(shopphones);
-	console.log(shopphones);
+	
 	//var shopphoneslash = shopphones.toString().replace(/[,]/g,"|").trim();
 	//alert(shopphoneslash);	
 });
@@ -305,274 +328,7 @@ function countWorkingday(){
 }
 /*================= end working day section =================*/
 
-/*================= facility section =================*/
-/*
-$("#allfacilities").on("change", function(){
-	if($(this).is(":checked")){		
-		$(".shop-facility").prop('checked', true);
-	}else{
-		$(".shop-facility").prop('checked', false);
-	}
-});
 
-$(".shop-facility").on("change", function(){
-	
-	if($(this).is(":checked")){
-		var len = $("input.shop-facility:checked").length;
-		if(len >= 5){
-			$("#allfacilities").prop('checked', true);
-		}
-	}else{
-		$("#allfacilities").prop('checked', false);
-	}
-});
-
-function isCheckFacility( radioid ){
-	var check = 0;
-	if($("#"+radioid).is(":checked")){
-		check = 1;
-	}
-	return check;
-}*/
-/*================= end facility section ===================*/
-
- 	   
-/*$("#logo-upload-image").on("click",function(){	
-		$("#logoupload").click();	
-});
-$("#removelogoimage").on("click",function(){
-	removeLogoImageFromServer();
-});
-$("#logo-disable-cover").on("click", function(){
-	logoimagename="";
-	$("#logoupload").val(null);
-	$("#loading-wrapper").hide();
-	$("#logo-upload-image").removeClass("loading-box");
-	var txt = '<label class="gray-image-plus">';
-	txt += '  <i class="fa fa-plus"></i>';
-	txt += '</label>';
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
-	$('#logo-upload-wrapper').html(txt);	
-});
-$("#logoupload").change(function(){
-	uploadLogo(this);
-});
-function uploadLogo(input) {
-
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
- 		reader.onload = function (e) {
- 			upoloadLogoToServer();
-		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		              $('#logo-upload-wrapper').html(myimg);
-		}
-		reader.readAsDataURL(input.files[0]);
-	}else{
-		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
-		$('#logo-upload-wrapper').html(txt);
-	}
-}
-
-function removeLogoImageFromServer(){
-	$("#removeloadingwrapper").show();
-	$.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
-		type: "POST",
-		data : {
-			"removeimagedata":{
-				"image_type" : "1",
-				"imagename" : logoimagename
-			}			
-		},
-		success: function(data){
-			
-			logoimagename="";
-			$("#logoupload").val(null);
-			$("#uploadimageremoveback").hide();
-			$("#removelogoimagewrapper").hide();
-			var txt = '<label class="gray-image-plus">';
-				txt += '  <i class="fa fa-plus"></i>';
-				txt += '</label>';
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
-			$('#logo-upload-wrapper').html(txt);
-			$("#removeloadingwrapper").hide();
-			$("#logo_description").hide();
-		}
-	});
-}
-function upoloadLogoToServer(){
-	var inputFile = $("#logoupload");
-	$("#logo-upload-image").addClass("loading-box");
-	$("#loading-wrapper").show();
-	var fileToUpload = inputFile[0].files[0];
-	console.log(fileToUpload);
-	if(fileToUpload != 'undefined'){
-
-		var formData = new FormData();
-		formData.append("file",  fileToUpload);
-		
-		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
-			type: "POST",
-			data : formData,
-			processData : false,
-			contentType : false,
-			success: function(data){
-				data = JSON.parse(data);
-				console.log(data);
-				if(data.is_upload == false){
-					alert("error uploading!");
-					alert(data.message);
-					logoimagename="";
-				}else{
-					logoimagename = data.filename;
-					$("#loading-wrapper").hide();
-					$("#logo-upload-image").removeClass("loading-box");
-					$("#uploadimageremoveback").show();
-					$("#removelogoimagewrapper").show();
-					$("#logo_description").show();
-				}
-				
-			},
-			xhr: function() {
-				var xhr = new XMLHttpRequest();
-				xhr.upload.addEventListener("progress", function(event) {
-					if (event.lengthComputable) {
-						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						 //console.log(percentComplete);
-						
-						$("#logoprogressbar").css({width: percentComplete+"%"});
-					};
-				}, false);
-
-				return xhr;
-			}
-		});
-	} 
-}*/
-
-
-
-
-/*
-$("#cover-upload-image").on("click",function(){	
-	$("#coverupload").click();
-});
-$("#removelogoimage-cover").on("click",function(){
-	removeCoverImageFromServer();
-}); 
-$("#cover-disable-cover").on("click", function(){
-	coverimagename="";
-	$("#coverupload").val(null);
-	$("#loading-wrapper-cover").hide();
-	$("#cover-upload-image").removeClass("loading-box");
-	var txt = '<label class="gray-image-plus">';
-	txt += '  <i class="fa fa-plus"></i>';
-	txt += '</label>';
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 700 x 500 </p>';            	
-	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
-	$('#cover-upload-wrapper').html(txt);	
-});
-$("#coverupload").change(function(){
-	uploadCover(this);
-});
-function uploadCover(input){
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
- 		reader.onload = function (e) {
- 			 upoloadCoverToServer();
-		      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-		              $('#cover-upload-wrapper').html(myimg);
-		}
-		reader.readAsDataURL(input.files[0]);
-	}else{
-		 var txt  = '<label class="gray-image-plus">';
-			 txt += '<i class="fa fa-plus"></i>';
-			 txt += '</label>';
-			 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 700 x 500 </p>';
-			 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
-		 $('#cover-upload-wrapper').html(txt);
-	}
-	
-}
-function removeCoverImageFromServer(){
-	$("#removeloadingwrapper-cover").show();
-	$.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
-		type: "POST",
-		data : {
-			"removeimagedata":{
-				"image_type" : "2",
-				"imagename" : coverimagename
-			}			
-		},
-		success: function(data){
-			
-			coverimagename="";
-			$("#coverupload").val(null);
-			$("#uploadimageremoveback-cover").hide();
-			$("#removelogoimagewrapper-cover").hide();
-			var txt = '<label class="gray-image-plus">';
-				txt += '  <i class="fa fa-plus"></i>';
-				txt += '</label>';
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
-				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
-			$('#cover-upload-wrapper').html(txt);
-			$("#removeloadingwrapper-cover").hide();
-			$("#cover_description").hide();
-		}
-	});	
-}
-function upoloadCoverToServer(){
-	var inputFile = $("#coverupload");
-	$("#cover-upload-image").addClass("loading-box");
-	$("#loading-wrapper-cover").show();
-	var fileToUpload = inputFile[0].files[0];
-	console.log(fileToUpload);
-	if(fileToUpload != 'undefined'){
-
-		var formData = new FormData();
-		formData.append("file",  fileToUpload);
-		
-		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopCoverUploadImage",
-			type: "POST",
-			data : formData,
-			processData : false,
-			contentType : false,
-			success: function(data){
-				data = JSON.parse(data);
-				console.log(data);
-				if(data.is_upload == false){
-					coverimagename="";
-					alert("error uploading!");
-					alert(data.message);
-				}else{
-					coverimagename = data.filename;
-					$("#loading-wrapper-cover").hide();
-					$("#cover-upload-image").removeClass("loading-box");
-					$("#uploadimageremoveback-cover").show();
-					$("#removelogoimagewrapper-cover").show();
-					$("#cover_description").show();
-				}
-				
-			},
-			xhr: function() {
-				var xhr = new XMLHttpRequest();
-				xhr.upload.addEventListener("progress", function(event) {
-					if (event.lengthComputable) {
-						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						$("#logoprogressbar-cover").css({width: percentComplete+"%"});
-					};
-				}, false);
-
-				return xhr;
-			}
-		});
-	} 
-}*/
 /*===================== upload logo event =============================*/
 
 var backupreallogoimage;
@@ -742,7 +498,7 @@ function upoloadLogoToServer(){
 	$("#logo-upload-percentage").html(0);
 	$("#logo-upload-loading").show();
 	var fileToUpload = backupreallogoimage;
-	console.log(fileToUpload);
+	
 	if(fileToUpload != 'undefined'){
 
 		var formData = new FormData();
@@ -758,7 +514,7 @@ function upoloadLogoToServer(){
 			success: function(data){
 				
 				data = JSON.parse(data);
-				console.log(data);
+				
 				if(data.is_upload == false){
 					alert("error uploading!");
 					alert(data.message);
@@ -783,7 +539,7 @@ function upoloadLogoToServer(){
 				xhr.upload.addEventListener("progress", function(event) {
 					if (event.lengthComputable) {
 						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						console.log(percentComplete);
+						
 						$("#logo-upload-progress").css({width: percentComplete+"%"});
 						$("#logo-upload-percentage").html(percentComplete+"%");
 					};
@@ -1393,7 +1149,22 @@ $("#saveshop").on("click",function(){
 				 progressbar.stop();
 				 if(data.is_insert){
 					// alert(data.message);
+					 swal({
+						 title: data.message,
+					     text: "A shop has been added!",
+					     html: true,
+					     type: "success",
+					    			     
+					 });
+					 
 				 }else{
+					 swal({
+						 title: data.message,
+					     text: "Fail to add new shop!",
+					     html: true,
+					     type: "error",
+					    			     
+					 });
 					// alert(data.message);
 				 }
 				
@@ -1414,7 +1185,7 @@ $("#saveshop").on("click",function(){
 $("#branchname").on("focus keyup",function(){
 	
 	var srchbranchname = $(this).val();
-	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = $("#base_url").val()+"assets/nhamdis/img/nhamloading.gif";
 	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
@@ -1523,9 +1294,264 @@ $("#yescuisine").on("mousedown",function(){
 */
 
 
+
+/*======================= Shop facility event =============================*/
+
+
+$("#shopfacilityname").on("focus keyup",function(){
+	var srchname = $(this).val();
+	var loadingimgsrc = $("#base_url").val()+"assets/nhamdis/img/nhamloading.gif";
+	$("#display-result-shopfacility").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	$.ajax({
+		 type: "GET",
+		 url: $("#base_url").val()+"API/ShopFacilityRestController/getShopFacilityByNameCombo", 
+		 data : {
+			"srchname" : srchname,
+			"limit" : 10
+		 },
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var dis = '';
+			if(data.length <= 0){
+				$("#text-search-shopfacility-dis1").html(cutString(srchname , 35));
+				$("#text-search-shopfacility-dis2").html(cutString(srchname , 20));
+				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				dis +="  <span class='no-data-text'>No Record Found!</span>";
+				dis +="</div>";
+				$("#display-searching-text_shopfacility").show();
+				$("#nham-dropdown-footer-shopfacility").show();
+			}else{	
+				$("#display-searching-text_shopfacility").hide();
+				$("#nham-dropdown-footer-shopfacility").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					
+					 dis += '<div  class="nham-dropdown-multi-result">';
+					 dis += ' <input type="hidden" value="'+data[i].sh_facility_id+'" />';
+					 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].sh_facility_icon+'"/>';
+					 dis += ' <p><span class="title">'+data[i].sh_facility_name+'</span></p></div>';
+					 
+				 }			
+				 dis+="<div style='clear:both'></div>";
+				
+			}
+			$("#display-result-shopfacility").html(dis); 					 
+  	 	 }
+  });
+});
+$("#yesshopfacility").on("mousedown",function(){
+
+	$("#shopfacilitybtnpop").click();
+	$("#shopfacilitynamepopup").val($("#shopfacilityname").val());
+	
+});
+
+
+
+function getShopFacilities(){
+
+	var facilitysource = $("#shop-facilities").find(".selected-category-box");
+	console.log(facilitysource.length);
+	var shopfacilities = [];
+	for(var i=0 ; i<facilitysource.length; i++){
+		var facility = facilitysource.eq(i).find("input").val();
+		shopfacilities.push(facility);
+	}
+	return shopfacilities;
+}
+$("#shopfacility-upload-image").on("click",function(){	
+	$("#shopfacilityupload").click();	
+});
+$("#removeshopfacilityimage").on("click",function(){
+	removeShopFacilityImageFromServer();
+});
+$("#shopfacility-disable-cover").on("click", function(){
+	$("#shopfacilityupload").val(null);
+	$("#loading-wrapper-shopfacility").hide();
+	$("#shopfacility-upload-image").removeClass("loading-box");
+	var txt = '<label class="gray-image-plus">';
+	txt += '  <i class="fa fa-plus"></i>';
+	txt += '</label>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#shopfacility-upload-wrapper').html(txt);	
+});
+$("#shopfacilityupload").change(function(){
+	uploadShopFacility(this);
+});
+
+function uploadShopFacility(input) {
+
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			upoloadShopFacilityToServer();
+		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		    $('#shopfacility-upload-wrapper').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+		$('#shopfacility-upload-wrapper').html(txt);
+	}
+}
+
+function removeShopFacilityImageFromServer(){
+	$("#removeloadingwrapper-shopfacility").show();
+	console.log(shopfacilityicon);
+	$.ajax({
+		url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
+		type: "POST",
+		data : {
+			"iconname": shopfacilityicon	
+		},
+		success: function(data){
+			
+			shopfacilityicon="";
+			$("#shopfacilityupload").val(null);
+			$("#uploadimageremoveback-shopfacility").hide();
+			$("#removeshopfacilityimagewrapper").hide();
+			var txt = '<label class="gray-image-plus">';
+				txt += '  <i class="fa fa-plus"></i>';
+				txt += '</label>';
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+			$('#shopfacility-upload-wrapper').html(txt);
+			$("#removeloadingwrapper-shopfacility").hide();
+			console.log(servecategory);
+		}
+	});
+}
+function upoloadShopFacilityToServer(){
+	var inputFile = $("#shopfacilityupload");
+	$("#shopfacility-upload-image").addClass("loading-box");
+	$("#loading-wrapper-shopfacility").show();
+	var fileToUpload = inputFile[0].files[0];
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		
+		$.ajax({
+			url: "/NhameyWebBackEnd/API/UploadRestController/uploadIconImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+				}else{
+					shopfacilityicon = data.filename;
+					$("#loading-wrapper-shopfacility").hide();
+					$("#shopfacility-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback-shopfacility").show();
+					$("#removeshopfacilityimagewrapper").show();
+					console.log(shopfacilityicon);
+				}
+				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						 //console.log(percentComplete);
+						
+						$("#shopfacilityprogressbar").css({width: percentComplete+"%"});
+					};
+				}, false);
+
+				return xhr;
+			}
+		});
+	} 
+}
+
+function validateShopFacility(){
+	if(!validateNull("shopfacilitynamepopup", 0)){
+		alert("Shop Facility name Invalid");
+		return false;
+	}
+	return true;
+}
+$("#shopfacilitysave").on("click", function(){
+	if(validateShopFacility()){
+		
+		var shopfacilitydata = {
+				"ShopFacilityData" : {
+					"sh_facility_name" : $("#shopfacilitynamepopup").val(),
+					"sh_facility_icon" :  shopfacilityicon,
+					"sh_facility_remark": $("#shopfacilitydescription").val()
+				}
+			};
+			$.ajax({
+				type : "POST",
+				url : "/NhameyWebBackEnd/API/ShopFacilityRestController/insertShopFacility",
+				data : shopfacilitydata,
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_insert == false){
+						alert("Insert error!");
+					}else{
+					
+						console.log($("#shopfacilitynamepopup").textWidth());
+						var txtwidth = $("#shopfacilitynamepopup").textWidth()+55;
+						var checkcls = $("#display-result-shopfacility").siblings("input").val();
+						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
+						 box += "<input type='hidden' value='"+data.sh_facility_id+"' />";
+						 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+shopfacilityicon+"' />";
+						 box += "<p class='text-serve-category-selected'>";
+						 box += "<span>"+$("#shopfacilitynamepopup").val()+"</span>";
+				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
+				 		
+				 		$("#shop-facilities").append(box);
+											 
+				 		$('#shopFacilityModal').modal('hide');
+						clearShopFacilitySaveform();
+						
+					}
+					
+				}
+			});
+	}
+});
+
+$("#shopfacilityclose").on("click",function(){
+	$("#shopfacilitynamepopup").val("");
+	$("#shopfacilitydescription").val("");
+	if(shopfacilityicon != "") 
+		removeShopFacilityImageFromServer();
+});
+function clearShopFacilitySaveform(){
+	$("#shopfacilitynamepopup").val("");
+	$("#shopfacilitydescription").val("");
+	shopfacilityicon ="";
+	$("#shopfacilityupload").val(null);
+	$("#uploadimageremoveback-shopfacility").hide();
+	$("#removeshopfacilityimagewrapper").hide();
+	var txt = '<label class="gray-image-plus">';
+		txt += '  <i class="fa fa-plus"></i>';
+		txt += '</label>';
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#shopfacility-upload-wrapper').html(txt);
+	$("#removeloadingwrapper-shopfacility").hide();
+}
+/*=======================End shop facility event =============================*/
+
+
+/*======================= serve category event =============================*/
+
 $("#servecategoryname").on("focus keyup",function(){
 	var srchname = $(this).val();
-	var loadingimgsrc = "../assets/nhamdis/img/nhamloading.gif";
+	var loadingimgsrc = $("#base_url").val()+"assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
@@ -1551,13 +1577,10 @@ $("#servecategoryname").on("focus keyup",function(){
 				$("#display-searching-text_servecategory").hide();
 				$("#nham-dropdown-footer-servecategory").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					/* dis += '<div  class="nham-dropdown-result">';
-					 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
-					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].serve_category_icon+'"/>';
-					 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';*/
+				
 					 dis += '<div  class="nham-dropdown-multi-result">';
 					 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
-					 dis += ' <img class="pull-left icon" src="../uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+					 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
 					 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
 					 
 				 }			
@@ -1572,30 +1595,207 @@ $("#yesservecategory").on("mousedown",function(){
 
 	$("#servecategorybtnpop").click();
 	$("#servecategorynamepopup").val($("#servecategoryname").val());
-	/*var shoptypedata = {
-		"ServeCategoryData" : {
-			"serve_category_name" : $("#servecategoryname").val(),
-			"serve_category_remark": ""
-		}
-	};
-	$.ajax({
-		type : "POST",
-		url : "/NhameyWebBackEnd/API/ServeCategoryRestController/insertServeCategory",
-		data : shoptypedata,
-		success : function(data){
-			data = JSON.parse(data);
-			console.log(data);
-			if(data.is_insert == false){
-				alert("Insert error!");
-			}else{
-				//alert(data);
-				$("#selectedservecategory").val(data.serve_category_id);
-			}
-			
-		}
-	});*/
+	
 });
 
+function getServeCategories(){
+
+	var catesource = $("#serve-categories").find(".selected-category-box");
+	console.log(catesource.length);
+	var servecategories = [];
+	for(var i=0 ; i<catesource.length; i++){
+		var cateval = catesource.eq(i).find("input").val();
+		servecategories.push(cateval);
+	}
+	return servecategories;
+}
+$("#servecategory-upload-image").on("click",function(){	
+	$("#servecategoryupload").click();	
+});
+$("#removeservecategoryimage").on("click",function(){
+	removeServeCategoryImageFromServer();
+});
+$("#servecategory-disable-cover").on("click", function(){
+	$("#servecategoryupload").val(null);
+	$("#loading-wrapper-servecategory").hide();
+	$("#servecategory-upload-image").removeClass("loading-box");
+	var txt = '<label class="gray-image-plus">';
+	txt += '  <i class="fa fa-plus"></i>';
+	txt += '</label>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#servecategory-upload-wrapper').html(txt);	
+});
+$("#servecategoryupload").change(function(){
+	uploadServeCategory(this);
+});
+
+function uploadServeCategory(input) {
+
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) {
+ 			upoloadServeCategoryToServer();
+		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		    $('#servecategory-upload-wrapper').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+		$('#servecategory-upload-wrapper').html(txt);
+	}
+}
+
+function removeServeCategoryImageFromServer(){
+	$("#removeloadingwrapper-servecategory").show();
+	console.log(servecategory);
+	$.ajax({
+		url :  $("#base_url").val()+"API/UploadRestController/removeIcon",
+		type: "POST",
+		data : {
+			"iconname": servecategory	
+		},
+		success: function(data){
+			
+			servecategory="";
+			$("#servecategoryupload").val(null);
+			$("#uploadimageremoveback-servecategory").hide();
+			$("#removeservecategoryimagewrapper").hide();
+			var txt = '<label class="gray-image-plus">';
+				txt += '  <i class="fa fa-plus"></i>';
+				txt += '</label>';
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+			$('#servecategory-upload-wrapper').html(txt);
+			$("#removeloadingwrapper-servecategory").hide();
+			console.log(servecategory);
+		}
+	});
+}
+function upoloadServeCategoryToServer(){
+	var inputFile = $("#servecategoryupload");
+	$("#servecategory-upload-image").addClass("loading-box");
+	$("#loading-wrapper-servecategory").show();
+	var fileToUpload = inputFile[0].files[0];
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		
+		$.ajax({
+			url: $("#base_url").val()+"API/UploadRestController/uploadIconImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+				}else{
+					servecategory = data.filename;
+					$("#loading-wrapper-servecategory").hide();
+					$("#servecategory-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback-servecategory").show();
+					$("#removeservecategoryimagewrapper").show();
+					console.log(servecategory);
+				}
+				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						 //console.log(percentComplete);
+						
+						$("#servecategoryprogressbar").css({width: percentComplete+"%"});
+					};
+				}, false);
+
+				return xhr;
+			}
+		});
+	} 
+}
+
+function validateServeCategory(){
+	if(!validateNull("servecategorynamepopup", 0)){
+		alert("Serve-Category name Invalid");
+		return false;
+	}
+	return true;
+}
+$("#servecategoryesave").on("click", function(){
+	if(validateServeCategory()){
+		
+		var servecategorydata = {
+				"ServeCategoryData" : {
+					"serve_category_name" : $("#servecategorynamepopup").val(),
+					"serve_category_type" : $("#serve-category-type").val(),
+ 					"serve_category_icon" :  servecategory,
+					"serve_category_remark": $("#servecategorydescription").val()
+				}
+			};
+			$.ajax({
+				type : "POST",
+				url : $("#base_url").val()+"API/ServeCategoryRestController/insertServeCategory",
+				data : servecategorydata,
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_insert == false){
+						alert("Insert error!");
+					}else{
+						
+						console.log($("#servecategorynamepopup").textWidth());
+						var txtwidth = $("#servecategorynamepopup").textWidth()+55;
+						var checkcls = $("#display-result-servecategory").siblings("input").val();
+						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
+						 box += "<input type='hidden' value='"+data.serve_category_id+"' />";
+						 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+servecategory+"' />";
+						 box += "<p class='text-serve-category-selected'>";
+						 box += "<span>"+$("#servecategorynamepopup").val()+"</span>";
+				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
+				 		
+				 		$("#serve-categories").append(box);
+											 
+				 		$('#serveCategoryModal').modal('hide');
+						clearServeCategorySaveform();
+						
+					}
+					
+				}
+			});
+	}
+});
+
+$("#servecategoryclose").on("click",function(){
+	$("#servecategorynamepopup").val("");
+	$("#servecategorydescription").val("");
+	if(servecategory != "") 
+		removeServeCategoryImageFromServer();
+});
+function clearServeCategorySaveform(){
+	$("#servecategorynamepopup").val("");
+	$("#servecategorydescription").val("");
+	servecategory="";
+	$("#servecategoryupload").val(null);
+	$("#uploadimageremoveback-servecategory").hide();
+	$("#removeservecategoryimagewrapper").hide();
+	var txt = '<label class="gray-image-plus">';
+		txt += '  <i class="fa fa-plus"></i>';
+		txt += '</label>';
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#servecategory-upload-wrapper').html(txt);
+	$("#removeloadingwrapper-servecategory").hide();
+}
+/*======================= End serve category event =============================*/
+ 
 
 function goodbye(e) {
 	if (!validateLeavePage()) {
@@ -1638,9 +1838,11 @@ function removeShopImageOnCondition(){
 		removeLogoImageFromServer();
 	if(coverimagename != "") 
 		removeCoverImageFromServer();	
-	if(cuisineimgname != "") 
-		removeCuisineImageFromServer();
-	if(cuisineimgname != "") 
+	/*if(cuisineimgname != "") 
+		removeCuisineImageFromServer();*/
+	if(shopfacilityicon !="" )
+		removeShopFacilityImageFromServer();
+	if(servecategory != "") 
 		removeServeCategoryImageFromServer();
 }
 

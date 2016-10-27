@@ -44,6 +44,8 @@
    
     <!-- FastClick -->
     <script src="<?php echo base_url(); ?>assets/plugins/fastclick/fastclick.min.js"></script>
+    
+     <script src="<?php echo base_url(); ?>assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?php echo base_url(); ?>assets/dist/js/app.min.js"></script>
    

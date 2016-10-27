@@ -25,7 +25,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url(); ?>MainController/addshop"><i class="fa fa-circle-o"></i> Add Shop</a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Shop Detail</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/listshop"><i class="fa fa-circle-o"></i> List Shop</a></li>
           
               </ul>
         </li>
