@@ -78,16 +78,18 @@ class ShopModel extends CI_Model{
 			}
 			$this->db->insert_batch('nham_serve_cate_map_shop', $servecategories);
 			
-			$shopfacilities = array();
-			$shopdata["shop_facilities"] = array_unique($shopdata["shop_facilities"]);
-			for($i=0; $i< count($shopdata["shop_facilities"]); $i++){
-				
-				$facilityitem["sh_facility_id"] = $shopdata["shop_facilities"][$i];
-				$facilityitem["shop_id"] = $insert_shop_id;
-				array_push($shopfacilities , $facilityitem);				
+			if(isset($shopdata["shop_facilities"]) ){
+				$shopfacilities = array();
+				$shopdata["shop_facilities"] = array_unique($shopdata["shop_facilities"]);
+				for($i=0; $i< count($shopdata["shop_facilities"]); $i++){
+					
+					$facilityitem["sh_facility_id"] = $shopdata["shop_facilities"][$i];
+					$facilityitem["shop_id"] = $insert_shop_id;
+					array_push($shopfacilities , $facilityitem);				
+				}
+				$this->db->insert_batch('nham_shop_facility_map', $shopfacilities);
 			}
-			$this->db->insert_batch('nham_shop_facility_map', $shopfacilities);
-			
+						
 			$shopimg = array();
 			$display_img_order = 1;
 			
