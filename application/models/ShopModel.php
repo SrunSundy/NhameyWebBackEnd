@@ -28,6 +28,52 @@ class ShopModel extends CI_Model{
 
 	}
 	
+	public function listShop(){
+		
+		$sql = "SELECT TRIM(COALESCE(sh.shop_logo,'')) shop_logo,
+					sh.shop_name_en,
+					sh.shop_name_kh,
+					case when sh.shop_opening_time < NOW() and sh.shop_close_time > NOW() then 1 else 0 end as is_shop_open,
+					TIME(NOW()) as my_current_time,
+					sh.shop_opening_time,
+					sh.shop_close_time,
+					sh.shop_serve_type,
+					sh.shop_created_date,
+					sh.shop_address,
+					sh.shop_view_count,
+					sh.shop_remark,
+					sh.shop_status,
+					ad.admin_id,
+					ad.admin_name
+		
+				FROM nham_shop sh
+				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id ";
+		
+		$query = $this->db->query($sql);
+		
+		 $response = $query->result();
+		/* for($i=0; $i< count($response); $i++){			
+			if($response[$i]->is_shop_open == 1){
+				$response[$i]->
+			} 
+		}  */
+		 $t=time();
+		 echo($t . "<br>");
+		 echo(date("h-i-s",$t));
+		echo $response[0]->my_current_time;
+		$this->substractTime("8:00", "16:40");
+		
+	}
+	
+	function substractTime($time1, $time2){
+		
+		$a = new DateTime("18:00");
+		$b = new DateTime("16:40");
+		$interval = $a->diff($b);
+	
+		echo $interval->format('%H:%I:%S');
+	}
+	
 	public function insertShop( $shopdata ){
 		$this->db->trans_begin();
 		
