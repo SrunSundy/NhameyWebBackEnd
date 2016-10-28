@@ -665,9 +665,9 @@
       </footer>
 
       <!-- Control Sidebar -->
-      <!--<aside class="control-sidebar control-sidebar-dark">
+      <aside class="control-sidebar control-sidebar-dark">
         	<?php include 'elements/settingnavbar.php';?>
-      </aside>-->
+      </aside>
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 

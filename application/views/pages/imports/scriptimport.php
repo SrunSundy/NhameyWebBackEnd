@@ -54,6 +54,8 @@
    
     <script src="<?php echo base_url(); ?>assets/plugins/fileinput/fileinput.min.js"></script>
     
+    <script src="<?php echo base_url(); ?>assets/plugins/jquery-tmpl/jquery.tmpl.js"></script>
+    
     <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamsetting.js"></script>
     <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamdropdown.js"></script>
     <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamdropdownmulti.js"></script>

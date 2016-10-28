@@ -31,7 +31,7 @@
   	}
   	
   	div.advance-search-box{
-  		height:100px;
+  		
   		
   		border-bottom:2px solid #E0E0E0;
   		
@@ -68,14 +68,24 @@
   		font-style: italic;
   	}
   	
-  	i.active-shop{
+  	.active-shop{
   		
-  		font-size: 10px;
+  		font-size: 8px;
   		padding-right: 5px;
+  	}
+  	
+  	@media screen and (max-width: 1198px) {
+  		#srch-order-by{
+  			width: 100% !important;
+  		}
+  		
+  		
   	}
   </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
+  	
+  	<input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
     <div class="wrapper">
 
       <header class="main-header">
@@ -139,8 +149,8 @@
                   						<div class="col-lg-3">
                   							<div class="row">
                   								<p class="text-show-style" title="Total of active shop">
-                  									<i class="fa fa-circle" style="color:#4CAF50;" aria-hidden="true"></i>
-                  									Active : 500000
+                  									<i class="fa fa-thumbs-up"  style="color:#2196F3;" aria-hidden="true"></i>
+                  									Enable : 500000
                   								</p>      
                   							</div>
                   						</div>
@@ -148,7 +158,7 @@
                   						<div class="col-lg-3">
                   							<div class="row">
                   								<p class="text-show-style" title="Total photo of the shop">
-                  									<i class="fa fa-picture-o" style="color:#2196F3" aria-hidden="true"></i>
+                  									<i class="fa fa-picture-o" style="color:#00BCD4" aria-hidden="true"></i>
                   									Photo : 500000
                   								</p>      
                   							</div>
@@ -183,8 +193,8 @@
                   				
                   				<div class="col-lg-12" style="padding-top:7px;" id="normal-search-box">
                   					<div class="row">
-                  						 <div class="col-lg-6"></div>
-                  						 <div class="col-lg-6">
+                  						 <div class="col-lg-5"></div>
+                  						 <div class="col-lg-7">
                   						 	<div class="row">
                   						 		<div class="input-group ">
 							                       <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search shop name, address...">
@@ -206,7 +216,89 @@
                   <div class="col-lg-12 border-line"></div>
                   <div class="col-lg-12 advance-search-box"  id="advance-search-box">
                   	 <div class="row">
-                  		
+                  	 	<div class="col-lg-9">
+                  	 	
+                  	       <div class="col-lg-12"  style="padding-top:10px;">
+                  	          <div class="row">
+                  	          	 <div class="form-group">		                   
+			                        <div class="input-group">
+				                       <div class="input-group-addon">
+				                         <i class="fa fa-clock-o"></i>
+				                       </div>
+				                       <input type="text" class="form-control pull-right" placeholder="Select range of date" id="reservationtime">
+			                        </div><!-- /.input group -->
+			                     </div><!-- /.form group -->
+                  	          </div>
+                  	        </div>
+                  	        
+                  	        <div class="col-lg-12" >
+                  	          <div class="row">
+                  	          	 <div class="col-lg-4" style="padding-bottom:10px;">
+                  	          	 	<div class="row">                 	          	 						                						                    
+						                <select class="form-control nham-control  select2"  style="width: 100%; border-radius: 0!important;padding-left:10px;">
+						                      	
+						                </select>	
+                  	          	 	</div>
+                  	          	 </div>
+                  	          	 
+                  	          	 <div class="col-lg-4" style="padding-bottom:10px;" align="center">
+                  	          	 	<div class="row">              	          	 						                						                    
+						                <select class="form-control " style="width: 90%; padding-left:10px;" id="srch-order-by">
+					                      <option selected="selected" value="food">Food</option>
+					                      <option value="drink">Drink</option>					                    
+					                    </select>
+                  	          	 	</div>
+                  	          	 </div>
+                  	          	 
+                  	          	 <div class="col-lg-4" style="padding-bottom:10px;">
+                  	          	 	<div class="row">          	          	 						                						                    
+						                <select class="form-control " style="width: 100%;" id="shopservetype">
+					                      <option selected="selected" value="food">Food</option>
+					                      <option value="drink">Drink</option>					                    
+					                    </select>
+                  	          	 	</div>
+                  	          	 </div>
+                  	          	 
+                  	          </div>
+                  	         </div>
+                  	 	  
+                  	 	</div>
+                  	 	
+                  	 	<div class="col-lg-3" style="padding-top:7px;">
+                  	 	    <div class="col-lg-12">
+                  	 	    	<div class="row">
+                  	 	    		<div class="nham-div-line div-top-gap">
+										<label class="nham-control nham-control--checkbox">Thursday
+											<input type="checkbox"  id="thur" value="4"  class="work-day"/>
+											<div class="nham-control__indicator"></div>
+										</label>
+									</div>	
+									<div class="nham-div-line div-top-gap">
+										<label class="nham-control nham-control--checkbox">Friday
+											<input type="checkbox"  id="fri" value="5"  class="work-day"/>
+											<div class="nham-control__indicator"></div>
+										</label>
+									</div>	
+                  	 	    	</div>
+                  	 	    </div>
+                  	 	    
+                  	 	    <div class="col-lg-12" >
+                  	 	    	<div class="row">
+                  	 	    		<div class="col-lg-9" style="padding-top:16px;">
+                  	 	    			<div class="row">
+                  	 	    				<input type="text" class="form-control" placeholder="searching..." />
+                  	 	    			</div>                  	 	    			
+                  	 	    		</div>    
+                  	 	    		<div class="col-lg-3" style="padding-top:16px;padding-bottom:10px;">
+                  	 	    			<div class="row">
+                  	 	    				<button type="button" class="btn btn-default " style="border-radius:0px;width:100%;">Search</button>
+                  	 	    			</div>                  	 	    			
+                  	 	    		</div>                  	 	    		
+                  	 	    	</div>
+                  	 	    </div>
+                  	 	</div>
+                  		 
+						
                   	 </div>
                   </div>
                   
@@ -232,47 +324,25 @@
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive no-padding" style="margin-top:-10px;" >
                   <table class="table table-hover" >
-                    <tr>
-                      <th style="width:7%">Logo</th>
-                      <th style="width:15%">Name</th>
-                      <th style="width:5%">serve_type</th>
-                      <th style="width:10%">created_date</th>
-                      <th style="width:15%">address</th>
-                      <th style="width:5%">view</th>
-                      <th style="width:5%">status</th>
-                      <th style="width:13%">remark</th>
-                      <th style="width:10%">creator</th>
-                      <th style="width:5%">photo</th>
-                      <th style="width:10%">action</th>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td><i class="fa fa-circle active-shop" style="color:#4CAF50;" aria-hidden="true"></i>John Doe (Jobora tomani)<span class="shop-open-time">[opening : 9:00 - 21:00 ]</span></td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>657</td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>175</td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
+	                  <thead>
+	                    <tr>
+	                      <th style="width:7%">Logo</th>
+	                      <th style="width:15%">Name</th>
+	                      <th style="width:5%">serve_type</th>
+	                      <th style="width:10%">created_date</th>
+	                      <th style="width:15%">address</th>
+	                      <th style="width:5%">view</th>                                         
+	                      <th style="width:5%">photo</th>
+	                       <th style="width:13%">remark</th>
+	                      <th style="width:10%">creator</th>
+	                       <th style="width:5%">status</th>
+	                      <th style="width:10%">action</th>
+	                    </tr>
+                   	   </thead>
+                   	   <tbody id="display-shop-result">
+                   	   
+                   	   </tbody>
+                   	   
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -293,8 +363,82 @@
 
    
     <?php include 'imports/scriptimport.php'; ?>
-    
+   <script id="display-shop-table" type="text/x-jQuery-tmpl">
+		<tr>					
+			<td><img src="{{= addSrcLogoimg(shop_logo) }}" /></td>
+           	<td>
+				<span class="active-shop">
+					<i class="fa fa-circle" style="color:#4CAF50;" aria-hidden="true"></i>
+				</span>
+				{{= shop_name_en }} ({{= shop_name_kh }})
+				<span class="shop-open-time">[opening : {{= trimString(shop_opening_time, 5) }} - {{= trimString(shop_close_time, 5) }} ]</span></td>
+            <td>{{= shop_serve_type }}</td>
+            <td>{{=  trimString(shop_created_date, 10) }}</td>
+            <td>{{= shop_address }}</td>
+ 			<td>{{= shop_view_count }}</td>
+ 			<td>{{= shop_view_count }}</td>
+ 			<td>{{= shop_remark }}</td>
+			<td>{{= admin_name }}</td>
+ 			<td>{{= shop_status }}</td>						
+		</tr>					           	
+   	</script>
     <script>
+
+
+    $.ajax({
+    	   url:"https://maps.googleapis.com/maps/api/timezone/json?location=11.57757947513926,104.90670248866081&timestamp="+(Math.round((new Date().getTime())/1000)).toString()+"&sensor=false",
+    	}).done(function(response){
+    		 alert(response);
+    	   if(response.timeZoneId != null){
+    	  
+    	   }
+    	});
+	
+	    $(document).ready(function(){
+	    	
+	    	$(".select2").select2({
+	    		placeholder: "Select a serve category"
+			});
+	    	$("span.select2-selection").css({ "height":"34px","border-radius" : "0","border":"1px solid #ccc"});
+		    
+	    });
+
+
+	    loadShopDataToTable();
+	    
+	    function loadShopDataToTable(){
+
+	    	$.ajax({
+	    		type : "GET",
+	    		url : $("#base_url").val()+"API/ShopRestController/listShop",
+	    		success : function(data){
+
+	    			data = JSON.parse(data);
+	    			console.log(data);
+	    			$("#display-shop-table").tmpl(data).appendTo("#display-shop-result");
+	    			
+	    		}
+	    	});
+
+		}
+
+		function addSrcLogoimg( image ){
+			return $("#base_url").val()+"uploadimages/logo/small/"+image;
+		}
+
+		function trimString( string, cutindex ){
+			return string.substring(0, cutindex);
+		}
+    	$('#reservationtime').daterangepicker({
+    		
+             
+             timePicker: false,
+             buttonClasses: ['btn btn-default'],
+             applyClass: 'btn-small btn-danger',
+             cancelClass: 'btn-small',
+             format: 'DD/MM/YYYY',
+             
+        });
 		$("#advance-search-btn-down").on("click", function(){
 			
 			$(this).hide();
@@ -317,3 +461,6 @@
     </script>
   </body>
 </html>
+
+			                								                					                
+					            
