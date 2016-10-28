@@ -10,9 +10,17 @@ class ShopRestController extends CI_Controller{
 	public function index(){
 		$this->load->view('index');
 	}	
+	
 	public function listAllShop(){		
 		echo "HI";	
 	}	
+	
+	public function listShop(){
+		
+		$response = $this->ShopModel->listShop();
+		$json = json_encode($response);
+		echo $json;
+	}
 	
 	public function getShopByNameCombo(){	
 		$shopname = $this->input->get('srchname');

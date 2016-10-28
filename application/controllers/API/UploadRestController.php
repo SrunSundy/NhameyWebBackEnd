@@ -83,7 +83,7 @@ class UploadRestController extends CI_Controller{
 		$response = array();
 		if ( ! empty($_FILES))
 		{
-			$new_name = "icon_".$this->generateRandomString(20).".jpg";
+			$new_name = "logo_".$this->generateRandomString(20).".jpg";
 			$target_small_dir = "./uploadimages/logo/small/";
 			$target_medium_dir = "./uploadimages/logo/medium/";
 			$target_big_dir = "./uploadimages/logo/big/";
