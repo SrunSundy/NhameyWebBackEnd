@@ -30,11 +30,11 @@ class ShopModel extends CI_Model{
 	
 	public function listShop(){
 		
-		$sql = "SELECT TRIM(COALESCE(sh.shop_logo,'')) shop_logo,
+		//TODO: update this query when it's a bigger app
+		$sql = "SELECT sh.shop_id,
+					TRIM(COALESCE(sh.shop_logo,'')) shop_logo,
 					sh.shop_name_en,
 					sh.shop_name_kh,
-					case when sh.shop_opening_time < NOW() and sh.shop_close_time > NOW() then 1 else 0 end as is_shop_open,
-					TIME(NOW()) as my_current_time,
 					sh.shop_opening_time,
 					sh.shop_close_time,
 					sh.shop_serve_type,
@@ -43,6 +43,7 @@ class ShopModel extends CI_Model{
 					sh.shop_view_count,
 					sh.shop_remark,
 					sh.shop_status,
+					sh.shop_time_zone,
 					ad.admin_id,
 					ad.admin_name
 		
@@ -51,27 +52,65 @@ class ShopModel extends CI_Model{
 		
 		$query = $this->db->query($sql);
 		
-		 $response = $query->result();
-		/* for($i=0; $i< count($response); $i++){			
-			if($response[$i]->is_shop_open == 1){
-				$response[$i]->
-			} 
-		}  */
-		 $t=time();
-		 echo($t . "<br>");
-		 echo(date("h-i-s",$t));
-		echo $response[0]->my_current_time;
-		$this->substractTime("8:00", "16:40");
+		$response = $query->result();
+		foreach($response as $item){	
+			
+			$now = new DateTime($item->shop_time_zone);
+			$now = strtotime($now->format('H:i:s'));
+			
+			$is_open = 0;
+			$time_to_close = 0;
+			$time_to_open = 0;
 		
+			
+			if(strtotime($item->shop_opening_time) < $now && strtotime($item->shop_close_time) > $now){
+				$is_open = 1;
+				$time_to_close = $this->substractCurrentTime($item->shop_time_zone, $item->shop_close_time);
+			}
+			
+			if(strtotime($item->shop_opening_time) > $now){
+				$time_to_open = $this->substractCurrentTime($item->shop_time_zone, $item->shop_opening_time);
+			}else{
+				$subfulltime = $this->substractCurrentTime($item->shop_time_zone, "24:00:00");
+				$subzerotime = $this->substractTime($item->shop_opening_time, "00:00:00");
+				$time_to_open = $this->addTime($subfulltime , $subzerotime);
+			}
+			
+		
+			$item->is_shop_open = $is_open;	
+			$item->time_to_close = $time_to_close;
+			$item->time_to_open = $time_to_open;
+		} 
+		
+		return $response;
 	}
 	
-	function substractTime($time1, $time2){
+	 function substractCurrentTime($timezone , $value){
 		
-		$a = new DateTime("18:00");
-		$b = new DateTime("16:40");
-		$interval = $a->diff($b);
+		$now =new DateTime($timezone);
+		$now =  $now->format('H:i:s');
+		$now = new DateTime($now);
+		
+		$shoptime = new DateTime($value);
+		$interval = $shoptime->diff($now);
+		return $interval->format('%H:%I:%S');
+		
+	} 
+	function substractTime($value1 , $value2){
 	
-		echo $interval->format('%H:%I:%S');
+		$shoptime1 = new DateTime($value1);
+		$shoptime2 = new DateTime($value2);
+		$interval = $shoptime2->diff($shoptime1);
+		return $interval->format('%H:%I:%S');
+	
+	}
+	
+	function addTime($value1 , $value2){
+	
+	
+		$interval = strtotime($value1)+strtotime($value2);
+		return $interval;
+	
 	}
 	
 	public function insertShop( $shopdata ){
@@ -96,7 +135,7 @@ class ShopModel extends CI_Model{
 			$shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
 		      shop_logo, shop_cover, shop_serve_type, shop_short_description, shop_description,
 		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, 
-		      shop_map_address, shop_social_media,shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		      shop_map_address, shop_social_media,shop_remark,shop_time_zone, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 			$shopparams = array( (int)$datashop["branch_id"], 1, (int)$datashop["country_id"],
 					(int)$datashop["city_id"], (int)$datashop["district_id"], (int)$datashop["commune_id"],
@@ -104,7 +143,7 @@ class ShopModel extends CI_Model{
 					$datashop["shop_cover"], $datashop["shop_serve_type"], $datashop["shop_short_description"],
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
-					$datashop["shop_close_time"], $shopmapadd, $shopmedia, $datashop["shop_remark"], 1);
+					$datashop["shop_close_time"], $shopmapadd, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();
