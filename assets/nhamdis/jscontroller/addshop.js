@@ -1,6 +1,7 @@
 /*================= google map code ================*/  
 var map;
 var geocoder;
+var shoptimezone;
 var mapOptions = { 
 	center: new google.maps.LatLng(0.0, 0.0),
 	zoom: 2,
@@ -34,7 +35,8 @@ function initialize() {
 				map: map
 			});
 		}	
-		getAddress(location);									         
+		getAddress(location);	
+		getShopTimeZone(location.lat(), location.lng());
 		$("#lat-location").val(location.lat());
 		$("#lng-location").val(location.lng());
 	}
@@ -67,6 +69,7 @@ function initialize() {
 			}
 			var delocation = {lat: latpoint , lng: lngpoint};
 			getAddress(delocation);
+			
 			marker.setPosition(delocation);												
 			map.panTo(delocation); 
 			//map.setCenter(test);
@@ -78,8 +81,12 @@ function initialize() {
 		
 													
 	});
-									      
+	
+	
+	
+	
 	function getAddress(latLng) {
+		
 		var address = "";
 		geocoder.geocode( {'latLng': latLng}, function(results, status) {				
 		
@@ -98,8 +105,24 @@ function initialize() {
 			}												  										        															           
 		});
 	}
+	
+	
 }
-google.maps.event.addDomListener(window, 'load', initialize)
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+function getShopTimeZone(lat, lng){	
+	$.ajax({
+  	   url:"https://maps.googleapis.com/maps/api/timezone/json?location="+parseFloat(lat)+","+parseFloat(lng)+"&timestamp="+(Math.round((new Date().getTime())/1000)).toString()+"&sensor=false",
+  	}).done(function(response){
+  		
+  	   if(response.timeZoneId != null){
+  		 shoptimezone = response.timeZoneId;
+  	   }else{
+  		 shoptimezone = "No Time zone";
+  	   }
+  	});
+}
 /*=================== end google map code ===================*/									
  
 
@@ -1082,6 +1105,7 @@ function validateLeavePage(){
 }
 function getDataToInsert(){
 	
+	
 	var shopdata = {
 		"ShopData":{
 			"datashop":{
@@ -1123,6 +1147,7 @@ function getDataToInsert(){
 					"twitter": $("#shoptwitter").val()
 				},
 				"shop_remark": $("#shopremark").val(),
+				"shop_time_zone" : shoptimezone
 			},
 			"serve_categories" : getServeCategories(),
 			"shop_facilities" : getShopFacilities(),
@@ -1808,8 +1833,8 @@ function goodbye(e) {
 		  	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
 		  	    //e.stopPropagation works in Firefox.
 		  	 if (e.stopPropagation) {
-		  	        e.stopPropagation();
-		  	        e.preventDefault();
+		  	    e.stopPropagation();
+		  	    e.preventDefault();
 		  	 }
 		}
 		
