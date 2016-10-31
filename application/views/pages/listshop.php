@@ -383,16 +383,6 @@
 		</tr>					           	
    	</script>
     <script>
-
-
-    $.ajax({
-    	   url:"https://maps.googleapis.com/maps/api/timezone/json?location=11.57757947513926,104.90670248866081&timestamp="+(Math.round((new Date().getTime())/1000)).toString()+"&sensor=false",
-    	}).done(function(response){
-    		 alert(response);
-    	   if(response.timeZoneId != null){
-    	  
-    	   }
-    	});
 	
 	    $(document).ready(function(){
 	    	
