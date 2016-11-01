@@ -31,10 +31,8 @@
   	}
   	
   	div.advance-search-box{
-  		
-  		
-  		border-bottom:2px solid #E0E0E0;
-  		
+  		  		
+  		border-bottom:2px solid #E0E0E0; 		
   		display:none;
   		background:#f6f7f9;
   	}
@@ -62,9 +60,9 @@
   		color: #757575;
   	}
   	
-  	span.shop-open-time{
+  	.shop-open-time{
   		color: #9E9E9E;
-  		padding-left: 8px;
+  		padding-left: 1px;
   		font-style: italic;
   	}
   	
@@ -74,8 +72,29 @@
   		padding-right: 5px;
   	}
   	
+  	img.table-shop-img{
+  		width: 50px;
+  		height: 50px;
+  		border-radius: 5px;
+  		position:absolute;top:6px;right:0
+  	}
+  	
+  	.img-logo-wrapper{
+  		width:55px;
+  		height:55px;
+  		position:relative;
+  	}
+  	
+  	.shop-display-status{
+  		
+  		transition: all 0.5s linear;
+  	}
+  	
   	@media screen and (max-width: 1198px) {
   		#srch-order-by{
+  			width: 100% !important;
+  		}
+  		.select2{
   			width: 100% !important;
   		}
   		
@@ -140,7 +159,7 @@
                   						<div class="col-lg-3">
                   							<div class="row">
                   								<p class="text-show-style" title="Total of disable shop">
-                  									<i class="fa fa-ban" style="color:#dd4b39;" aria-hidden="true"></i>
+                  									<i class="fa fa-building" style="color:#dd4b39;" aria-hidden="true"></i>
                   									Disable: 500000
                   								</p>      
                   							</div>
@@ -149,7 +168,7 @@
                   						<div class="col-lg-3">
                   							<div class="row">
                   								<p class="text-show-style" title="Total of active shop">
-                  									<i class="fa fa-thumbs-up"  style="color:#2196F3;" aria-hidden="true"></i>
+                  									<i class="fa fa-building"  style="color:#2196F3;" aria-hidden="true"></i>
                   									Enable : 500000
                   								</p>      
                   							</div>
@@ -197,9 +216,9 @@
                   						 <div class="col-lg-7">
                   						 	<div class="row">
                   						 		<div class="input-group ">
-							                       <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search shop name, address...">
+							                       <input type="text" name="table_search" id="whole-search" class="form-control input-sm pull-right" placeholder="Search shop name,type ,address...">
 							                       <div class="input-group-btn">
-							                         <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+							                         <button id="btn-whole-search" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
 							                       </div>
 							                     </div>
                   						 	</div>
@@ -231,11 +250,48 @@
                   	          </div>
                   	        </div>
                   	        
+                  	        <div class="col-lg-12" align="center">
+                  	        	<div class="row">
+	                  	            <select class="form-control nham-control  country-option" 
+							            id="srch_country" style="width: 100%; border-radius: 0!important;">						                      	
+							        </select>
+							    </div>
+                  	        </div>
+                  	        
                   	        <div class="col-lg-12" >
+                  	          <div class="row">                  	                        	          	
+                  	          	<div class="col-lg-4" style="padding-top:13px;" align="center">
+                  	          		<div class="row">
+	                  	          	   <select class="form-control nham-control  city-option" 
+							        		id="srch_city" style="width: 100%; border-radius: 0!important;">						                      	
+							           </select>
+							        </div>
+                  	          	</div>
+                  	          	
+                  	          	<div class="col-lg-4" style="padding-top:13px;" align="center">
+                  	          		<div class="row">
+		                  	          	 <select class="form-control nham-control  district-option" 
+								        	id="srch_district" style="width: 90%; border-radius: 0!important;">						                      	
+								         </select>
+							        </div>
+                  	          	</div>
+                  	          	
+                  	          	<div class="col-lg-4" style="padding-top:13px;" align="center">
+                  	          		<div class="row">
+	                  	          	    <select class="form-control nham-control  commune-option" 
+							        		id="srch_commune" style="width: 100%; border-radius: 0!important;">						                      	
+							            </select>
+							        </div>
+                  	          	</div>      	         				                						                    
+						       
+                  	          </div>
+                  	        </div>
+                  	        
+                  	        <div class="col-lg-12" style="padding-top:13px;">
                   	          <div class="row">
-                  	          	 <div class="col-lg-4" style="padding-bottom:10px;">
+                  	          	 <div class="col-lg-4" style="padding-bottom:10px;" align="center">
                   	          	 	<div class="row">                 	          	 						                						                    
-						                <select class="form-control nham-control  select2"  style="width: 100%; border-radius: 0!important;padding-left:10px;">
+						                <select class="form-control nham-control  category-option"  style="width: 100%; border-radius: 0!important;padding-left:10px;">
 						                      	
 						                </select>	
                   	          	 	</div>
@@ -282,39 +338,48 @@
                   	 	    	</div>
                   	 	    </div>
                   	 	    
-                  	 	    <div class="col-lg-12" >
+                  	 	    <div class="col-lg-12"  style="padding-top:16px;">
                   	 	    	<div class="row">
-                  	 	    		<div class="col-lg-9" style="padding-top:16px;">
-                  	 	    			<div class="row">
-                  	 	    				<input type="text" class="form-control" placeholder="searching..." />
-                  	 	    			</div>                  	 	    			
-                  	 	    		</div>    
-                  	 	    		<div class="col-lg-3" style="padding-top:16px;padding-bottom:10px;">
-                  	 	    			<div class="row">
-                  	 	    				<button type="button" class="btn btn-default " style="border-radius:0px;width:100%;">Search</button>
-                  	 	    			</div>                  	 	    			
-                  	 	    		</div>                  	 	    		
+                  	 	    		<select class="form-control " style="width: 100%;" id="shopservetype">
+					                     <option selected="selected" value="food">Food</option>
+					                     <option value="drink">Drink</option>					                    
+					                </select>     	 	    		
                   	 	    	</div>
                   	 	    </div>
+                  	 	    
+                  	 	    <div class="col-lg-12" style="padding-top:13px;">
+                  	 	    	<div class="row">                  	 	    	
+                  	 	    		<input type="text" class="form-control" placeholder="searching..." />                 	 	    		       	 	    		
+                  	 	    	</div>
+                  	 	    </div>
+                  	 	    
+                  	 	    <div class="col-lg-12" style="padding-top:11px;padding-bottom:10px;" >
+                  	 	    	<div class="row">                 	 	    	                 	 	    		
+                  	 	    		<button type="button" class="btn btn-default " style="border-radius:0px;width:100%;">Search</button>
+                  	 	    	</div>                  	 	    			                 	 	    	
+                  	 	    </div>
+                  	 	    
                   	 	</div>
                   		 
 						
                   	 </div>
                   </div>
                   
-                   <div class="col-lg-12" style="padding-top:10px;">
+                  <div class="col-lg-12" style="padding-top:10px;">
                   	<div class="row">    
                   		<div class="nham-div-line">                			
                   			<div class="form-group">
-					             <select class="form-control " style="width: 70px;">
-					                  <option selected="selected" >15</option>
-					                  <option>30</option>
-					                  <option>50</option>			                    
+					             <select class="form-control " id="shop-row-num" style="width: 70px;">
+					            	  <option value="5">5</option>
+					                  <option value="10" selected="selected" >10</option>
+					                  <option value="15" >15</option>
+					                  <option value="30">30</option>
+					                  <option value="50" >50</option>			                    
 					             </select>
 					         </div><!-- /.form-group -->                 		           			 
                   		</div>      
                   		<div class="nham-div-line">                  			
-                  			<p class="search-shop-result pull-right">searching results: 1852</p>                    			             			 
+                  			<p class="search-shop-result pull-right">searching results: <span id="shop-total-record"></span></p>                    			             			 
                   		</div>     
                   		<div style="clear:both"></div>      		                  		                		
                   	</div>             
@@ -328,14 +393,14 @@
 	                    <tr>
 	                      <th style="width:7%">Logo</th>
 	                      <th style="width:15%">Name</th>
-	                      <th style="width:5%">serve_type</th>
-	                      <th style="width:10%">created_date</th>
+	               
+	                      <th style="width:15%">created_date</th>
 	                      <th style="width:15%">address</th>
 	                      <th style="width:5%">view</th>                                         
 	                      <th style="width:5%">photo</th>
-	                       <th style="width:13%">remark</th>
+	                      <th style="width:13%">remark</th>
 	                      <th style="width:10%">creator</th>
-	                       <th style="width:5%">status</th>
+	                      <th style="width:5%">status</th>
 	                      <th style="width:10%">action</th>
 	                    </tr>
                    	   </thead>
@@ -345,6 +410,10 @@
                    	   
                   </table>
                 </div><!-- /.box-body -->
+                
+                <div id="pagi-display" class="pagination-display">
+     
+                </div>
               </div><!-- /.box -->
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -365,15 +434,22 @@
     <?php include 'imports/scriptimport.php'; ?>
    <script id="display-shop-table" type="text/x-jQuery-tmpl">
 		<tr>					
-			<td><img src="{{= addSrcLogoimg(shop_logo) }}" /></td>
-           	<td>
-				<span class="active-shop">
-					<i class="fa fa-circle" style="color:#4CAF50;" aria-hidden="true"></i>
-				</span>
-				{{= shop_name_en }} ({{= shop_name_kh }})
-				<span class="shop-open-time">[opening : {{= trimString(shop_opening_time, 5) }} - {{= trimString(shop_close_time, 5) }} ]</span></td>
-            <td>{{= shop_serve_type }}</td>
-            <td>{{=  trimString(shop_created_date, 10) }}</td>
+			<td>
+				<div class="img-logo-wrapper" >
+				   <img class="table-shop-img" src="{{= addSrcLogoimg(shop_logo) }}" />
+				   <span class="active-shop" style="position:absolute;top:0;right0;">
+					    <i class="fa fa-circle shop-display-status" id="{{= shop_id }}" style="{{= dynamicColor(is_shop_open, shop_id, time_to_close, time_to_open) }}" aria-hidden="true"></i>
+				   </span>
+				</div>				
+			</td>
+           	<td>				
+				{{= shop_name_en }} 
+			{{if shop_name_kh || shop_name_kh != ""}}
+				({{= shop_name_kh }})
+			{{/if}}
+				<div class="shop-open-time">opening : {{= trimString(shop_opening_time,0, 5) }} - {{= trimString(shop_close_time,0, 5) }} </div>
+			</td>
+            <td>{{=  trimString(shop_created_date,0, 10)  }} <span class="shop-open-time">{{=  trimString(shop_created_date, 10 , 16)  }}</span></td>
             <td>{{= shop_address }}</td>
  			<td>{{= shop_view_count }}</td>
  			<td>{{= shop_view_count }}</td>
@@ -383,42 +459,118 @@
 		</tr>					           	
    	</script>
     <script>
-	
+  
+    	var input = {
+    		"row" : $("#shop-row-num").val(),
+			"page" : 1,
+			"whole_search" : $("#whole-search").val()
+	    };	
+	    				
+	    loadShopDataToTable();
+	   
 	    $(document).ready(function(){
 	    	
-	    	$(".select2").select2({
-	    		placeholder: "Select a serve category"
-			});
+	    	$(".category-option").select2({ placeholder: "Select a serve category"});
+			$(".country-option").select2({ placeholder: "Select a country" });
+			$(".city-option").select2({ placeholder: "Select a city" });
+	    	$(".district-option").select2({ placeholder: "Select a district" });
+	    	$(".commune-option").select2({ placeholder: "Select a commune" });
+			
 	    	$("span.select2-selection").css({ "height":"34px","border-radius" : "0","border":"1px solid #ccc"});
 		    
 	    });
 
-
-	    loadShopDataToTable();
-	    
 	    function loadShopDataToTable(){
 
 	    	$.ajax({
-	    		type : "GET",
+	    		type : "POST",
 	    		url : $("#base_url").val()+"API/ShopRestController/listShop",
+	    		data : {
+		    		"display-setting" : input
+			    },
 	    		success : function(data){
 
 	    			data = JSON.parse(data);
 	    			console.log(data);
-	    			$("#display-shop-table").tmpl(data).appendTo("#display-shop-result");
 	    			
+	    			var total_page = data.total_page;
+	    			var showvisible = 5;
+	    			$("#display-shop-result").children().remove();
+	    			$("#shop-total-record").html(data.total_record);
+	    			if( data.response_data.length > 0){	    				
+		    			$("#display-shop-table").tmpl(data.response_data).appendTo("#display-shop-result");
+							    					    			
+		    		}else{
+						alert(1);
+						total_page = 1;
+						
+			    	}
+					
+	
+					 
+	    			$('#pagi-display').bootpag({
+		    			total : total_page, 
+		    			maxVisible: showvisible, 
+		    			leaps: true,
+	    		        firstLastUse: true,
+	    		        first: '&#8592;',
+	    		        last: '&#8594;',
+	    		        wrapClass: 'pagination',
+	    		        activeClass: 'active',
+	    		        disabledClass: 'disabled',
+	    		        nextClass: 'next',
+	    		        prevClass: 'prev',
+	    		        lastClass: 'last',
+	    		        firstClass: 'first'
+		    		});
+	    				    				    			
 	    		}
 	    	});
 
 		}
-
+	
+		function dynamicColor(isopen, obj, delayclose, delayopen ){
+			if(isopen == "1") {
+				setTimeout(function(){ 
+					$("#"+obj).css("color","#F44336"); 
+				}, delayclose);
+				return "color:#4CAF50";
+			}
+			else{
+				setTimeout(function(){ 
+					$("#"+obj).css("color","#4CAF50"); 
+				}, delayopen);
+				return "color:#F44336";
+			} 
+		}
+		
 		function addSrcLogoimg( image ){
 			return $("#base_url").val()+"uploadimages/logo/small/"+image;
 		}
 
-		function trimString( string, cutindex ){
-			return string.substring(0, cutindex);
+		function trimString( string, startindex , endindex ){			
+			return string.substring(startindex , endindex);
 		}
+
+		$('#pagi-display').bootpag().on("page", function(event, /* page number here */ num){
+		    input["page"] = num;	    	
+		    loadShopDataToTable();
+		});
+		    
+		$("#btn-whole-search").on("click", function(){
+
+			$('#pagi-display').bootpag({page : '1' });
+			input["whole_search"] = $("#whole-search").val();			
+			loadShopDataToTable();
+		});
+		
+		$("#shop-row-num").on("change", function(){
+
+			$('#pagi-display').bootpag({page : '1' });
+			input["row"] = $(this).val();			
+			loadShopDataToTable();
+		});
+		
     	$('#reservationtime').daterangepicker({
     		
              
