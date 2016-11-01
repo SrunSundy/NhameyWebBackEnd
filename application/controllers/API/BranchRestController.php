@@ -36,7 +36,9 @@ class BranchRestController extends CI_Controller{
 	}
 	
 	public function getBranchById(){
+		$tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
 		
+		print_r(json_encode($tzlist));
 	}
 	
 	public function insertBranch(){
