@@ -28,10 +28,74 @@ class ShopModel extends CI_Model{
 
 	}
 	
-	public function listShop(){
+	public function listShop($setting){
 		
-		//TODO: update this query when it's a bigger app
-		$sql = "SELECT sh.shop_id,
+		/*============ This doesn't support timezone ==============*/
+		
+		
+		
+		if(!isset($setting["row"])) $setting["row"] = 10;
+		if(!isset($setting["page"])) $setting["page"] = 1;
+				
+		$row = (int)$setting["row"];
+		$page = (int)$setting["page"];
+				
+		$limit = $row;
+		$offset = ($row*$page)-$row;
+		
+		$sql = "SELECT sh.shop_id, 
+					 TRIM(COALESCE(sh.shop_logo,'')) shop_logo,
+					 sh.shop_name_en,
+					 sh.shop_name_kh,
+					 case 
+							when sh.shop_opening_time < TIME(NOW()) and sh.shop_close_time > TIME(NOW()) then 1 else 0 end as is_shop_open,
+					 case 
+							when sh.shop_opening_time < TIME(NOW()) and sh.shop_close_time > TIME(NOW()) then 
+								TIMEDIFF(sh.shop_close_time,TIME(NOW()))
+							else 0 end as time_to_close,
+					 case 
+							when sh.shop_opening_time > TIME(NOW()) then 
+								TIMEDIFF(sh.shop_opening_time,TIME(NOW()))  
+							when  sh.shop_close_time < TIME(NOW()) then
+								ADDTIME(TIMEDIFF('24:00:00', TIME(NOW())) , TIMEDIFF(sh.shop_opening_time, '00:00:00'))
+							else 0 end as time_to_open,
+						sh.shop_opening_time,
+						sh.shop_close_time,			
+						sh.shop_created_date,
+						sh.shop_address,
+						sh.shop_view_count,
+						sh.shop_remark,
+						sh.shop_status,
+						ad.admin_id,
+						ad.admin_name		
+				FROM nham_shop sh
+				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id
+				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address) LIKE ?
+				LIMIT ? OFFSET ?";
+	
+		$query = $this->db->query($sql , array("%".str_replace(' ', '',$setting["whole_search"])."%" ,$limit,$offset));
+		$responsequery = $query->result();
+		
+		if(count($responsequery) > 0){
+			foreach($responsequery as $item){
+				if($item->is_shop_open == 0){
+					$item->time_to_open = $this->covertToMilisecond($item->time_to_open);
+				}else{
+					$item->time_to_close = $this->covertToMilisecond($item->time_to_close);
+				}
+			
+			}
+		}
+		
+		$countsetting["row"] = $row; 
+		$countsetting["whole_search"] = $setting["whole_search"];
+		
+		$response["total_page"] = (int)$this->totalShop($countsetting)[0]->total_page;
+		$response["total_record"] = $this->totalShop($countsetting)[0]->total_record;
+		$response["response_data"] = $responsequery;
+		return $response;
+		//TODO: update this query when it's a bigger app ---- support timezone method
+		/* $sql = "SELECT sh.shop_id,
 					TRIM(COALESCE(sh.shop_logo,'')) shop_logo,
 					sh.shop_name_en,
 					sh.shop_name_kh,
@@ -66,14 +130,17 @@ class ShopModel extends CI_Model{
 			if(strtotime($item->shop_opening_time) < $now && strtotime($item->shop_close_time) > $now){
 				$is_open = 1;
 				$time_to_close = $this->substractCurrentTime($item->shop_time_zone, $item->shop_close_time);
+				$time_to_close = $this->covertToMilisecond($time_to_close);
 			}
 			
 			if(strtotime($item->shop_opening_time) > $now){
 				$time_to_open = $this->substractCurrentTime($item->shop_time_zone, $item->shop_opening_time);
-			}else{
+				$time_to_open = $this->covertToMilisecond($time_to_open);
+			}
+			if(strtotime($item->shop_close_time) < $now){
 				$subfulltime = $this->substractCurrentTime($item->shop_time_zone, "24:00:00");
 				$subzerotime = $this->substractTime($item->shop_opening_time, "00:00:00");
-				$time_to_open = $this->addTime($subfulltime , $subzerotime);
+				$time_to_open = $this->addTime($subfulltime , $subzerotime); // already return as milisecond
 			}
 			
 		
@@ -82,8 +149,24 @@ class ShopModel extends CI_Model{
 			$item->time_to_open = $time_to_open;
 		} 
 		
-		return $response;
+		return $response; */
 	}
+	
+	public function totalShop($countsetting){
+		
+		$row = $countsetting["row"];
+		$sql = "SELECT count(*) as total_record,CASE WHEN count(*)% ? != 0 THEN count(*)/ ? +1
+						ELSE count(*)/ ? 
+						END as total_page 
+				FROM nham_shop
+				WHERE CONCAT_WS(shop_name_en,shop_name_kh,shop_serve_type,shop_address) LIKE ?";
+		
+		$query = $this->db->query($sql, array($row, $row, $row, "%".str_replace(' ', '',$countsetting["whole_search"])."%"));
+		$response = $query->result();
+		return  $response;
+		
+	}
+	
 	
 	 function substractCurrentTime($timezone , $value){
 		
@@ -105,12 +188,28 @@ class ShopModel extends CI_Model{
 	
 	}
 	
-	function addTime($value1 , $value2){
+	function addTime($time1, $time2) {
+		  $times = array($time1, $time2);
+		  $seconds = 0;
+		  foreach ($times as $time)
+		  {
+		    list($hour,$minute,$second) = explode(':', $time);
+		    $seconds += $hour*3600;
+		    $seconds += $minute*60;
+		    $seconds += $second;
+		  }
+		  return $seconds * 1000;
+	}
 	
-	
-		$interval = strtotime($value1)+strtotime($value2);
-		return $interval;
-	
+	function covertToMilisecond($time){
+		
+		$seconds = 0;		
+		list($hour,$minute,$second) = explode(':', $time);
+		$seconds += $hour*3600;
+		$seconds += $minute*60;
+		$seconds += $second;		
+		return $seconds * 1000;
+		
 	}
 	
 	public function insertShop( $shopdata ){
