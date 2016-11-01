@@ -17,7 +17,8 @@ class ShopRestController extends CI_Controller{
 	
 	public function listShop(){
 		
-		$response = $this->ShopModel->listShop();
+		$setting = $this->input->post('display-setting');	
+		$response = $this->ShopModel->listShop($setting);
 		$json = json_encode($response);
 		echo $json;
 	}
