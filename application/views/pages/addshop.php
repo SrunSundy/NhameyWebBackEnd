@@ -228,7 +228,7 @@
 			                  <div class="form-group">
 			                    <label>Shop Phone:</label>
 			                    <div class="input-group">			                      
-			                      <input type="text" class="form-control inputmaskphone" id="shop_phonenum" placeholder="shop contact">
+			                      <input type="text" class="form-control inputmaskphone" id="shop_phonenum" placeholder="shop phone">
 			                      <div class="input-group-addon nham-append-data">
 			                        <i class="fa fa-plus"></i>
 			                      </div>

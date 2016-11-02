@@ -76,7 +76,11 @@
   		width: 50px;
   		height: 50px;
   		border-radius: 5px;
-  		position:absolute;top:6px;right:0
+  		position:absolute;
+  		top:6px;
+  		right:0;
+  		border: 2px solid #fff;
+  		box-shadow: 1px 1px 2px gray;
   	}
   	
   	.img-logo-wrapper{
@@ -452,7 +456,7 @@
             <td>{{=  trimString(shop_created_date,0, 10)  }} <span class="shop-open-time">{{=  trimString(shop_created_date, 10 , 16)  }}</span></td>
             <td>{{= shop_address }}</td>
  			<td>{{= shop_view_count }}</td>
- 			<td>{{= shop_view_count }}</td>
+ 			<td>{{= shop_img_total }}</td>
  			<td>{{= shop_remark }}</td>
 			<td>{{= admin_name }}</td>
  			<td>{{= shop_status }}</td>						
@@ -560,14 +564,19 @@
 		$("#btn-whole-search").on("click", function(){
 
 			$('#pagi-display').bootpag({page : '1' });
-			input["whole_search"] = $("#whole-search").val();			
+			
+			input["whole_search"] = $("#whole-search").val();
+			input["page"] = 1;			
 			loadShopDataToTable();
 		});
 		
 		$("#shop-row-num").on("change", function(){
 
 			$('#pagi-display').bootpag({page : '1' });
-			input["row"] = $(this).val();			
+
+			input["page"] = 1;
+			input["row"] = $(this).val();
+						
 			loadShopDataToTable();
 		});
 		
