@@ -195,9 +195,15 @@
     	};
     	geocoder = new google.maps.Geocoder();
     	var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+    	
     	google.maps.event.addListener(map, 'click', function(event) {
+    		
+    		this.setOptions({scrollwheel:true});
     		placeMarker(event.latLng);
     	});
+    	google.maps.event.addListener(map, 'mouseout', function() {
+    		this.setOptions({scrollwheel:false});
+    	});	
     																						
     	var marker = new google.maps.Marker({
     		position: mylocationmarker,
