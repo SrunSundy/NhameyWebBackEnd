@@ -19,7 +19,7 @@ class ShopRestController extends CI_Controller{
 		
 		$setting = $this->input->post('display-setting');	
 		$response = $this->ShopModel->listShop($setting);
-		$json = json_encode($response);
+		$json = json_encode($response, JSON_PRETTY_PRINT);
 		echo $json;
 	}
 	
