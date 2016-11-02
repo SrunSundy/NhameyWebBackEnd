@@ -36,10 +36,15 @@ class ShopModel extends CI_Model{
 		
 		if(!isset($setting["row"])) $setting["row"] = 10;
 		if(!isset($setting["page"])) $setting["page"] = 1;
+		if(!isset($setting["whole_search"])) $setting["whole_search"] = "";
 				
 		$row = (int)$setting["row"];
 		$page = (int)$setting["page"];
-				
+		$whole_search = $setting["whole_search"];
+
+		if(!$row) $row = 10;
+		if(!$page) $page = 1;
+		if(!$whole_search) $whole_search = "";
 		$limit = $row;
 		$offset = ($row*$page)-$row;
 		
@@ -73,7 +78,7 @@ class ShopModel extends CI_Model{
 				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address) LIKE ?
 				LIMIT ? OFFSET ?";
 	
-		$query = $this->db->query($sql , array("%".str_replace(' ', '',$setting["whole_search"])."%" ,$limit,$offset));
+		$query = $this->db->query($sql , array("%".str_replace(' ', '', $whole_search)."%" ,$limit,$offset));
 		$responsequery = $query->result();
 		
 		if(count($responsequery) > 0){
@@ -83,12 +88,13 @@ class ShopModel extends CI_Model{
 				}else{
 					$item->time_to_close = $this->covertToMilisecond($item->time_to_close);
 				}
+				$item->shop_img_total = $this->totalShopImg((int)$item->shop_id);
 			
 			}
 		}
 		
 		$countsetting["row"] = $row; 
-		$countsetting["whole_search"] = $setting["whole_search"];
+		$countsetting["whole_search"] = $whole_search;
 		
 		$response["total_page"] = (int)$this->totalShop($countsetting)[0]->total_page;
 		$response["total_record"] = $this->totalShop($countsetting)[0]->total_record;
@@ -164,6 +170,15 @@ class ShopModel extends CI_Model{
 		$query = $this->db->query($sql, array($row, $row, $row, "%".str_replace(' ', '',$countsetting["whole_search"])."%"));
 		$response = $query->result();
 		return  $response;
+		
+	}
+	
+	public function totalShopImg($shopid){
+		
+		$sql = "SELECT count(*) as shop_img_cnt FROM nham_shop_image where shop_id = ?";
+		$query = $this->db->query($sql, array($shopid));
+		$response = $query->result();
+		return  (int)$response[0]->shop_img_cnt;
 		
 	}
 	
