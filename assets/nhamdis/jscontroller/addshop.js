@@ -6,7 +6,8 @@ var mapOptions = {
 	center: new google.maps.LatLng(0.0, 0.0),
 	zoom: 2,
 	mapTypeId: google.maps.MapTypeId.ROADMAP 
-};								
+};		
+
 function initialize() {
 	var mylocationmarker = {lat: 11.559844756373714, lng:  104.91085053014103};
 	var myOptions = {
@@ -18,14 +19,38 @@ function initialize() {
 	geocoder = new google.maps.Geocoder();
 	var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
 	google.maps.event.addListener(map, 'click', function(event) {
+		
+		this.setOptions({scrollwheel:true});
 		placeMarker(event.latLng);
 	});
-																						
+	google.maps.event.addListener(map, 'mouseout', function() {
+		this.setOptions({scrollwheel:false});
+	});	
+	
 	var marker = new google.maps.Marker({
 		position: mylocationmarker,
 		map: map,
+		optimized:false
 	});
-		
+	
+	google.maps.event.addListener(marker, 'mouseover', function() {
+        if (this.getAnimation() == null || typeof this.getAnimation() === 'undefined') {           
+           // clearTimeout(bounceTimer);           
+          var that = this;             
+          bounceTimer = setTimeout(function(){
+               that.setAnimation(google.maps.Animation.BOUNCE);
+          },500); 
+        }
+    });
+    
+    google.maps.event.addListener(marker, 'mouseout', function() {
+        
+         if (this.getAnimation() != null) {
+            this.setAnimation(null);
+         }         
+         clearTimeout(bounceTimer);        
+    });
+    
 	function placeMarker(location) {
 		if(marker){ 
 			marker.setPosition(location); 
@@ -109,6 +134,7 @@ function initialize() {
 	
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+
 
 
 function getShopTimeZone(lat, lng){	
@@ -1087,7 +1113,7 @@ function validateLeavePage(){
 
 	var isleave = true;
 	var validate = [
-		validateLeaveNull("selectedbranch"),
+		
 		validateLeaveNull("shopshortdes"),
 		validateLeaveNull("shopdes"),
 	];
@@ -1174,6 +1200,7 @@ $("#saveshop").on("click",function(){
 				 progressbar.stop();
 				 if(data.is_insert){
 					// alert(data.message);
+					 clearShopForm();
 					 swal({
 						 title: data.message,
 					     text: "A shop has been added!",
@@ -1820,7 +1847,45 @@ function clearServeCategorySaveform(){
 	$("#removeloadingwrapper-servecategory").hide();
 }
 /*======================= End serve category event =============================*/
- 
+/*================ clear form after save ===================*/
+
+function clearShopForm(){
+	
+	/*--- cover ---*/
+	coverimagename = "";		
+	$("#uploadcover").val(null);
+	
+	/*--- logo ---*/
+	logoimagename = "";		
+	$("#uploadlogo").val(null);
+	
+	/*--- shop image detail ---*/
+	arrnewfileimagename = [];
+	shopphones = [];
+	
+	$("#shopshortdes").val("");
+	$("#shopdes").val("");
+	$("#shopengname").val("");
+	$("#shopkhname").val("");
+	$("#logo_description").val("");
+	$("#cover_description").val("");
+	$("#shopshortdes").val("");
+	$("#shopdes").val("");
+	$("#shopemail").val("");
+	$("#shopfb").val("");
+	$("#shopinstagram").val("");
+	$("#shopgoogleplus").val("");
+	$("#shoptwitter").val("");
+	$("#shopremark").val("");
+	
+	$(".work-day").prop('checked', false);
+	$("#allday").prop('checked', false);
+	
+	$("#phone-add-result").children().remove();
+	$("#serve-categories").children().remove();
+	$("#shop-facilities").children().remove();
+}
+/*================ end clear form after save ===================*/
 
 function goodbye(e) {
 	if (!validateLeavePage()) {
