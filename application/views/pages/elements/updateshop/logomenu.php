@@ -49,11 +49,26 @@
 				
 			</li>-->
 			
-			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/overview/<?php echo $shopid ?>">Overview</a></li>
-			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/information/<?php echo $shopid ?>">Inforamtion</a></li>
-			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/photo/<?php echo $shopid ?>">Photo</a></li>
-			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/product/<?php echo $shopid ?>">Product</a></li>
-			<li class="item"><a href="<?php echo base_url(); ?>MainController/updateshop/location/<?php echo $shopid ?>">Location</a></li>
+			<li class="item">
+				<input type="hidden" value="updateshop_overview" />
+				<a href="javascript:;">Overview</a>
+			</li>
+			<li class="item">
+				<input type="hidden" value="updateshop_information" />
+				<a href="javascript:;">Inforamtion</a>
+			</li>
+			<li class="item">
+				<input type="hidden" value="updateshop_photo" />
+				<a href="javascript:;">Photo</a>
+			</li>
+			<li class="item">
+				<input type="hidden" value="updateshop_product" />
+				<a href="javascript:;">Product</a>
+			</li>
+			<li class="item">
+				<input type="hidden" value="updateshop_location" />
+				<a href="javascript:;">Location</a>
+			</li>
 		</ul>
 	</div>
 </div>

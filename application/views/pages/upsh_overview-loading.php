@@ -38,12 +38,19 @@
 	       	 		</div>
 	       	 		<div class="fake-info-wrapper">
 	       	 			<div class="col-lg-12" style="height: 20px;"></div>
-	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="">
-	       	 				<div class="row" >	       	 						       	 						       	 					
-	       	 					<iframe style="width:100%;height:auto;" id="updateShopframe" 
-          							  scrolling="no" frameborder="0" marginheight="0" marginwidth="0" src="<?php echo base_url(); ?>MainController/updateshop_overview">
-								 
-								</iframe>	       	 						       	 					
+	       	 			<div class="col-lg-12 shop-edit-form-wrapper">
+	       	 				<div class="row">	       	 						       	 						       	 					
+	       	 					<div  class="tab-wrapper">	       	 				
+	       	 						<div class="tab-header col-lg-12">
+	       	 							<p class="tab-intro-text"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Overview</span></p>
+	       	 						</div>
+	       	 						<div class="tab-body col-lg-12">
+	       	 							<div class="row">
+		       	 							
+	       	 							</div>
+	       	 						</div>
+	       	 					</div>
+	       	 						       	 					
 	       	 				</div>
 	       	 			</div>
 	       	 			<div style="clear:both;"></div>
@@ -93,21 +100,33 @@
     
     <script>
    
-    function resizeIframe(){
-   	 	$("#updateShopframe").css("height", $("#updateShopframe").contents().find(".shop-event-wrapper").height() + "px");
-   	}
-
-	$("li.item").on("click", function(){
-		$("li.item").removeClass("li-click");
-		
-		$(this).addClass("li-click");
-		var tabid = $(this).find("input").val();
-		
-		$("#updateShopframe").attr("src","<?php echo base_url(); ?>MainController/"+tabid);
-	});
-
-	
-   
+       
+    $(window).load(function(){
+    	 $(window).scrollTop(200);
+    	 $(".menu-ul li.item").eq(0).addClass("li-click");
+    	 resizeOnWindow();
+    	
+    });
+  
+        
+	function updateShopField(value , param){
+		$.ajax({
+			type : "POST",
+			url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
+			data : {
+				"shopdata" : {
+					"updated_value" : value,
+					"shop_id" : $("#shop_id").val(),
+					"param" : param
+				}
+			},
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+					
+			}
+		});
+	}
     </script>
   </body>
 </html>

@@ -94,6 +94,62 @@
   		transition: all 0.5s linear;
   	}
   	
+  	i.shop-edit{
+  		font-size: 22px;
+  		color: #dd4b39;
+  		cursor: pointer;
+  	}
+  	
+  	/* slider */
+  	.switch {
+	  position: relative;
+	  display: inline-block;
+	  width: 60px;
+	  height: 28px;
+	}
+	
+	.switch input {display:none;}
+	
+	.slider {
+	  position: absolute;
+	  cursor: pointer;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  background-color: #ccc;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+	
+	.slider:before {
+	  position: absolute;
+	  content: "";
+	  height: 20px;
+	  width: 26px;
+	  left: 4px;
+	  bottom: 4px;
+	  background-color: #F5F5F5;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+	
+	input:checked + .slider {
+	  background-color: #dd4b39;
+	}
+	
+	input:focus + .slider {
+	  box-shadow: 0 0 1px #dd4b39;
+	}
+	
+	input:checked + .slider:before {
+	  -webkit-transform: translateX(26px);
+	  -ms-transform: translateX(26px);
+	  transform: translateX(26px);
+	}
+
+  	
+  	/* end slider */
   	@media screen and (max-width: 1198px) {
   		#srch-order-by{
   			width: 100% !important;
@@ -163,7 +219,7 @@
                   						<div class="col-lg-3">
                   							<div class="row">
                   								<p class="text-show-style" title="Total of disable shop">
-                  									<i class="fa fa-building" style="color:#dd4b39;" aria-hidden="true"></i>
+                  									<i class="fa fa-building" style="color:#ccc;" aria-hidden="true"></i>
                   									Disable: 500000
                   								</p>      
                   							</div>
@@ -172,7 +228,7 @@
                   						<div class="col-lg-3">
                   							<div class="row">
                   								<p class="text-show-style" title="Total of active shop">
-                  									<i class="fa fa-building"  style="color:#2196F3;" aria-hidden="true"></i>
+                  									<i class="fa fa-building"  style="color:#dd4b39;" aria-hidden="true"></i>
                   									Enable : 500000
                   								</p>      
                   							</div>
@@ -439,6 +495,7 @@
    <script id="display-shop-table" type="text/x-jQuery-tmpl">
 		<tr>					
 			<td>
+				<input type="hidden" value="{{= shop_id}}"/>
 				<div class="img-logo-wrapper" >
 				   <img class="table-shop-img" src="{{= addSrcLogoimg(shop_logo) }}" />
 				   <span class="active-shop" style="position:absolute;top:0;right0;">
@@ -459,7 +516,18 @@
  			<td>{{= shop_img_total }}</td>
  			<td>{{= shop_remark }}</td>
 			<td>{{= admin_name }}</td>
- 			<td>{{= shop_status }}</td>						
+ 			<td>
+				<label class="switch">
+  					<input class="toggleshop" type="checkbox" {{= checkShopStatus(shop_status)}}>
+  					<div class="slider"></div>
+				</label>
+			</td>
+			<td align="center">
+				<form method="POST" action="{{= formBaseUrl()}}">
+					<input type="hidden" name="shopid" value="{{= shop_id}}" />
+				</form>
+				<i class="shop-edit fa fa-pencil-square" aria-hidden="true"></i>
+			</td>						
 		</tr>					           	
    	</script>
     <script>
@@ -486,6 +554,7 @@
 
 	    function loadShopDataToTable(){
 
+	    	progressbar.start();
 	    	$.ajax({
 	    		type : "POST",
 	    		url : $("#base_url").val()+"API/ShopRestController/listShop",
@@ -527,12 +596,29 @@
 	    		        lastClass: 'last',
 	    		        firstClass: 'first'
 		    		});
-	    				    				    			
-	    		}
+	    			progressbar.stop();	
+	    			   			    			
+	    		},
+				xhr: function() {
+					var xhr = new XMLHttpRequest();
+					xhr.upload.addEventListener("progress", function(event) {
+						if (event.lengthComputable) {
+							var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+							 //console.log(percentComplete);
+							
+							$("#start_progress_bar").css({width: percentComplete+"%"});
+								
+						};
+					}, false);
+
+					return xhr;
+					
+				}
 	    	});
 
 		}
-	
+
+	  
 		function dynamicColor(isopen, obj, delayclose, delayopen ){
 			if(isopen == "1") {
 				setTimeout(function(){ 
@@ -547,6 +633,15 @@
 				return "color:#F44336";
 			} 
 		}
+
+		function checkShopStatus(status){
+
+			if(status == "1"){
+				return "checked";
+			}else{
+				return "";
+			}
+		}
 		
 		function addSrcLogoimg( image ){
 			return $("#base_url").val()+"uploadimages/logo/small/"+image;
@@ -556,6 +651,60 @@
 			return string.substring(startindex , endindex);
 		}
 
+		$(document).on("click", ".toggleshop", function(){
+
+			if($(this).is(":checked")){
+				$(this).prop('checked', false);
+				swal({
+					  title: "Are you sure?",
+					  text: "This shop will be seen by the clients",
+					  type: "warning",
+					  showCancelButton: true,
+					  confirmButtonColor: "#DD6B55",
+					  confirmButtonText: "Yes, delete it!",
+					  closeOnConfirm: false
+				},
+				function(){
+					 swal("Deleted!", "Your imaginary file has been deleted.", "success");
+				});
+			}else{
+				$(this).prop('checked', true);
+			
+				swal({
+					  title: "Are you sure?",
+					  text: "The client will not be able to see this shop",
+					  type: "warning",
+					  showCancelButton: true,
+					  confirmButtonColor: "#DD6B55",
+					  confirmButtonText: "Yes, delete it!",
+					  closeOnConfirm: false
+				},
+				 function(isConfirm) {
+			        if (isConfirm) {
+			        	 swal("Deleted!", "Your imaginary file has been deleted.", "success");
+
+			        } else {
+			            
+			        }
+			    });
+			}
+			
+			
+		});
+
+		function formBaseUrl(){
+			return "<?php echo base_url(); ?>MainController/updateshop";
+		}
+		
+		$(document).on("click", ".shop-edit", function(){
+
+			$(this).siblings("form").submit();
+			//var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
+			//location.href= "<?php echo base_url(); ?>MainController/updateshop/overview/"+shopid;
+			
+		
+		});
+		
 		$('#pagi-display').bootpag().on("page", function(event, /* page number here */ num){
 		    input["page"] = num;	    	
 		    loadShopDataToTable();

@@ -30,7 +30,7 @@
       	 <!-- wrapper of both profile and cover -->  
        	 <div class="content-nham-wrapper">
        	 	<!-- wrapper of cover -->
-       	 	<div class="col-lg-9 cover-wrapper-left" >
+       	 	<div class="col-lg-9 cover-wrapper-left" style="background:gray;">
        	 		<div class="row">
 	       	 		<!-- wrapper of info and cover -->
 	       	 		<div class="bar-cover-wrapper">
@@ -38,12 +38,19 @@
 	       	 		</div>
 	       	 		<div class="fake-info-wrapper">
 	       	 			<div class="col-lg-12" style="height: 20px;"></div>
-	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="">
-	       	 				<div class="row" >	       	 						       	 						       	 					
-	       	 					<iframe style="width:100%;height:auto;" id="updateShopframe" 
-          							  scrolling="no" frameborder="0" marginheight="0" marginwidth="0" src="<?php echo base_url(); ?>MainController/updateshop_overview">
-								 
-								</iframe>	       	 						       	 					
+	       	 			<div class="col-lg-12 shop-edit-form-wrapper">
+	       	 				<div class="row">	       	 						       	 						       	 					
+	       	 					<div  class="tab-wrapper">	       	 				
+	       	 						<div class="tab-header col-lg-12">
+	       	 							<p class="tab-intro-text"><i class="fa fa-book" aria-hidden="true"></i><span>Information</span></p>
+	       	 						</div>
+	       	 						<div class="tab-body col-lg-12">
+	       	 							<div class="row">
+		       	 							
+	       	 							</div>
+	       	 						</div>
+	       	 					</div>
+	       	 						       	 					
 	       	 				</div>
 	       	 			</div>
 	       	 			<div style="clear:both;"></div>
@@ -53,7 +60,7 @@
        	 	</div>
        	 	<!-- end wrapper of cover -->
        	 	<!-- wrapper of profile -->
-		    <div class="col-lg-3 profilemenu-wrapper-right">
+		    <div class="col-lg-3 profilemenu-wrapper-right" >
 		    	<?php include 'elements/updateshop/logomenu.php';?>
 		    </div>
 		    <div style="clear:both;"></div>
@@ -93,21 +100,32 @@
     
     <script>
    
-    function resizeIframe(){
-   	 	$("#updateShopframe").css("height", $("#updateShopframe").contents().find(".shop-event-wrapper").height() + "px");
-   	}
+       
+    $(window).load(function(){
+    	 $(window).scrollTop(200);
+    	 $(".menu-ul li.item").eq(1).addClass("li-click");
+    	 resizeOnWindow();
+    });
 
-	$("li.item").on("click", function(){
-		$("li.item").removeClass("li-click");
-		
-		$(this).addClass("li-click");
-		var tabid = $(this).find("input").val();
-		
-		$("#updateShopframe").attr("src","<?php echo base_url(); ?>MainController/"+tabid);
-	});
-
-	
-   
+        
+	function updateShopField(value , param){
+		$.ajax({
+			type : "POST",
+			url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
+			data : {
+				"shopdata" : {
+					"updated_value" : value,
+					"shop_id" : $("#shop_id").val(),
+					"param" : param
+				}
+			},
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+					
+			}
+		});
+	}
     </script>
   </body>
 </html>
