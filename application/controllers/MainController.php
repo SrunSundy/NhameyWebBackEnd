@@ -43,16 +43,40 @@
 			$this->load->view('pages/userinformation');
 		}
 		
-		public function updateshop($tab = null, $shopid = null){
+		public function updateshop_overview(){
+			$this->load->view('pages/upsh_overview');
+		}
+		
+		public function updateshop_information(){
+			$this->load->view('pages/upsh_information');
+		}
+		
+		public function updateshop_photo(){
+			$this->load->view('pages/upsh_photo');
+		}
+		
+		public function updateshop_product(){
+			$this->load->view('pages/upsh_product');
+		}
+		
+		public function updateshop_location(){
+			$this->load->view('pages/upsh_location');
+		}
+		
+		public function updateshop(){
 			
 			$shopid = $this->input->post('shopid');
-			if(!isset($shopid) || is_string ($shopid)){
-				$shopid["shopid"] = 100;
-				/* redirect('/MainController/addshop', 'refresh'); */
+			/* $shopid  = urlencode($shopid);
+			if(!$shopid){
+				$shopid =50;
+				 redirect('/MainController/addshop', 'refresh'); 
 			}
 					
-			if(isset($tab)) $this->load->view('pages/upsh_'.$tab , $shopid);
-			else $this->load->view('pages/upsh_overview', $shopid);
+			$data["shopid"] = $shopid;
+		 	if(isset($tab)) $this->load->view('pages/upsh_'.$tab , $data);
+			else $this->load->view('pages/upsh_overview', $data);  */
+			$data["shopid"] = $shopid;
+			$this->load->view('pages/updateshop', $data);
 			
 		}
 		
