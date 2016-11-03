@@ -9,6 +9,15 @@ $(".img-cover").error(function() {
 	checkHasCover = false;
 });
 
+
+$(window).load(function(){
+	
+    $(window).scrollTop(200);
+    $(".menu-ul li.item").eq(0).addClass("li-click");
+    resizeOnWindow();
+   
+});
+
 $(window).scroll(function() {
 	var scrollHeight = $(document).scrollTop();
 	if (scrollHeight >= 50) {
@@ -18,6 +27,8 @@ $(window).scroll(function() {
 		$(".profilemenu-wrapper-right").removeClass("top-zero");
 	}
 })
+
+
 
 $(window).on("resize", function() {
 
