@@ -100,56 +100,7 @@
   		cursor: pointer;
   	}
   	
-  	/* slider */
-  	.switch {
-	  position: relative;
-	  display: inline-block;
-	  width: 60px;
-	  height: 28px;
-	}
-	
-	.switch input {display:none;}
-	
-	.slider {
-	  position: absolute;
-	  cursor: pointer;
-	  top: 0;
-	  left: 0;
-	  right: 0;
-	  bottom: 0;
-	  background-color: #ccc;
-	  -webkit-transition: .4s;
-	  transition: .4s;
-	}
-	
-	.slider:before {
-	  position: absolute;
-	  content: "";
-	  height: 20px;
-	  width: 26px;
-	  left: 4px;
-	  bottom: 4px;
-	  background-color: #F5F5F5;
-	  -webkit-transition: .4s;
-	  transition: .4s;
-	}
-	
-	input:checked + .slider {
-	  background-color: #dd4b39;
-	}
-	
-	input:focus + .slider {
-	  box-shadow: 0 0 1px #dd4b39;
-	}
-	
-	input:checked + .slider:before {
-	  -webkit-transform: translateX(26px);
-	  -ms-transform: translateX(26px);
-	  transform: translateX(26px);
-	}
-
   	
-  	/* end slider */
   	@media screen and (max-width: 1198px) {
   		#srch-order-by{
   			width: 100% !important;
@@ -161,6 +112,7 @@
   		
   	}
   </style>
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/css/nhamslider.css">
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
   	
