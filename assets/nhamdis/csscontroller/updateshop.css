@@ -295,7 +295,7 @@ ul.menu-ul li.item a {
 }
 
 div.shop-edit-form-wrapper {
-	min-height: 500px;
+	min-height: 600px;
 	background: #ffffff;
 	border: 1px solid #E0E0E0;
 }
@@ -333,3 +333,4 @@ p.tab-intro-text span {
 	font-weight: bold;
 	padding-left: 10px;
 }
+
