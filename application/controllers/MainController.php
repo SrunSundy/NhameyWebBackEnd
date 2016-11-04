@@ -63,9 +63,11 @@
 			$this->load->view('pages/upsh_location');
 		}
 		
-		public function updateshop(){
+		public function updateshop($shopid = null){
 			
-			$shopid = $this->input->post('shopid');
+			$shopid  = urlencode($shopid);
+			$this->load->model('ShopModel');
+			$response = $this->ShopModel->defaultShopUpdate($shopid);
 			/* $shopid  = urlencode($shopid);
 			if(!$shopid){
 				$shopid =50;
@@ -75,7 +77,18 @@
 			$data["shopid"] = $shopid;
 		 	if(isset($tab)) $this->load->view('pages/upsh_'.$tab , $data);
 			else $this->load->view('pages/upsh_overview', $data);  */
-			$data["shopid"] = $shopid;
+			$data["shop_id"] = $shopid;
+			$data["shop_name_en"] = $response[0]->shop_name_en;
+			$data["shop_name_kh"] = $response[0]->shop_name_kh;
+			$data["shop_logo"] = $response[0]->shop_logo;
+			$data["shop_cover"] = $response[0]->shop_cover;
+			$data["shop_status"] = $response[0]->shop_status;
+			$data["is_shop_open"] = $response[0]->is_shop_open;
+			$data["time_to_close"] = $response[0]->time_to_close;
+			$data["time_to_open"] = $response[0]->time_to_open;
+			$data["shop_opening_time"] = $response[0]->shop_opening_time;
+			$data["shop_close_time"] = $response[0]->shop_close_time;
+			
 			$this->load->view('pages/updateshop', $data);
 			
 		}

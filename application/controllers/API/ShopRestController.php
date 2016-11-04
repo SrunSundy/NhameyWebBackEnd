@@ -23,6 +23,24 @@ class ShopRestController extends CI_Controller{
 		echo $json;
 	}
 	
+	public function toggleShop(){
+				
+		
+		$request = $this->input->post('resq_data');
+		
+		if(!$request){
+			$response["is_updated"] = false;
+			$response["message"] = "No Data";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			return;
+		}
+		
+		$response = $this->ShopModel->toggleShop($request);
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+	}
+	
 	public function getShopByNameCombo(){	
 		$shopname = $this->input->get('srchname');
 		$limit = $this->input->get('limit');
