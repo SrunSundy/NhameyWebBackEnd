@@ -1877,6 +1877,10 @@ function clearShopForm(){
 	$("#shopgoogleplus").val("");
 	$("#shoptwitter").val("");
 	$("#shopremark").val("");
+	$("#shopstreetad").val("");
+	$("#lat-location").val("");
+	$("#lng-location").val("");
+	shoptimezone= "";
 	
 	$(".work-day").prop('checked', false);
 	$("#allday").prop('checked', false);
@@ -1884,6 +1888,30 @@ function clearShopForm(){
 	$("#phone-add-result").children().remove();
 	$("#serve-categories").children().remove();
 	$("#shop-facilities").children().remove();
+	
+	 var txt  = '<label class="gray-image-plus">';
+	 	 txt += '<i class="fa fa-plus"></i>';
+	 	 txt += '</label>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 960 </p>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+	$("#logo-upload-remove-icon").parent().hide();	
+	$("#logo-upload-remove-icon").parent().siblings(".photo-display-wrapper").html(txt);
+	$("#logo-upload-remove-icon").parent().siblings(".photo-remove-loading").show();
+	$("#logo-upload-remove-fake").hide();
+	$("#logo-remove-loading").hide();
+	$("#logo_description").hide();
+	
+	$("#cover-upload-remove-icon").parent().hide();	
+	 var txt1  = '<label class="gray-image-plus">';
+	 	 txt1 += '<i class="fa fa-plus"></i>';
+	 	 txt1 += '</label>';
+	 	 txt1 += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>';
+	 	 txt1 += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
+	$("#cover-upload-remove-icon").parent().siblings(".photo-display-wrapper").html(txt1);
+	$("#cover-upload-remove-icon").parent().siblings(".photo-remove-loading").show();	
+	$("#cover-upload-remove-fake").hide();
+	$("#cover-remove-loading").hide();
+	$("#cover_description").hide();	
 }
 /*================ end clear form after save ===================*/
 
