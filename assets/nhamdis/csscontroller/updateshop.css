@@ -112,18 +112,18 @@ div.small-logo-wrapper {
 }
 
 div.small-logo-box {
-	width: 135px;
-	height: 135px;
+	width: 90px;
+	height: 90px;
 	padding: 5px;
 	position: absolute;
-	top: -70px;
+	top: -40px;
 	left: 15px;
 	background: white;
 }
 
 div.space-logo-box {
 	float: left;
-	width: 155px;
+	width: 120px;
 	height: 50px;
 }
 
@@ -141,7 +141,7 @@ div.space-logo-box i {
 div.small-shop-name {
 	float: left;
 	height: 50px;
-	margin-left: 15px;
+	margin-left: 0px;
 	margin-top: 10px;
 }
 

@@ -6,7 +6,7 @@ var coverimage = "";
 var backuprealcoverimage;
 
 $(".img-cover").error(function() {
-	checkHasCover = false;
+	$(".img-cover-box").css("height", 250);
 });
 
 
@@ -32,7 +32,7 @@ $(window).scroll(function() {
 
 $(window).on("resize", function() {
 
-	if (checkHasCover) {
+	//if (checkHasCover) {
 		var imgboxheight = $(".img-cover-box").height();
 		var coverboxheight = $(".cover-box").height();
 		console.log($(window).width());
@@ -47,17 +47,18 @@ $(window).on("resize", function() {
 			}
 			$(".cover-box").height(newheight);
 		}
-	} else {
-		$(".cover-box").css("background", "#263238").height(250);
+	/*} else {
+		$(".cover-box").css("background", "#263238").height(300);
 
-	}
+	}*/
 
 });
 
 function resizeOnWindow() {
+	//alert(checkHasCover);
 	console.log($(".cover-box").height());
 	console.log($(".img-cover-box").height());
-	if (checkHasCover) {
+	//if (checkHasCover) {
 		var imgboxheight = $(".img-cover-box").height();
 		var coverboxheight = $(".cover-box").height();
 
@@ -70,9 +71,9 @@ function resizeOnWindow() {
 			console.log($(".bar-cover-wrapper").find(".img-cover-box").html());
 			$(".cover-box").height($(".img-cover-box").height());
 		}
-	} else {
-		$(".cover-box").css("background", "#263238").height(250);
-	}
+	/*} else {
+		$(".cover-box").css("background", "#263238").height(300);
+	}*/
 }
 
 // logo box
@@ -86,7 +87,26 @@ $(".logo-box").on("mouseleave", function() {
 	$(this).find(".edit-logo-button-wrapper").slideUp(50);
 });
 
+/*============== set time out of open or close time ===========*/
 
+var shop_status = $("#shop_status").val();
+var time_to_close = $("#time_to_close").val();
+var time_to_open = $("#time_to_open").val();
+
+if(shop_status == "1"){
+	
+	setTimeout(function(){ 
+		$("#shop-opening-box").fadeOut();
+		$("#shop-close-box").fadeIn();		
+	}, time_to_close);
+}else{
+	setTimeout(function(){ 
+		$("#shop-close-box").fadeOut();
+		$("#shop-opening-box").fadeIn();
+	}, time_to_open);
+	
+}
+/*============== end set time out of open or close time ===========*/
 /*============== update cover ==============*/
 var img_x = 0;
 var img_y = 0;
@@ -147,7 +167,12 @@ $("#photo-save-btn").on("click", function(){
 	
 	alert(coverimage);
 	$('#coverModal').modal('hide');
+	
+	if(coverimage){
+		$(".img-cover-box").css("height", "auto");
+	}
 	$("#cover-image-display").attr("src","/NhameyWebBackEnd/uploadimages/cover/big/"+coverimage);
+	resizeOnWindow();
 	var txt  = '<div class="photo-upload-info-2" >';
 		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
 		txt	+= '</div>';
