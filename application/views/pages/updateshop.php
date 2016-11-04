@@ -14,7 +14,7 @@
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     
-    <input type="hidden" id="shop_id" value="1"/>
+    <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
     
     <div class="wrapper">	
 		
