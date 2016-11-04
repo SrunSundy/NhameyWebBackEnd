@@ -1,4 +1,27 @@
-
+<style>
+	.left-div{
+		float: left;
+		
+	}
+	.right-div{
+		float:left;
+	}
+	.disable-shop-description{
+		padding-top:10px;
+	}
+	
+	p.disable-shop-text{
+		color: #dd4b39;
+		font-weight: bold;
+		padding-right:8px;
+		padding-top:1px;
+		font-size:18px;
+	}
+	
+	p.disable-shop-text i{
+		padding-right: 7px;
+	}
+</style>
 <div class="img-cover-box">
 	<img src="<?php echo base_url(); ?>assets/nhamdis/img/new1.jpg"
 		class="img-cover" id="cover-image-display" />
@@ -18,7 +41,21 @@
 			<button type="button" class="btn btn-danger notify-btn">Notify</button>
 		</div>
 	</div>
-	<div class="col-lg-8"></div>
+	<div class="col-lg-8">
+		
+		<div class="enable-shop-description pull-right">
+		
+		</div>
+		<div class="disable-shop-description pull-right">
+			<p class="disable-shop-text right-div" title="client is not able to view this shop!"><i class="fa fa-ban" aria-hidden="true"></i>Disabled</p>
+			<label class="switch left-div">
+  				<input class="toggleshop" type="checkbox" >
+  				<div class="slider"></div>
+			</label>
+			
+		</div>
+		
+	</div>
 	<div style="clear: both;"></div>
 </div>
 <div class="small-bar-box" style="display: none">
