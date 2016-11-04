@@ -1,6 +1,6 @@
 <div class="col-lg-12 logo-wrapper" style="margin-left: 35px;">
 	<div class="logo-box">
-		<img src="<?php echo base_url(); ?>assets/nhamdis/img/new2.jpg"
+		<img src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
 			class="logo-img" /> <i class="fa fa-camera" aria-hidden="true"></i>
 		<div class="edit-logo"></div>
 		<div class="edit-logo-button-wrapper">
@@ -12,8 +12,8 @@
 		</div>
 	</div>
 	<div class="shop-name">
-		<h3 class="big-shop-name-text">Khmerload</h3>
-		<p class="shop-name-extra-text">( @the best munich )</p>
+		<h3 class="big-shop-name-text"><?php echo $shop_name_en ?></h3>
+		<p class="shop-name-extra-text">( <?php echo $shop_name_kh ?> )</p>
 	</div>
 	<div class="menu-wrapper">
 		<ul class="menu-ul">

@@ -470,17 +470,15 @@
 			<td>{{= admin_name }}</td>
  			<td>
 				<label class="switch">
-  					<input class="toggleshop" type="checkbox" {{= checkShopStatus(shop_status)}}>
+  					<input class="toggleshop" id="{{= generateIdWithShopId('toggleshop',shop_id)}}" type="checkbox" {{= checkShopStatus(shop_status)}}>
   					<div class="slider"></div>
 				</label>
 			</td>
-			<td align="center">
-				<form method="POST" action="{{= formBaseUrl()}}">
-					<input type="hidden" name="shopid" value="{{= shop_id}}" />
-				</form>
+			<td align="center">				
 				<i class="shop-edit fa fa-pencil-square" aria-hidden="true"></i>
 			</td>						
-		</tr>					           	
+		</tr>
+					           	
    	</script>
     <script>
   
@@ -502,6 +500,14 @@
 			
 	    	$("span.select2-selection").css({ "height":"34px","border-radius" : "0","border":"1px solid #ccc"});
 		    
+	    });
+
+	    $('#whole-search').keypress(function (e) {
+		    
+	    	if (e.which == 13) {
+	    		$("#btn-whole-search").click();
+	    	    return false;    //<---- Add this line
+	    	}
 	    });
 
 	    function loadShopDataToTable(){
@@ -530,9 +536,7 @@
 						total_page = 1;
 						
 			    	}
-					
-	
-					 
+										 
 	    			$('#pagi-display').bootpag({
 		    			total : total_page, 
 		    			maxVisible: showvisible, 
@@ -570,7 +574,38 @@
 
 		}
 
-	  
+	    function updateShopStatus( status , shopid , callback){
+
+		   	progressbar.start();   	
+	    	$.ajax({
+				type : "POST",
+				url : $("#base_url").val()+"API/ShopRestController/toggleShop",
+				data : {
+					"resq_data" : {
+						"shop_id" : shopid,
+						"shop_status" : status
+					}					
+				},
+				success : function(data){
+					data = JSON.parse(data);
+					if(data.is_updated == true){
+						if( typeof callback === "function"){
+							callback();
+						}
+					}else{
+						swal("Update Error!", "Your imaginary file has been deleted.", "error");
+					}
+					progressbar.stop();
+				}
+	    	});
+		}
+
+
+		function generateIdWithShopId(text,shopid){
+			
+			return text+shopid;
+		}
+		
 		function dynamicColor(isopen, obj, delayclose, delayopen ){
 			if(isopen == "1") {
 				setTimeout(function(){ 
@@ -605,8 +640,15 @@
 
 		$(document).on("click", ".toggleshop", function(){
 
+			var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
+			
 			if($(this).is(":checked")){
-				$(this).prop('checked', false);
+				updateShopStatus( 1 ,shopid , function(){
+					$("#toggleshop"+shopid).prop('checked', true);
+					swal("Shop is updated!", "This shop will be visible for clients", "success"); 
+				});
+				/* $(this).prop('checked', false);				
+				
 				swal({
 					  title: "Are you sure?",
 					  text: "This shop will be seen by the clients",
@@ -616,25 +658,30 @@
 					  confirmButtonText: "Yes, delete it!",
 					  closeOnConfirm: false
 				},
-				function(){
-					 swal("Deleted!", "Your imaginary file has been deleted.", "success");
-				});
+				function(isConfirm){
+					if (isConfirm) {	 */											
+						
+				/* 	}
+					
+				}); */
 			}else{
 				$(this).prop('checked', true);
-			
+								
 				swal({
 					  title: "Are you sure?",
 					  text: "The client will not be able to see this shop",
 					  type: "warning",
 					  showCancelButton: true,
 					  confirmButtonColor: "#DD6B55",
-					  confirmButtonText: "Yes, delete it!",
+					  confirmButtonText: "Yes",
 					  closeOnConfirm: false
 				},
 				 function(isConfirm) {
-			        if (isConfirm) {
-			        	 swal("Deleted!", "Your imaginary file has been deleted.", "success");
-
+			        if (isConfirm) {				       			        	
+			        	updateShopStatus( 0 ,shopid , function(){
+			        		$("#toggleshop"+shopid).prop('checked', false);								
+				        	swal("Shop is updated!", "The client will not be able to view this shop", "success"); 
+				        });					 
 			        } else {
 			            
 			        }
@@ -650,9 +697,9 @@
 		
 		$(document).on("click", ".shop-edit", function(){
 
-			$(this).siblings("form").submit();
-			//var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
-			//location.href= "<?php echo base_url(); ?>MainController/updateshop/overview/"+shopid;
+			//$(this).siblings("form").submit();
+			var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
+			location.href= "<?php echo base_url(); ?>MainController/updateshop/"+shopid;
 			
 		
 		});

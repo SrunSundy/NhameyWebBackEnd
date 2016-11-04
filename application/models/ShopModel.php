@@ -28,6 +28,78 @@ class ShopModel extends CI_Model{
 
 	}
 	
+	public function toggleShop( $request ){
+		
+		$response = array();
+		
+		$status = $request["shop_status"];
+		$shopid = $request["shop_id"];
+		
+		if($status != 0 && $status != 1){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_status is invalid!";
+			return  $response;
+		}
+		if(!$shopid){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_id is invalid!";
+			return  $response;
+		}
+		$this->db->trans_start();
+		$sql = "UPDATE nham_shop SET shop_status = ? WHERE shop_id = ?";
+		$this->db->query($sql, array((int)$status, (int)$shopid));
+		$this->db->trans_complete();
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$response["is_updated"] = false;
+			$response["message"] = "update error!";
+		}else{
+			$response["is_updated"] = true;
+			$response["message"] = "update success!";
+		}
+		return  $response;
+		
+	}
+	
+	public function defaultShopUpdate( $shopid ){
+		
+		$sql = "SELECT 
+					shop_name_en,
+					shop_name_kh,
+					shop_logo,
+					shop_cover,
+					shop_status,
+					shop_opening_time,
+					shop_close_time,
+					case 
+						 when shop_opening_time < TIME(NOW()) and shop_close_time > TIME(NOW()) then 1 else 0 end as is_shop_open,
+					case 
+						 when shop_opening_time < TIME(NOW()) and shop_close_time > TIME(NOW()) then 
+								TIMEDIFF(shop_close_time,TIME(NOW()))
+						 else 0 end as time_to_close,
+					case 
+						 when shop_opening_time > TIME(NOW()) then 
+								TIMEDIFF(shop_opening_time,TIME(NOW()))  
+						 when  shop_close_time < TIME(NOW()) then
+								ADDTIME(TIMEDIFF('24:00:00', TIME(NOW())) , TIMEDIFF(shop_opening_time, '00:00:00'))
+						 else 0 end as time_to_open
+				FROM nham_shop WHERE shop_id = ?";
+		$query = $this->db->query($sql , array($shopid));
+		$response = $query->result();
+		
+		if(count($response) > 0){						
+			if($response[0]->is_shop_open == 0){
+				$response[0]->time_to_open = $this->covertToMilisecond($response[0]->time_to_open);
+			}else{
+				$response[0]->time_to_close = $this->covertToMilisecond($response[0]->time_to_close);
+			}						
+		}
+		
+		return $response;
+		
+	}
+	
 	public function listShop($setting){
 		
 		/*============ This doesn't support timezone ==============*/
@@ -75,7 +147,7 @@ class ShopModel extends CI_Model{
 						ad.admin_name		
 				FROM nham_shop sh
 				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id
-				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address) LIKE ?
+				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name) LIKE ?
 				LIMIT ? OFFSET ?";
 	
 		$query = $this->db->query($sql , array("%".str_replace(' ', '', $whole_search)."%" ,$limit,$offset));
@@ -164,8 +236,9 @@ class ShopModel extends CI_Model{
 		$sql = "SELECT count(*) as total_record,CASE WHEN count(*)% ? != 0 THEN count(*)/ ? +1
 						ELSE count(*)/ ? 
 						END as total_page 
-				FROM nham_shop
-				WHERE CONCAT_WS(shop_name_en,shop_name_kh,shop_serve_type,shop_address) LIKE ?";
+				FROM nham_shop sh
+				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id
+				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name) LIKE ?";
 		
 		$query = $this->db->query($sql, array($row, $row, $row, "%".str_replace(' ', '',$countsetting["whole_search"])."%"));
 		$response = $query->result();
@@ -257,7 +330,7 @@ class ShopModel extends CI_Model{
 					$datashop["shop_cover"], $datashop["shop_serve_type"], $datashop["shop_short_description"],
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
-					$datashop["shop_close_time"], $shopmapadd, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
+					$datashop["shop_close_time"], $shopmapadd, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 2);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();

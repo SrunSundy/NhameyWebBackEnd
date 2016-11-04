@@ -21,9 +21,39 @@
 	p.disable-shop-text i{
 		padding-right: 7px;
 	}
+	
+	p.shop-toggle-time{
+		
+		font-size: 16px;
+	}
+	
+	p.shop-toggle-time i{
+		font-size: 10px;
+		padding-right:4px;
+	}
+	
+	p.close-time{
+		color: #dd4b39;
+	}
+	
+	p.opening-time{
+		color: #4CAF50;
+	}
+	
+	p.working-time{
+		margin-top: -10px;
+		color: #757575;
+		font-style: italic;
+	}
+	div.shop-status-wrapper{
+		height:30px;
+		
+	}
+	
+	
 </style>
 <div class="img-cover-box">
-	<img src="<?php echo base_url(); ?>assets/nhamdis/img/new1.jpg"
+	<img src="<?php echo base_url(); ?>uploadimages/cover/big/<?php echo $shop_cover ?>"
 		class="img-cover" id="cover-image-display" />
 
 </div>
@@ -43,10 +73,35 @@
 	</div>
 	<div class="col-lg-8">
 		
-		<div class="enable-shop-description pull-right">
+		<input id="shop_status" type="hidden" value="<?php echo $shop_status ?>" />
+		<input id="time_to_close" type="hidden" value="<?php echo $time_to_close ?>" />
+		<input id="time_to_open" type="hidden" value="<?php echo $time_to_open ?>" />
 		
+		<div class="enable-shop-description " style="<?php if($shop_status == "0" || $shop_status == 0) echo "display:none"?>">
+			<div class="shop-status-wrapper">
+				<div id="shop-opening-box" class="shop-opening-box pull-right" style="<?php if($is_shop_open == "0" || $is_shop_open == 0) echo "display:none"?>">
+					<p class="shop-toggle-time opening-time">
+						<i class="fa fa-circle" aria-hidden="true"></i> Opening						
+					</p>
+					
+				</div>
+				<div id="shop-close-box" class="shop-close-box pull-right" style="<?php if($is_shop_open == "1" || $is_shop_open == 1) echo "display:none"?>">
+					<p class="shop-toggle-time close-time">
+						<i class="fa fa-circle" aria-hidden="true"></i> Closed 
+					</p>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<div style="clear:both;"></div>
+			
+			<p class="working-time pull-right">
+				working time <?php echo substr($shop_opening_time,0,5)?> ~ <?php echo substr($shop_close_time,0,5)?>
+			</p>
+			
+			
 		</div>
-		<div class="disable-shop-description pull-right">
+		
+		<div class="disable-shop-description pull-right" style="<?php if($shop_status == "1" || $shop_status == 1) echo "display:none"?>">
 			<p class="disable-shop-text right-div" title="client is not able to view this shop!"><i class="fa fa-ban" aria-hidden="true"></i>Disabled</p>
 			<label class="switch left-div">
   				<input class="toggleshop" type="checkbox" >
@@ -63,15 +118,15 @@
 	<div class="small-logo-wrapper">
 		<div class="space-logo-box">
 			<div class="small-logo-box">
-				<img src="<?php echo base_url(); ?>assets/nhamdis/img/new2.jpg"
+				<img src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
 					class="small-logo-img"  /> <i class="fa fa-camera"
 					aria-hidden="true"></i>
 			</div>
 		</div>
 
 		<div class="small-shop-name">
-			<h3 class="shop-name-text">FC Bayern Manich</h3>
-			<p class="shop-name-extra-text">( @the best munich )</p>
+			<h3 class="shop-name-text"><?php echo $shop_name_en ?></h3>
+			<p class="shop-name-extra-text"><?php echo $shop_name_kh ?></p>
 		</div>
 		<div style="clear: both;"></div>
 		<div class="contact-shop-block">
