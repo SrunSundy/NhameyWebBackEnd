@@ -1,6 +1,12 @@
 <?php
 class CountryModel extends CI_Model{
 
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+	
 	public function getAllCountry($status){
 		
 		$sql = "SELECT country_id,country_name FROM nham_country WHERE country_status IN (? , ?)";

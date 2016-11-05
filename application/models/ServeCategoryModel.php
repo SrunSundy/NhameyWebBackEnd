@@ -1,6 +1,12 @@
 <?php
 class ServeCategoryModel extends CI_Model{
 	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+	
 	function getServeCategoryByName( $cate , $limit ,  $status){
 		
     	$sql = "SELECT serve_category_id,serve_category_icon,serve_category_name from nham_serve_category 

@@ -1,6 +1,13 @@
 <?php
 class BranchModel extends CI_Model{
 	
+	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+	
 	function getAllBranch(){
 		
 		$query = $this->db->query('SELECT * FROM nham_branch');

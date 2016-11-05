@@ -1,6 +1,12 @@
 <?php
 class CuisineModel extends  CI_Model{
 	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+	
     function getCuisineByName( $cuisine , $limit , $status){
 		
     	$statusA = $status["statusA"];
