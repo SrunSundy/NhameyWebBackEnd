@@ -2,6 +2,12 @@
 
 class ShopAddressModel extends CI_Model{
 	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+	
 	public function insertShopAddress($req_data){
 		//$this->db->trans_begin();
 		$address_type = $req_data["address_type"];
