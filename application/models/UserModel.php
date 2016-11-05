@@ -1,6 +1,12 @@
 <?php
 	class UserModel extends  CI_Model{
 		
+		function __construct()
+		{
+			parent::__construct();
+			$this->load->database();
+		}
+		
 		function insertUser($req_data){
 			//$this->db->trans_begin();
 			$name = $req_data["name"];

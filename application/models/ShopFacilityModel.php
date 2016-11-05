@@ -1,6 +1,12 @@
 <?php
 class ShopFacilityModel extends CI_Model{
 	
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+	
 	function getShopFacilityByName( $shopfacility , $limit ,  $status){
 		
     	$sql = "SELECT sh_facility_id,sh_facility_icon,sh_facility_name from nham_shop_facility
