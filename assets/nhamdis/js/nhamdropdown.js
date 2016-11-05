@@ -70,7 +70,7 @@
 
 });*/
 
-$(".nham-dropdown-inputbox").on("focus keyup",function(){
+$(".nham-dropdown-inputbox").on("focus",function(){
  	var trigger = false;
 	$(this).parent().siblings(".nham-dropdown-detail").show();
 	 $(document).on("mousedown",".nham-dropdown-result",function(){		
