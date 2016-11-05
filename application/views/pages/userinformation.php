@@ -43,7 +43,7 @@
   </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
-    
+    <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
     <input type="hidden" id="shop_id" value="1"/>
     
     <div class="wrapper">	
@@ -86,8 +86,62 @@
 				             </div>
 				             <!-- end of profile wrapper -->
 				              <div class="body-wrapper col-lg-12" style="background:white;margin-top:10px;height:500px;">
-				               			
+				               	
+				               	
+				               	
+				               	<div class="form-group "> 
+			                     <label>Serve Category</label>
+				                     <div class=" col-sm-12 nham-dropdown-wrapper">
+				                		<div class="row">
+				                			<div class="selected-dropdown" id="servecategory_selected_dropdown" style="position:relative;">
+				                			
+					                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
+					                				<img class="icon-input" id="servecategoryicon"  src="<?php echo base_url() ?>assets/nhamdis/img/servecategory.png" class="selected_icon"/>
+					                				<input type="hidden" class="default_img_src" value="<?php echo base_url() ?>assets/nhamdis/img/servecategory.png"/>				 
+					                			</div>
+					                			
+								                <input style="padding:4px 4px 4px 28px;" id="servecategoryname" type="text" class="form-control nham-dropdown-inputbox-multi"  placeholder="Search or Select for shop type">
+								                
+								                <div class="error-selected-result">
+								                	<p>ITEM IS SELECTED!</p>
+								                </div>
+								                <div class="serve-category-result" id="serve-categories">
+								                	
+								                	
+								                </div>						                  
+				                    	       <!--  <input type="hidden" class="selectedid" id="selectedservecategory"/> -->
+				                    	    </div>
+				                    		<div class="nham-dropdown-detail"  >
+				                    			<div class="nham-dropdown-result-wrapper">
+				                    				<input type="hidden" value="selected-category-box1"/>
+				                    				<div id="display-result-servecategory" style="max-height:240px;overflow:auto;" class="display-result-wrapper">
+				                    					
+				                    				</div>		       				
+				                  				</div>
+				                  				
+				                  				<div id="display-searching-text_servecategory" style="display:none;">
+				                  					<div  class="nham-dropdown-noresult">
+														<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+															Searching "<span id="text-search-servecategory-dis1"></span>" has no Result!</p>
+													</div>
+													<div class="nham-dropdown-question">	
+														<p>Do you want to register "<span id="text-search-servecategory-dis2"></span>" as a new shop type?</p>
+													</div>
+				                  				</div>
+				                  				
+				                  				<div id="nham-dropdown-footer-servecategory" class="nham-dropdown-result-footer" align="center">
+				                  					<button class="btn nhamey-btn" id="yesservecategory">Yes</button>
+				                  				</div>
+				                  			</div>
+				                    	</div>	
+				                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#serveCategoryModal">Open Modal</button>		                    	
+				                  	</div>
+			                     </div>
 				             </div> 
+				             
+				           
+				           
+				             
 				          </div> <!-- end of wrapper updating -->
 				       </div> <!--end wrapper updating form div -->		                       
 		           </div>
@@ -110,7 +164,92 @@
    
     <?php include 'imports/scriptimport.php'; ?>
     <script>
-  
+
+
+
+
+
+
+
+
+    loadServeCategory();
+	var myServeCategory = [];
+    function loadServeCategory(){
+    	$.ajax({
+   		 type: "GET",
+   		 url: $("#base_url").val()+"API/ServeCategoryRestController/getServeCategoryByNameCombo", 
+   		 data : {
+   			"srchname" : "",
+   			"limit" : 100000
+   		 },
+   		 success: function(data){
+   			data = JSON.parse(data);
+
+   			myServeCategory = data;
+   			console.log(myServeCategory);
+
+   			
+   			displaySearchServeCategory(myServeCategory);
+   		 }
+      });
+    }
+     $("#servecategoryname").on("keyup",function(){
+    	
+    	// var srchname = $(this).val();
+    	//var loadingimgsrc = $("#base_url").val()+"assets/nhamdis/img/nhamloading.gif";
+    	//$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> ");  
+    	var srchresult = [];
+    	var srchname = $(this).val().replace(/\s/g,'');
+
+    	if(srchname){
+    		for(var i = 0; i < myServeCategory.length; i++)
+        	{
+        	  if(myServeCategory[i].serve_category_name.toLowerCase().indexOf(srchname.toLowerCase()) !== -1 )
+        	  {
+        	     srchresult.push(myServeCategory[i]);
+        	  }
+        	}
+    		console.log(srchresult);
+    		displaySearchServeCategory(srchresult);
+    		
+        }else{
+        	displaySearchServeCategory(myServeCategory);
+        }
+    	
+    	
+    }); 
+
+	function displaySearchServeCategory( data ){
+
+		var dis = '';	
+		if(data.length <= 0){
+			$("#text-search-servecategory-dis1").html("sdf");
+			$("#text-search-servecategory-dis2").html("sdf");
+			dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+			dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+			dis +="  <span class='no-data-text'>No Record Found!</span>";
+			dis +="</div>";
+			$("#display-searching-text_servecategory").show();
+			$("#nham-dropdown-footer-servecategory").show();
+		}else{
+				
+			$("#display-searching-text_servecategory").hide();
+			$("#nham-dropdown-footer-servecategory").hide();		
+			 for(var i=0 ; i<data.length ; i++){			
+			
+				 dis += '<div  class="nham-dropdown-multi-result">';
+				 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
+				 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+				 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
+				 
+			 }			
+			 dis+="<div style='clear:both'></div>";	
+		}
+		$("#display-result-servecategory").html(dis); 
+	}
+
+
+    
     updateShopField();
 	function updateShopField(){
 		$.ajax({
