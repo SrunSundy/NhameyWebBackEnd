@@ -27,10 +27,18 @@ class ShopFacilityRestController extends CI_Controller{
 		
 	}
 	
+	public function getAllShopFacility(){
+		
+		$data = $this->ShopFacilityModel->getAllShopFacility();
+		$json = json_encode($data);
+		echo $json;
+		
+	}
+	
 	public function insertShopFacility(){
 	
 		$shopfacilitydata = $this->input->post('ShopFacilityData');
-		$shopfacilityarr = array($shopfacilitydata['sh_facility_name'], $shopfacilitydata['sh_facility_icon'] ,$shopfacilitydata['sh_facility_remark']);
+		$shopfacilityarr = array(trim($shopfacilitydata['sh_facility_name']), $shopfacilitydata['sh_facility_icon'] ,$shopfacilitydata['sh_facility_remark']);
 		$data = $this->ShopFacilityModel->insertShopFacility( $shopfacilityarr );
 		$json = json_encode($data);
 		echo $json;

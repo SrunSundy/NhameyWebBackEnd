@@ -12,11 +12,10 @@ class BranchRestController extends CI_Controller{
 	}
 	
 	public function getAllBranch(){
-		$this->load->model("BranchModel");
-		$data = $this->BranchModel->getAllBranch();		
+		
+		$data = $this->BranchModel->getAllBranch();
 		$json = json_encode($data);
 		echo $json;
-		
 	}
 	
 	public function getBranchByNameCombo(){
