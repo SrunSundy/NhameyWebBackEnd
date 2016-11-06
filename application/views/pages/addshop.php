@@ -126,7 +126,7 @@
 			                    	       <!--  <input type="hidden" class="selectedid" id="selectedservecategory"/> -->
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
-			                    			<div class="nham-dropdown-result-wrapper">
+			                    			<div class="nham-dropdown-result-wrapper" id="servecate-dropdown-result-wrapper">
 			                    				<input type="hidden" value="selected-category-box1"/>
 			                    				<div id="display-result-servecategory" class="display-result-wrapper">
 			                    					

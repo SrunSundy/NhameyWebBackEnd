@@ -232,7 +232,8 @@
 			$("#display-searching-text_servecategory").show();
 			$("#nham-dropdown-footer-servecategory").show();
 		}else{
-				
+
+			$("#display-result-servecategory").html(dis); 
 			$("#display-searching-text_servecategory").hide();
 			$("#nham-dropdown-footer-servecategory").hide();		
 			 for(var i=0 ; i<data.length ; i++){			
@@ -246,6 +247,16 @@
 			 dis+="<div style='clear:both'></div>";	
 		}
 		$("#display-result-servecategory").html(dis); 
+
+		console.log($("#display-result-servecategory").height());
+		console.log($("#display-result-servecategory").parent().height());
+		if($("#display-result-servecategory").height()<240){
+
+			$("#display-result-servecategory").css("overflow","hidden");
+		}else{
+			$("#display-result-servecategory").css("overflow","auto");
+			}
+		
 	}
 
 
