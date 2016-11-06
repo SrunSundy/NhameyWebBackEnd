@@ -21,6 +21,18 @@ class ShopFacilityModel extends CI_Model{
     	
 	}
 	
+	function getAllShopFacility(){
+		
+		$sql = "SELECT sh_facility_id,sh_facility_icon,sh_facility_name from nham_shop_facility
+				WHERE sh_facility_status = 1
+    			ORDER BY sh_facility_id DESC ";
+    
+    	$query = $this->db->query($sql);
+    	$data = $query->result();
+    	return $data;
+    	
+	}
+	
 	function insertShopFacility( $shopfacilityarr ){
 		
 		$this->db->trans_start();

@@ -21,6 +21,17 @@ class ServeCategoryModel extends CI_Model{
     	
 	}
 	
+	function getAllServeCategory(){
+		
+		$sql = "SELECT serve_category_id,serve_category_icon,serve_category_name from nham_serve_category
+				WHERE serve_category_status = 1
+				ORDER BY serve_category_id DESC";
+		$query = $this->db->query($sql);
+		$data = $query->result();
+		return $data;
+		
+	}
+	
 	function insertServeCategory( $servecatearr ){
 		
 		$this->db->trans_start();

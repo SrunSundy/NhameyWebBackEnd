@@ -10,7 +10,10 @@ class BranchModel extends CI_Model{
 	
 	function getAllBranch(){
 		
-		$query = $this->db->query('SELECT * FROM nham_branch');
+		$sql = "SELECT branch_id,branch_name,branch_remark FROM nham_branch
+				WHERE  branch_status = 1
+				ORDER BY branch_id DESC";
+		$query = $this->db->query($sql);
 		$data = $query->result();
 		return $data;
 		
