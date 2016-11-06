@@ -1234,7 +1234,7 @@ $("#saveshop").on("click",function(){
 });
 
 
-$("#branchname").on("focus keyup",function(){
+/*$("#branchname").on("focus keyup",function(){
 	
 	var srchbranchname = $(this).val();
 	var loadingimgsrc = $("#base_url").val()+"assets/nhamdis/img/nhamloading.gif";
@@ -1249,7 +1249,7 @@ $("#branchname").on("focus keyup",function(){
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
-			 var branchdis = '';
+			var branchdis = '';
 			if(data.length <= 0){
 				$("#text-search-dis1").html(cutString(srchbranchname , 35));
 				$("#text-search-dis2").html(cutString(srchbranchname , 20));
@@ -1272,7 +1272,72 @@ $("#branchname").on("focus keyup",function(){
 			$("#display-result").html(branchdis); 					 
    	 	 }
    });
+});*/
+loadBranch();
+var myBranch = [];
+
+function loadBranch(){
+    $.ajax({
+		type: "GET",
+		url: $("#base_url").val()+"API/BranchRestController/getAllBranch", 
+		success: function(data){
+			data = JSON.parse(data);
+			myBranch = data;
+			displaySearchBranch(myBranch, $("#branchname").val());
+			
+			progressbar.stop();
+			
+		 }
+	});
+}
+
+function displaySearchBranch( data , srchbranchname){
+
+	var branchdis = '';
+	if(data.length <= 0){
+		$("#text-search-dis1").html(cutString(srchbranchname , 35));
+		$("#text-search-dis2").html(cutString(srchbranchname , 20));
+		branchdis +="<div class='no-data-wrapper' align='center'>";
+		branchdis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+		branchdis +="  <span class='no-data-text'>No Record Found!</span>";
+		branchdis +="</div>";
+		$("#display-searching-text").show();
+		$("#nham-dropdown-footer").show();
+		
+	}else{	
+		
+		$("#display-searching-text").hide();
+		$("#nham-dropdown-footer").hide();		
+		 for(var i=0 ; i<data.length ; i++){			
+			 branchdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].branch_id+'" /><p><span class="title">'+data[i].branch_name+'</span></p></div>';
+		 }				
+		
+	}
+	$("#display-result").html(branchdis); 	
+	
+}
+
+$("#branchname").on("keyup",function(){
+	
+	var srchresult = [];
+	var srchname = $(this).val().replace(/\s/g,'');
+
+	if(srchname){
+		for(var i = 0; i < myBranch.length; i++)
+    	{
+    	  if(myBranch[i].branch_name.toLowerCase().indexOf(srchname.toLowerCase()) !== -1 )
+    	  {
+    	     srchresult.push(myBranch[i]);
+    	  }
+    	}
+		console.log(srchresult);
+		displaySearchBranch(srchresult,  srchname);
+		
+    }else{
+    	displaySearchBranch(myBranch, srchname);
+    }	
 });
+
 $("#yesbranch").on("mousedown",function(){
 	var branchdata = {
 		"BranchData" : {
@@ -1280,6 +1345,7 @@ $("#yesbranch").on("mousedown",function(){
 			"branch_remark": ""
 		}
 	};
+	progressbar.start();
 	$.ajax({
 		type : "POST",
 		url : $("#base_url").val()+"API/BranchRestController/insertBranch",
@@ -1291,6 +1357,7 @@ $("#yesbranch").on("mousedown",function(){
 				alert("error");
 			}else{
 				$("#selectedbranch").val(data.branch_id);
+				loadBranch();
 			}
 		}
 	});
@@ -1350,7 +1417,7 @@ $("#yescuisine").on("mousedown",function(){
 /*======================= Shop facility event =============================*/
 
 
-$("#shopfacilityname").on("focus keyup",function(){
+/*$("#shopfacilityname").on("focus keyup",function(){
 	var srchname = $(this).val();
 	var loadingimgsrc = $("#base_url").val()+"assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-shopfacility").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
@@ -1391,14 +1458,83 @@ $("#shopfacilityname").on("focus keyup",function(){
 			$("#display-result-shopfacility").html(dis); 					 
   	 	 }
   });
+});*/
+
+loadShopFacility();
+var myShopFacility = [];
+
+function loadShopFacility(){
+    $.ajax({
+		type: "GET",
+		url: $("#base_url").val()+"API/ShopFacilityRestController/getAllShopFacility", 
+		success: function(data){
+			data = JSON.parse(data);
+			myShopFacility = data;
+			displaySearchShopFacility(myShopFacility, $("#shopfacilityname").val());
+			
+			progressbar.stop();
+			
+		 }
+	});
+}
+
+function displaySearchShopFacility( data , srchname){
+
+	var dis = '';
+	if(data.length <= 0){
+		$("#text-search-shopfacility-dis1").html(cutString(srchname , 35));
+		$("#text-search-shopfacility-dis2").html(cutString(srchname , 20));
+		dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+		dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+		dis +="  <span class='no-data-text'>No Record Found!</span>";
+		dis +="</div>";
+		$("#display-searching-text_shopfacility").show();
+		$("#nham-dropdown-footer-shopfacility").show();
+	}else{	
+		$("#display-searching-text_shopfacility").hide();
+		$("#nham-dropdown-footer-shopfacility").hide();		
+		 for(var i=0 ; i<data.length ; i++){			
+			
+			 dis += '<div  class="nham-dropdown-multi-result">';
+			 dis += ' <input type="hidden" value="'+data[i].sh_facility_id+'" />';
+			 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].sh_facility_icon+'"/>';
+			 dis += ' <p><span class="title">'+data[i].sh_facility_name+'</span></p></div>';
+			 
+		 }			
+		 dis+="<div style='clear:both'></div>";
+		
+	}
+	$("#display-result-shopfacility").html(dis); 	
+	
+}
+
+$("#shopfacilityname").on("keyup",function(){
+	
+	var srchresult = [];
+	var srchname = $(this).val().replace(/\s/g,'');
+
+	if(srchname){
+		for(var i = 0; i < myShopFacility.length; i++)
+    	{
+    	  if(myShopFacility[i].sh_facility_name.toLowerCase().indexOf(srchname.toLowerCase()) !== -1 )
+    	  {
+    	     srchresult.push(myShopFacility[i]);
+    	  }
+    	}
+		console.log(srchresult);
+		displaySearchShopFacility(srchresult,  srchname);
+		
+    }else{
+    	displaySearchShopFacility(myShopFacility, srchname);
+    }	
 });
+
 $("#yesshopfacility").on("mousedown",function(){
 
 	$("#shopfacilitybtnpop").click();
 	$("#shopfacilitynamepopup").val($("#shopfacilityname").val());
 	
 });
-
 
 
 function getShopFacilities(){
@@ -1535,6 +1671,7 @@ function validateShopFacility(){
 $("#shopfacilitysave").on("click", function(){
 	if(validateShopFacility()){
 		
+		progressbar.start();
 		var shopfacilitydata = {
 				"ShopFacilityData" : {
 					"sh_facility_name" : $("#shopfacilitynamepopup").val(),
@@ -1567,6 +1704,7 @@ $("#shopfacilitysave").on("click", function(){
 											 
 				 		$('#shopFacilityModal').modal('hide');
 						clearShopFacilitySaveform();
+						loadShopFacility();
 						
 					}
 					
@@ -1601,7 +1739,8 @@ function clearShopFacilitySaveform(){
 
 /*======================= serve category event =============================*/
 
-$("#servecategoryname").on("focus keyup",function(){
+/*$("#servecategoryname").on("keyup",function(){
+	
 	var srchname = $(this).val();
 	var loadingimgsrc = $("#base_url").val()+"assets/nhamdis/img/nhamloading.gif";
 	$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
@@ -1642,7 +1781,77 @@ $("#servecategoryname").on("focus keyup",function(){
 			$("#display-result-servecategory").html(dis); 					 
    	 	 }
    });
+});*/
+loadServeCategory();
+var myServeCategory = [];
+
+function loadServeCategory(){
+    $.ajax({
+		type: "GET",
+		url: $("#base_url").val()+"API/ServeCategoryRestController/getAllServeCategory", 
+		success: function(data){
+			data = JSON.parse(data);
+			myServeCategory = data;
+			displaySearchServeCategory(myServeCategory, $("#servecategoryname").val());
+			
+			progressbar.stop();
+			
+		 }
+	});
+}
+
+function displaySearchServeCategory( data , srchname){
+
+	var dis = '';	
+	if(data.length <= 0){
+		$("#text-search-servecategory-dis1").html(cutString(srchname , 35));
+		$("#text-search-servecategory-dis2").html(cutString(srchname , 20));
+		dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+		dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+		dis +="  <span class='no-data-text'>No Record Found!</span>";
+		dis +="</div>";
+		$("#display-searching-text_servecategory").show();
+		$("#nham-dropdown-footer-servecategory").show();
+	}else{
+
+		$("#display-result-servecategory").html(dis); 
+		$("#display-searching-text_servecategory").hide();
+		$("#nham-dropdown-footer-servecategory").hide();		
+		 for(var i=0 ; i<data.length ; i++){			
+		
+			 dis += '<div  class="nham-dropdown-multi-result">';
+			 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
+			 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+			 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
+			 
+		 }			
+		 dis+="<div style='clear:both'></div>";	
+	}
+	$("#display-result-servecategory").html(dis); 
+	
+}
+
+$("#servecategoryname").on("keyup",function(){
+	
+	var srchresult = [];
+	var srchname = $(this).val().replace(/\s/g,'');
+
+	if(srchname){
+		for(var i = 0; i < myServeCategory.length; i++)
+    	{
+    	  if(myServeCategory[i].serve_category_name.toLowerCase().indexOf(srchname.toLowerCase()) !== -1 )
+    	  {
+    	     srchresult.push(myServeCategory[i]);
+    	  }
+    	}
+		console.log(srchresult);
+		displaySearchServeCategory(srchresult, srchname);
+		
+    }else{
+    	displaySearchServeCategory(myServeCategory, srchname);
+    }	
 });
+
 $("#yesservecategory").on("mousedown",function(){
 
 	$("#servecategorybtnpop").click();
@@ -1784,6 +1993,7 @@ function validateServeCategory(){
 $("#servecategoryesave").on("click", function(){
 	if(validateServeCategory()){
 		
+		progressbar.start();
 		var servecategorydata = {
 				"ServeCategoryData" : {
 					"serve_category_name" : $("#servecategorynamepopup").val(),
@@ -1817,7 +2027,7 @@ $("#servecategoryesave").on("click", function(){
 											 
 				 		$('#serveCategoryModal').modal('hide');
 						clearServeCategorySaveform();
-						
+						loadServeCategory();
 					}
 					
 				}

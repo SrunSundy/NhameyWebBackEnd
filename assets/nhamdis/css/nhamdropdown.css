@@ -82,7 +82,16 @@ button.nhamey-btn {
 	border-radius: 0;
 }
 
+div.nham-dropdown-result-wrapper{
+	
+	max-height: 240px;
+	overflow: auto;
+}
 
+div.display-result-wrapper{
+	
+	overflow:hidden;
+}
 
 .small div.nham-dropdown-result-wrapper {
 	height: 180px;
