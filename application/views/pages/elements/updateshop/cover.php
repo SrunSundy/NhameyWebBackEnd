@@ -42,12 +42,16 @@
 	
 	p.working-time{
 		margin-top: -10px;
-		color: #757575;
+		color: #9E9E9E;
 		font-style: italic;
 	}
+	
+	p.working-time i{
+		padding-right:6px;
+	}
+	
 	div.shop-status-wrapper{
-		height:30px;
-		
+		height:30px;		
 	}
 	
 	
@@ -80,7 +84,7 @@
 		<div class="enable-shop-description " style="<?php if($shop_status == "0" || $shop_status == 0) echo "display:none"?>">
 			<div class="shop-status-wrapper">
 				<div id="shop-opening-box" class="shop-opening-box pull-right" style="<?php if($is_shop_open == "0" || $is_shop_open == 0) echo "display:none"?>">
-					<p class="shop-toggle-time opening-time">
+					<p class="shop-toggle-time opening-time" title="shop working time">
 						<i class="fa fa-circle" aria-hidden="true"></i> Opening						
 					</p>
 					
@@ -95,7 +99,7 @@
 			<div style="clear:both;"></div>
 			
 			<p class="working-time pull-right">
-				working time <?php echo substr($shop_opening_time,0,5)?> ~ <?php echo substr($shop_close_time,0,5)?>
+				<i class="fa fa-clock-o" aria-hidden="true"></i><?php echo substr($shop_opening_time,0,5)?> ~ <?php echo substr($shop_close_time,0,5)?>
 			</p>
 			
 			
@@ -104,7 +108,7 @@
 		<div class="disable-shop-description pull-right" style="<?php if($shop_status == "1" || $shop_status == 1) echo "display:none"?>">
 			<p class="disable-shop-text right-div" title="client is not able to view this shop!"><i class="fa fa-ban" aria-hidden="true"></i>Disabled</p>
 			<label class="switch left-div">
-  				<input class="toggleshop" type="checkbox" >
+  				<input class="toggleshop" type="checkbox" id="toggleshop" >
   				<div class="slider"></div>
 			</label>
 			
@@ -198,8 +202,8 @@
 				</div>
 				
 				<div class="photo-btncrop-box" id="cover-btncrop-box">
-					<button type="button" id="photo-crop-btn" class="btn btn-crop">Crop image</button>
-					<button type="button" id="photo-save-btn" class="btn btn-danger">Save</button>
+					<button type="button" id="cover-crop-btn" class="btn btn-crop">Crop image</button>
+					<button type="button" id="cover-save-btn" class="btn photo-save-btn btn-danger">Save</button>
 				</div>
 			</div>
 			
@@ -213,3 +217,80 @@
 </div>
 <button type="button" id="openCoverModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#coverModal">Open Modal</button>		                    	
 <!-- cover update modal -->
+<!-- logo update modal -->
+<div class="modal fade" id="logoModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		
+			<div class="nham-modal-header">
+				<button type="button" id="logoformclose" class="close btn-close"
+					data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<p class="nham-modal-title">
+					<i class="fa fa-picture-o" aria-hidden="true"></i><span>Update Logo</span>
+				</p>
+			</div>
+			
+			<div class="nham-modal-body">
+				<div class="photo-browse-box" align="center">
+					<div class="photo-upload-info"  >
+						<p class="text-upload-info">
+						  	<span>Browse Photo </span>
+						 </p>  
+					</div>
+					
+					<!-- fake on -->	
+					<div class="trigger-photo-browse" id="trigger-logo-browse"></div>
+					<!-- end fake on -->
+				</div>			
+				<input type='file' id="uploadlogo" style="display:none" accept="image/*"/>
+				<div class="upload-photo-box" id="logo-upload-box">					
+					<div class="photo-upload-wrapper" align="center" id="display-logo-upload" >
+						<div class="photo-upload-info-2" >
+						 	<i class="fa fa-picture-o" aria-hidden="true"></i>
+						</div>					  	        		
+			        </div>
+			         				        			        
+			        <!-- fake on -->			        
+			        <div class="photo-upload-loading" id="logo-upload-loading" align="center">
+			        	<div class="photo-upload-progress-box">
+			        		<div id="logo-upload-progress" 
+			        		 	class="progress-bar progress-bar-danger progress-bar-striped" 
+			        		 	role="progressbar" aria-valuenow="60" 
+			        		 	aria-valuemin="0" 
+			        		 	aria-valuemax="100" style="height:10px;">					                      
+							</div>
+			        	</div>
+			        	
+						<div style="width: 100%;">
+							<p id="logo-upload-percentage" class="photo-upload-percentage">0%</p>
+							<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+						</div>
+			        	
+			        </div>
+			        <div class="photo-fail-remove" id="logo-fail-remove">
+			        	<i class="fa fa-times" id="logo-fail-event" aria-hidden="true"></i>
+			        </div>			      
+			        <!-- end fake on -->
+				</div>
+				<div class="photo-description-box" id="logo-description-box">
+					<textarea rows="" id="logo-description" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+				</div>
+				
+				<div class="photo-btncrop-box" id="logo-btncrop-box">
+					<button type="button" id="logo-crop-btn" class="btn btn-crop">Crop image</button>
+					<button type="button" id="logo-save-btn" class="btn photo-save-btn btn-danger">Save</button>
+				</div>
+			</div>
+			
+			<div class="nham-modal-footer">
+				
+			</div>			
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<button type="button" id="openLogoModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#logoModal">Open Modal</button>		                    	
+<!-- logo update modal -->

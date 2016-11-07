@@ -470,6 +470,58 @@ class ShopModel extends CI_Model{
 		return $response;
 	}
 	
+	public function updateShopImage( $shopdata ){
+		
+		$this->db->trans_begin();
+		$response = array();
+		
+		$param = $shopdata["param"];
+		$value = $shopdata["updated_value"];
+		$shopid = $shopdata["shop_id"];
+		$image_type = $shopdata["image_type"];
+		
+		if($this->IsNullOrEmptyString($param)){
+			$response["is_updated"] = false;
+			$response["message"] = "PARAM is invalid";
+			return $response;
+		}
+		if($this->IsNullOrEmptyString($value)){
+			$response["is_updated"] = false;
+			$response["message"] = "UPDATED_VALUE is invalid";
+			return $response;
+		}
+		if($this->IsNullOrEmptyString($shopid)){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
+		
+		$sqlimg = "INSERT INTO nham_shop_image(sh_img_name, sh_img_remark, sh_img_type, shop_id, sh_img_dis_order)
+				VALUES(?, ?, ? ,? ,SELECT COALESCE( (SELECT sh_img_dis_order as test FROM nham_shop_image WHERE shop_id = ? ORDER BY sh_img_dis_order DESC LIMIT 1) ,0))";
+		
+		$this->db->query($sqlimg , array($value,"" , $image_type, $shopid,  $shopid));
+		
+		$updatedata = array($value , (int)$shopid);
+		$sql = "UPDATE nham_shop SET ".trim($param)." = ? WHERE shop_id = ?";
+		$this->db->query($sql , $updatedata);
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			$response["is_updated"] = false;
+			$response["message"] = "Transaction rollback!";
+		}
+		else
+		{
+			$this->db->trans_commit();
+			$response["is_updated"] = true;
+			$response["message"] = "success";
+		}
+		
+		return $response;
+		
+	}
+	
 	function validateInput($shopdata){
 		
 		$datashop = $shopdata["datashop"];

@@ -15,6 +15,7 @@
   <body class="hold-transition skin-red-light sidebar-mini">
     
     <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
+    <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
     
     <div class="wrapper">	
 		
@@ -76,6 +77,8 @@
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
+    
+   
    
     <?php include 'imports/scriptimport.php'; ?>
     <script type="text/javascript">

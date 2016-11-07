@@ -516,9 +516,10 @@
 	    	$.ajax({
 	    		type : "POST",
 	    		url : $("#base_url").val()+"API/ShopRestController/listShop",
-	    		data : {
+	    		contentType : "application/json",
+				data : JSON.stringify({
 		    		"display-setting" : input
-			    },
+			    }),
 	    		success : function(data){
 
 	    			data = JSON.parse(data);
@@ -580,12 +581,13 @@
 	    	$.ajax({
 				type : "POST",
 				url : $("#base_url").val()+"API/ShopRestController/toggleShop",
-				data : {
+				contentType : "application/json",
+				data :  JSON.stringify({
 					"resq_data" : {
 						"shop_id" : shopid,
 						"shop_status" : status
 					}					
-				},
+				}),
 				success : function(data){
 					data = JSON.parse(data);
 					if(data.is_updated == true){
@@ -593,7 +595,7 @@
 							callback();
 						}
 					}else{
-						swal("Update Error!", "Your imaginary file has been deleted.", "error");
+						swal("Update Error!", data.message, "error");
 					}
 					progressbar.stop();
 				}
@@ -643,6 +645,7 @@
 			var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
 			
 			if($(this).is(":checked")){
+				$(this).prop('checked', false);
 				updateShopStatus( 1 ,shopid , function(){
 					$("#toggleshop"+shopid).prop('checked', true);
 					swal("Shop is updated!", "This shop will be visible for clients", "success"); 

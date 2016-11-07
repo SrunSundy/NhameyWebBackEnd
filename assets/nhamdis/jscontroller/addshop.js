@@ -1193,7 +1193,8 @@ $("#saveshop").on("click",function(){
 		 $.ajax({
 			 type: "POST",
 			 url: $("#base_url").val()+"API/ShopRestController/insertShop", 
-			 data: getDataToInsert(),
+			 contentType : "application/json",
+			 data : JSON.stringify( getDataToInsert()),
 			 success: function(data){
 				 data = JSON.parse(data);
 				 console.log(data);  
@@ -1349,7 +1350,8 @@ $("#yesbranch").on("mousedown",function(){
 	$.ajax({
 		type : "POST",
 		url : $("#base_url").val()+"API/BranchRestController/insertBranch",
-		data : branchdata,
+		contentType : "application/json",
+		data :  JSON.stringify(branchdata),
 		success : function(data){
 			 data = JSON.parse(data);
 			console.log(data);
@@ -1357,6 +1359,9 @@ $("#yesbranch").on("mousedown",function(){
 				alert("error");
 			}else{
 				$("#selectedbranch").val(data.branch_id);
+				$("#branchname").attr('disabled','disabled');
+				$("#branchname").siblings(".font-icon-cross").remove();
+				$("#branchname").parent().append("<i class='fa fa-times font-icon-cross'  aria-hidden='true'></i>");
 				loadBranch();
 			}
 		}
@@ -1682,7 +1687,8 @@ $("#shopfacilitysave").on("click", function(){
 			$.ajax({
 				type : "POST",
 				url : "/NhameyWebBackEnd/API/ShopFacilityRestController/insertShopFacility",
-				data : shopfacilitydata,
+				contentType : "application/json",
+				data :  JSON.stringify(shopfacilitydata),
 				success : function(data){
 					data = JSON.parse(data);
 					console.log(data);
@@ -2005,7 +2011,8 @@ $("#servecategoryesave").on("click", function(){
 			$.ajax({
 				type : "POST",
 				url : $("#base_url").val()+"API/ServeCategoryRestController/insertServeCategory",
-				data : servecategorydata,
+				contentType : "application/json",
+				data :  JSON.stringify(servecategorydata),
 				success : function(data){
 					data = JSON.parse(data);
 					console.log(data);
@@ -2073,6 +2080,7 @@ function clearShopForm(){
 	arrnewfileimagename = [];
 	shopphones = [];
 	
+	$(".error-selected-result").hide();
 	$("#shopshortdes").val("");
 	$("#shopdes").val("");
 	$("#shopengname").val("");

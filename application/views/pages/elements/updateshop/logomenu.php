@@ -1,9 +1,11 @@
+
+
 <div class="col-lg-12 logo-wrapper" style="margin-left: 35px;">
 	<div class="logo-box">
-		<img src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
+		<img  id="logo-image-display" src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
 			class="logo-img" /> <i class="fa fa-camera" aria-hidden="true"></i>
 		<div class="edit-logo"></div>
-		<div class="edit-logo-button-wrapper">
+		<div class="edit-logo-button-wrapper" id="edit-logo-button-wrapper">
 			<p class="intro-text"
 				style="padding-top: 13px; line-height: 20px; padding-left: 70px;">Click
 				To</p>
@@ -13,7 +15,7 @@
 	</div>
 	<div class="shop-name">
 		<h3 class="big-shop-name-text"><?php echo $shop_name_en ?></h3>
-		<p class="shop-name-extra-text">( <?php echo $shop_name_kh ?> )</p>
+		<p class="shop-name-extra-text"> <?php if($shop_name_kh) echo "( ".$shop_name_kh. " )" ?> </p>
 	</div>
 	<div class="menu-wrapper">
 		<ul class="menu-ul">

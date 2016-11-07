@@ -2,8 +2,10 @@
 
 var checkHasCover = true;
 var coverimage = "";
+var logoimage = "";
 /*var backupcoverimage;*/
 var backuprealcoverimage;
+var backupreallogoimage;
 
 $(".img-cover").error(function() {
 	$(".img-cover-box").css("height", 250);
@@ -107,6 +109,251 @@ if(shop_status == "1"){
 	
 }
 /*============== end set time out of open or close time ===========*/
+
+/*============== update shop status ===============*/
+
+$("#toggleshop").on("click", function(){
+	updateShopStatus(1 , $("#shop_id").val() , function(){
+		$("#toggleshop").parents(".disable-shop-description").hide();
+		$("#toggleshop").parents(".disable-shop-description").siblings(".enable-shop-description").show();
+	});
+	
+});
+
+function updateShopStatus( status , shopid , callback){
+	$.ajax({
+		type : "POST",
+		url : $("#base_url").val()+"API/ShopRestController/toggleShop",
+		contentType : "application/json", 
+		data : JSON.stringify({
+			"resq_data" : {
+				"shop_id" : shopid,
+				"shop_status" : status
+			}					
+		}),
+		success : function(data){
+			data = JSON.parse(data);
+			if(data.is_updated){
+				callback();
+				swal("Shop is updated!", "This shop will be visible for clients", "success"); 
+			}else{
+				swal("Update Error!", "Your imaginary file has been deleted.", "error");
+			}
+			
+		}
+	});
+}
+/*============== end update shop status =============*/
+/*============= update logo ==============*/
+
+var img_x_logo = 0;
+var img_y_logo = 0;
+var img_w_logo = 0;
+var img_h_logo = 0;
+
+$("#edit-logo-button-wrapper").on("click", function(){
+	$("#openLogoModel").click();
+});
+
+$("#trigger-logo-browse").on("click",function(){
+	$("#uploadlogo").click();
+});
+
+$("#uploadlogo").on("change", function(){	
+	uploadLogo(this);
+});
+
+$("#logo-fail-event").on("click" , function(){
+	logoimage = "";
+	$("#uploadlogo").val(null);
+	$(this).parent().hide();
+	
+	var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#display-logo-upload').html(txt);
+});
+
+$("#logoformclose").on("click", function(){
+	
+	if(logoimage) {
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		$("#logo-description").val("");
+		$('#display-logo-upload').html(txt);
+		$("#logo-description-box").hide();
+		$("#logo-btncrop-box").hide();
+		removeLogoImageFromServer().success(function(data){
+			logoimage = "";
+			$("#uploadlogo").val(null);
+		});				  
+	}
+	
+});
+
+$("#logo-crop-btn").on("click", function(){
+	alert(img_x_logo+" "+img_y_logo+" "+img_w_logo+" "+img_h_logo);
+	upoloadLogoToServer();
+	$(this).hide();
+	
+});
+
+$("#logo-save-btn").on("click", function(){
+	
+	alert(logoimage);
+	$('#logoModal').modal('hide');
+	
+	if(logoimage){
+		$(".img-logo-box").css("height", "auto");
+	}
+	updateShopField(logoimage, 1 ,"shop_logo", function(){
+		$("#logo-image-display").attr("src",$("#base_url").val()+"uploadimages/logo/medium/"+logoimage);
+		
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		$("#logo-description").val("");
+		$('#display-logo-upload').html(txt);
+		$("#logo-description-box").hide();
+		$("#logo-btncrop-box").hide();
+		logoimage = "";
+		$("#uploadlogo").val(null);
+	});
+	
+
+});
+
+function uploadLogo(input) {
+		
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) { 
+ 			
+ 			if(logoimage) {
+ 				removeLogoImageFromServer().success(function(data){
+ 					logoimage = "";
+ 				});				  
+ 			}
+ 			$("#logo-crop-btn").show();
+ 			$("#logo-save-btn").hide();
+ 			$("#logo-description-box").hide();
+	 		var image = new Image();
+			image.src = e.target.result;			
+			image.onload = function () {
+				var height = this.height;
+				var width = this.width;
+	 			  $("#logo-btncrop-box").show();
+	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="croplogo" alt="your image" />';
+			      $('#display-logo-upload').html(myimg);
+			      $('#croplogo').Jcrop({
+			    	   aspectRatio: 16 / 16,
+			    	   onSelect: updateCoordsLogo,
+			    	   onChange: updateCoordsLogo,
+			    	   setSelect: [0,0,110,110],
+			    	   trueSize: [width,height]
+			   	 });			           	
+			     backupreallogoimage = $("#uploadlogo")[0].files[0];
+			}			
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+	
+}
+
+function updateCoordsLogo(c){
+	img_x_logo = c.x;
+	img_y_logo = c.y;
+	img_w_logo = c.w;
+	img_h_logo = c.h;
+}
+
+function getCropImgDataLogo(){
+	var crop_img_data = {		
+		"img_x" : img_x_logo,
+		"img_y" : img_y_logo,
+		"img_w" : img_w_logo,
+		"img_h" : img_h_logo						
+	};
+	return crop_img_data;	
+}
+
+function removeLogoImageFromServer(){
+
+	return $.ajax({
+		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
+		type: "POST",
+		data : {
+			"removeimagedata":{
+				"image_type" : "2",
+				"imagename" : logoimage
+			}			
+		}
+	});	
+}
+
+function upoloadLogoToServer(){
+	//var inputFile = $("#uploadlogo");
+	$("#logo-upload-progress").css({width:"0%"});
+	$("#logo-upload-percentage").html(0);
+	$("#logo-upload-loading").show();
+	var fileToUpload = backupreallogoimage;
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		formData.append("json", JSON.stringify(getCropImgDataLogo()));
+		
+		$.ajax({
+			url: $("#base_url").val()+"API/UploadRestController/shopLogoUploadImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+					logoimage = "";
+					$("#logo-fail-remove").show();
+					$("#logo-description-box").hide();
+					$("#logo-btncrop-box").hide();
+				}else{
+					$("#logo-save-btn").show();
+					$("#logo-description-box").show();
+					logoimage = data.filename;
+					
+					var uploadedimg ='<img  class="photo-upload-output" ' 
+						+'src="'+$("#base_url").val()+'uploadimages/logo/big/'+logoimage+'"'
+						+'alt="your image" />';
+					$('#display-logo-upload').html(uploadedimg);
+					
+				}
+				$("#logo-upload-loading").hide();				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						console.log(percentComplete);
+						$("#logo-upload-progress").css({width: percentComplete+"%"});
+						$("#logo-upload-percentage").html(percentComplete+"%");
+					};
+				}, false);
+				return xhr;
+			}
+		});
+	} 
+}
+
+
+
+/*============= end update logo ============*/
 /*============== update cover ==============*/
 var img_x = 0;
 var img_y = 0;
@@ -156,14 +403,14 @@ $("#coverformclose").on("click", function(){
 	
 });
 
-$("#photo-crop-btn").on("click", function(){
+$("#cover-crop-btn").on("click", function(){
 	alert(img_x+" "+img_y+" "+img_w+" "+img_h);
 	upoloadCoverToServer();
 	$(this).hide();
 	
 });
 
-$("#photo-save-btn").on("click", function(){
+$("#cover-save-btn").on("click", function(){
 	
 	alert(coverimage);
 	$('#coverModal').modal('hide');
@@ -171,18 +418,20 @@ $("#photo-save-btn").on("click", function(){
 	if(coverimage){
 		$(".img-cover-box").css("height", "auto");
 	}
-	$("#cover-image-display").attr("src","/NhameyWebBackEnd/uploadimages/cover/big/"+coverimage);
-	resizeOnWindow();
-	var txt  = '<div class="photo-upload-info-2" >';
-		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
-		txt	+= '</div>';
-	$("#cover-description").val("");
-	$('#display-cover-upload').html(txt);
-	$("#cover-description-box").hide();
-	$("#cover-btncrop-box").hide();
-	coverimage = "";
-	$("#uploadcover").val(null);
-
+	updateShopField(coverimage, 2 ,"shop_cover", function(){
+		$("#cover-image-display").attr("src",$("#base_url").val()+"uploadimages/cover/big/"+coverimage);
+		resizeOnWindow();
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		$("#cover-description").val("");
+		$('#display-cover-upload').html(txt);
+		$("#cover-description-box").hide();
+		$("#cover-btncrop-box").hide();
+		coverimage = "";
+		$("#uploadcover").val(null);
+	});
+	
 });
 
 function uploadCover(input) {
@@ -196,8 +445,8 @@ function uploadCover(input) {
  					coverimage = "";
  				});				  
  			}
- 			$("#photo-crop-btn").show();
- 			$("#photo-save-btn").hide();
+ 			$("#cover-crop-btn").show();
+ 			$("#cover-save-btn").hide();
  			$("#cover-description-box").hide();
 	 		var image = new Image();
 			image.src = e.target.result;			
@@ -253,7 +502,7 @@ function getCropImgData(){
 function removeCoverImageFromServer(){
 
 	return $.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
 			"removeimagedata":{
@@ -278,7 +527,7 @@ function upoloadCoverToServer(){
 		formData.append("json", JSON.stringify(getCropImgData()));
 		
 		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopCoverUploadImage",
+			url: $("#base_url").val()+"API/UploadRestController/shopCoverUploadImage",
 			type: "POST",
 			data : formData,
 			processData : false,
@@ -295,11 +544,11 @@ function upoloadCoverToServer(){
 					$("#cover-description-box").hide();
 					$("#cover-btncrop-box").hide();
 				}else{
-					$("#photo-save-btn").show();
+					$("#cover-save-btn").show();
 					$("#cover-description-box").show();
 					coverimage = data.filename;
 					var uploadedimg ='<img  class="photo-upload-output" ' 
-						+'src="/NhameyWebBackEnd/uploadimages/cover/big/'+coverimage+'"  '
+						+'src="'+$("#base_url").val()+'uploadimages/cover/big/'+coverimage+'"  '
 						+'alt="your image" />';
 					$('#display-cover-upload').html(uploadedimg);
 					
@@ -323,14 +572,46 @@ function upoloadCoverToServer(){
 }
 
 /*============ end update cover ============*/
+
+/*============ update shop data function ============*/
+function updateShopField(value, image_type , param, callback){
+	
+	progressbar.start();
+	$.ajax({
+		type : "POST",
+		url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
+		contentType : "application/json",
+		data : JSON.stringify({
+			"shopdata" : {
+				"type" : 2,
+				"image_type" : image_type,
+				"updated_value" : value,
+				"shop_id" : $("#shop_id").val(),
+				"param" : param
+			}
+		}),
+		success : function(data){
+			data = JSON.parse(data);
+			console.log(data);
+			if(data.is_updated == true){
+				if( typeof callback === "function"){
+					callback();
+				}				
+			}else{
+				swal("Update Error!", data.message, "error");
+			}
+			progressbar.stop();
+				
+		}
+	});
+}
+/*============ end update shop data function ============*/
 /*============ Leave page event ============*/
 
 function goodbye(e) {
 	if(coverimage){
 		if(navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv 11/))){
-			if(coverimage){
-				removeCoverImageFromServer();
-			}	
+			removeImageOnCondition();
 		}else{
 			if(!e) e = window.event;
 			  	//e.cancelBubble is supported by IE - this will kill the bubbling process.
@@ -347,16 +628,21 @@ function goodbye(e) {
 
 window.onbeforeunload=goodbye;
 $( window ).unload(function() { 
-	if(coverimage){
-		removeCoverImageFromServer();
-	}	
+	removeImageOnCondition();
 }); 
 
 window.onunload = unloadPage;
 function unloadPage()
 {
+	removeImageOnCondition();
+} 
+
+function removeImageOnCondition(){
 	if(coverimage){
 		removeCoverImageFromServer();
 	}	
-} 
+	if(logoimage){
+		removeLogoImageFromServer();
+	}
+}
 /*============ End leave page event =============*/
