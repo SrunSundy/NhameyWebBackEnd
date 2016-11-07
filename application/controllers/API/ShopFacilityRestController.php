@@ -37,7 +37,9 @@ class ShopFacilityRestController extends CI_Controller{
 	
 	public function insertShopFacility(){
 	
-		$shopfacilitydata = $this->input->post('ShopFacilityData');
+		$shopfacilitydata = json_decode($this->input->raw_input_stream,true);
+		$shopfacilitydata = $shopfacilitydata["ShopFacilityData"];
+		
 		$shopfacilityarr = array(trim($shopfacilitydata['sh_facility_name']), $shopfacilitydata['sh_facility_icon'] ,$shopfacilitydata['sh_facility_remark']);
 		$data = $this->ShopFacilityModel->insertShopFacility( $shopfacilityarr );
 		$json = json_encode($data);

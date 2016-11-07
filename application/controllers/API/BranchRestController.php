@@ -42,7 +42,9 @@ class BranchRestController extends CI_Controller{
 	
 	public function insertBranch(){
 		
-		$branchdata = $this->input->post('BranchData');
+		$branchdata = json_decode($this->input->raw_input_stream,true);
+		$branchdata = $branchdata["BranchData"];
+		
 		$brancharr = array($branchdata['branch_name'],$branchdata['branch_remark']);
 		$data = $this->BranchModel->insertBranch( $brancharr );
 		$json = json_encode($data); 

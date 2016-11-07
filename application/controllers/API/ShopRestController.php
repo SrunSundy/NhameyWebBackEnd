@@ -17,7 +17,9 @@ class ShopRestController extends CI_Controller{
 	
 	public function listShop(){
 		
-		$setting = $this->input->post('display-setting');	
+		$setting = json_decode($this->input->raw_input_stream,true);
+		$setting = $setting["display-setting"];
+		
 		$response = $this->ShopModel->listShop($setting);
 		$json = json_encode($response, JSON_PRETTY_PRINT);
 		echo $json;
@@ -26,9 +28,9 @@ class ShopRestController extends CI_Controller{
 	public function toggleShop(){
 				
 		
-		$request = $this->input->post('resq_data');
-		
-		if(!$request){
+		$request = json_decode($this->input->raw_input_stream,true);
+		$request = $request["resq_data"];	
+	    if(!$request){
 			$response["is_updated"] = false;
 			$response["message"] = "No Data";
 			$json = json_encode($response, JSON_PRETTY_PRINT);
@@ -38,7 +40,7 @@ class ShopRestController extends CI_Controller{
 		
 		$response = $this->ShopModel->toggleShop($request);
 		$json = json_encode($response, JSON_PRETTY_PRINT);
-		echo $json;
+		echo $json;  
 	}
 	
 	public function getShopByNameCombo(){	
@@ -54,7 +56,9 @@ class ShopRestController extends CI_Controller{
 	
 	public function insertShop(){
 				
-		$shopdata = $this->input->post('ShopData');	
+		$shopdata = json_decode($this->input->raw_input_stream,true);
+		$shopdata = $shopdata["ShopData"];
+			
 		$response = $this->ShopModel->insertShop($shopdata);		 
 		echo json_encode($response);
 			
@@ -62,9 +66,18 @@ class ShopRestController extends CI_Controller{
 	
 	public function updateShopField(){
 		
-		$shopdata = $this->input->post('shopdata');	
-		$response = $this->ShopModel->updateShopField($shopdata);
-		echo json_encode($response);
+		$shopdata = json_decode($this->input->raw_input_stream,true);
+		$shopdata = $shopdata["shopdata"];
+		
+		//if(!isset($shopdata["type"])) $shopdata["type"] = 1;
+		//1.text     2.image
+		if($shopdata["type"] == 2){
+			$response = $this->ShopModel->updateShopImage($shopdata);			
+		}else{
+			$response = $this->ShopModel->updateShopField($shopdata);			
+		}
+		echo json_encode($shopdata);
+		
 	}
 }
 ?>
