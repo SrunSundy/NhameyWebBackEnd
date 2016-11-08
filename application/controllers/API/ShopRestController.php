@@ -76,7 +76,7 @@ class ShopRestController extends CI_Controller{
 		}else{
 			$response = $this->ShopModel->updateShopField($shopdata);			
 		}
-		echo json_encode($shopdata);
+		echo json_encode($response);
 		
 	}
 }
