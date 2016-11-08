@@ -479,6 +479,7 @@ class ShopModel extends CI_Model{
 		$value = $shopdata["updated_value"];
 		$shopid = $shopdata["shop_id"];
 		$image_type = $shopdata["image_type"];
+		$image_des = $shopdata["image_descriptoin"];
 		
 		if($this->IsNullOrEmptyString($param)){
 			$response["is_updated"] = false;
@@ -496,10 +497,24 @@ class ShopModel extends CI_Model{
 			return $response;
 		}
 		
-		$sqlimg = "INSERT INTO nham_shop_image(sh_img_name, sh_img_remark, sh_img_type, shop_id, sh_img_dis_order)
-				VALUES(?, ?, ? ,? ,SELECT COALESCE( (SELECT sh_img_dis_order as test FROM nham_shop_image WHERE shop_id = ? ORDER BY sh_img_dis_order DESC LIMIT 1) ,0))";
+		$sqlimg = "INSERT INTO nham_shop_image(
+					sh_img_name, 
+					sh_img_remark, 
+					sh_img_type, 
+					shop_id, 
+					sh_img_dis_order
+				   )
+				  SELECT 
+					?, 
+					?, 
+					?,
+					?,
+					( SELECT COALESCE( 
+						(SELECT sh_img_dis_order FROM nham_shop_image 
+						 WHERE shop_id = ? ORDER BY sh_img_dis_order DESC LIMIT 1) ,0)+1
+					)";
 		
-		$this->db->query($sqlimg , array($value,"" , $image_type, $shopid,  $shopid));
+		$this->db->query($sqlimg , array($value, $image_des , $image_type, $shopid,  $shopid));
 		
 		$updatedata = array($value , (int)$shopid);
 		$sql = "UPDATE nham_shop SET ".trim($param)." = ? WHERE shop_id = ?";

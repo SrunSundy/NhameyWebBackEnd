@@ -16,6 +16,7 @@ $(window).load(function(){
 	
     $(window).scrollTop(200);
     $(".menu-ul li.item").eq(0).addClass("li-click");
+    $(".menu-ul li.item-small").eq(0).addClass("li-click");
     resizeOnWindow();
    
 });
@@ -100,11 +101,15 @@ if(shop_status == "1"){
 	setTimeout(function(){ 
 		$("#shop-opening-box").fadeOut();
 		$("#shop-close-box").fadeIn();		
+		$("#shop-opening-box-small").fadeOut();
+		$("#shop-close-box-small").fadeIn();		
 	}, time_to_close);
 }else{
 	setTimeout(function(){ 
 		$("#shop-close-box").fadeOut();
 		$("#shop-opening-box").fadeIn();
+		$("#shop-close-box-small").fadeOut();
+		$("#shop-opening-box-small").fadeIn();
 	}, time_to_open);
 	
 }
@@ -112,10 +117,13 @@ if(shop_status == "1"){
 
 /*============== update shop status ===============*/
 
-$("#toggleshop").on("click", function(){
+$("#toggleshop, #toggleshop-small").on("click", function(){
 	updateShopStatus(1 , $("#shop_id").val() , function(){
+		
 		$("#toggleshop").parents(".disable-shop-description").hide();
 		$("#toggleshop").parents(".disable-shop-description").siblings(".enable-shop-description").show();
+		$("#toggleshop-small").parents(".disable-shop-description").hide();
+		$("#toggleshop-small").parents(".disable-shop-description").siblings(".enable-shop-description").show();
 	});
 	
 });
@@ -151,7 +159,7 @@ var img_y_logo = 0;
 var img_w_logo = 0;
 var img_h_logo = 0;
 
-$("#edit-logo-button-wrapper").on("click", function(){
+$("#edit-logo-button-wrapper, #edit-logo-pop-up, #edit-logo--pop-up").on("click", function(){
 	$("#openLogoModel").click();
 });
 
@@ -207,9 +215,10 @@ $("#logo-save-btn").on("click", function(){
 	if(logoimage){
 		$(".img-logo-box").css("height", "auto");
 	}
-	updateShopField(logoimage, 1 ,"shop_logo", function(){
+
+	updateShopField(logoimage,$("#logo-description").val() , 1 ,"shop_logo", function(){
 		$("#logo-image-display").attr("src",$("#base_url").val()+"uploadimages/logo/medium/"+logoimage);
-		
+		$("#small-logo-img").attr("src",$("#base_url").val()+"uploadimages/logo/medium/"+logoimage);
 		var txt  = '<div class="photo-upload-info-2" >';
 			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
 			txt	+= '</div>';
@@ -418,7 +427,7 @@ $("#cover-save-btn").on("click", function(){
 	if(coverimage){
 		$(".img-cover-box").css("height", "auto");
 	}
-	updateShopField(coverimage, 2 ,"shop_cover", function(){
+	updateShopField(coverimage, $("#cover-description").val() , 2 ,"shop_cover", function(){
 		$("#cover-image-display").attr("src",$("#base_url").val()+"uploadimages/cover/big/"+coverimage);
 		resizeOnWindow();
 		var txt  = '<div class="photo-upload-info-2" >';
@@ -574,7 +583,7 @@ function upoloadCoverToServer(){
 /*============ end update cover ============*/
 
 /*============ update shop data function ============*/
-function updateShopField(value, image_type , param, callback){
+function updateShopField(value, desvalue, image_type , param, callback){
 	
 	progressbar.start();
 	$.ajax({
@@ -585,8 +594,9 @@ function updateShopField(value, image_type , param, callback){
 			"shopdata" : {
 				"type" : 2,
 				"image_type" : image_type,
+				"image_descriptoin" : desvalue,
 				"updated_value" : value,
-				"shop_id" : $("#shop_id").val(),
+				"shop_id" : $("#shop_id").val(),				
 				"param" : param
 			}
 		}),

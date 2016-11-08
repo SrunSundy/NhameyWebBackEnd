@@ -89,9 +89,10 @@ div.bar-box {
 div.small-bar-box {
 	height: 50px;
 	background: #fff;
-	min-height: 150px;
+	min-height: 110px;
 	position: relative;
 	z-index: 15;
+	border: 1px solid #E0E0E0;
 }
 
 .img-cover {
@@ -304,6 +305,10 @@ div.shop-edit-form-wrapper {
 	.small-bar-box {
 		display: block !important;
 	}
+	
+	.small-detail-description{
+		display: block !important;
+	}
 	.profilemenu-wrapper-right {
 		display: none;
 	}
@@ -334,3 +339,28 @@ p.tab-intro-text span {
 	padding-left: 10px;
 }
 
+.small-detail-description {
+	min-height: 50px;
+	background: #fff;
+	border-left: 1px  solid #E0E0E0;
+	border-right: 1px  solid #E0E0E0;
+	border-bottom: 1px  solid #E0E0E0;
+}
+
+.shop-detail-status {
+	float: left;
+	width: 50%;
+}
+
+.menu-arrow {
+	float: left;
+	width: 50%;
+}
+
+.shop-detail-status-inside {
+	padding: 4px 13px 0 0;
+}
+
+.menu-arrow-inside {
+	padding: 10px 0 0 13px;
+}

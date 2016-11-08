@@ -10,7 +10,7 @@
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-upload.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/css/nhamslider.css">
- 	
+ 
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     
@@ -39,6 +39,77 @@
 	       	 			<?php include 'elements/updateshop/cover.php';?>
 	       	 		</div>
 	       	 		<div class="fake-info-wrapper">
+	       	 			
+	       	 			<div class="col-lg-12 small-detail-description"  style="display:none;">
+	       	 				<div class="row">
+	       	 				
+	       	 					<div class="menu-arrow">
+	       	 						<div class="menu-arrow-inside">
+	       	 					 		<div class="dropdown">
+										    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu
+										    <span class="caret"></span></button>
+										    <ul class="dropdown-menu menu-ul">
+										     <li class="item-small">
+												<input type="hidden" value="updateshop_overview" />
+												<a href="javascript:;">Overview</a>
+											</li>
+											<li class="item-small">
+												<input type="hidden" value="updateshop_information" />
+												<a href="javascript:;">Inforamtion</a>
+											</li>
+											<li class="item-small">
+												<input type="hidden" value="updateshop_photo" />
+												<a href="javascript:;">Photo</a>
+											</li>
+											<li class="item-small">
+												<input type="hidden" value="updateshop_product" />
+												<a href="javascript:;">Product</a>
+											</li>
+											<li class="item-small">
+												<input type="hidden" value="updateshop_location" />
+												<a href="javascript:;">Location</a>
+											</li>
+										    </ul>
+										  </div>
+	       	 						</div>
+	       	 					</div>
+	       	 					
+	       	 					<div class="shop-detail-status">
+	       	 						<div class="shop-detail-status-inside">
+		       	 						<div class="enable-shop-description " style="<?php if($shop_status == "0" || $shop_status == 0) echo "display:none"?>">
+											<div class="shop-status-wrapper">
+												<div id="shop-opening-box-small" class="shop-opening-box pull-right" style="<?php if($is_shop_open == "0" || $is_shop_open == 0) echo "display:none"?>">
+													<p class="shop-toggle-time opening-time" title="shop working time">
+														<i class="fa fa-circle" aria-hidden="true"></i> Opening						
+													</p>
+													
+												</div>
+												<div id="shop-close-box-small" class="shop-close-box pull-right" style="<?php if($is_shop_open == "1" || $is_shop_open == 1) echo "display:none"?>">
+													<p class="shop-toggle-time close-time">
+														<i class="fa fa-circle" aria-hidden="true"></i> Closed 
+													</p>
+												</div>
+												<div style="clear:both;"></div>
+											</div>
+											<div style="clear:both;"></div>
+											
+											<p class="working-time pull-right">
+												<i class="fa fa-clock-o" aria-hidden="true"></i><?php echo substr($shop_opening_time,0,5)?> ~ <?php echo substr($shop_close_time,0,5)?>
+											</p>																				
+										</div>
+										
+										<div class="disable-shop-description pull-right" style="<?php if($shop_status == "1" || $shop_status == 1) echo "display:none"?>">
+											<p class="disable-shop-text right-div" title="client is not able to view this shop!"><i class="fa fa-ban" aria-hidden="true"></i>Disabled</p>
+											<label class="switch left-div">
+								  				<input class="toggleshop" type="checkbox" id="toggleshop-small" >
+								  				<div class="slider"></div>
+											</label>										
+										</div>
+	       	 						</div>
+	       	 					</div>
+	       	 				
+	       	 				</div>
+	       	 			</div>
 	       	 			<div class="col-lg-12" style="height: 20px;"></div>
 	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="">
 	       	 				<div class="row" >	       	 						       	 						       	 					
@@ -101,14 +172,22 @@
    	 	$("#updateShopframe").css("height", $("#updateShopframe").contents().find(".shop-event-wrapper").height() + "px");
    	}
 
-	$("li.item").on("click", function(){
-		$("li.item").removeClass("li-click");
+	$("li.item, li.item-small").on("click", function(){
+		if($(this).hasClass("li-click")){
+			return;
+		}
 		
-		$(this).addClass("li-click");
+		$("li.item").removeClass("li-click");
+		$("li.item-small").removeClass("li-click");
+		
+		$("li.item").eq($(this).index()).addClass("li-click");
+		$("li.item-small").eq($(this).index()).addClass("li-click");
 		var tabid = $(this).find("input").val();
 		
 		$("#updateShopframe").attr("src","<?php echo base_url(); ?>MainController/"+tabid);
 	});
+
+	
 
 	
    

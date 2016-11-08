@@ -122,8 +122,8 @@
 	<div class="small-logo-wrapper">
 		<div class="space-logo-box">
 			<div class="small-logo-box">
-				<img src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
-					class="small-logo-img"  /> <i class="fa fa-camera"
+				<img id="small-logo-img" src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
+					class="small-logo-img"  /> <i class="fa fa-camera" id="edit-logo-small-pop-up"
 					aria-hidden="true"></i>
 			</div>
 		</div>
