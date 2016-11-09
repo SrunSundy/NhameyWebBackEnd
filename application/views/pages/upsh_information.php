@@ -12,6 +12,7 @@
 	 	.shop-event-wrapper{
 	 		min-height:600px;
 	 		background: #fff;
+	 		
 	 	}
 	 	
 	 	p.update-title{
@@ -19,7 +20,7 @@
 	 		font-size: 15px;
 	 		font-weight: bold;
 	 		padding-bottom: 4px;
-	 		color: #90949c;
+	 		color: #eb5c4a;
 	 		border-bottom: 1px solid #EEEEEE;
 	 		
 	 	}
@@ -46,7 +47,7 @@
 	 		width: 30px;
 	 		height: 30px;
 	 		line-height: 30px;
-	 		border: 1px dashed #dd4b39;
+	 		border: 1px dashed #eb5c4a;
 	 		text-align:center;
 	 		cursor: pointer;
 	 	}
@@ -56,7 +57,7 @@
 	 	}
 	 	
 	 	div.shop-info-edit-btn i{
-	 		color: #dd4b39;
+	 		color: #eb5c4a;
 	 		
 	 	}
 	 	
@@ -66,12 +67,12 @@
 	 	
 	 	div.div-left{
 	 		float:left;
-	 		width: 88%;
+	 		width: 82%;
 	 		
 	 	}
 	 	div.div-right{
 	 		float:left;
-	 		width: 12%;
+	 		width: 18%;
 	 		position:absolute; 
 	 		right:0;
 	 		bottom: 0;
@@ -306,6 +307,7 @@
 		       	 		
 		       	 	</div>
 		       	 	<div class="col-lg-5 col-sm-5" >
+		       	 		
 		       	 	</div>						
 	       	 	</div>
 	       	 </div>
@@ -316,10 +318,10 @@
     <?php include 'imports/scriptimport.php'; ?>
     
     <script>
-    
-	var isclickbranch = false;
-    $(".shop-info-edit-btn").on("click", function(){
 
+	var isclickbranch = false;
+    $(document).on("click",".shop-info-edit-btn", function(){
+    	
 		$(this).focus();
         if($(this).hasClass("edit-active")){
         	$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideUp(100);
@@ -329,12 +331,28 @@
         		
             	if(!isclickbranch){
             		$(this).siblings(".shop-update-loading").show();
-            		loadBranch(this, function(){ isclickbranch = true;});
-                }        		
+            		loadBranch(this, function(obj){ 
+            			$(obj).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);
+                		$(obj).addClass("edit-active");           			
+                		isclickbranch = true;
+                		setTimeout(function(){top.resizeIframe();},150);
+                	});
+             
+                }else{
+                	$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);
+            		$(this).addClass("edit-active");
+            		setTimeout(function(){top.resizeIframe();},150);
+                }  
+            	    
+                return; 		
             }           
-        	$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);
+        	$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);       	
     		$(this).addClass("edit-active");
+    		
+        	
         }
+       
+      	setTimeout(function(){top.resizeIframe();},150);
 				
     });
     
@@ -372,7 +390,7 @@
 				data = JSON.parse(data);
 				myBranch = data;
 				if( typeof callback === "function"){
-					callback();
+					callback(obj);
 				}
 				$(obj).siblings(".shop-update-loading").hide();
 				displaySearchBranch(myBranch, $("#branchname").val());

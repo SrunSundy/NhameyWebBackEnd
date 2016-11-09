@@ -460,7 +460,7 @@
 			{{if shop_name_kh || shop_name_kh != ""}}
 				({{= shop_name_kh }})
 			{{/if}}
-				<div class="shop-open-time">opening : {{= trimString(shop_opening_time,0, 5) }} - {{= trimString(shop_close_time,0, 5) }} </div>
+				<div class="shop-open-time">open : {{= trimString(shop_opening_time,0, 5) }} - {{= trimString(shop_close_time,0, 5) }} </div>
 			</td>
             <td>{{=  trimString(shop_created_date,0, 10)  }} <span class="shop-open-time">{{=  trimString(shop_created_date, 10 , 16)  }}</span></td>
             <td>{{= shop_address }}</td>

@@ -111,7 +111,7 @@
 	       	 				</div>
 	       	 			</div>
 	       	 			<div class="col-lg-12" style="height: 20px;"></div>
-	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="">
+	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="padding-bottom:50px;">
 	       	 				<div class="row" >	       	 						       	 						       	 					
 	       	 					<iframe style="width:100%;height:auto;" id="updateShopframe" 
           							  scrolling="no" frameborder="0" marginheight="0" marginwidth="0" src="<?php echo base_url(); ?>MainController/updateshop_overview">
@@ -169,6 +169,7 @@
     <script>
    
     function resizeIframe(){
+       // alert($("#updateShopframe").contents().find(".shop-event-wrapper").height());
    	 	$("#updateShopframe").css("height", $("#updateShopframe").contents().find(".shop-event-wrapper").height() + "px");
    	}
 
