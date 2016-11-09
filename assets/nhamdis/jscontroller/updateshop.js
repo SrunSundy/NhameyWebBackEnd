@@ -129,6 +129,7 @@ $("#toggleshop, #toggleshop-small").on("click", function(){
 });
 
 function updateShopStatus( status , shopid , callback){
+	progressbar.start();
 	$.ajax({
 		type : "POST",
 		url : $("#base_url").val()+"API/ShopRestController/toggleShop",
@@ -147,6 +148,7 @@ function updateShopStatus( status , shopid , callback){
 			}else{
 				swal("Update Error!", "Your imaginary file has been deleted.", "error");
 			}
+			progressbar.stop();
 			
 		}
 	});
