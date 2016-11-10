@@ -48,6 +48,10 @@ $(".nham-dropdown-inputbox-multi").on("focus",function(){
 		}
 		
 		 $(this).parents(".nham-dropdown-detail").hide();
+		 if (typeof top.resizeIframe !== 'undefined' && $.isFunction(top.resizeIframe)) {
+			 top.resizeIframe();
+		 }
+		
 		 $(document).off("mousedown");	
 		 			 
 	});
@@ -56,6 +60,9 @@ $(".nham-dropdown-inputbox-multi").on("focus",function(){
 	 $(document).on("click" , "i.close-item", function(){
 		 
 		 $(this).parents(".selected-category-box").remove();
+		 if (typeof top.resizeIframe !== 'undefined' && $.isFunction(top.resizeIframe)) {
+			 top.resizeIframe();
+		 }
 	 });
 	 
 	 $(document).on("blur",".nham-dropdown-inputbox-multi",function(){
