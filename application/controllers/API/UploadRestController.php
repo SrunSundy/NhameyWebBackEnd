@@ -130,17 +130,17 @@ class UploadRestController extends CI_Controller{
 						
 				} */
 				
-				/* $big_crop = 960;
+			    $big_crop = 960;
 				if($img_w < 960){
 					$big_crop = $img_w;
-				} */
-				$imgsize = 960;
+				} 
+				/* $imgsize = 960;
 				list($width, $height) = $_FILES["file"]["tmp_name"];
 				if($width < 960){
 					$imgsize = $width;
-				}				
-				$big = $this->resizeImageFixpixel($target_big_dir.$new_name , $_FILES["file"]["tmp_name"] , 960 , 80);
-				//$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
+				}	 */			
+				//$big = $this->resizeImageFixpixel($target_big_dir.$new_name , $_FILES["file"]["tmp_name"] , 960 , 80);
+				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
 				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
 				

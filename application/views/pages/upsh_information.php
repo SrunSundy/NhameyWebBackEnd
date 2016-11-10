@@ -699,7 +699,11 @@
                 		setTimeout(function(){top.resizeIframe();},150);
                 	});
              
-                }          	    		
+                }else{
+                	$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);       	
+                 	$(this).addClass("edit-active");
+                }
+                return;        	    		
             }
         	else if($(this).hasClass("serve-category")){
 
@@ -713,8 +717,11 @@
                 		setTimeout(function(){top.resizeIframe();},150);
 					});
 				}else{
+					$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);       	
+			        $(this).addClass("edit-active");
 					$(".close-default-item").show();
 				}	
+				return;
             }
         	else if($(this).hasClass("facility")){
 
@@ -728,10 +735,13 @@
                 		setTimeout(function(){top.resizeIframe();},150);
 					});
 				}else{
+					$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);       	
+			        $(this).addClass("edit-active");
 					$(".close-default-facility-item").show();
 				}
+				return;
             }
-           	   
+        	
             $(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);       	
         	$(this).addClass("edit-active");
                       		        	
@@ -742,6 +752,10 @@
     
     $(window).load(function(){
    		top.resizeIframe();
+    });
+
+    $(window).on("resize", function() {
+    	top.resizeIframe();
     });
        
 	function updateShopField(value , param){
