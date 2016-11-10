@@ -290,13 +290,13 @@ function getCropImgDataLogo(){
 }
 
 function removeLogoImageFromServer(){
-
+	
 	return $.ajax({
 		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
 			"removeimagedata":{
-				"image_type" : "2",
+				"image_type" : "1",
 				"imagename" : logoimage
 			}			
 		}
@@ -620,41 +620,47 @@ function updateShopField(value, desvalue, image_type , param, callback){
 /*============ end update shop data function ============*/
 /*============ Leave page event ============*/
 
+
 function goodbye(e) {
-	if(coverimage){
+	if (shopfacilityicon !="" || servecategory != "" || coverimage != "" || logoimage !="") {
 		if(navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv 11/))){
-			removeImageOnCondition();
+			removeShopImageOnCondition();
 		}else{
 			if(!e) e = window.event;
-			  	//e.cancelBubble is supported by IE - this will kill the bubbling process.
-			  	e.cancelBubble = true;
-			  	e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
-			  	//e.stopPropagation works in Firefox.
-			if (e.stopPropagation){
-			  	e.stopPropagation();
-			  	e.preventDefault();
-			}
+		  	   //e.cancelBubble is supported by IE - this will kill the bubbling process.
+		  	    e.cancelBubble = true;
+		  	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+		  	    //e.stopPropagation works in Firefox.
+		  	 if (e.stopPropagation) {
+		  	    e.stopPropagation();
+		  	    e.preventDefault();
+		  	 }
 		}
-	}	
+		
+		
+	}
 }
-
 window.onbeforeunload=goodbye;
-$( window ).unload(function() { 
-	removeImageOnCondition();
+$( window ).unload(function() {     
+    //--> Here
+    removeShopImageOnCondition(); 
 }); 
 
 window.onunload = unloadPage;
 function unloadPage()
 {
-	removeImageOnCondition();
+	 removeShopImageOnCondition();
+	 
 } 
-
-function removeImageOnCondition(){
-	if(coverimage){
+function removeShopImageOnCondition(){	
+	
+	if(coverimage !="")
 		removeCoverImageFromServer();
-	}	
-	if(logoimage){
+	if(logoimage != "")
 		removeLogoImageFromServer();
-	}
+	if(shopfacilityicon !="" )
+		removeShopFacilityImageFromServer();
+	if(servecategory != "") 
+		removeServeCategoryImageFromServer();
 }
 /*============ End leave page event =============*/

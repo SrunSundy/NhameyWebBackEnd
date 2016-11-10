@@ -130,11 +130,17 @@ class UploadRestController extends CI_Controller{
 						
 				} */
 				
-				$big_crop = 960;
+				/* $big_crop = 960;
 				if($img_w < 960){
 					$big_crop = $img_w;
-				}
-				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
+				} */
+				$imgsize = 960;
+				list($width, $height) = $_FILES["file"]["tmp_name"];
+				if($width < 960){
+					$imgsize = $width;
+				}				
+				$big = $this->resizeImageFixpixel($target_big_dir.$new_name , $_FILES["file"]["tmp_name"] , 960 , 80);
+				//$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
 				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
 				
@@ -219,11 +225,13 @@ class UploadRestController extends CI_Controller{
 			$target_small_dir = "./uploadimages/cover/small/";
 			$target_medium_dir = "./uploadimages/cover/medium/";
 			$target_big_dir = "./uploadimages/cover/big/";
+			$target_big_nocrop_dir = "./uploadimages/cover/big-nocrop/";
 				
 		
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
 			$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
+			$checkdirectory_bignocrop = $this->checkDirectory($target_big_nocrop_dir);
 			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
 			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
 			//$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
@@ -235,6 +243,7 @@ class UploadRestController extends CI_Controller{
 				$checkdirectory_small,
 				$checkdirectory_medium,
 				$checkdirectory_big,
+				$checkdirectory_bignocrop,
 				$allowfiletype,
 				$allowsize,
 				$allowmincrop
@@ -257,6 +266,13 @@ class UploadRestController extends CI_Controller{
 				if($img_w < 960){
 					$big_crop = $img_w;
 				}
+				
+				$big_nocrop = 960;
+				list($width, $height) = $_FILES["file"]["tmp_name"];
+				if($width < 960){
+					$big_nocrop = $width;
+				}
+				$big_nocrop = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , 960 , 80);
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				/* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
 				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 640, 80);
@@ -424,7 +440,7 @@ class UploadRestController extends CI_Controller{
 					$big = $this->resizeImageFixpixel($target_big_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , $my_img_size, 80);
 					$medium = $this->resizeImageFixpixel($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , $my_img_medium_size, 80);
 					$small = $this->resizeImageFixpixel($target_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 320, 80);
-					$extreme_small = $this->resizeImageFixpixel($target_extreme_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 100, 90);
+					$extreme_small = $this->resizeImageFixpixel($target_extreme_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 150, 80);
 					
 					$errorupload = false;
 					array_push($isuploadimg, $big, $medium, $small, $extreme_small);
@@ -532,6 +548,7 @@ class UploadRestController extends CI_Controller{
 		$srcmedium = "";
 		$srcsmall = "";
 		$srcextremesmall = "";
+		$srcbignocrop = "";
 		
 		if($removetype == "1"){
 			$srcbig = "./uploadimages/logo/big/";
@@ -539,8 +556,17 @@ class UploadRestController extends CI_Controller{
 			$srcsmall = "./uploadimages/logo/small/";
 		}else if($removetype == "2"){
 			$srcbig = "./uploadimages/cover/big/";
+			$srcbignocrop = "./uploadimages/cover/big-nocrop/";
 			$srcmedium = "./uploadimages/cover/medium/";
 			$srcsmall = "./uploadimages/cover/small/";
+			
+			if(file_exists($srcbignocrop.$imagename)){
+				unlink($srcbignocrop.$imagename);
+				$report['big_nocrop_image_message'] ="File is removed";
+					
+			}else{
+				$report['extreme_small_image_message'] ="File not found";
+			}
 		}else if($removetype == "3"){
 			$srcbig = "./uploadimages/shopimages/big/";
 			$srcmedium = "./uploadimages/shopimages/medium/";
