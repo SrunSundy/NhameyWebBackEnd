@@ -313,7 +313,7 @@
 		$("li.item-small").eq($(this).index()).addClass("li-click");
 		var tabid = $(this).find("input").val();
 		
-		$("#updateShopframe").attr("src","<?php echo base_url(); ?>MainController/"+tabid);
+		$("#updateShopframe").attr("src","<?php echo base_url(); ?>MainController/"+tabid+"/"+$("#shop_id").val());
 	});
 
 	
