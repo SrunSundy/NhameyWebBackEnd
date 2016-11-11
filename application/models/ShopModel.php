@@ -106,6 +106,43 @@ class ShopModel extends CI_Model{
 		
 	}
 	
+	public function getDefaultUpdateInfo( $request ){
+		
+		$sql = "SELECT 
+					    br.branch_name,
+						sh.shop_name_en,
+						sh.shop_name_kh,
+						sh.shop_serve_type,
+						sh.shop_description,
+						sh.shop_short_description,
+						sh.shop_remark,
+						sh.shop_opening_time,
+						sh.shop_close_time,
+						sh.shop_working_day,
+						sh.shop_email,
+						sh.shop_phone,
+						sh.shop_social_media		
+				FROM nham_shop sh
+				LEFT JOIN nham_branch br on sh.branch_id = br.branch_id
+				WHERE shop_id = ?";
+		$query = $this->db->query($sql , array($request["shop_id"]));
+		
+		$shop_data = $query->row();
+		$this->load->model("ShopFacilityModel");
+		$shop_facilities = $this->ShopFacilityModel->getShopFacilityByShopId($request["shop_id"]);
+		
+		$this->load->model("ServeCategoryModel");
+		$shop_servecate = $this->ServeCategoryModel->getServeCategoryByShopId($request["shop_id"]);
+		
+		$shop_data->shop_social_media = json_decode($shop_data->shop_social_media);
+		$response["default_data"]["shop_data"] = $shop_data;
+		$response["default_data"]["shop_facilities"] = $shop_facilities;
+		$response["default_data"]["shop_servecate"] = $shop_servecate;
+		
+		return $response;
+		
+	}
+	
 	public function listShop($setting){
 		
 		/*============ This doesn't support timezone ==============*/
