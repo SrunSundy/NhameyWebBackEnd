@@ -25,6 +25,17 @@ class ShopRestController extends CI_Controller{
 		echo $json;
 	}
 	
+	public function getDefaultUpdateInfo(){
+		
+		$request = json_decode($this->input->raw_input_stream,true);
+		$request = $request["resq_data"];
+		
+		$response = $this->ShopModel->getDefaultUpdateInfo($request);
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+		
+	}
+	
 	public function toggleShop(){
 				
 		
