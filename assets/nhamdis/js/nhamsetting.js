@@ -25,7 +25,7 @@ var ENUM_DAY = {
 		cut : "TUE"
 	},
 	3 : {
-		full : "WEDMESDAY",
+		full : "WEDNESDAY",
 		cut : "WED"
 	},
 	4 : {
