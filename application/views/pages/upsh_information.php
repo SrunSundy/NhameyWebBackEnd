@@ -247,13 +247,14 @@
 			       	 				<div class="save-shop-info-box">			       	 				
 			       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 			       	 						<div class="row">
-			       	 						   <input type="text" id="shopengname" class="form-control" placeholder="shop name in english">
+			       	 						   <input type="text" id="shopengname" class="form-control insert-value" placeholder="shop name in english">
 			       	 						</div>				                							                    	
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="shop_name_en"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -276,13 +277,14 @@
 			       	 				<div class="save-shop-info-box">			       	 				
 			       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 			       	 						<div class="row">
-			       	 						   <input type="text" id="shopkhname" class="form-control" placeholder="shop name in khmer">
+			       	 						   <input type="text" id="shopkhname" class="form-control insert-value" placeholder="shop name in khmer">
 			       	 					    </div>				                							                    	
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">					                 		
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="shop_name_kh"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -518,13 +520,14 @@
 				       	 				<div class="save-shop-info-box">			       	 				
 				       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 				       	 						<div class="row">
-				       	 						    <textarea id="shopshortdes" class="form-control" rows="3" placeholder="describe shortly about the shop" style="resize:none;"></textarea>
+				       	 						    <textarea id="shopshortdes" class="form-control insert-value" rows="3" placeholder="describe shortly about the shop" style="resize:none;"></textarea>
 				       	 						</div>				                							                    	
 						                  	</div>
 						                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 						                  		<div class="row pull-right">
+						                  			<input type="hidden" class="update-param" value="shop_short_description"/>
 						                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-						                  			<button type="button" class="btn btn-default nham-btn">save</button>
+						                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
 						                  		</div>
 						                  	</div>
 						                  	<div style="clear:both;"></div>
@@ -550,13 +553,14 @@
 				       	 				<div class="save-shop-info-box">			       	 				
 				       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 				       	 						<div class="row">
-				       	 						    <textarea id="shopdes" class="form-control" rows="3" placeholder="describe briefly about the shop"  style="resize:vertical;"></textarea>
+				       	 						    <textarea id="shopdes" class="form-control insert-value" rows="3" placeholder="describe briefly about the shop"  style="resize:vertical;"></textarea>
 				       	 						</div>				                							                    	
 						                  	</div>
 						                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 						                  		<div class="row pull-right">
+						                  			<input type="hidden" class="update-param" value="shop_description"/>
 						                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-						                  			<button type="button" class="btn btn-default nham-btn">save</button>
+						                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
 						                  		</div>
 						                  	</div>
 						                  	<div style="clear:both;"></div>
@@ -582,13 +586,14 @@
 				       	 				<div class="save-shop-info-box">			       	 				
 				       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 				       	 						<div class="row">
-				       	 						     <textarea id="shopremark" class="form-control" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
+				       	 						     <textarea id="shopremark" class="form-control insert-value" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
 				       	 						</div>				                							                    	
 						                  	</div>
 						                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 						                  		<div class="row pull-right">
+						                  			<input type="hidden" class="update-param" value="shop_remark"/>
 						                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-						                  			<button type="button" class="btn btn-default nham-btn">save</button>
+						                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
 						                  		</div>
 						                  	</div>
 						                  	<div style="clear:both;"></div>
@@ -1062,24 +1067,6 @@
    		});
     });
        
-	function updateShopField(value , param){
-		$.ajax({
-			type : "POST",
-			url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
-			data : {
-				"shopdata" : {
-					"updated_value" : value,
-					"shop_id" : $("#shop_id").val(),
-					"param" : param
-				}
-			},
-			success : function(data){
-				data = JSON.parse(data);
-				console.log(data);
-					
-			}
-		});
-	}
 
 	/*================ load branch ==================*/
 		
@@ -1622,6 +1609,9 @@
 				}
 				loadFacilityDis(data.default_data.shop_facilities);
 				loadServeCategoryDis(data.default_data.shop_servecate);
+
+				window.parent.$(".iframe_hover").hide();
+				window.parent.$("#updateShopframe").show();
 							
 			}
 		});
@@ -1693,9 +1683,63 @@
 	
 	$("#save-branch").on("click", function(){
 
-		alert($("#selectedbranch").val());
+		$(this).siblings(".update-loading").show();
+		updateShopField($("#selectedbranch").val(), "branch_id", this, function(obj){
+			$("#dis-branch").html($("#branchname").val());
+			$(obj).parents(".save-shop-info-box").slideUp(100);
+			$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+			$(obj).parents(".shop-info-wrapper").find(".font-icon-cross").click();
+			setTimeout(function(){top.resizeIframe()}, 120);
+		});
 					
 	});
+
+	$(".update-shop-save").on("click", function(){
+		$(this).siblings(".update-loading").show();
+		var value = $(this).parents(".save-btn-wrapper").siblings(".input-wrapper").find(".insert-value").eq(0).val();
+		var param = $(this).siblings("input.update-param").val();
+
+					
+		updateShopField(value, param, this , function(obj){
+
+			$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(value);
+			$(obj).parents(".save-shop-info-box").slideUp(100);
+			$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+			$(obj).parents(".save-btn-wrapper").siblings(".input-wrapper").find("input").eq(0).val("");
+			setTimeout(function(){top.resizeIframe()}, 120);
+			
+		});
+	});
+
+	function updateShopField(value, param,obj ,callback){
+		
+		$.ajax({
+			type : "POST",
+			url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
+			contentType : "application/json",
+			data : JSON.stringify({
+				"shopdata" : {
+					"type" : 1,
+					"updated_value" : value,
+					"shop_id" : $("#shop_id").val(),				
+					"param" : param
+				}
+			}),
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_updated == true){
+					if( typeof callback === "function"){
+						callback(obj);
+					}				
+				}else{
+					top.swal("Update Error!", data.message, "error");
+				}
+				$(obj).siblings(".update-loading").hide();
+					
+			}
+		});
+	}
 	/*================ end save update ===============*/
     </script>
   </body>

@@ -11,6 +11,23 @@
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-upload.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/css/nhamslider.css">
  
+ 	<style>
+ 		.iframe_hover{
+ 			width: 100%;
+ 			height: 100%;
+ 			position: absolute;
+ 			top:0px;
+ 			left: 0;
+ 			background: #fff;
+ 			z-index:900;
+ 			
+ 		}
+ 		img.iframe-load-img{
+ 			position: absolute;
+ 			left: 50%;
+ 			top:48%;
+ 		}
+ 	</style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     
@@ -111,12 +128,16 @@
 	       	 				</div>
 	       	 			</div>
 	       	 			<div class="col-lg-12" style="height: 20px;"></div>
-	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="padding-bottom:50px;">
+	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="padding-bottom:50px;position:relative;">
 	       	 				<div class="row" >	       	 						       	 						       	 					
-	       	 					<iframe style="width:100%;height:auto;" id="updateShopframe" 
+	       	 					<iframe style="width:100%;height:auto;display:none;" id="updateShopframe" 
           							  scrolling="no" frameborder="0" marginheight="0" marginwidth="0" src="<?php echo base_url(); ?>MainController/updateshop_overview">
 								 
-								</iframe>	       	 						       	 					
+								</iframe>	
+								<div class="iframe_hover">
+									
+									<img class="iframe-load-img" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+								</div>       	 						       	 					
 	       	 				</div>
 	       	 			</div>
 	       	 			<div style="clear:both;"></div>
@@ -140,12 +161,7 @@
       </footer>
 
       <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        	<?php include 'elements/settingnavbar.php';?>
-      </aside><!-- /.control-sidebar -->
-      <!-- Add the sidebar's background. This div must be placed
-           immediately after the control sidebar -->
-      <div class="control-sidebar-bg"></div>
+    
     </div><!-- ./wrapper -->
 
     <!-- servecategory modal --> 
@@ -305,7 +321,9 @@
 		if($(this).hasClass("li-click")){
 			return;
 		}
-		
+
+		$("#updateShopframe").hide();
+		$(".iframe_hover").show();
 		$("li.item").removeClass("li-click");
 		$("li.item-small").removeClass("li-click");
 		
