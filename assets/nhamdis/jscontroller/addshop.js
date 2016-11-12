@@ -176,10 +176,27 @@ var coverimagename = "";
 var servecategory = "";
 var shopfacilityicon="";
 
-/*====================== load shop address section =======================*/
-loadCountryData();
 
-function loadCountryData(){
+loadDefault();
+function loadDefault(){
+	
+	progressbar.start();
+	loadBranch(function(){
+		loadServeCategory(function(){
+			loadShopFacility(function(){
+				loadCountryData(function(){
+					progressbar.stop();
+				});
+			});
+		});
+	});
+}
+/*====================== load shop address section =======================*/
+
+
+function loadCountryData( callback){
+	
+	
 	$.ajax({
 		type : "GET",
 		url  : $("#base_url").val()+"API/CountryRestController/getCountryCombo",
@@ -200,7 +217,10 @@ function loadCountryData(){
 				$("#nham_country").append(country);		
 			//	$("#nham_country").select2("val", 1);
 				$("#select2-nham_country-container").html($("#nham_country option:selected").text());
-			}		
+			}	
+			if( typeof callback === "function"){
+				callback();
+			}
 			loadCityData($("#nham_country option:selected").val());
 		}		
 	});
@@ -1274,10 +1294,10 @@ $("#saveshop").on("click",function(){
    	 	 }
    });
 });*/
-loadBranch();
+
 var myBranch = [];
 
-function loadBranch(){
+function loadBranch(callback){
     $.ajax({
 		type: "GET",
 		url: $("#base_url").val()+"API/BranchRestController/getAllBranch", 
@@ -1286,7 +1306,10 @@ function loadBranch(){
 			myBranch = data;
 			displaySearchBranch(myBranch, $("#branchname").val());
 			
-			progressbar.stop();
+			if( typeof callback === "function"){
+				callback();
+			}
+			
 			
 		 }
 	});
@@ -1362,7 +1385,9 @@ $("#yesbranch").on("mousedown",function(){
 				$("#branchname").attr('disabled','disabled');
 				$("#branchname").siblings(".font-icon-cross").remove();
 				$("#branchname").parent().append("<i class='fa fa-times font-icon-cross'  aria-hidden='true'></i>");
-				loadBranch();
+				loadBranch(function(){
+					progressbar.stop();
+				});
 			}
 		}
 	});
@@ -1465,10 +1490,10 @@ $("#yescuisine").on("mousedown",function(){
   });
 });*/
 
-loadShopFacility();
+
 var myShopFacility = [];
 
-function loadShopFacility(){
+function loadShopFacility(callback){
     $.ajax({
 		type: "GET",
 		url: $("#base_url").val()+"API/ShopFacilityRestController/getAllShopFacility", 
@@ -1477,7 +1502,10 @@ function loadShopFacility(){
 			myShopFacility = data;
 			displaySearchShopFacility(myShopFacility, $("#shopfacilityname").val());
 			
-			progressbar.stop();
+			if( typeof callback === "function"){
+				callback();
+			}
+			
 			
 		 }
 	});
@@ -1710,7 +1738,10 @@ $("#shopfacilitysave").on("click", function(){
 											 
 				 		$('#shopFacilityModal').modal('hide');
 						clearShopFacilitySaveform();
-						loadShopFacility();
+						loadShopFacility(function(){
+							
+							progressbar.stop();
+						});
 						
 					}
 					
@@ -1788,10 +1819,10 @@ function clearShopFacilitySaveform(){
    	 	 }
    });
 });*/
-loadServeCategory();
+
 var myServeCategory = [];
 
-function loadServeCategory(){
+function loadServeCategory(callback){
     $.ajax({
 		type: "GET",
 		url: $("#base_url").val()+"API/ServeCategoryRestController/getAllServeCategory", 
@@ -1800,7 +1831,10 @@ function loadServeCategory(){
 			myServeCategory = data;
 			displaySearchServeCategory(myServeCategory, $("#servecategoryname").val());
 			
-			progressbar.stop();
+			if( typeof callback === "function"){
+				callback();
+			}
+			
 			
 		 }
 	});
@@ -2034,7 +2068,9 @@ $("#servecategoryesave").on("click", function(){
 											 
 				 		$('#serveCategoryModal').modal('hide');
 						clearServeCategorySaveform();
-						loadServeCategory();
+						loadServeCategory(function(){
+							progressbar.stop();
+						});
 					}
 					
 				}
