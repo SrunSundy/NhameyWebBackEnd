@@ -72,6 +72,9 @@
 			$shopid  = urlencode($shopid);
 			$this->load->model('ShopModel');
 			$response = $this->ShopModel->defaultShopUpdate($shopid);
+			if(count($response) <= 0){
+				redirect('/MainController/listshop', 'refresh');
+			}
 			/* $shopid  = urlencode($shopid);
 			if(!$shopid){
 				$shopid =50;
