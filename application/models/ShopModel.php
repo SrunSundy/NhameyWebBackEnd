@@ -474,6 +474,21 @@ class ShopModel extends CI_Model{
 		
 		$response = array();
 		
+		if(!isset($shopdata["param"])){
+			$response["is_updated"] = false;
+			$response["message"] = "PARAM is invalid";
+			return $response;
+		}		
+		if(!isset($shopdata["updated_value"])){
+			$response["is_updated"] = false;
+			$response["message"] = "UPDATED_VALUE is invalid";
+			return $response;
+		}		
+		if(!isset($shopdata["shop_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
 		$param = $shopdata["param"];
 		$value = $shopdata["updated_value"];
 		$shopid = $shopdata["shop_id"];
