@@ -87,12 +87,14 @@ class UploadRestController extends CI_Controller{
 			$target_small_dir = "./uploadimages/logo/small/";
 			$target_medium_dir = "./uploadimages/logo/medium/";
 			$target_big_dir = "./uploadimages/logo/big/";
+			$target_big_nocrop_dir = "./uploadimages/cover/big-nocrop/";
 			
 				
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
 			$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
-			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
+			$checkdirectory_bignocrop = $this->checkDirectory($target_big_nocrop_dir);
+			$allowfiletype = $this->allowImageType(array("image/jpg","image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
 			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
 			//$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
 			//$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
@@ -103,6 +105,7 @@ class UploadRestController extends CI_Controller{
 				$checkdirectory_small,
 				$checkdirectory_medium,
 				$checkdirectory_big,
+				$checkdirectory_bignocrop,
 				$allowfiletype,
 				$allowsize,
 				$allowmincrop
@@ -134,18 +137,18 @@ class UploadRestController extends CI_Controller{
 				if($img_w < 960){
 					$big_crop = $img_w;
 				} 
-				/* $imgsize = 960;
-				list($width, $height) = $_FILES["file"]["tmp_name"];
+				$imgsize = 960;
+				list($width, $height) = getimagesize( $_FILES["file"]["tmp_name"]);
 				if($width < 960){
 					$imgsize = $width;
-				}	 */			
-				//$big = $this->resizeImageFixpixel($target_big_dir.$new_name , $_FILES["file"]["tmp_name"] , 960 , 80);
+				}	 			
+				$big_nocrop = $this->resizeImageFixpixel($target_big_dir.$new_name , $_FILES["file"]["tmp_name"] , $imgsize , 80);
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
 				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
 				
 				$errorupload = false;
-				array_push($isuploadimg, $big, $medium, $small);
+				array_push($isuploadimg,$big_nocrop, $big, $medium, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){
 					if(!$isuploadimg[$i]){
 						$errorupload = true;
@@ -232,7 +235,7 @@ class UploadRestController extends CI_Controller{
 			$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
 			$checkdirectory_bignocrop = $this->checkDirectory($target_big_nocrop_dir);
-			$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
+			$allowfiletype = $this->allowImageType(array("image/JPG","image/jpg","image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
 			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
 			//$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
 			//$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
@@ -268,17 +271,17 @@ class UploadRestController extends CI_Controller{
 				}
 				
 				$big_nocrop = 960;
-				list($width, $height) = $_FILES["file"]["tmp_name"];
+				list($width, $height) = getimagesize($_FILES["file"]["tmp_name"]);
 				if($width < 960){
 					$big_nocrop = $width;
 				}
-				$big_nocrop = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , 960 , 80);
+				$big_nocrop_source = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , $big_nocrop , 80);
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				/* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
-				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 640, 80);
-				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 320, 80);
+				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 520, 75);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 240, 80);
 				$errorupload = false;
-				array_push($isuploadimg, $big, $medium, $small);
+				array_push($isuploadimg,$big_nocrop_source, $big, $medium, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){
 					if(!$isuploadimg[$i]){
 						$errorupload = true;

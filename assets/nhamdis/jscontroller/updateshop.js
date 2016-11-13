@@ -468,7 +468,7 @@ function uploadCover(input) {
 	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="cropcover" alt="your image" />';
 			      $('#display-cover-upload').html(myimg);
 			      $('#cropcover').Jcrop({
-			    	   aspectRatio: 16 / 7,
+			    	   aspectRatio: 16 / 10,
 			    	   onSelect: updateCoords,
 			    	   onChange: updateCoords,
 			    	   setSelect: [0,0,110,110],

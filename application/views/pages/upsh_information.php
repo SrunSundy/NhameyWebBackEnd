@@ -221,7 +221,7 @@
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">	                  		
 					                  		<div class="row pull-right">
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn update-shop-save" id="save-branch">save</button>
+					                  			<button type="button" class="btn btn-default nham-btn " id="save-branch">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
