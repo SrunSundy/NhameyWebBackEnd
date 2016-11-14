@@ -1,12 +1,10 @@
 <?php
 class TasteModel extends CI_Model{
-	
-	function __construct()
-	{
-		parent::__construct();
-		$this->load->database();
-	}
-	
+	 public function __construct() 
+     {
+           parent::__construct(); 
+           $this->load->database();
+     }
 	function getTasteByNameCombo( $Taste , $limit ){
 		
     	$sql = "SELECT taste_id,taste_name from nham_taste 
