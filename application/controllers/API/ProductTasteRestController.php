@@ -28,9 +28,9 @@ class ProductTasteRestController extends CI_Controller{
 	
 	public function insertTaste(){
 		
-		$branddata = $this->input->post('tastedata');
-		$brandarr = array($branddata['taste_name'],$branddata['taste_remark']);
-		$data = $this->TasteModel->insertTaste( $brandarr );
+		$tastdata = $this->input->post('tastdata');
+		$tastarr = array($tastdata['tast_name'],$tastdata['tast_remark']);
+		$data = $this->TasteModel->insertTaste( $tastarr );
 		$json = json_encode($data); 
 		echo $json;
 	}
