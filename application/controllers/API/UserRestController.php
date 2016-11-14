@@ -19,7 +19,9 @@ class UserRestController extends  CI_Controller{
 	}
 	
 	public function insertUser(){
+		
 		$req_data = $this->input->post('req_data');
+		
 		$response = $this->UserModel->insertUser($req_data);
 		echo json_encode($response);
 	}
