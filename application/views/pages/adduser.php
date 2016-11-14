@@ -152,7 +152,7 @@ span.select2-selection{
   </body>
   
 	<script type="text/javascript">
-
+       var base_url="<?php echo base_url()?>";
 		function getDataToInsert(){
 			var userdata = {
 				"req_data" : {
@@ -171,7 +171,7 @@ span.select2-selection{
 			console.log(getDataToInsert());
 			 $.ajax({
 				 type: "POST",
-				 url: "/NhameyWebBackEnd/API/UserRestController/insertUser", 
+				 url: base_url+"API/UserRestController/insertUser", 
 				 data: getDataToInsert(),
 				 success: function(data){
 					//data = JSON.parse(data);
