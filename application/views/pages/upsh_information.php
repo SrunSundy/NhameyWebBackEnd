@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base target="_blank" />
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>update shop info | Dernham</title>
  	
  	<?php include 'imports/cssimport.php' ?>
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop.css" />
