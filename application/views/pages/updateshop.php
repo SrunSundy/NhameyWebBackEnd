@@ -313,7 +313,7 @@
     <script>
    
     function resizeIframe(){
-       // alert($("#updateShopframe").contents().find(".shop-event-wrapper").height());
+      
    	 	$("#updateShopframe").css("height", $("#updateShopframe").contents().find(".shop-event-wrapper").height() + "px");
    	}
 
@@ -377,7 +377,7 @@
 
 	function removeServeCategoryImageFromServer(){
 		$("#removeloadingwrapper-servecategory").show();
-		console.log(servecategory);
+		
 		$.ajax({
 			url :  $("#base_url").val()+"API/UploadRestController/removeIcon",
 			type: "POST",
@@ -397,7 +397,7 @@
 					txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
 				$('#servecategory-upload-wrapper').html(txt);
 				$("#removeloadingwrapper-servecategory").hide();
-				console.log(servecategory);
+			
 			}
 		});
 	}
@@ -406,7 +406,7 @@
 		$("#servecategory-upload-image").addClass("loading-box");
 		$("#loading-wrapper-servecategory").show();
 		var fileToUpload = inputFile[0].files[0];
-		console.log(fileToUpload);
+		
 		if(fileToUpload != 'undefined'){
 
 			var formData = new FormData();
@@ -420,17 +420,23 @@
 				contentType : false,
 				success: function(data){
 					data = JSON.parse(data);
-					console.log(data);
+					
 					if(data.is_upload == false){
-						alert("error uploading!");
-						alert(data.message);
+						
+						swal({
+							 title: "Upload Error!",
+						     text: data.message,
+						     html: true,
+						     type: "error",
+						    			     
+						 });
 					}else{
 						servecategory = data.filename;
 						$("#loading-wrapper-servecategory").hide();
 						$("#servecategory-upload-image").removeClass("loading-box");
 						$("#uploadimageremoveback-servecategory").show();
 						$("#removeservecategoryimagewrapper").show();
-						console.log(servecategory);
+						
 					}
 					
 				},
@@ -439,7 +445,6 @@
 					xhr.upload.addEventListener("progress", function(event) {
 						if (event.lengthComputable) {
 							var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-							 //console.log(percentComplete);
 							
 							$("#servecategoryprogressbar").css({width: percentComplete+"%"});
 						};
@@ -453,7 +458,14 @@
 
 	function validateServeCategory(){
 		if(!validateNull("servecategorynamepopup", 0)){
-			alert("Serve-Category name Invalid");
+	
+			swal({
+				 title: "Input Error!",
+			     text: "Serve-Category name Invalid",
+			     html: true,
+			     type: "error",
+			    			     
+			 });
 			return false;
 		}
 		return true;
@@ -477,12 +489,18 @@
 					data :  JSON.stringify(servecategorydata),
 					success : function(data){
 						data = JSON.parse(data);
-						console.log(data);
+						
 						if(data.is_insert == false){
-							alert("Insert error!");
+						
+							swal({
+								 title: "Insert Error!",
+							     text: "",
+							     html: true,
+							     type: "error",
+							    			     
+							});
 						}else{
-							
-							console.log($("#servecategorynamepopup").textWidth());
+
 							var txtwidth = $("#servecategorynamepopup").textWidth()+55;
 							var checkcls = $("#display-result-servecategory").siblings("input").val();
 							 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
@@ -595,7 +613,7 @@
 	
 	function removeShopFacilityImageFromServer(){
 		$("#removeloadingwrapper-shopfacility").show();
-		console.log(shopfacilityicon);
+		
 		$.ajax({
 			url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
 			type: "POST",
@@ -615,7 +633,7 @@
 					txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
 				$('#shopfacility-upload-wrapper').html(txt);
 				$("#removeloadingwrapper-shopfacility").hide();
-				console.log(servecategory);
+				
 			}
 		});
 	}
@@ -624,7 +642,7 @@
 		$("#shopfacility-upload-image").addClass("loading-box");
 		$("#loading-wrapper-shopfacility").show();
 		var fileToUpload = inputFile[0].files[0];
-		console.log(fileToUpload);
+		
 		if(fileToUpload != 'undefined'){
 	
 			var formData = new FormData();
@@ -638,17 +656,22 @@
 				contentType : false,
 				success: function(data){
 					data = JSON.parse(data);
-					console.log(data);
 					if(data.is_upload == false){
-						alert("error uploading!");
-						alert(data.message);
+						
+						swal({
+							 title: "Upload Error!",
+						     text: data.message,
+						     html: true,
+						     type: "error",
+						    			     
+						 });
 					}else{
 						shopfacilityicon = data.filename;
 						$("#loading-wrapper-shopfacility").hide();
 						$("#shopfacility-upload-image").removeClass("loading-box");
 						$("#uploadimageremoveback-shopfacility").show();
 						$("#removeshopfacilityimagewrapper").show();
-						console.log(shopfacilityicon);
+						
 					}
 					
 				},
@@ -657,7 +680,6 @@
 					xhr.upload.addEventListener("progress", function(event) {
 						if (event.lengthComputable) {
 							var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-							 //console.log(percentComplete);
 							
 							$("#shopfacilityprogressbar").css({width: percentComplete+"%"});
 						};
@@ -671,7 +693,14 @@
 	
 	function validateShopFacility(){
 		if(!validateNull("shopfacilitynamepopup", 0)){
-			alert("Shop Facility name Invalid");
+		
+			swal({
+				 title: "Input Error!",
+			     text: "Shop Facility name Invalid",
+			     html: true,
+			     type: "error",
+			    			     
+			 });
 			return false;
 		}
 		return true;
@@ -694,12 +723,18 @@
 					data :  JSON.stringify(shopfacilitydata),
 					success : function(data){
 						data = JSON.parse(data);
-						console.log(data);
-						if(data.is_insert == false){
-							alert("Insert error!");
-						}else{
 						
-							console.log($("#shopfacilitynamepopup").textWidth());
+						if(data.is_insert == false){
+							
+							swal({
+								 title: "Insert Error!",
+							     text: "",
+							     html: true,
+							     type: "error",
+							    			     
+							 });
+						}else{
+												
 							var txtwidth = $("#shopfacilitynamepopup").textWidth()+55;
 							var checkcls = $("#display-result-shopfacility").siblings("input").val();
 							 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
