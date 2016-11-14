@@ -16,20 +16,25 @@ class TagRestController extends CI_Controller{
 		echo $json;
 	}	
 	
-	public function getTasteByNameCombo(){	
+	public function getTagByNameCombo(){	
 	
-		$Tastename = $this->input->get('srchname');
+		$tagname = $this->input->get('srchname');
 		$limit = $this->input->get('limit');
 		if($limit == null)
 			$limit = 10;
-			$data = $this->TasteModel->getTasteByNameCombo($Tastename , $limit);		
+			$data = $this->TagModel->getTagByNameCombo($tagname , $limit);		
 			$json = json_encode($data);		
 			echo $json;	
 			
 	}	
 	
-	public function insertTaste(){
+	public function insertTag(){
 		
+		$tag['tagname'] = $this->input->post('tagname');
+	
+		$data = $this->TagModel->insertTag( $tag );
+		$json = json_encode($data);
+		echo $json;
 		
 	}
 }
