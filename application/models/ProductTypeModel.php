@@ -1,12 +1,6 @@
 <?php
 class ProductTypeModel extends  CI_Model{
 	
-	function __construct()
-	{
-		parent::__construct();
-		$this->load->database();
-	}
-	
     function getTypeByNameCombo( $cuisine , $limit ){
 		
     	$sql = "SELECT product_type_id,product_type_name from nham_product_type
