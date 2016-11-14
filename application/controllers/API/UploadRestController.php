@@ -220,6 +220,7 @@ class UploadRestController extends CI_Controller{
 		$cropdata = $_POST["json"];
 		$cropdata = json_decode($cropdata);
 		
+		
 		$img_w = (int)$cropdata->img_w;
 		$response = array();
 		if ( ! empty($_FILES))
@@ -278,7 +279,7 @@ class UploadRestController extends CI_Controller{
 				$big_nocrop_source = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , $big_nocrop , 80);
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				/* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
-				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 520, 75);
+				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 520, 80);
 				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 240, 80);
 				$errorupload = false;
 				array_push($isuploadimg,$big_nocrop_source, $big, $medium, $small);
@@ -366,7 +367,7 @@ class UploadRestController extends CI_Controller{
 		if ( ! empty($_FILES))
 		{
 			
-			$target_extreme_small_dir = "./uploadimages/shopimages/extreme_small/";
+			/* $target_extreme_small_dir = "./uploadimages/shopimages/extreme_small/"; */
 			$target_small_dir = "./uploadimages/shopimages/small/";
 			$target_medium_dir = "./uploadimages/shopimages/medium/";
 			$target_big_dir = "./uploadimages/shopimages/big/";
@@ -380,7 +381,7 @@ class UploadRestController extends CI_Controller{
 				$report = array();
 				$new_name = "detail_".$this->generateRandomString(20).".jpg";
 				
-				$checkdirectory_extreme_small = $this->checkDirectory($target_extreme_small_dir);
+				/* $checkdirectory_extreme_small = $this->checkDirectory($target_extreme_small_dir); */
 				$checkdirectory_small = $this->checkDirectory($target_small_dir);
 				$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 				$checkdirectory_big = $this->checkDirectory($target_big_dir);
@@ -391,7 +392,7 @@ class UploadRestController extends CI_Controller{
 				
 				$permission = array();
 				array_push($permission ,
-					$checkdirectory_extreme_small,
+					/* $checkdirectory_extreme_small, */
 					$checkdirectory_small,
 					$checkdirectory_medium,
 					$checkdirectory_big,
@@ -417,6 +418,7 @@ class UploadRestController extends CI_Controller{
 					/* $big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.4,50);
 					$small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"][$i],0.2,50); */
 					
+					
 					$info = getimagesize($_FILES["file"]["tmp_name"][$i]);
 					list($width, $height) = $info;
 					
@@ -435,18 +437,20 @@ class UploadRestController extends CI_Controller{
 						$my_img_size = 960;
 					}
 					
-					if($my_img_medium_size > 640){
-						$my_img_medium_size = 640;
+					if($my_img_medium_size > 520){
+						$my_img_medium_size = 520;
 					}
 					
 					
 					$big = $this->resizeImageFixpixel($target_big_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , $my_img_size, 80);
 					$medium = $this->resizeImageFixpixel($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , $my_img_medium_size, 80);
-					$small = $this->resizeImageFixpixel($target_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 320, 80);
-					$extreme_small = $this->resizeImageFixpixel($target_extreme_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 150, 80);
+										
+					$small = $this->resizeImageFixpixelAndScaleCenter($target_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 180, 80);
+				//	$small = $this->resizeImageFixpixel($target_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 180, 80);
+				//	$extreme_small = $this->resizeImageFixpixel($target_extreme_small_dir.$new_name, $_FILES["file"]["tmp_name"][$i] , 160, 80);
 					
 					$errorupload = false;
-					array_push($isuploadimg, $big, $medium, $small, $extreme_small);
+					array_push($isuploadimg, $big, $medium, $small);
 					for($j=0 ; $j<count($isuploadimg); $j++){
 						if(!$isuploadimg[$j]){
 							$errorupload = true;
@@ -475,6 +479,7 @@ class UploadRestController extends CI_Controller{
 		echo $json;
 		
 	}	
+	
 	
 	public function uploadIconImage(){
 		
@@ -787,6 +792,59 @@ class UploadRestController extends CI_Controller{
 		return imagejpeg($image_p, $destination_img, $quality);
 	
 	}
+	
+	function resizeImageFixpixelAndScaleCenter($targetfolder , $sourcefolder , $size , $quality){
+	
+	
+		$source_img = $sourcefolder;
+		$destination_img = $targetfolder;
+		$info = getimagesize($source_img);
+		list($width, $height) = $info;
+	
+		$img_x = 0;
+		$img_y = 0;
+		$img_w = $width;
+		$img_h = $height;
+		
+		$new_width = $size;
+		$new_height = $size;
+		if($width > $height){
+	
+			/* // the lowest will have size as value
+			 $percentzoomheight = ($size * 100)/$height;
+			 $convertwidthpx = ($width * $percentzoomheight)/100;
+			 $new_width = $convertwidthpx;
+			 $new_height = $size; */
+	
+			$scale_x = ($width - $height);
+			$img_x = $scale_x/2;
+			$img_w = $width - $scale_x;
+	
+		}else{
+				
+			/* $percentzoomwidth = ($size * 100)/$width;
+				$convertheightpx = ($height * $percentzoomwidth)/100;
+				$new_height = $convertheightpx;
+				$new_width = $size; */
+			$scale_y = ($height - $width);
+			$img_y = $scale_y/2;
+			$img_h = $height - $scale_y;
+		}
+			
+		// Resample
+		$image_p = imagecreatetruecolor($new_width, $new_height);
+		if ($info['mime'] == 'image/jpeg')
+			$image = imagecreatefromjpeg($source_img);
+			elseif ($info['mime'] == 'image/gif')
+			$image = imagecreatefromgif($source_img);
+			elseif ($info['mime'] == 'image/png')
+			$image = imagecreatefrompng($source_img);
+			else
+				return false;
+				imagecopyresampled($image_p, $image, 0, 0, $img_x, $img_y, $new_width, $new_height, $img_w, $img_h);
+				return imagejpeg($image_p, $destination_img, $quality);	
+	}
+	
 	
 	
 	function checkDirectory( $path ){
