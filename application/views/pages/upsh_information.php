@@ -1129,7 +1129,7 @@
 	    	     srchresult.push(myBranch[i]);
 	    	  }
 	    	}
-			console.log(srchresult);
+			
 			displaySearchBranch(srchresult,  srchname);
 			
 	    }else{
@@ -1152,9 +1152,15 @@
 			data :  JSON.stringify(branchdata),
 			success : function(data){
 				 data = JSON.parse(data);
-				console.log(data);
+				
 				if(data.is_insert == false){
-					alert("error");
+					top.swal({
+						 title: "Insert Error!",
+					     text: "",
+					     html: true,
+					     type: "error",
+					    			     
+					 });
 				}else{
 					$("#selectedbranch").val(data.branch_id);
 					$("#branchname").attr('disabled','disabled');
@@ -1269,7 +1275,7 @@
 	    	     srchresult.push(myServeCategory[i]);
 	    	  }
 	    	}
-			console.log(srchresult);
+			
 			displaySearchServeCategory(srchresult, srchname);
 			
 	    }else{
@@ -1287,7 +1293,6 @@
 	function getServeCategories(){
 
 		var catesource = $("#serve-categories").find(".selected-category-box");
-		console.log(catesource.length);
 		var servecategories = [];
 		for(var i=0 ; i<catesource.length; i++){
 			var cateval = catesource.eq(i).find("input").val();
@@ -1339,8 +1344,6 @@
 			$("#nham-dropdown-footer-shopfacility").hide();
 			
 			 var diffarr = getArrdiffFacility(data,facilityarr);
-			 console.log("=============================");
-			 console.log(diffarr);
 			 for(var i=0 ; i<diffarr.length ; i++){
 				 if(diffarr[i] == undefined ) continue; 
 				 dis += '<div  class="nham-dropdown-multi-result">';
@@ -1402,7 +1405,7 @@
 	    	     srchresult.push(myShopFacility[i]);
 	    	  }
 	    	}
-			console.log(srchresult);
+			
 			displaySearchShopFacility(srchresult,  srchname);
 			
 	    }else{
@@ -1420,7 +1423,7 @@
 	function getShopFacilities(){
 
 		var facilitysource = $("#shop-facilities").find(".selected-category-box");
-		console.log(facilitysource.length);
+		
 		var shopfacilities = [];
 		for(var i=0 ; i<facilitysource.length; i++){
 			var facility = facilitysource.eq(i).find("input").val();
@@ -1494,9 +1497,8 @@
 	
 	$(document).on("click", ".close-default-item", function(){
 		var removeservecate = $(this).parents(".selected-category-box").find("input").val();
-		alert(removeservecate);	
+			
 		servecatearrdelete.push(removeservecate);	
-		console.log(servecatearrdelete);
 		$(this).parents(".selected-category-box").remove();
 		top.resizeIframe();		 
 	});	
@@ -1504,9 +1506,8 @@
 	$(document).on("click", ".close-default-facility-item", function(){	
 
 		var removefacility = $(this).parents(".selected-category-box").find("input").val();
-		alert(removefacility);	
-		facilityarrdelete.push(removefacility);	
-		console.log(facilityarrdelete);	
+			
+		facilityarrdelete.push(removefacility);		
 		$(this).parents(".selected-category-box").remove();
 		
 		 top.resizeIframe();		 
@@ -1516,7 +1517,7 @@
 	
 	function loadServeCategoryDis( data ){
 		 $("#serve-category-wrapper").children().remove();
-		 console.log(data);
+		
 		 if(data.length <= 0) return;
 		 for(var i=0; i<data.length ;i++){
 
@@ -1537,7 +1538,7 @@
 	
 	function loadFacilityDis( data ){
 		 $("#facility-wrapper").children().remove();
-		 console.log(data);
+		
 		 var box ="";
 		 if(data.length <= 0){
 			box +="<span class='no-information'>NO INFORMATION!<span>";
@@ -1571,8 +1572,7 @@
 			}),
 			success : function(data){
 				data = JSON.parse(data);
-				console.log(data);
-
+				
 				shopdata = data.default_data.shop_data;
 				$("#dis-branch").html(shopdata.branch_name);
 				$("#dis-eng-name").html(shopdata.shop_name_en);
