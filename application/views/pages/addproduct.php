@@ -6,13 +6,11 @@
     <title>AdminLTE 2 | Dashboard</title>
  	
  	<?php include 'imports/cssimport.php' ?>
- 	<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
- 	
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-upload.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-validation.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-openmodal.css" />
 
-     <link rel="stylesheet" href="<?php echo base_url() ?>css/tokenize2.css"> 
-     <script src="<?php echo base_url() ?>js/tokenize2.js"></script>
-     
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     <div class="wrapper">
@@ -45,20 +43,28 @@
               <div class="box box-danger" style="border-radius: 0;min-height: 500px;">
                 <div class="box-header">
                 	<div class=" col-sm-12 nham-dropdown-wrapper">
-                		<div class="row">
+                	     <div class="row">
                 			<div class="selected-dropdown">
-                    		   <input id="shopname" type="text" class="form-control input-lg nham-dropdown-inputbox"  placeholder="Search Shop to insert Product">
-                    	       <input type="hidden" class="selectedbrandid" id="selectedbrand"/>
+                    		   <input id="shopname" type="text" class="form-control input-lg nham-dropdown-inputbox "  placeholder="Search branch to insert shop">
+                    	       <input type="hidden" class="selectedid" id="selectedshop"/>
                     	    </div>
                     		<div class="nham-dropdown-detail"  >
                     			<div class="nham-dropdown-result-wrapper">
-                    				<div id="display-result" class="display-result-wrapper">
-                    					
-                    				</div>
-       				
+                    				<div id="display-result" class="display-result-wrapper" style="min-height:35px;">                  					
+                    				</div>   								
                   				</div>
+                  				<div id="display-searching-text" style="display:none;">
+                  					<div  class="nham-dropdown-noresult">
+										<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+											Searching "<span id="text-search-dis1"></span>" has no Result!</p>
+									</div>
+									<div class="nham-dropdown-question">	
+										<p>Do you want to register "<span id="text-search-dis2"></span>" as a new branch?</p>
+									</div>
+                  				</div>
+                  				
                   				<div id="nham-dropdown-footer" class="nham-dropdown-result-footer" align="center">
-                  					<button class="btn nhamey-btn" id="yeshop">Yes</button>
+                  					<button class="btn nhamey-btn" id="yesshop">Yes</button>
                   				</div>
                   			</div>
                     	</div>
@@ -96,45 +102,33 @@
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		    <input id="productaste" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product taste">
-			                    	        <input type="hidden" class="selectedbrandid" id="selectedtaste"/>
+			                    		   <input id="tastname" type="text" class="form-control nham-dropdown-inputbox "  placeholder="Search branch to insert shop">
+			                    	       <input type="hidden" class="selectedid" id="selectedtast"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >
 			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-taste" class="display-result-wrapper">
-			                    					
-			                    				</div>
-			       				
+			                    				<div id="display-result-tast" class="display-result-wrapper" style="min-height:35px;">                  					
+			                    				</div>   								
 			                  				</div>
-			                  				<div id="nham-dropdown-footer-taste" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesproductaste">Yes</button>
+			                  				<div id="display-searching-text-tast" style="display:none;">
+			                  					<div  class="nham-dropdown-noresult">
+													<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+														Searching "<span id="text-search-dis1-tast"></span>" has no Result!</p>
+												</div>
+												<div class="nham-dropdown-question">	
+													<p>Do you want to register "<span id="text-search-dis2-tast"></span>" as a new branch?</p>
+												</div>
 			                  				</div>
-			                  			</div>
-			                    	</div>			                    	
-			                  	</div>
-		                     </div>
-		                    <div class="form-group ">
-			                    <label>Types of Cuisine</label>
-			                     <div class=" col-sm-12 nham-dropdown-wrapper">
-			                		<div class="row">
-			                			<div class="selected-dropdown">
-			                    		    <input id="pro_cuisine" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product Region">
-			                    	        <input type="hidden" class="selectedbrandid" id="selectedprocuisine"/>
-			                    	    </div>
-			                    		<div class="nham-dropdown-detail"  >
-			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-procuisine" class="display-result-wrapper">
-			                    					
-			                    				</div>
-			       				
-			                  				</div>
-			                  				<div id="nham-dropdown-footer-procuisine" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesprocuisine">Yes</button>
+			                  				
+			                  				<div id="nham-dropdown-footer-tast" class="nham-dropdown-result-footer" align="center">
+			                  					<button class="btn nhamey-btn" id="yestast">Yes</button>
 			                  				</div>
 			                  			</div>
-			                    	</div>			                    	
+                    				</div>
+                    			                    	
 			                  	</div>
 		                     </div>
+		          
 		                     <div class="form-group">
 			                    <label>Product Server Type</label>
 			                    <select class="form-control " style="width: 100%;" id="pro_servertype">
@@ -143,28 +137,55 @@
 			                    
 			                    </select>
 			                 </div><!-- /.form-group -->
-							  <div class="form-group">
-			                    <label>Product Type</label>
-			                         <div class=" col-sm-12 nham-dropdown-wrapper">
-			                		<div class="row">
-			                			<div class="selected-dropdown">
-			                    		    <input id="productype" type="text" class="form-control  nham-dropdown-inputbox"  placeholder="Search or Select for product taste">
-			                    	        <input type="hidden" class="selectedbrandid" id="selectedtype"/>
-			                    	    </div>
-			                    		<div class="nham-dropdown-detail"  >
-			                    			<div class="nham-dropdown-result-wrapper">
-			                    				<div id="display-result-type" class="display-result-wrapper">
-			                    					
-			                    				</div>
-			       				
-			                  				</div>
-			                  				<div id="nham-dropdown-footer-type" class="nham-dropdown-result-footer" align="center">
-			                  					<button class="btn nhamey-btn" id="yesproductype">Yes</button>
-			                  				</div>
-			                  			</div>
-			                    	</div>			                    	
-			                  		</div>
-			                  </div><!-- /.form-group -->
+						     <div class="form-group "> 
+			                     <label>Product Serve Category</label>
+				                     <div class=" col-sm-12 nham-dropdown-wrapper">
+				                		<div class="row">
+				                			<div class="selected-dropdown" id="servecategory_selected_dropdown" style="position:relative;">
+				                			
+					                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
+					                				<img class="icon-input" id="servecategoryicon"  src="<?php echo base_url() ?>assets/nhamdis/img/servecategory.png" class="selected_icon"/>
+					                				<input type="hidden" class="default_img_src" value="<?php echo base_url() ?>assets/nhamdis/img/servecategory.png"/>				 
+					                			</div>
+					                			
+								                <input style="padding:4px 4px 4px 28px;" id="servecategoryname" type="text" class="form-control nham-dropdown-inputbox-multi"  placeholder="Search or Select for shop type">
+								                
+								                <div class="error-selected-result">
+								                	<p>ITEM IS SELECTED!</p>
+								                </div>
+								                <div class="serve-category-result" id="serve-categories">
+								                	
+								                	
+								                </div>						                  
+				                    	       <!--  <input type="hidden" class="selectedid" id="selectedservecategory"/> -->
+				                    	    </div>
+				                    		<div class="nham-dropdown-detail"  >
+				                    			<div class="nham-dropdown-result-wrapper">
+				                    				<input type="hidden" value="selected-category-box1"/>
+				                    				<div id="display-result-servecategory" class="display-result-wrapper">
+				                    					
+				                    				</div>		       				
+				                  				</div>
+				                  				
+				                  				<div id="display-searching-text_servecategory" style="display:none;">
+				                  					<div  class="nham-dropdown-noresult">
+														<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+															Searching "<span id="text-search-servecategory-dis1"></span>" has no Result!</p>
+													</div>
+													<div class="nham-dropdown-question">	
+														<p>Do you want to register "<span id="text-search-servecategory-dis2"></span>" as a new shop type?</p>
+													</div>
+				                  				</div>
+				                  				
+				                  				<div id="nham-dropdown-footer-servecategory" class="nham-dropdown-result-footer" align="center">
+				                  					<button class="btn nhamey-btn" id="yesservecategory">Yes</button>
+				                  				</div>
+				                  			</div>
+				                    	</div>	
+				                    	<button type="button" id="servecategorybtnpop" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#serveCategoryModal">Open Modal</button>		                    	
+				                  	</div>
+			                     </div>
+		  
 						       <div class="form-group nham-dropdown-wrapper">
 			                  
 			                    <div class=" col-sm-12 nham-dropdown-wrapper">
@@ -190,97 +211,255 @@
 			                  </div>   
 			                   <div class="form-group">
 			                     <label>Remark</label>
-			                     <textarea id="shopremark" class="form-control" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
+			                     <textarea id="proremark" class="form-control" rows="3" placeholder="describe what you haven't done for saving shop" style="resize:none;"></textarea>
 			                   </div>
+			                   	 <div class="form-group "> 
+			                     <label>Tags</label>
+				                     <div class=" col-sm-12 nham-dropdown-wrapper">
+				                		<div class="row">
+				                			<div class="selected-dropdown" id="tag_selected_dropdown" style="position:relative;">
+				                			
+					                			<div class="icon-input-wrapper" style="width:33px;height:28px;position:absolute;top:0;">
+					                				
+					               
+					                			</div>
+					                			
+								                <input style="padding:4px 4px 4px 28px;" id="tagname" type="text" class="form-control nham-dropdown-inputbox-multi-tags"  placeholder="Search or Select for tag">
+								                
+								                <div class="error-selected-result">
+								                	<p>ITEM IS SELECTED!</p>
+								                </div>
+								                <div class="serve-category-result" id="tags">
+								                	
+								                	
+								                </div>						                  
+				                    	       <!--  <input type="hidden" class="selectedid" id="selectedtag"/> -->
+				                    	    </div>
+				                    		<div class="nham-dropdown-detail"  >
+				                    			<div class="nham-dropdown-result-wrapper">
+				                    				<input type="hidden" value="selected-category-box2"/>
+				                    				<div id="display-result-tag" class="display-result-wrapper">
+				                    					
+				                    				</div>		       				
+				                  				</div>
+				                  				
+				                  				<div id="display-searching-text_tag" style="display:none;">
+				                  					<div  class="nham-dropdown-noresult">
+														<p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>
+															Searching "<span id="text-search-tag-dis1"></span>" has no Result!</p>
+													</div>
+													<div class="nham-dropdown-question">	
+														<p>Do you want to register "<span id="text-search-tag-dis2"></span>" as a new shop type?</p>
+													</div>
+				                  				</div>
+				                  				
+				                  				<div id="nham-dropdown-footer-tag" class="nham-dropdown-result-footer" align="center">
+				                  					<button class="btn nhamey-btn" id="yestag">Yes</button>
+				                  				</div>
+				                  			</div>
+				                    	</div>	
+				             
+                    	
+				                  	</div>
+			  			  </div>
 			
 			            </section><!-- /.Left col -->
 			            <!-- right col (We are only adding the ID to make the widgets sortable)-->
 			            <section class="col-lg-7 connectedSortable">
 							<h5 class="gray-color">Informative Image</h5>
 							
-								<div  class="form-group">
+							
+							<div  class="form-group">
 								<label>Logo</label>
-								<div class="col-lg-12 logo-browsing-wrapper" align="center">
+								<div class="col-lg-12 photo-browsing-wrapper" align="center">
 									<div class="row">
-										<div class="col-lg-12 " align="center"  style="position:relative;">											                     		                  		                    	  
-					                    	<input type='file' id="logoupload" style="display: none;" accept="image/*"/>
-					                    	<div class="image-upload-wrapper" id="logo-upload-wrapper">
+										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
+					                    	<div class="photo-display-wrapper" style="width:180px;min-height:180px;" id="logo-display-wrapper">
 					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>
-					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>
-					                    		
-					                    	</div> 	
-					                    										
-											<div id="logo-upload-image" class="upload-image-hover" ></div>
-											<div id="loading-wrapper" class="upload-image-loading" align="center" style="display:none;text-align:center" >
-												 <div class="progress progress-xxs">
-								                    <div id="logoprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
-								                    </div>
-								                  </div>
-												  <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:15px;width:23px;" />
-												  <i class="fa fa-times disable-cover" id="logo-disable-cover" aria-hidden="true" title="close" ></i>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 960 </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add Logo image </p>
+					                    	</div> 
+											
+											<!-- fake on -->
+											<div class="photo-open-modal" id="logo-open-modal"></div>
+											<div class="photo-upload-remove-fake" id="logo-upload-remove-fake"></div>
+											<div class="photo-upload-remove" id="logo-upload-remove">
+												<i id="logo-upload-remove-icon" class="fa fa-trash" aria-hidden="true"></i>	
 											</div>
-											<div id="uploadimageremoveback" class="upload-image-remove-background" style="display:none"></div>
-											<div id="removelogoimagewrapper" class="upload-image-remove" style="display:none" >
-												<i id="removelogoimage" class="fa fa-trash" aria-hidden="true"></i>	
-												
+											<div class="photo-remove-loading" id="logo-remove-loading" align="center">
+												<img class="loading-inside-box" 
+													src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg"  />	
 											</div>
-											<div id="removeloadingwrapper" class="upload-image-remove" align="center" style="display:none;text-align:center">
-												 <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/removeload.gif" style="height:23px;width:23px;" />										
-											</div>
-														                    	  		                    	  		                    	  
+											<!-- end fake on -->														                    	  		                    	  		                    	  
 										</div>
-										<textarea rows="" placeholder="have your word about this..." id="logo_description" class="nham_description" cols=""></textarea>
+										<textarea rows="" placeholder="have your word about this..." id="logo_description"  class="nham_description"  cols=""></textarea>
 									</div>
-								</div>
+								</div>						
 							</div>
-			           
 							
 							 			      			
 			            </section><!-- right col -->
 			            <section class="col-lg-7 connectedSortable">
 			               
-			               <div class="form-group">
-		                      <label class="control-label">Shop images detail</label>
-		                        <div class="uploaddetailwrapper" style="width: 100%; height: auto;position:relative;">
-								    <input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
-									<div id="errorBlock" class="help-block"></div>
-									<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
-									</div>
-									<div id="coveruploadimagewithload"  align="center" class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
-										<img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif" style="height:23px;width:30px;" />
-									</div>
-								</div>
-			                </div>		
+			               		
 			            </section>
 			            <section class="col-lg-7 connectedSortable">
-							
-							<div  class="form-group">
-								<label>Tags</label>
-								 <div class="panel">
-			                        <select class="tokenize-custom-demo1" multiple>
-			                            <?php echo $tags; ?>
-			                        </select>
-                    			 </div>
-                    			 <script>
-                    			  $('.tokenize-custom-demo1').tokenize2({
-                    			      tokensAllowCustom: true,
-                    					
-                    			  });
-                    			 </script>
-							</div>
-			           
-							
-							 			      			
+						
 			            </section><!-- right col -->
 			          </div><!-- /.row (main row) -->
                 </div>
                 <div class="box-footer">
-                 	<button type="button" class="btn btn-danger shop-save" id="saveshop"> Save </button>
+                 	<button type="button" class="btn btn-danger shop-save"  id="saveproduct"> Save </button>
                 </div>
               </div><!-- /.box (chat box) -->
        	
         </section><!-- /.content -->
+       <!-- modal section -->  
+		 <!-- servecategory modal --> 
+		 <div class="modal fade" id="serveCategoryModal" role="dialog">
+		     <div class="modal-dialog">
+		         <div class="modal-content">
+		             <div class="modal-header">
+		                <button type="button" id="servecategoryclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title pop-title"><i class="fa fa-cutlery" aria-hidden="true"></i>  Serve Category</h4>
+		             </div>
+		             <div class="modal-body">
+		                <div class="form-group">
+					        <label>Serve Category's Name</label>
+					        <input type="text" id="servecategorynamepopup" class="form-control" placeholder="enter serve category name">			                      
+				       </div>
+				       
+				       <div class="form-group">
+					        <label>Serve Category's Type</label>
+					        <select class="form-control " style="width: 100%;" id="serve-category-type">
+					        	<option selected="selected" value="0">Nation</option>
+					            <option value="1">Others</option>
+					        </select>
+					   </div><!-- /.form-group -->
+				       
+				        <div class="form-group">
+					        <label>Description</label>
+					        <textarea id="servecategorydescription" class="form-control" rows="3" placeholder="describe about the serve category" style="resize:vertical;"></textarea>
+					   </div>
+					   
+		               <div  class="form-group" style="overflow: hidden">
+							<label>Image</label>
+							<div class="col-lg-12 logo-browsing-wrapper" align="center">
+								<div class="row">
+									<div class="col-lg-12 " align="center"  style="position:relative;">											                     		                  		                    	  
+							              <input type='file' id="servecategoryupload" style="display: none;" accept="image/*"/>
+							              <div class="image-upload-wrapper" id="servecategory-upload-wrapper">
+							                   <label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+							                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>
+							                   <p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Serve Category image </p>					                    		
+							              </div> 						                    										
+										  <div id="servecategory-upload-image" class="upload-image-hover" ></div>
+										  <div id="loading-wrapper-servecategory" class="upload-image-loading" align="center" style="display:none;text-align:center" >
+												<div class="progress progress-xxs">
+										            <div id="servecategoryprogressbar" class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="">					                      
+										            </div>
+										        </div>
+												<img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg" />
+												<i class="fa fa-times disable-cover" id="servecategory-disable-cover" aria-hidden="true" title="close" ></i>
+										  </div>
+										  <div id="uploadimageremoveback-servecategory" class="upload-image-remove-background" style="display:none"></div>
+										  <div id="removeservecategoryimagewrapper" class="upload-image-remove" style="display:none" >
+												<i id="removeservecategoryimage" class="fa fa-trash" aria-hidden="true"></i>	
+										  </div>
+										  <div id="removeloadingwrapper-servecategory" class="upload-image-remove" align="center" style="display:none;text-align:center">
+											    <img  class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/reload.svg"  />										
+										  </div>														                    	  		                    	  		                    	  
+									</div>
+								</div>
+							</div>
+						</div>
+		             </div>
+		             <div class="modal-footer">
+		                 <button type="button" id="belowcloseservecategory" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+		               	<button type="button" id="servecategoryesave" class="btn nham-btn btn-danger">Save</button>
+		             </div>
+		         </div><!-- /.modal-content -->
+		     </div><!-- /.modal-dialog -->
+		 </div><!-- /.modal --><!-- Modal -->
+		  <!--  end servecategory modal -->    
+		   <!-- logo upload modal -->
+		<div class="modal fade" id="logoModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				
+					<div class="nham-modal-header">
+						<button type="button" id="logoformclose" class="close btn-close"
+							data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<p class="nham-modal-title">
+							<i class="fa fa-picture-o" aria-hidden="true"></i><span>Upload logo</span>
+						</p>
+					</div>
+					
+					<div class="nham-modal-body">
+						<div class="photo-browse-box" align="center">
+							<div class="photo-upload-info"  >
+								<p class="text-upload-info">
+								  	<span>Browse Photo </span>
+								 </p>  
+							</div>
+							
+							<!-- fake on -->	
+							<div class="trigger-photo-browse" id="trigger-logo-browse"></div>
+							<!-- end fake on -->
+						</div>			
+						<input type='file' id="uploadlogo" style="display:none" accept="image/*"/>
+						<div class="upload-photo-box" id="logo-upload-box">					
+							<div class="photo-upload-wrapper" align="center" id="display-logo-upload" >
+								<div class="photo-upload-info-2" >
+								 	<i class="fa fa-picture-o" aria-hidden="true"></i>
+								</div>					  	        		
+					        </div>
+					         				        			        
+					        <!-- fake on -->			        
+					        <div class="photo-upload-loading" id="logo-upload-loading" align="center">
+					        	<div class="photo-upload-progress-box">
+					        		<div id="logo-upload-progress" 
+					        		 	class="progress-bar progress-bar-danger progress-bar-striped" 
+					        		 	role="progressbar" aria-valuenow="60" 
+					        		 	aria-valuemin="0" 
+					        		 	aria-valuemax="100" style="height:10px;">					                      
+									</div>
+					        	</div>
+					        	
+								<div style="width: 100%;">
+									<p id="logo-upload-percentage" class="photo-upload-percentage">0%</p>
+									<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+								</div>
+					        	
+					        </div>
+					        <div class="photo-fail-remove" id="logo-fail-remove">
+					        	<i class="fa fa-times" id="logo-fail-event" aria-hidden="true"></i>
+					        </div>			      
+					        <!-- end fake on -->
+						</div>
+						<!-- <div class="photo-description-box" id="logo-description-box">
+							<textarea rows="" id="logo_description" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+						</div> -->
+						
+						<div class="photo-btncrop-box" id="logo-btncrop-box">
+							<button type="button" id="logo-crop-btn" class="btn btn-crop">Crop image</button>
+							<button type="button" id="logo-save-btn" class="btn photo-save-btn btn-danger">Save</button>
+						</div>
+					</div>
+					
+					<div class="nham-modal-footer">
+						
+					</div>			
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<button type="button" id="openLogoModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#logoModal">Open Modal</button>		                    	
+		<!-- logo upload modal -->
+		 
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
       		<?php include 'elements/footnavbar.php';?>
@@ -294,131 +473,94 @@
     </div><!-- ./wrapper -->
 
     <?php include 'imports/scriptimport.php'; ?>
-   
-
+    <script type="text/javascript">
+	    jQuery.browser = {};
+	    (function () {
+	        jQuery.browser.msie = false;
+	        jQuery.browser.version = 0;
+	        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	            jQuery.browser.msie = true;
+	            jQuery.browser.version = RegExp.$1;
+	        }
+	    })();
+	</script>
+    <script src="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.js"></script>
   </body>
 
  
 <script>
+var base_url="<?php echo base_url();?>";
 var logoimagename = "";
+var servecategory = "";
 //start upload logo 
 var arrnewfileimagename = [];
-$("#logo-upload-image").on("click",function(){	
-	$("#logoupload").click();	
-});
-$("#removelogoimage").on("click",function(){
-removeLogoImageFromServer();
-});
-$("#logo-disable-cover").on("click", function(){
-$("#logoupload").val(null);
-$("#loading-wrapper").hide();
-$("#logo-upload-image").removeClass("loading-box");
-var txt = '<label class="gray-image-plus">';
-txt += '  <i class="fa fa-plus"></i>';
-txt += '</label>';
-txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
-txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
-$('#logo-upload-wrapper').html(txt);	
-});
-$("#logoupload").change(function(){
-uploadLogo(this);
-});
-function uploadLogo(input) {
-
-if (input.files && input.files[0]) {
-	var reader = new FileReader();
-		reader.onload = function (e) {
-			upoloadLogoToServer();
-	      var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
-	              $('#logo-upload-wrapper').html(myimg);
-	}
-	reader.readAsDataURL(input.files[0]);
-}else{
-	 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
-	$('#logo-upload-wrapper').html(txt);
-}
-}
-
-function removeLogoImageFromServer(){
-$("#removeloadingwrapper").show();
-$.ajax({
-	url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
-	type: "POST",
-	data : {
-		"removeimagedata":{
-			"image_type" : "1",
-			"imagename" : logoimagename
-		}			
-	},
-	success: function(data){
-		
-		logoimagename="";
-		$("#logoupload").val(null);
-		$("#uploadimageremoveback").hide();
-		$("#removelogoimagewrapper").hide();
-		var txt = '<label class="gray-image-plus">';
-			txt += '  <i class="fa fa-plus"></i>';
-			txt += '</label>';
-			txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 500 x 500 </p>';            	
-			txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
-		$('#logo-upload-wrapper').html(txt);
-		$("#removeloadingwrapper").hide();
-		$("#logo_description").hide();
-	}
-});
-}
-function upoloadLogoToServer(){
-var inputFile = $("#logoupload");
-$("#logo-upload-image").addClass("loading-box");
-$("#loading-wrapper").show();
-var fileToUpload = inputFile[0].files[0];
-console.log(fileToUpload);
-if(fileToUpload != 'undefined'){
-
-	var formData = new FormData();
-	formData.append("file",  fileToUpload);
-	
-	$.ajax({
-		url: "/NhameyWebBackEnd/API/UploadRestController/shopLogoUploadImage",
-		type: "POST",
-		data : formData,
-		processData : false,
-		contentType : false,
-		success: function(data){
-			data = JSON.parse(data);
-			console.log(data);
-			if(data.is_upload == false){
-				alert("error uploading!");
-				alert(data.message);
-			}else{
-				logoimagename = data.filename;
-				$("#loading-wrapper").hide();
-				$("#logo-upload-image").removeClass("loading-box");
-				$("#uploadimageremoveback").show();
-				$("#removelogoimagewrapper").show();
-				$("#logo_description").show();
-			}
+$("#saveproduct").on("click",function(){
+		 progressbar.start();
+		 $.ajax({
+			 type: "POST",
+			 url: base_url+"API/ProductRestController/insertProduct", 
+			 data: {
+				 	"shop_id" : $("#selectedshop").val(),
+					"product_engname" : $("#product_engname").val(),
+					"product_khname" : $("#product_khname").val(),
+					"tast_id" : $("#selectedtast").val(),
+					"pro_servertype" : $("#pro_servertype").val(),
+					"serve_categories" : getServeCategories(),
+					"price" : $("#price").val(),
+					"promote_price" : $("#promote_price").val(),
+					"productshortdes" : $("#productshortdes").val(),
+					"productdes" : $("#productdes").val(),
+					"proremark" : $("#proremark").val(),
+					"tags" : gettags(),
+					"pro_logo" : logoimagename
+				
+				 },
+			 success: function(data){
+				// data = JSON.parse(data);
+				console.log(data);
+               // alert(JSON.stringify(data));
 			
-		},
-		xhr: function() {
-			var xhr = new XMLHttpRequest();
-			xhr.upload.addEventListener("progress", function(event) {
-				if (event.lengthComputable) {
-					var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-					 //console.log(percentComplete);
-					
-					$("#logoprogressbar").css({width: percentComplete+"%"});
-				};
-			}, false);
+				 data = JSON.parse(data);
+				 console.log(data);  
+				 progressbar.stop();
+				 if(data.is_insert){
+					// alert(data.message);
+					 swal({
+						 title: data.message,
+					     text: "A shop has been added!",
+					     html: true,
+					     type: "success",
+					    			     
+					 });
+					 
+				 }else{
+					 swal({
+						 title: data.message,
+					     text: "Fail to add new shop!",
+					     html: true,
+					     type: "error",
+					    			     
+					 });
+					// alert(data.message);
+				 }
+				
+	     	 }
+	     });  
 
-			return xhr;
-		}
-	});
-} 
+}); 
+function getDataToInsert(){
+	
+	var prodata = {
+		"proData":{
+			"prodata":{
+				
+			}
+						
+		}	
+	};
+	return prodata;
+
 }
-//END upload logo
-//start Image detail
-
 $("#input-44").fileinput({
     uploadUrl: '/file-upload-batch/2',
     maxFilePreviewSize: 10240,
@@ -430,6 +572,7 @@ $("#input-44").on("change", function(){
 	
 	uploadShopImageDetailToServer();
 });
+
 function getImageNameAndDetail(){
 
 	var arrshopimagedetail = [];
@@ -458,6 +601,7 @@ $(document).on("mousedown","button.kv-file-remove",function(){
 	
 	console.log(arrnewfileimagename);
 });
+
 $(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove", function(){
 	
 	removeShopImageDetailFromServerMulti(arrnewfileimagename).success(function(data){
@@ -465,18 +609,20 @@ $(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove",
 		console.log(arrnewfileimagename);
 	});
 });
+
 function removeShopImageDetailFromServerMulti(imagestoremove){
 	return $.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopMultipleImage",
-		type: "POST",
+		url  : base_url+"API/UploadRestController/removeShopMultipleImage",
+		type : "POST",
 		data : {
 			"removeimagedata": imagestoremove		
 		}
 	});
 }
+
 function removeShopImageDetailFromServer(imagetoremove){
 	return $.ajax({
-		url : "/NhameyWebBackEnd/API/UploadRestController/removeShopSingleImage",
+		url : base_url+"API/UploadRestController/removeShopSingleImage",
 		type: "POST",
 		data : {
 			"removeimagedata":{
@@ -499,7 +645,7 @@ function uploadShopImageDetailToServer(){
 			formData.append("file[]", file, file.name);				
 		}
 		$.ajax({
-			url: "/NhameyWebBackEnd/API/UploadRestController/shopImageDetailUpload",
+			url: base_url+"API/UploadRestController/shopImageDetailUpload",
 			type: 'POST',
 			data: formData,
 			processData: false,
@@ -570,8 +716,7 @@ $(document).on("click",".closeimgdetail",function(){
 	}
 	console.log(arrnewfileimagename.length);
 	console.log(arrnewfileimagename);
-})
-
+});
 function checkIfSetimgNameFail(){
 	var lngcheck = 0;
 	var imglng = $(".file-preview-frame").length;
@@ -589,68 +734,50 @@ function checkIfSetimgNameFail(){
 	}
 }
 /////////////// search and save shopname
+
 $("#shopname").on("focus keyup",function(){
 	
 	var srchshopname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
-	
+	var loadingimgsrc = base_url+"assets/nhamdis/img/nhamloading.gif";
+	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ShopRestController/getShopByNameCombo", 
+		 url: base_url+"API/ShopRestController/getShopByNameCombo", 
 		 data : {			 
-				"srchname" : srchshopname,
-				"limit" : 10		 	
+			"srchname" : srchshopname,
+			"limit" : 10		 	
 		 },
 		 success: function(data){
-			data = JSON.parse(data);
+			 data = JSON.parse(data);
 			console.log(data);
-			 var shopdis = '';
+			 var branchdis = '';
 			if(data.length <= 0){
-				shopdis +='<div  class="nham-dropdown-noresult">';
-				shopdis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				shopdis +='  Searching "'+cutString(srchshopname , 35)+'" has no Result!</p>';
-				shopdis +='</div>';
-				shopdis +='<div class="nham-dropdown-question">';
-				shopdis +='<p>Do you want to register "'+cutString(srchshopname , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
-				shopdis +='</div>';
+				$("#text-search-dis1").html(cutString(srchshopname , 35));
+				$("#text-search-dis2").html(cutString(srchshopname , 20));
+				branchdis +="<div class='no-data-wrapper' align='center'>";
+				branchdis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				branchdis +="  <span class='no-data-text'>No Record Found!</span>";
+				branchdis +="</div>";
+				$("#display-searching-text").show();
 				$("#nham-dropdown-footer").show();
+				
 			}else{	
-		
+				
+				$("#display-searching-text").hide();
 				$("#nham-dropdown-footer").hide();		
 				 for(var i=0 ; i<data.length ; i++){			
-					 shopdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_id+'" /><p><span class="title">'+data[i].shop_name_en+'</span></p></div>';
+					 branchdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_id+'" /><p><span class="title">'+data[i].shop_name_en+'</span></p></div>';
 				 }				
 				
 			}
-			$("#display-result").html(shopdis); 					 
+			$("#display-result").html(branchdis); 					 
    	 	 }
    });
 });
-$("#yeshop").on("mousedown",function(){
-	var branddata = {
-		"BrandData" : {
-			"brand_name" : $("#shopname").val(),
-			"brand_remark": ""
-		}
-	};
-	$.ajax({
-		type : "POST",
-		url : "/NhameyWebBackEnd/API/BrandRestController/insertBrand",
-		data : branddata,
-		success : function(data){
-			 data = JSON.parse(data);
-			//console.log(data);
-			if(data.is_insert == false){
-				alert("error");
-			}else{
-				$("#selectedbrand").val(data.brand_id);
-			}
-			//alert(data);
-			
-		}
-	});
+$("#yesshop").on("mousedown",function(){
+	window.location.href = base_url+"MainController/addshop";
 });
+
 ////////////////search and save shopname
 $("#productype").on("focus keyup",function(){
 	
@@ -714,193 +841,671 @@ $("#yesproductype").on("mousedown",function(){
 		}
 	});
 });
-////////////////search and save product type
-$("#shopname").on("focus keyup",function(){
+
+
+////////////////// search and save product Tast
+$("#tastname").on("focus keyup",function(){
 	
-	var srchshopname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result").html("<img src='"+loadingimgsrc+"'  style='padding:20px;'/> "); 
-	
+	var srchtastname = $(this).val();
+	var loadingimgsrc = base_url+"assets/nhamdis/img/nhamloading.gif";
+	$("#display-result-tast").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
 	$.ajax({
 		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ShopRestController/getShopByNameCombo", 
+		 url: base_url+"API/ProductTasteRestController/getTasteByNameCombo", 
 		 data : {			 
-				"srchname" : srchshopname,
-				"limit" : 10		 	
+			"srchname" : srchtastname,
+			"limit" : 10		 	
 		 },
 		 success: function(data){
-			data = JSON.parse(data);
+			 data = JSON.parse(data);
 			console.log(data);
-			 var shopdis = '';
+			 var tastdis = '';
 			if(data.length <= 0){
-				shopdis +='<div  class="nham-dropdown-noresult">';
-				shopdis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				shopdis +='  Searching "'+cutString(srchshopname , 35)+'" has no Result!</p>';
-				shopdis +='</div>';
-				shopdis +='<div class="nham-dropdown-question">';
-				shopdis +='<p>Do you want to register "'+cutString(srchshopname , 20)+'" as a new brand? (Yes to accept) or (NO to deny)</p>';
-				shopdis +='</div>';
-				$("#nham-dropdown-footer").show();
+				$("#text-search-dis1-tast").html(cutString(srchtastname , 35));
+				$("#text-search-dis2-tast").html(cutString(srchtastname , 20));
+				tastdis +="<div class='no-data-wrapper' align='center'>";
+				tastdis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				tastdis +="  <span class='no-data-text'>No Record Found!</span>";
+				tastdis +="</div>";
+				$("#display-searching-text-tast").show();
+				$("#nham-dropdown-footer-tast").show();
+				
 			}else{	
+				
+				$("#display-searching-text-tast").hide();
+				$("#nham-dropdown-footer-tast").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+					 tastdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].taste_id+'" /><p><span class="title">'+data[i].taste_name+'</span></p></div>';
+				 }				
+				
+			}
+			$("#display-result-tast").html(tastdis); 					 
+   	 	 }
+   });
+});
+$("#yestast").on("mousedown",function(){
+	  var tastdata = {
+			"tastdata" : {
+				"tast_name" : $("#tastname").val(),
+				"tast_remark": ""
+			}
+		};
+		$.ajax({
+			type : "POST",
+			url : base_url+"API/ProductTasteRestController/insertTaste", 
+			data : tastdata,
+			success : function(data){
+				 data = JSON.parse(data);
+				console.log(data);
+				if(data.is_insert == false){
+					alert("error");
+				}else{
+					$("#selectedtast").val(data.tast_id);
+				}
+			}
+		});
+});
+/*======================= Tags event =============================*/
+
+$("#tagname").on("focus keyup",function(){
+	var srchname = $(this).val();
+	var loadingimgsrc = base_url+"assets/nhamdis/img/nhamloading.gif";
+	$("#display-result-tag").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	$.ajax({
+		 type: "GET",
+		 url: base_url+"API/TagRestController/getTagByNameCombo", 
+		 data : {
+			"srchname" : srchname,
+			"limit" : 10
+		 },
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var dis = '';
+			if(data.length <= 0){
+				$("#text-search-tag-dis1").html(cutString(srchname , 35));
+				$("#text-search-tag-dis2").html(cutString(srchname , 20));
+				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				dis +="  <span class='no-data-text'>No Record Found!</span>";
+				dis +="</div>";
+				$("#display-searching-text_tag").show();
+				$("#nham-dropdown-footer-tag").show();
+			}else{	
+				$("#display-searching-text_tag").hide();
+				$("#nham-dropdown-footer-tag").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+				
+					 dis += '<div  class="nham-dropdown-multi-result">';
+					 dis += ' <input type="hidden" value="'+data[i].tag_id+'" />';
+					 dis += ' <p><span class="title">'+data[i].tag_name+'</span></p></div>';
+					 
+				 }			
+				 dis+="<div style='clear:both'></div>";
+				
+			}
+			$("#display-result-tag").html(dis); 					 
+   	 	 }
+   });
+});
+$("#yestag").on("mousedown",function(){
+
+     var tagname = $("#tagname").val();
+     alert(tagname);
+ 	$.ajax({
+		type : "POST",
+		url : base_url+"API/TagRestController/insertTag",
+		data : {'tagname':tagname},
+		success : function(data){
+			data = JSON.parse(data);
+			alert(data);
+			console.log(data);
+			if(data.is_insert == false){
+				alert("Insert error!");
+			}else{
+	
+				console.log($("#tagname").textWidth());
+				var txtwidth = $("#tagname").textWidth()+55;
+				var checkcls = $("#display-result-tag").siblings("input").val();
+				 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
+				 box += "<input type='hidden' value='"+data.tag_id+"' />";
+				 box += "<span class='pull-left icon-after-select'></span>";
+				 box += "<p class='text-serve-category-selected'>";
+				 box += "<span>"+$("#tagname").val()+"</span>";
+		 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
+		 		
+		 		$("#tags").append(box);
+	   
+				
+			}
+			
+		}
+	});
+			
+	
+});
+
+function gettags(){
+
+	var tagsource = $("#tags").find(".selected-category-box");
+	console.log(tagsource.length);
+	var tags = [];
+	for(var i=0 ; i<tagsource.length; i++){
+		var cateval =tagsource.eq(i).find("input").val();
+		tags.push(cateval);
+	}
+	return tags;
+}
+
+
+$("#tagupload").change(function(){
+	uploadtag(this);
+});
+
+
+/*======================= Tags event =============================*/
+/*======================= serve category event =============================*/
+
+$("#servecategoryname").on("focus keyup",function(){
+	var srchname = $(this).val();
+	var loadingimgsrc = base_url+"assets/nhamdis/img/nhamloading.gif";
+	$("#display-result-servecategory").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+	$.ajax({
+		 type: "GET",
+		 url: base_url+"API/ServeCategoryRestController/getServeCategoryByNameCombo", 
+		 data : {
+			"srchname" : srchname,
+			"limit" : 10
+		 },
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			 var dis = '';
+			if(data.length <= 0){
+				$("#text-search-servecategory-dis1").html(cutString(srchname , 35));
+				$("#text-search-servecategory-dis2").html(cutString(srchname , 20));
+				dis +="<div class='no-data-wrapper' align='center' style='padding-bottom:4px;'>";
+				dis +="  <i class='fa fa-reddit-alien no-data-icon' aria-hidden='true'></i>";
+				dis +="  <span class='no-data-text'>No Record Found!</span>";
+				dis +="</div>";
+				$("#display-searching-text_servecategory").show();
+				$("#nham-dropdown-footer-servecategory").show();
+			}else{	
+				$("#display-searching-text_servecategory").hide();
+				$("#nham-dropdown-footer-servecategory").hide();		
+				 for(var i=0 ; i<data.length ; i++){			
+				
+					 dis += '<div  class="nham-dropdown-multi-result">';
+					 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
+					 dis += ' <img class="pull-left icon" src="'+base_url+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+					 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
+					 
+				 }			
+				 dis+="<div style='clear:both'></div>";
+				
+			}
+			$("#display-result-servecategory").html(dis); 					 
+   	 	 }
+   });
+});
+$("#yesservecategory").on("mousedown",function(){
+
+	$("#servecategorybtnpop").click();
+	$("#servecategorynamepopup").val($("#servecategoryname").val());
+	
+});
+
+function getServeCategories(){
+
+	var catesource = $("#serve-categories").find(".selected-category-box");
+	console.log(catesource.length);
+	var servecategories = [];
+	for(var i=0 ; i<catesource.length; i++){
+		var cateval = catesource.eq(i).find("input").val();
+		servecategories.push(cateval);
+	}
+	return servecategories;
+}
+$("#servecategory-upload-image").on("click",function(){	
+	$("#servecategoryupload").click();	
+});
+$("#removeservecategoryimage").on("click",function(){
+	removeServeCategoryImageFromServer();
+});
+$("#servecategory-disable-cover").on("click", function(){
+	$("#servecategoryupload").val(null);
+	$("#loading-wrapper-servecategory").hide();
+	$("#servecategory-upload-image").removeClass("loading-box");
+	var txt = '<label class="gray-image-plus">';
+	txt += '  <i class="fa fa-plus"></i>';
+	txt += '</label>';
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+	txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#servecategory-upload-wrapper').html(txt);	
+});
+$("#servecategoryupload").change(function(){
+	uploadServeCategory(this);
+});
+
+function uploadServeCategory(input) {
+
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) {
+ 			upoloadServeCategoryToServer();
+		    var myimg ='<img  class="upload-shop-img" src="'+e.target.result+'" alt="your image" />';
+		    $('#servecategory-upload-wrapper').html(myimg);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}else{
+		 var txt = '<label class="gray-image-plus"><i class="fa fa-plus"></i></label><p style="font-weight:bold;color:#9E9E9E"> Add Logo image </p>';
+		$('#servecategory-upload-wrapper').html(txt);
+	}
+}
+
+function removeServeCategoryImageFromServer(){
+	$("#removeloadingwrapper-servecategory").show();
+	console.log(servecategory);
+	$.ajax({
+		url :  base_url+"API/UploadRestController/removeIcon",
+		type: "POST",
+		data : {
+			"iconname": servecategory	
+		},
+		success: function(data){
+			
+			servecategory="";
+			$("#servecategoryupload").val(null);
+			$("#uploadimageremoveback-servecategory").hide();
+			$("#removeservecategoryimagewrapper").hide();
+			var txt = '<label class="gray-image-plus">';
+				txt += '  <i class="fa fa-plus"></i>';
+				txt += '</label>';
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+				txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+			$('#servecategory-upload-wrapper').html(txt);
+			$("#removeloadingwrapper-servecategory").hide();
+			console.log(servecategory);
+		}
+	});
+}
+function upoloadServeCategoryToServer(){
+	var inputFile = $("#servecategoryupload");
+	$("#servecategory-upload-image").addClass("loading-box");
+	$("#loading-wrapper-servecategory").show();
+	var fileToUpload = inputFile[0].files[0];
+	console.log(fileToUpload);
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
 		
-				$("#nham-dropdown-footer").hide();		
-				 for(var i=0 ; i<data.length ; i++){			
-					 shopdis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].shop_id+'" /><p><span class="title">'+data[i].shop_name_en+'</span></p></div>';
-				 }				
+		$.ajax({
+			url: base_url+"API/UploadRestController/uploadIconImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+				}else{
+					servecategory = data.filename;
+					$("#loading-wrapper-servecategory").hide();
+					$("#servecategory-upload-image").removeClass("loading-box");
+					$("#uploadimageremoveback-servecategory").show();
+					$("#removeservecategoryimagewrapper").show();
+					console.log(servecategory);
+				}
 				
-			}
-			$("#display-result").html(shopdis); 					 
-   	 	 }
-   });
-});
-$("#yeshop").on("mousedown",function(){
-	var branddata = {
-		"BrandData" : {
-			"brand_name" : $("#shopname").val(),
-			"brand_remark": ""
-		}
-	};
-	$.ajax({
-		type : "POST",
-		url : "/NhameyWebBackEnd/API/BrandRestController/insertBrand",
-		data : branddata,
-		success : function(data){
-			 data = JSON.parse(data);
-			//console.log(data);
-			if(data.is_insert == false){
-				alert("error");
-			}else{
-				$("#selectedbrand").val(data.brand_id);
-			}
-			//alert(data);
-			
-		}
-	});
-});
-////////////////// search and save productaste
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						 //console.log(percentComplete);
+						
+						$("#servecategoryprogressbar").css({width: percentComplete+"%"});
+					};
+				}, false);
 
-$("#productaste").on("focus keyup",function(){
-	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-taste").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+				return xhr;
+			}
+		});
+	} 
+}
 
-	$.ajax({
-		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/ProductTasteRestController/getTasteByNameCombo", 
-		 data : {			 
-				"srchname" : srchname,
-				"limit" : 10		 	
-		 },
-		 success: function(data){
-			 data = JSON.parse(data);
-			console.log(data);
-			 var dis = '';
-			if(data.length <= 0){
-				dis +='<div  class="nham-dropdown-noresult">';
-				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
-				dis +='</div>';
-				dis +='<div class="nham-dropdown-question">';
-				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
-				dis +='</div>';
-				$("#nham-dropdown-footer-taste").show();
-			}else{	
-				$("#nham-dropdown-footer-taste").hide();		
-				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].taste_id+'" /><p><span class="title">'+data[i].taste_name+'</span></p></div>';
-				 }				
-				
-			}
-			$("#display-result-taste").html(dis); 					 
-   	 	 }
-   });
+function validateServeCategory(){
+	if(!validateNull("servecategorynamepopup", 0)){
+		alert("Serve-Category name Invalid");
+		return false;
+	}
+	return true;
+}
+$("#servecategoryesave").on("click", function(){
+	if(validateServeCategory()){
+		
+		//progressbar.start();
+		var servecategorydata = {
+				"ServeCategoryData" : {
+					"serve_category_name" : $("#servecategorynamepopup").val(),
+					"serve_category_type" : $("#serve-category-type").val(),
+ 					"serve_category_icon" :  servecategory,
+					"serve_category_remark": $("#servecategorydescription").val()
+				}
+			};
+			$.ajax({
+				type : "POST",
+				url : base_url+"API/ServeCategoryRestController/insertServeCategory",
+				contentType : "application/json",
+				data :  JSON.stringify(servecategorydata),
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_insert == false){
+						alert("Insert error!");
+					}else{
+						
+						console.log($("#servecategorynamepopup").textWidth());
+						var txtwidth = $("#servecategorynamepopup").textWidth()+55;
+						var checkcls = $("#display-result-servecategory").siblings("input").val();
+						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
+						 box += "<input type='hidden' value='"+data.serve_category_id+"' />";
+						
+						 box += "<p class='text-serve-category-selected'>";
+						 box += "<span>"+$("#servecategorynamepopup").val()+"</span>";
+				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
+				 		
+				 		$("#serve-categories").append(box);
+											 
+				 		$('#serveCategoryModal').modal('hide');
+						clearServeCategorySaveform();
+						//loadServeCategory();
+					}
+					
+				}
+			});
+	}
 });
-$("#yesproductaste").on("mousedown",function(){
-	var tastedata = {
-		"tastedata" : {
-			"taste_name" : $("#productaste").val(),
-			"taste_remark": ""
-		}
-	};
-	$.ajax({
-		type : "POST",
-		url : "/NhameyWebBackEnd/API/ProductTasteRestController/insertTaste",
-		data : tastedata,
-		success : function(data){
-			data = JSON.parse(data);
-			console.log(data);
-			if(data.is_insert == false){
-				alert("Insert error!");
+
+$("#servecategoryclose").on("click",function(){
+	$("#servecategorynamepopup").val("");
+	$("#servecategorydescription").val("");
+	if(servecategory != "") 
+		removeServeCategoryImageFromServer();
+});
+function clearServeCategorySaveform(){
+	$("#servecategorynamepopup").val("");
+	$("#servecategorydescription").val("");
+	servecategory="";
+	$("#servecategoryupload").val(null);
+	$("#uploadimageremoveback-servecategory").hide();
+	$("#removeservecategoryimagewrapper").hide();
+	var txt = '<label class="gray-image-plus">';
+		txt += '  <i class="fa fa-plus"></i>';
+		txt += '</label>';
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 50 x 50 </p>';            	
+		txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Cuisine image </p>';
+	$('#servecategory-upload-wrapper').html(txt);
+	$("#removeloadingwrapper-servecategory").hide();
+}
+/*======================= End serve category event =============================*/
+/* validate ----------- */
+function validateNull( selector , isselect ,selectorreal){
+	if($("#"+selector).val() == "" || $("#"+selector).val() == null){
+		if(!selectorreal){			
+			if(isselect == 1){
+				$("#"+selector).siblings(".select2-container").addClass("invalid-input");
 			}else{
-				//alert(data);
-				$("#selectedtaste").val(data.taste_id);
-			}
-			
+				$("#"+selector).addClass("invalid-input");
+			}			
+		}else{
+			$("#"+selectorreal).addClass("invalid-input");
 		}
-	});
+		
+		return false;
+	}else{
+		if(!selectorreal){
+			if(isselect == 1){
+				$("#"+selector).siblings(".select2-container").removeClass("invalid-input");
+			}else{
+				$("#"+selector).removeClass("invalid-input");
+			}	
+		}else{
+			$("#"+selectorreal).removeClass("invalid-input");
+		}
+		return true;
+	}
+}
+
+
+
+/*===================== upload logo event =============================*/
+
+var backupreallogoimage;
+var img_logo_x = 0;
+var img_logo_y = 0;
+var img_logo_w = 0;
+var img_logo_h = 0;
+
+$("#logo-open-modal").on("click", function(){
+	$("#openLogoModel").click();
 });
-///////////////////////////////////////////// Searcg and Save pro_cuisine
-$("#pro_cuisine").on("focus keyup",function(){
-	var srchname = $(this).val();
-	var loadingimgsrc = "<?php echo base_url() ?>application/views/nhamdis/img/nhamloading.gif";
-	$("#display-result-taste").html("<img src='"+loadingimgsrc+"'  style='padding:10px;'/> "); 
+
+$("#trigger-logo-browse").on("click",function(){
+	alert(logoimagename);
+	$("#uploadlogo").click();
+});
+
+$("#uploadlogo").on("change", function(){	
+	uploadLogo(this);
+});
+
+$("#logo-fail-event").on("click" , function(){
+	logoimagename = "";
+	$("#uploadlogo").val(null);
+	$(this).parent().hide();
 	
-	$.ajax({
-		 type: "GET",
-		 url: "/NhameyWebBackEnd/API/CuisineRestController/getCuisineByNameCombo/", 
-		 data:{
-			 "srchname" : srchname,
-			 "limit"    : 10
-		 },
-		 success: function(data){
-			 data = JSON.parse(data);
-			console.log(data);
-			 var dis = '';
-			if(data.length <= 0){
-				dis +='<div  class="nham-dropdown-noresult">';
-				dis +=' <p> <i class="fa fa-search" style="font-size:20px;margin-right:10px;" aria-hidden="true"></i>';
-				dis +='  Searching "'+cutString(srchname , 15)+'" has no Result!</p>';
-				dis +='</div>';
-				dis +='<div class="nham-dropdown-question">';
-				dis +='<p>Do you want to register "'+cutString(srchname , 20)+'" as a new brand?</p>';
-				dis +='</div>';
-				$("#nham-dropdown-footer-procuisine").show();
-			}else{	
-				$("#nham-dropdown-footer-procuisine").hide();		
-				 for(var i=0 ; i<data.length ; i++){			
-					 dis += '<div  class="nham-dropdown-result"><input type="hidden" value="'+data[i].cuisine_id+'" /><p><span class="title">'+data[i].cuisine_name+'</span></p></div>';
-				 }				
-				
-			}
-			$("#display-result-procuisine").html(dis); 					 
-   	 	 }
-   });
-});
-$("#yesprocuisine").on("mousedown",function(){
-	var regiondata = {
-		"CuisineData" : {
-			"cuisine_name" : $("#pro_cuisine").val(),
-			"cuisine_remark": ""
-		}
-	};
-	$.ajax({
-		type : "POST",
-		url : "/NhameyWebBackEnd/API/CuisineRestController/insertCuisine",
-		data : regiondata,
-		success : function(data){
-			data = JSON.parse(data);
-			console.log(data);
-			if(data.is_insert == false){
-				alert("Insert error!");
-			}else{
-				//alert(data);
-				$("#selectedprocuisine").val(data.cuisine_id);
-			}
-			
-		}
-	});
+	var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#display-logo-upload').html(txt);
 });
 
+$("#logoformclose").on("click", function(){
 	
+	if(logoimagename) {
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		
+		$('#display-logo-upload').html(txt);
+		$("#logo-btncrop-box").hide();
+		removeLogoImageFromServer().success(function(data){
+			logoimagename = "";
+			$("#uploadlogo").val(null);
+		});				  
+	}
+	
+});
+
+$("#logo-crop-btn").on("click", function(){
+	alert(img_logo_x+" "+img_logo_y+" "+img_logo_w+" "+img_logo_h);
+	upoloadLogoToServer();
+	$(this).hide();
+	
+});
+
+$("#logo-save-btn").on("click", function(){
+	
+	alert(logoimagename);
+	$('#logoModal').modal('hide');
+	$("#logo_description").show();	  
+	$("#logo-upload-remove-fake").show();
+	$("#logo-upload-remove").show();
+	var myimg  ='<img  class="upload-shop-img"'; 
+		myimg +='src="'+base_url+'uploadimages/logo/medium/'+logoimagename+'" alt="your image" />';
+    $('#logo-display-wrapper').html(myimg);
+    var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#display-logo-upload').html(txt);
+	$("#logo-btncrop-box").hide();
+   
+});
+
+$("#logo-upload-remove-icon").on("click", function(){
+	
+	$(this).parent().hide();	
+	 var txt  = '<label class="gray-image-plus">';
+	 	 txt += '<i class="fa fa-plus"></i>';
+	 	 txt += '</label>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 960 </p>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add logo image </p>';
+	$(this).parent().siblings(".photo-display-wrapper").html(txt);
+	$(this).parent().siblings(".photo-remove-loading").show();
+	
+	alert(logoimagename);
+	$("#logo-upload-remove-fake").hide();
+	$("#logo-remove-loading").hide();
+	$("#logo_description").hide();
+	removeLogoImageFromServer().success(function(data){
+		logoimagename = "";		
+		$("#uploadlogo").val(null);
+	});	
+});
+
+function uploadLogo(input) {
+		
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) { 
+ 			
+ 			if(logoimagename) {
+ 				removeLogoImageFromServer().success(function(data){
+ 					logoimagename = "";
+ 				});				  
+ 			}
+ 			$("#logo-crop-btn").show();
+ 			$("#logo-save-btn").hide();
+ 			//$("#logo-description-box").hide();
+	 		var image = new Image();
+			image.src = e.target.result;			
+			image.onload = function () {
+				var height = this.height;
+				var width = this.width;
+	 			  $("#logo-btncrop-box").show();
+	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="croplogo" alt="your image" />';
+			      $('#display-logo-upload').html(myimg);
+			      $('#croplogo').Jcrop({
+			    	   aspectRatio: 16 / 16,
+			    	   onSelect: updateLogoCoords,
+			    	   onChange: updateLogoCoords,
+			    	   setSelect: [0,0,110,110],
+			    	   trueSize: [width,height]
+			   	 });			           	
+			  
+			      backupreallogoimage = $("#uploadlogo")[0].files[0];
+			}			
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+function updateLogoCoords(c){
+	img_logo_x = c.x;
+	img_logo_y = c.y;
+	img_logo_w = c.w;
+	img_logo_h = c.h;
+}
+
+function getCropLogoImgData(){
+	var crop_img_data = {		
+		"img_x" : img_logo_x,
+		"img_y" : img_logo_y,
+		"img_w" : img_logo_w,
+		"img_h" : img_logo_h						
+	};
+	return crop_img_data;	
+}
+
+function removeLogoImageFromServer(){
+
+	return $.ajax({
+		url : base_url+"API/UploadRestController/removeShopSingleImage",
+		type: "POST",
+		data : {
+			"removeimagedata":{
+				"image_type" : "1",
+				"imagename" : logoimagename
+			}			
+		}
+	});	
+}
+
+function upoloadLogoToServer(){
+	//var inputFile = $("#uploadcover");
+	$("#logo-upload-progress").css({width:"0%"});
+	$("#logo-upload-percentage").html(0);
+	$("#logo-upload-loading").show();
+	var fileToUpload = backupreallogoimage;
+	
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		formData.append("json", JSON.stringify(getCropLogoImgData()));
+		
+		$.ajax({
+			url: base_url+"API/UploadRestController/shopLogoUploadImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				
+				data = JSON.parse(data);
+				
+				if(data.is_upload == false){
+					alert("error uploading!");
+					alert(data.message);
+					logoimagename = "";
+					$("#logo-fail-remove").show();
+					//$("#cover-description-box").hide();
+					$("#logo-btncrop-box").hide();
+				}else{
+					$("#logo-save-btn").show();
+					//$("#cover-description-box").show();
+					logoimagename = data.filename;
+					var uploadedimg ='<img  class="photo-upload-output" ' 
+						+'src="'+base_url+'uploadimages/logo/big/'+logoimagename+'"  '
+						+'alt="your image" />';
+					$('#display-logo-upload').html(uploadedimg);
+					
+				}
+				$("#logo-upload-loading").hide();				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						
+						$("#logo-upload-progress").css({width: percentComplete+"%"});
+						$("#logo-upload-percentage").html(percentComplete+"%");
+					};
+				}, false);
+				return xhr;
+			}
+		});
+	} 
+}
+
+/*===================== end upload logo event =========================*/
+
   </script>
 </html>
