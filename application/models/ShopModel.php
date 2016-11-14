@@ -628,6 +628,14 @@ class ShopModel extends CI_Model{
 		
 	}
 	
+	function getSomeShopInfo($id){
+		$sql = "SELECT shop_name_en,shop_name_kh,country_id,city_id,district_id,commune_id,shop_map_address from nham_shop
+    			WHERE shop_id=?";
+		$query = $this->db->query($sql, array($id) );
+		$data = $query->result();
+		return $data;
+	}
+	
 	function IsNullOrEmptyString($variable){
 		return (!isset($variable) || trim($variable)==='');
 	}
