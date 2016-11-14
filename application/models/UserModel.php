@@ -5,6 +5,9 @@
 		{
 			parent::__construct();
 			$this->load->database();
+		    date_default_timezone_set('Asia/Phnom_Penh');
+		
+				
 		}
 		
 		function insertUser($req_data){
@@ -15,11 +18,16 @@
 			$password = $req_data["password"];
 			$remark = $req_data["remark"];
 			$photo = $req_data["photo"];
+			$validate = $this->validateInput($name);
+			$validate2 = $this->validateInput($type);
+			$validate3 = $this->validateInput($email);
+			$validate4 = $this->validateInput($password);
+			$validate5 = $this->validateInput($photo);
 			$response = array();
 			
 			if($this->IsNullOrEmptyString($validate) && $this->IsNullOrEmptyString($validate2) && $this->IsNullOrEmptyString($validate3) && $this->IsNullOrEmptyString($validate5)){
-				$strsql = "INSERT INTO nham_admin(admin_name, admin_email, admin_password, admin_photo, admin_remark, admin_type, admin_status) VALUES(?,?,?,?,?,?,?)";
-				$params = array($name, $email, $password, $photo, $remark, $type, 1);
+				$strsql = "INSERT INTO nham_admin(admin_name, admin_email, admin_password, admin_photo, admin_remarks, admin_created_date,admin_type, admin_status) VALUES(?,?,?,?,?,?,?,?)";
+				$params = array($name, $email, $this->hash_password($password), $photo, $remark,date('Y-m-d H:i:s') ,$type, 1);
 				
 				$query = $this->db->query($strsql , $params);
 				$insert_shop_id = $this->db->insert_id();
@@ -127,5 +135,18 @@
 		function IsNullOrEmptyString($variable){
 			return (!isset($variable) || trim($variable)==='');
 		}
+		private function hash_password($password) {
+		
+			return password_hash($password, PASSWORD_BCRYPT);
+		
+		}
+		
+		
+		private function verify_password_hash($password, $hash) {
+		
+			return password_verify($password, $hash);
+		
+		}
+		
 	}
 ?>
