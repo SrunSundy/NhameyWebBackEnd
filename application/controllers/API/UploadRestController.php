@@ -87,7 +87,7 @@ class UploadRestController extends CI_Controller{
 			$target_small_dir = "./uploadimages/logo/small/";
 			$target_medium_dir = "./uploadimages/logo/medium/";
 			$target_big_dir = "./uploadimages/logo/big/";
-			$target_big_nocrop_dir = "./uploadimages/cover/big-nocrop/";
+			$target_big_nocrop_dir = "./uploadimages/logo/big-nocrop/";
 			
 				
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
@@ -142,7 +142,7 @@ class UploadRestController extends CI_Controller{
 				if($width < 960){
 					$imgsize = $width;
 				}	 			
-				$big_nocrop = $this->resizeImageFixpixel($target_big_dir.$new_name , $_FILES["file"]["tmp_name"] , $imgsize , 80);
+				$big_nocrop = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , $imgsize , 80);
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
 				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
@@ -560,8 +560,17 @@ class UploadRestController extends CI_Controller{
 		
 		if($removetype == "1"){
 			$srcbig = "./uploadimages/logo/big/";
+			$srcbignocrop = "./uploadimages/logo/big-nocrop/";
 			$srcmedium = "./uploadimages/logo/medium/";
 			$srcsmall = "./uploadimages/logo/small/";
+			
+			if(file_exists($srcbignocrop.$imagename)){
+				unlink($srcbignocrop.$imagename);
+				$report['big_nocrop_image_message'] ="File is removed";
+					
+			}else{
+				$report['big_nocrop_image_message'] ="File not found";
+			}
 		}else if($removetype == "2"){
 			$srcbig = "./uploadimages/cover/big/";
 			$srcbignocrop = "./uploadimages/cover/big-nocrop/";
@@ -573,7 +582,7 @@ class UploadRestController extends CI_Controller{
 				$report['big_nocrop_image_message'] ="File is removed";
 					
 			}else{
-				$report['extreme_small_image_message'] ="File not found";
+				$report['big_nocrop_image_message'] ="File not found";
 			}
 		}else if($removetype == "3"){
 			$srcbig = "./uploadimages/shopimages/big/";

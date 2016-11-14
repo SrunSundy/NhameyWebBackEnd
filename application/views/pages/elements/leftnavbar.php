@@ -9,7 +9,7 @@
 		</div>
 		<div class="pull-left info">
 			<p>Alexander Pierce</p>
-			<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+			<a href="javascript:;"><i class="fa fa-circle text-success"></i> Online</a>
 		</div>
 	</div>
 	
@@ -20,7 +20,7 @@
 		<!-- <li><a href="category"> <i class="fa fa-sitemap" aria-hidden="true"></i> <span>Category</span></a></li> -->
 		
 		<li class="treeview">
-              <a href="#">
+              <a href="javascript:;">
                 <i class="fa fa-building" aria-hidden="true"></i> <span>Shop Management</span><i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -33,20 +33,27 @@
        
         
 		<li class="treeview">
-              <a href="#">
+              <a href="javascript:;">
                 <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Product Management</span><i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url(); ?>MainController/addproduct"><i class="fa fa-circle-o"></i> Add Product</a></li>
-               
-          
+                       
               </ul>
         </li>
-		<li><a href="user"> <i class="fa fa-users" aria-hidden="true"></i> <span>User Management</span></a></li>
+		<li class="treeview">
+			<a href="javascript:;"> 
+				<i class="fa fa-users" aria-hidden="true"></i> <span>User Management</span><i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+                <li><a href="<?php echo base_url(); ?>MainController/adduser"><i class="fa fa-circle-o"></i> Add user</a></li>
+                 <li><a href="<?php echo base_url(); ?>MainController/listuser"><i class="fa fa-circle-o"></i> List user</a></li>
+             </ul>
+		</li>
 		<!-- <li><a href="post"> <i class="fa fa-pencil-square" aria-hidden="true"></i> <span>Post Management</span></a></li>
 		<li><a href="comment"> <i class="fa fa-comments" aria-hidden="true"></i> <span>Comment Management</span></a></li> -->
  		<li class="treeview">
-              <a href="#">
+              <a href="javascript:;">
                 <i class="fa fa-building" aria-hidden="true"></i> <span>Location Management</span><i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
