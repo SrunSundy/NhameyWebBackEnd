@@ -51,7 +51,7 @@ class ServeCategoryModel extends CI_Model{
 	function insertServeCategory( $servecatearr ){
 		
 		$this->db->trans_start();
-		$query = $this->db->query('INSERT INTO nham_serve_category(serve_category_name, serve_category_type , serve_category_icon , serve_category_remark) values (? ,? , ? , ?)', $servecatearr);
+		$query = $this->db->query('INSERT INTO nham_serve_category(serve_category_name, serve_category_type , serve_category_icon , serve_category_remark, admin_id) values (? ,? , ? , ?, ?)', $servecatearr);
 		$insert_id = $this->db->insert_id();
 		$isinsert =  ($this->db->affected_rows() != 1) ? false : true;
 		$this->db->trans_complete();
