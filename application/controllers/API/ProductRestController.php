@@ -5,7 +5,7 @@ class ProductRestController extends CI_Controller{
 		parent::__construct();
 
 		$this->load->model('ProductModel');
-		$this->load->model('ShopModel');
+	
 	}
 	public function index(){
 		$this->load->view('index');
@@ -30,7 +30,9 @@ class ProductRestController extends CI_Controller{
 		$pro_description=$this->input->post('productdes');
 		$pro_remark=$this->input->post('proremark');
 		$data=$this->getSomeShopInfo($shop_id);
-		foreach ($data as $shop){
+		
+		
+	   foreach ($data as $shop){
 			$shop_name_en=$shop->shop_name_en;
 			$shop_name_kh=$shop->shop_name_kh;
 			$country_id=$shop->country_id;
@@ -39,6 +41,7 @@ class ProductRestController extends CI_Controller{
 			$commune_id=$shop->commune_id;
 			$pro_map_address=$shop->shop_map_address;
 		}
+		
 		$datapro=array("shop_id"=>$shop_id,"shop_name_en"=>$shop_name_en,"shop_name_kh"=>$shop_name_kh,
 				"pro_name_en"=>$pro_name_en,"pro_name_kh"=>$pro_name_kh,"country_id"=>$country_id,"city_id"=>$city_id,"district_id"=>$district_id,
 				"commune_id"=>$commune_id,"taste_id"=>$taste_id,"pro_map_address"=>$pro_map_address,
@@ -46,12 +49,15 @@ class ProductRestController extends CI_Controller{
 				"pro_image"=>$pro_image,"pro_short_description"=>$pro_short_description,"pro_description"=>$pro_description,"pro_remark"=>$pro_remark);
 		$pro_servertype = $this->input->post('serve_categories');
 		$tags=$this->input->post('tags');
+		
+		
 		$response = $this->ProductModel->insertProduct($datapro,$pro_servertype,$tags);	
-		echo json_encode($response);
+		echo json_encode($response);  
 
 	}		
 	private function getSomeShopInfo($id){
 		
+		$this->load->model('ShopModel');
 		$data=$this->ShopModel->getSomeShopInfo($id);
 		return $data;
 	}

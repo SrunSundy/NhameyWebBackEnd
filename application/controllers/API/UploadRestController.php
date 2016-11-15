@@ -76,13 +76,14 @@ class UploadRestController extends CI_Controller{
 			echo $json;
 		} */
 		
-		$cropdata = $_POST["json"];
-		$cropdata = json_decode($cropdata);
 		
-		$img_w = (int)$cropdata->img_w;
 		$response = array();
 		if ( ! empty($_FILES))
 		{
+			$cropdata = $_POST["json"];
+			$cropdata = json_decode($cropdata);
+			$img_w = (int)$cropdata->img_w;
+			
 			$new_name = "logo_".$this->generateRandomString(20).".jpg";
 			$target_small_dir = "./uploadimages/logo/small/";
 			$target_medium_dir = "./uploadimages/logo/medium/";
@@ -217,14 +218,14 @@ class UploadRestController extends CI_Controller{
 			echo $json;
 		} */
 		
-		$cropdata = $_POST["json"];
-		$cropdata = json_decode($cropdata);
 		
-		
-		$img_w = (int)$cropdata->img_w;
 		$response = array();
 		if ( ! empty($_FILES))
 		{
+			$cropdata = $_POST["json"];
+			$cropdata = json_decode($cropdata);
+			$img_w = (int)$cropdata->img_w;
+			
 			$new_name = "cover_".$this->generateRandomString(20).".jpg";
 			$target_small_dir = "./uploadimages/cover/small/";
 			$target_medium_dir = "./uploadimages/cover/medium/";
@@ -472,7 +473,14 @@ class UploadRestController extends CI_Controller{
 				}
 			}
 			
+			$response["is_upload"] = true;
+			$response["message"] = "success";
 			$response["fileupload"] = $reportwrapper;
+		}
+		else{
+			$response['is_upload']= false;
+			$response["message"] = "No File!";
+			$response["fileupload"] = null;
 		}
 				
 		$json = json_encode($response);
@@ -528,10 +536,162 @@ class UploadRestController extends CI_Controller{
 		echo $json;
 	}
 	
+	public function productUploadImage(){
+
+		$response = array();
+		if ( ! empty($_FILES))
+		{
+			$cropdata = $_POST["json"];
+			$cropdata = json_decode($cropdata);
+			$img_w = (int)$cropdata->img_w;
+				
+			$new_name = "logo_".$this->generateRandomString(20).".jpg";
+			$target_extreme_small_dir = "./uploadimages/product/extreme-small/";
+			$target_small_dir = "./uploadimages/product/small/";
+			$target_medium_dir = "./uploadimages/product/medium/";
+			$target_big_dir = "./uploadimages/product/big/";
+			$target_big_nocrop_dir = "./uploadimages/product/big-nocrop/";
+				
+			$checkdirectory_extreme_small = $this->checkDirectory($target_extreme_small_dir);
+			$checkdirectory_small = $this->checkDirectory($target_small_dir);
+			$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
+			$checkdirectory_big = $this->checkDirectory($target_big_dir);
+			$checkdirectory_bignocrop = $this->checkDirectory($target_big_nocrop_dir);
+			
+			$allowfiletype = $this->allowImageType(array("image/jpg","image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
+			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
+			//$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
+			//$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
+			$allowmincrop = $this->allowImageMinimumDimensionCrop(200, 200, $cropdata);
+		
+			$permission = array();
+			array_push($permission ,
+					$checkdirectory_extreme_small,
+					$checkdirectory_small,
+					$checkdirectory_medium,
+					$checkdirectory_big,
+					$checkdirectory_bignocrop,
+					$allowfiletype,
+					$allowsize,
+					$allowmincrop
+					//$allowmindimension,
+					//$allowmaxdimension
+					);
+			$check = $this->checkPermission($permission);
+		
+			$message = $check["message"];
+			$uploadok =  $check["error"];
+			if ($uploadok) {
+				$message = " File can not be uploaded.".$message;
+				$response['is_upload']= false;
+				$response["message"] = $message;
+			} else {
+					
+				$isuploadimg = array();
+						
+				$big_crop = 960;
+				if($img_w < 960){
+					$big_crop = $img_w;
+				}
+				$imgsize = 960;
+				list($width, $height) = getimagesize( $_FILES["file"]["tmp_name"]);
+				if($width < 960){
+					$imgsize = $width;
+				}
+				$big_nocrop = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , $imgsize , 80);
+				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
+				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 520, 80);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
+				$extreme_small = $this->resizeImageFixpixelAndCrop($target_extreme_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
+		
+				$errorupload = false;
+				array_push($isuploadimg,$big_nocrop, $big, $medium, $small, $extreme_small);
+				for($i=0 ; $i<count($isuploadimg); $i++){
+					if(!$isuploadimg[$i]){
+						$errorupload = true;
+						break;
+					}
+				}
+				if($errorupload){
+					$message = "There was an error uploading your file.";
+					$response['is_upload']= false;
+					$response["message"] = $message;
+				}else{
+					$response['is_upload'] = true;
+					$response['message'] =" File upload successfully!";
+					$response['filename'] = $new_name;
+				}
+		
+			}
+		}else{
+			$response['is_upload']= false;
+			$response["message"] = "No File!";
+		}
+		$json = json_encode($response);
+		echo $json;
+	}
+	
+	public function removeProductImage(){
+		
+		$data['message'] = array();
+		$report = array();
+		
+		$productimage = $this->input->post('productimage');
+		
+		$extreme_small = "./uploadimages/product/extreme-small/";
+		$small = "./uploadimages/product/small/";
+		$medium = "./uploadimages/product/medium/";
+		$big = "./uploadimages/product/big/";
+		$big_nocrop = "./uploadimages/product/big-nocrop/";
+		
+		if(file_exists($big_nocrop.$productimage)){
+			unlink($big_nocrop.$productimage);
+			$report['big_nocrop_image_message'] ="File is removed";
+		
+		}else{
+			$report['big_nocrop_image_message'] ="File not found";
+		}
+		
+		if(file_exists($big.$productimage)){
+			unlink($big.$productimage);
+			$report['big_image_message'] ="File is removed";
+				
+		}else{
+			$report['big_image_message'] ="File not found";
+		}
+		
+		if(file_exists($medium.$productimage)){
+			unlink($medium.$productimage);
+			$report['medium_image_message'] ="File is removed";
+		
+		}else{
+			$report['medium_image_message'] ="File not found";
+		}
+		
+		if(file_exists($small.$productimage)){
+			unlink($small.$productimage);
+			$report['small_image_message'] ="File is removed";
+		
+		}else{
+			$report['small_image_message'] ="File not found";
+		}
+		
+		if(file_exists($extreme_small.$productimage)){
+			unlink($extreme_small.$productimage);
+			$report['extreme_small_image_message'] ="File is removed";
+		
+		}else{
+			$report['extreme_small_image_message'] ="File not found";
+		}
+		
+		array_push($data , $report);
+		$json = json_encode($data);
+		echo $json;
+	}
 	public function removeIcon(){
 		$iconname = $this->input->post('iconname');		
 		$targetfile = "./uploadimages/icon/".$iconname;
-		echo $iconname;
+		
 		$response = array();
 		if(file_exists($targetfile)){
 			unlink($targetfile);

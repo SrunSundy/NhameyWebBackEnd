@@ -40,7 +40,7 @@ class ServeCategoryRestController extends CI_Controller{
 		$servecategorydata = $servecategorydata["ServeCategoryData"];
 		
 		//$servecategorydata = $this->input->post('ServeCategoryData');
-		$servecategoryarr = array(trim($servecategorydata['serve_category_name']), $servecategorydata['serve_category_type'], $servecategorydata['serve_category_icon'] ,$servecategorydata['serve_category_remark']);
+		$servecategoryarr = array(trim($servecategorydata['serve_category_name']), $servecategorydata['serve_category_type'], $servecategorydata['serve_category_icon'] ,$servecategorydata['serve_category_remark'], 1);
 		$data = $this->ServeCategoryModel->insertServeCategory( $servecategoryarr );
 		$json = json_encode($data);
 		echo $json;
