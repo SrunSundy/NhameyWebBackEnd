@@ -25,10 +25,8 @@
 			$this->load->view('pages/product');
 		}
 		
-		public function addproduct(){
-			$data['tags']=$this->select_options();
-		
-			$this->load->view('pages/addproduct',$data);
+		public function addproduct(){		
+			$this->load->view('pages/addproduct');
 		}
 		
 		public function addshop(){			
@@ -128,12 +126,6 @@
 			$this->load->view('pages/listuser');
 		}
 		
-		private function select_options($selected = array()){
-			$output = '';
-			foreach(json_decode(file_get_contents(base_url().'API/TagRestController/listAllTags'), true) as $item){
-				$output.= '<option value="' . $item['tag_id'] . '"' . (in_array($item['tag_id'], $selected) ? ' selected' : '') . '>' . $item['tag_name'] . '</option>';
-			}
-    		return $output;
-		}
+		
 	}
 ?>
