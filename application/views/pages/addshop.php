@@ -211,6 +211,10 @@
 			                  </div><!-- /.form-group -->
 
 		                  
+		                  	  <div class="form-group">
+			                     <label>Shop Capacity</label>
+			                     <input id="shopcapacity" type="text"  class="form-control top-gap" placeholder="number of customer" />
+			                  </div>
 			                  
 			                  <div class="form-group">
 			                     <label>Short Description</label>
@@ -643,6 +647,7 @@
 										<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
 										</div>
 										<div id="coveruploadimagewithload"   class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
+											<i class="fa fa-times disable-cover" id="delete-cover-upload" aria-hidden="true" title="close" ></i>
 											<img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ring.svg" />
 										</div>
 									</div>

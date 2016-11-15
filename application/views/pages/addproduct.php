@@ -1348,7 +1348,7 @@ $("#logo-save-btn").on("click", function(){
 	$("#logo-upload-remove-fake").show();
 	$("#logo-upload-remove").show();
 	var myimg  ='<img  class="upload-shop-img"'; 
-		myimg +='src="'+base_url+'uploadimages/logo/medium/'+logoimagename+'" alt="your image" />';
+		myimg +='src="'+base_url+'uploadimages/product/small/'+logoimagename+'" alt="your image" />';
     $('#logo-display-wrapper').html(myimg);
     var txt  = '<div class="photo-upload-info-2" >';
 		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
@@ -1436,13 +1436,11 @@ function getCropLogoImgData(){
 function removeLogoImageFromServer(){
 
 	return $.ajax({
-		url : base_url+"API/UploadRestController/removeShopSingleImage",
+		url : base_url+"API/UploadRestController/removeProductImage",
 		type: "POST",
 		data : {
-			"removeimagedata":{
-				"image_type" : "1",
-				"imagename" : logoimagename
-			}			
+			"productimage": logoimagename
+				
 		}
 	});	
 }
@@ -1461,7 +1459,7 @@ function upoloadLogoToServer(){
 		formData.append("json", JSON.stringify(getCropLogoImgData()));
 		
 		$.ajax({
-			url: base_url+"API/UploadRestController/shopLogoUploadImage",
+			url: base_url+"API/UploadRestController/productUploadImage",
 			type: "POST",
 			data : formData,
 			processData : false,
@@ -1482,7 +1480,7 @@ function upoloadLogoToServer(){
 					//$("#cover-description-box").show();
 					logoimagename = data.filename;
 					var uploadedimg ='<img  class="photo-upload-output" ' 
-						+'src="'+base_url+'uploadimages/logo/big/'+logoimagename+'"  '
+						+'src="'+base_url+'uploadimages/product/big/'+logoimagename+'"  '
 						+'alt="your image" />';
 					$('#display-logo-upload').html(uploadedimg);
 					

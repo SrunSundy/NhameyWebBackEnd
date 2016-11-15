@@ -38,7 +38,6 @@ $(window).on("resize", function() {
 	//if (checkHasCover) {
 		var imgboxheight = $(".img-cover-box").height();
 		var coverboxheight = $(".cover-box").height();
-		console.log($(window).width());
 		if (coverboxheight > imgboxheight) {
 			$(".cover-box").height($(".img-cover-box").height());
 		} else {
@@ -58,9 +57,7 @@ $(window).on("resize", function() {
 });
 
 function resizeOnWindow() {
-	//alert(checkHasCover);
-	console.log($(".cover-box").height());
-	console.log($(".img-cover-box").height());
+	
 	//if (checkHasCover) {
 		var imgboxheight = $(".img-cover-box").height();
 		var coverboxheight = $(".cover-box").height();
@@ -70,8 +67,6 @@ function resizeOnWindow() {
 			$(".cover-box").height(300);
 
 		} else {
-			console.log($(".img-cover-box").height());
-			console.log($(".bar-cover-wrapper").find(".img-cover-box").html());
 			$(".cover-box").height($(".img-cover-box").height());
 		}
 	/*} else {
@@ -203,7 +198,7 @@ $("#logoformclose").on("click", function(){
 });
 
 $("#logo-crop-btn").on("click", function(){
-	alert(img_x_logo+" "+img_y_logo+" "+img_w_logo+" "+img_h_logo);
+	
 	upoloadLogoToServer();
 	$(this).hide();
 	
@@ -211,7 +206,6 @@ $("#logo-crop-btn").on("click", function(){
 
 $("#logo-save-btn").on("click", function(){
 	
-	alert(logoimage);
 	$('#logoModal').modal('hide');
 	
 	if(logoimage){
@@ -309,7 +303,7 @@ function upoloadLogoToServer(){
 	$("#logo-upload-percentage").html(0);
 	$("#logo-upload-loading").show();
 	var fileToUpload = backupreallogoimage;
-	console.log(fileToUpload);
+
 	if(fileToUpload != 'undefined'){
 
 		var formData = new FormData();
@@ -325,10 +319,15 @@ function upoloadLogoToServer(){
 			success: function(data){
 				
 				data = JSON.parse(data);
-				console.log(data);
 				if(data.is_upload == false){
-					alert("error uploading!");
-					alert(data.message);
+					
+					swal({
+						 title: "Upload Error!",
+					     text: data.message,
+					     html: true,
+					     type: "error",
+					    			     
+					 });
 					logoimage = "";
 					$("#logo-fail-remove").show();
 					$("#logo-description-box").hide();
@@ -351,7 +350,7 @@ function upoloadLogoToServer(){
 				xhr.upload.addEventListener("progress", function(event) {
 					if (event.lengthComputable) {
 						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						console.log(percentComplete);
+					
 						$("#logo-upload-progress").css({width: percentComplete+"%"});
 						$("#logo-upload-percentage").html(percentComplete+"%");
 					};
@@ -415,7 +414,7 @@ $("#coverformclose").on("click", function(){
 });
 
 $("#cover-crop-btn").on("click", function(){
-	alert(img_x+" "+img_y+" "+img_w+" "+img_h);
+	
 	upoloadCoverToServer();
 	$(this).hide();
 	
@@ -423,7 +422,6 @@ $("#cover-crop-btn").on("click", function(){
 
 $("#cover-save-btn").on("click", function(){
 	
-	alert(coverimage);
 	$('#coverModal').modal('hide');
 	
 	if(coverimage){
@@ -530,7 +528,7 @@ function upoloadCoverToServer(){
 	$("#cover-upload-percentage").html(0);
 	$("#cover-upload-loading").show();
 	var fileToUpload = backuprealcoverimage;
-	console.log(fileToUpload);
+	
 	if(fileToUpload != 'undefined'){
 
 		var formData = new FormData();
@@ -545,11 +543,16 @@ function upoloadCoverToServer(){
 			contentType : false,
 			success: function(data){
 				
-				data = JSON.parse(data);
-				console.log(data);
+				data = JSON.parse(data);				
 				if(data.is_upload == false){
-					alert("error uploading!");
-					alert(data.message);
+					
+					swal({
+						 title: "Upload Error!",
+					     text: data.message,
+					     html: true,
+					     type: "error",
+					    			     
+					 });
 					coverimage = "";
 					$("#cover-fail-remove").show();
 					$("#cover-description-box").hide();
@@ -571,7 +574,7 @@ function upoloadCoverToServer(){
 				xhr.upload.addEventListener("progress", function(event) {
 					if (event.lengthComputable) {
 						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
-						console.log(percentComplete);
+						
 						$("#cover-upload-progress").css({width: percentComplete+"%"});
 						$("#cover-upload-percentage").html(percentComplete+"%");
 					};
@@ -604,7 +607,7 @@ function updateShopField(value, desvalue, image_type , param, callback){
 		}),
 		success : function(data){
 			data = JSON.parse(data);
-			console.log(data);
+			
 			if(data.is_updated == true){
 				if( typeof callback === "function"){
 					callback();
