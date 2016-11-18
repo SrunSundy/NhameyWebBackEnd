@@ -132,9 +132,53 @@
 		
 		}
 		
+		
 		function IsNullOrEmptyString($variable){
 			return (!isset($variable) || trim($variable)==='');
 		}
+		function resolve_user_login($email, $password) {
+		
+			$strsql = "SELECT admin_password FROM nham_admin where admin_email=?";
+			$params = array($email);
+			//$query = $this->db->query($strsql , $params);
+			$hash =$this->db->query($strsql , $params)->row('admin_password');
+			//$hash = $this->db->get()->row('admin_password');
+		
+			return $this->verify_password_hash($password, $hash);
+		
+		}
+		public function get_user_id_from_email($email) {
+		
+		
+			$strsql = "SELECT admin_id FROM nham_admin where admin_email=?";
+			$params = array($email);
+	
+			return  $this->db->query($strsql , $params)->row('admin_id');
+		}
+		public function get_user($user_id) {
+		
+			$strsql = "SELECT * FROM nham_admin where admin_id=?";
+			$params = array($user_id);
+	
+			return  $this->db->query($strsql , $params)->row();
+		
+		}
+		function setSession($admin_ID, $ip, $sess_id){
+			$sql = "REPLACE INTO a_session VALUES (?, ?,?,?,?,? )";
+			$params = array($sess_id,date('Y-m-d H:i:s'),$admin_ID,$ip,'',1);
+			return  $this->db->query($sql  , $params);
+		}
+		function setLoggedin($admin_ID){
+			$sql = "UPDATE nham_admin SET admin_loggedin = ? WHERE admin_id =?";
+			$params = array(date('Y-m-d H:i:s'),$admin_ID);
+			return  $this->db->query($sql , $params);
+			
+		}
+		function setLogout($conn, $admin_ID){
+			$sql = "UPDATE a_session SET log_status = '0' WHERE admin_ID ='$admin_ID'";
+			
+		}
+
 		private function hash_password($password) {
 		
 			return password_hash($password, PASSWORD_BCRYPT);

@@ -373,7 +373,7 @@ class ShopModel extends CI_Model{
 					$datashop["shop_cover"], $datashop["shop_serve_type"], $datashop["shop_short_description"],
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
-					$datashop["shop_close_time"], $datashop["shop_capacity"], $shopmapadd, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 2);
+					$datashop["shop_close_time"], $datashop["shop_capacity"], $shopmapadd, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();
@@ -393,7 +393,7 @@ class ShopModel extends CI_Model{
 			}
 			$this->db->insert_batch('nham_serve_cate_map_shop', $servecategories);
 			
-			if(isset($shopdata["shop_facilities"]) ){
+			if(isset($shopdata["shop_facilities"]) &&  count($shopdata["shop_facilities"]) > 0){
 				$shopfacilities = array();
 				$shopdata["shop_facilities"] = array_unique($shopdata["shop_facilities"]);
 				for($i=0; $i< count($shopdata["shop_facilities"]); $i++){
@@ -405,6 +405,7 @@ class ShopModel extends CI_Model{
 				$this->db->insert_batch('nham_shop_facility_map', $shopfacilities);
 			}
 						
+			
 			$shopimg = array();
 			$display_img_order = 1;
 			
@@ -431,7 +432,7 @@ class ShopModel extends CI_Model{
 				$display_img_order--;
 			}
 
-			if(isset($shopdata["shop_image_detail"])){
+			if(isset($shopdata["shop_image_detail"]) && count($shopdata["shop_image_detail"]) > 0){
 				$display_img_order++;
 				for($i=0; $i< count($shopdata["shop_image_detail"]); $i++){
 					$shopitem["sh_img_name"] = $shopdata["shop_image_detail"][$i]["sh_img_name"];
@@ -460,7 +461,7 @@ class ShopModel extends CI_Model{
 				$response["message"] = "success";
 			}
 			
-			return $response;
+			return $response; 
 			
 		}else{
 			$response["is_insert"] = false;
@@ -498,15 +499,19 @@ class ShopModel extends CI_Model{
 			$response["message"] = "PARAM is invalid";
 			return $response;
 		}
-		if($this->IsNullOrEmptyString($value)){
+		/* if($this->IsNullOrEmptyString($value)){
 			$response["is_updated"] = false;
 			$response["message"] = "UPDATED_VALUE is invalid";
 			return $response;
-		}
+		} */
 		if($this->IsNullOrEmptyString($shopid)){
 			$response["is_updated"] = false;
 			$response["message"] = "SHOP_ID is invalid";
 			return $response;
+		}
+		
+		if($param == "shop_social_media"){
+			$value = json_encode($value);
 		}
 		$updatedata = array($value , (int)$shopid);
 		$sql = "UPDATE nham_shop SET ".trim($param)." = ? WHERE shop_id = ?";
@@ -520,6 +525,62 @@ class ShopModel extends CI_Model{
 			$response["message"] = "update error!";
 		}
 		return $response;
+	}
+	
+	public function updateShopWorkingTime($shopdata){
+		
+		$response = array();
+		
+		if(!isset($shopdata["shop_opening_time"])){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_opening_time is invalid";
+			return $response;
+		}
+		if(!isset($shopdata["shop_close_time"])){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_close_time is invalid";
+			return $response;
+		}
+		if(!isset($shopdata["shop_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
+		$shop_close_time = $shopdata["shop_close_time"];
+		$shop_opening_time = $shopdata["shop_opening_time"];
+		$shopid = $shopdata["shop_id"];
+		
+		if($this->IsNullOrEmptyString($shop_close_time)){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_close_time is invalid";
+			return $response;
+		}
+		
+		if($this->IsNullOrEmptyString($shop_opening_time)){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_opening_time is invalid";
+			return $response;
+		}
+		
+		if($this->IsNullOrEmptyString($shopid)){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
+		
+		$updatedata = array($shop_opening_time, $shop_close_time , (int)$shopid);
+		$sql = "UPDATE nham_shop SET shop_opening_time = ?, shop_close_time = ? WHERE shop_id = ?";
+		$query = $this->db->query($sql , $updatedata);
+		
+		if($this->db->affected_rows() >=0){
+			$response["is_updated"] = true;
+			$response["message"] = "update successfully!";
+		}else{
+			$response["is_updated"] = false;
+			$response["message"] = "update error!";
+		}
+		return $response;
+		
 	}
 	
 	public function updateShopImage( $shopdata ){

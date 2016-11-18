@@ -204,8 +204,8 @@
 		                     <div class="form-group">
 			                    <label>Shop Serve Type</label>
 			                    <select class="form-control " style="width: 100%;" id="shopservetype">
-			                      <option selected="selected" value="food">Food</option>
-			                      <option value="drink">Drink</option>
+			                      <option selected="selected" value="FOOD">Food</option>
+			                      <option value="DRINK">Drink</option>
 			                    
 			                    </select>
 			                  </div><!-- /.form-group -->

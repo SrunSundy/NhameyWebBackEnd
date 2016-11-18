@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>add product | Dernham</title>
  	
  	<?php include 'imports/cssimport.php' ?>
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.css" />
@@ -199,6 +199,17 @@
 			                    	    </div>
                   			        </div>			                    	
 			                  	</div>
+			                  	<div class=" col-sm-12 nham-dropdown-wrapper">
+			                		<div class="row">
+			                			<div class="form-group">
+			                			    <div class="form-group">
+							                      <label>Make duration</label>
+							                      <input type="text" id="pro_made_duration" class="form-control" placeholder="make duration ">
+							                     
+		                     				</div>
+			                    	    </div>
+                  			        </div>			                    	
+			                  	</div>
 		                     </div>
 			                  <div class="form-group">
 			                     <label>Short Description</label>
@@ -270,7 +281,7 @@
 							
 							
 							<div  class="form-group">
-								<label>Logo</label>
+								<label>Product Image</label>
 								<div class="col-lg-12 photo-browsing-wrapper" align="center">
 									<div class="row">
 										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
@@ -297,11 +308,16 @@
 								</div>						
 							</div>
 							
+							
 							 			      			
 			            </section><!-- right col -->
-			            <section class="col-lg-7 connectedSortable">
-			               
-			               		
+			            <section class="col-lg-7 connectedSortable"><br>
+							<div  class="form-group">
+								<label>Popular product</label>
+								&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" value="1" id="popular"/>
+									
+							</div>
 			            </section>
 			            <section class="col-lg-7 connectedSortable">
 						
@@ -492,9 +508,16 @@
 var base_url="<?php echo base_url();?>";
 var logoimagename = "";
 var servecategory = "";
+var popular=0;
 //start upload logo 
 var arrnewfileimagename = [];
 $("#saveproduct").on("click",function(){
+
+	if($("#popular").prop('checked'))
+		popular=1;
+	else 
+		popular=0;
+	 if(!inputValidation()){
 		 progressbar.start();
 		 $.ajax({
 			 type: "POST",
@@ -511,6 +534,8 @@ $("#saveproduct").on("click",function(){
 					"productshortdes" : $("#productshortdes").val(),
 					"productdes" : $("#productdes").val(),
 					"proremark" : $("#proremark").val(),
+					"pro_made_duration":$("#pro_made_duration").val(),
+					"pro_local_popularity":popular,
 					"tags" : gettags(),
 					"pro_logo" : logoimagename
 				
@@ -527,7 +552,7 @@ $("#saveproduct").on("click",function(){
 					// alert(data.message);
 					 swal({
 						 title: data.message,
-					     text: "A shop has been added!",
+					     text: "A Product has been added!",
 					     html: true,
 					     type: "success",
 					    			     
@@ -536,7 +561,7 @@ $("#saveproduct").on("click",function(){
 				 }else{
 					 swal({
 						 title: data.message,
-					     text: "Fail to add new shop!",
+					     text: "Fail to add new Product!",
 					     html: true,
 					     type: "error",
 					    			     
@@ -546,7 +571,7 @@ $("#saveproduct").on("click",function(){
 				
 	     	 }
 	     });  
-
+	 } 
 }); 
 function getDataToInsert(){
 	
@@ -1254,6 +1279,53 @@ function clearServeCategorySaveform(){
 	$("#removeloadingwrapper-servecategory").hide();
 }
 /*======================= End serve category event =============================*/
+function inputValidation(){
+    var validate = [
+        {
+        	"is_validate" : validateNull("selectedshop", 0 , "shopname"),
+        	"message" : "Shop Name" 
+        },
+        {
+        	"is_validate" : validateNull("product_engname" , 0),
+        	"message" : "Product Name In English" 
+        },
+        {
+        	"is_validate" : validateNull("product_khname" , 0),
+        	"message" : "Product Name In Khmer" 
+        },
+        {
+        	"is_validate" : validateNull("selectedtast", 0 , "tastname"),
+        	"message" : "In valide Tast" 
+        },
+        {
+        	"is_validate" : validateNull("price" , 0), 
+        	"message" : "Invalid price" 
+        },
+        {
+        	"is_validate" : validateNull("pro_made_duration" , 0), 
+        	"message" : "Invalid price" 
+        }
+			
+	];
+	var iserror = false;
+	if(getServeCategories().length <= 0){
+		iserror = true;
+		$("#servecategoryname").addClass("invalid-input");
+		alert("ServeCategory is Invalid!");
+		return iserror;
+	}else{
+		$("#servecategoryname").removeClass("invalid-input");
+	}
+	for(var i=0; i<validate.length; i++){
+		if(validate[i].is_validate == false){
+			alert(validate[i].message+" is Invalid!");
+			iserror = true;
+			break;
+		}
+	}
+	
+	return iserror;
+}
 /* validate ----------- */
 function validateNull( selector , isselect ,selectorreal){
 	if($("#"+selector).val() == "" || $("#"+selector).val() == null){
