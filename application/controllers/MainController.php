@@ -2,7 +2,7 @@
 	class MainController extends  CI_Controller{
 		
 		public function index(){
-			$this->load->view('index');
+			$this->load->view('login');
 		}
 		
 		public function dashboard(){
@@ -124,6 +124,10 @@
 		
 		public function listuser(){
 			$this->load->view('pages/listuser');
+		}
+		
+		public function login(){
+			$this->load->view('login');
 		}
 		
 		

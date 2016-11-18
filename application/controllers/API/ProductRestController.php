@@ -5,7 +5,10 @@ class ProductRestController extends CI_Controller{
 		parent::__construct();
 
 		$this->load->model('ProductModel');
-	
+		$this->load->model('ShopModel');
+		$this->load->library('session');
+		if(!isset($_SESSION['admin_id']))
+			die("you are kick out");
 	}
 	public function index(){
 		$this->load->view('index');
@@ -29,10 +32,10 @@ class ProductRestController extends CI_Controller{
 		$pro_short_description=$this->input->post('productshortdes');
 		$pro_description=$this->input->post('productdes');
 		$pro_remark=$this->input->post('proremark');
+		$pro_made_duration=$this->input->post('pro_made_duration');
+		$pro_local_popularity=$this->input->post('pro_local_popularity');
 		$data=$this->getSomeShopInfo($shop_id);
-		
-		
-	   foreach ($data as $shop){
+		foreach ($data as $shop){
 			$shop_name_en=$shop->shop_name_en;
 			$shop_name_kh=$shop->shop_name_kh;
 			$country_id=$shop->country_id;
@@ -41,23 +44,20 @@ class ProductRestController extends CI_Controller{
 			$commune_id=$shop->commune_id;
 			$pro_map_address=$shop->shop_map_address;
 		}
-		
 		$datapro=array("shop_id"=>$shop_id,"shop_name_en"=>$shop_name_en,"shop_name_kh"=>$shop_name_kh,
 				"pro_name_en"=>$pro_name_en,"pro_name_kh"=>$pro_name_kh,"country_id"=>$country_id,"city_id"=>$city_id,"district_id"=>$district_id,
 				"commune_id"=>$commune_id,"taste_id"=>$taste_id,"pro_map_address"=>$pro_map_address,
 				"pro_serve_type"=>$pro_serve_type,"pro_price"=>$pro_price,"pro_promote_price"=>$pro_promote_price,
-				"pro_image"=>$pro_image,"pro_short_description"=>$pro_short_description,"pro_description"=>$pro_description,"pro_remark"=>$pro_remark);
+				"pro_image"=>$pro_image,"pro_short_description"=>$pro_short_description,"pro_description"=>$pro_description,"pro_remark"=>$pro_remark,
+				"pro_made_duration"=>$pro_made_duration,"pro_local_popularity"=>$pro_local_popularity,"admin_id"=>$_SESSION['admin_id']);
 		$pro_servertype = $this->input->post('serve_categories');
 		$tags=$this->input->post('tags');
-		
-		
 		$response = $this->ProductModel->insertProduct($datapro,$pro_servertype,$tags);	
-		echo json_encode($response);  
+		echo json_encode($response);
 
 	}		
 	private function getSomeShopInfo($id){
 		
-		$this->load->model('ShopModel');
 		$data=$this->ShopModel->getSomeShopInfo($id);
 		return $data;
 	}

@@ -90,5 +90,15 @@ class ShopRestController extends CI_Controller{
 		echo json_encode($response);
 		
 	}
+	
+	public function updateShopWorkingTime(){
+		
+		$shopdata = json_decode($this->input->raw_input_stream,true);
+		$shopdata = $shopdata["shopdata"];
+		
+		$response = $this->ShopModel->updateShopWorkingTime($shopdata);
+		echo json_encode($response);
+		
+	}
 }
 ?>
