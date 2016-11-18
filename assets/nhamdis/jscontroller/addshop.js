@@ -1230,6 +1230,7 @@ function getDataToInsert(){
 
 $("#saveshop").on("click",function(){
 	
+	console.log(getDataToInsert());
 	 if(!inputValidation()){
 		 progressbar.start();
 		 $.ajax({
