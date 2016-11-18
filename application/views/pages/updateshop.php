@@ -615,7 +615,7 @@
 		$("#removeloadingwrapper-shopfacility").show();
 		
 		$.ajax({
-			url : "/NhameyWebBackEnd/API/UploadRestController/removeIcon",
+			url : $("#base_url").val()+"API/UploadRestController/removeIcon",
 			type: "POST",
 			data : {
 				"iconname": shopfacilityicon	
@@ -649,7 +649,7 @@
 			formData.append("file",  fileToUpload);
 			
 			$.ajax({
-				url: "/NhameyWebBackEnd/API/UploadRestController/uploadIconImage",
+				url: $("#base_url").val()+"API/UploadRestController/uploadIconImage",
 				type: "POST",
 				data : formData,
 				processData : false,
@@ -718,7 +718,7 @@
 				};
 				$.ajax({
 					type : "POST",
-					url : "/NhameyWebBackEnd/API/ShopFacilityRestController/insertShopFacility",
+					url : $("#base_url").val()+"API/ShopFacilityRestController/insertShopFacility",
 					contentType : "application/json",
 					data :  JSON.stringify(shopfacilitydata),
 					success : function(data){

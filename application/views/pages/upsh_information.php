@@ -153,6 +153,12 @@
 	 		font-size: 12px;
 	 		color: #BDBDBD;
 	 	}
+	 	
+	 	i.delete-phone{
+	 		padding-left:20px;
+	 		cursor: pointer;
+	 		display: none;
+	 	}
 	 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -484,17 +490,18 @@
 				       	 				<div class="save-shop-info-box">			       	 				
 				       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 				       	 						<div class="row">
-				       	 						    <select class="form-control " style="width: 100%;" id="shopservetype">
-								                      <option selected="selected" value="food">Food</option>
-								                      <option value="drink">Drink</option>
+				       	 						    <select class="form-control insert-value" style="width: 100%;" id="shopservetype">
+								                      <option selected="selected" value="FOOD">Food</option>
+								                      <option value="DRINK">Drink</option>
 								                    
 								                    </select>
 				       	 						</div>				                							                    	
 						                  	</div>
 						                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 						                  		<div class="row pull-right">
+						                  			<input type="hidden" class="update-param" value="shop_serve_type"/>
 						                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-						                  			<button type="button" class="btn btn-default nham-btn">save</button>
+						                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
 						                  		</div>
 						                  	</div>
 						                  	<div style="clear:both;"></div>
@@ -616,7 +623,7 @@
 					       	 			<p class="shop-info wordwrap"><span id="open-time"></span> - <span id="close-time"></span></p>
 					       	 		</div>
 					       	 		<div class="div-right" >
-					       	 			<div class="shop-info-edit-btn pull-right">
+					       	 			<div class="shop-info-edit-btn working-time pull-right">
 					       	 				<i class="fa fa-pencil" aria-hidden="true"></i>
 					       	 			</div>
 					       	 		</div>
@@ -644,7 +651,7 @@
 						            <div class="col-lg-12 col-sm-12 save-btn-wrapper">
 						                <div class="row pull-right">
 						                   <img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-						                   <button type="button" class="btn btn-default nham-btn">save</button>
+						                   <button type="button" class="btn btn-default update-shop-working-time nham-btn">save</button>
 						                </div>
 						            </div>
 						            <div style="clear:both;"></div>
@@ -663,7 +670,7 @@
 					       	 			
 					       	 		</div>
 					       	 		<div class="div-right" >
-					       	 			<div class="shop-info-edit-btn pull-right">
+					       	 			<div class="shop-info-edit-btn  pull-right">
 					       	 				<i class="fa fa-pencil" aria-hidden="true"></i>
 					       	 			</div>
 					       	 		</div>
@@ -744,8 +751,9 @@
 						            </div>
 						            <div class="col-lg-12 col-sm-12 save-btn-wrapper">
 						                <div class="row pull-right">
+						                   <input type="hidden" class="update-param" value="shop_working_day"/>
 						                   <img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-						                   <button type="button" class="btn btn-default nham-btn">save</button>
+						                   <button type="button" class="btn btn-default working-day update-shop-save nham-btn">save</button>
 						                </div>
 						            </div>
 						            <div style="clear:both;"></div>
@@ -762,7 +770,7 @@
 				       	 					<span class="head-text">PHONE</span><p class="shop-info wordwrap" id="shop-phone"></p>
 				       	 				</div>
 				       	 				<div class="div-right" >
-				       	 					<div class="shop-info-edit-btn pull-right">
+				       	 					<div class="shop-info-edit-btn phone pull-right">
 				       	 						<i class="fa fa-pencil" aria-hidden="true"></i>
 				       	 					</div>
 				       	 				</div>
@@ -784,8 +792,9 @@
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="shop_phone"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-save phone nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -808,13 +817,14 @@
 			       	 				<div class="save-shop-info-box">			       	 				
 			       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 			       	 						<div class="row">
-			       	 						   <input type="text" id="shopkhname" class="form-control" placeholder="shop name in khmer">
+			       	 						   <input type="text" id="" class="form-control insert-value" placeholder="shop email">
 			       	 					    </div>				                							                    	
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">					                 		
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="shop_email"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -841,13 +851,14 @@
 			       	 				<div class="save-shop-info-box">			       	 				
 			       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 			       	 						<div class="row">
-			       	 						   <input type="text" id="shopengname" class="form-control" placeholder="shop name in english">
+			       	 						   <input type="text" id="shopengname" class="form-control insert-value" placeholder="facebook's link">
 			       	 						</div>				                							                    	
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="facebook"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-media-save nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -871,13 +882,14 @@
 			       	 				<div class="save-shop-info-box">			       	 				
 			       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 			       	 						<div class="row">
-			       	 						   <input type="text" id="shopkhname" class="form-control" placeholder="shop name in khmer">
+			       	 						   <input type="text" id="shopkhname" class="form-control insert-value" placeholder="google-plus's link">
 			       	 					    </div>				                							                    	
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">					                 		
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="google_plus"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-media-save nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -901,13 +913,14 @@
 			       	 				<div class="save-shop-info-box">			       	 				
 			       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 			       	 						<div class="row">
-			       	 						   <input type="text" id="shopengname" class="form-control" placeholder="shop name in english">
+			       	 						   <input type="text" id="shopengname" class="form-control insert-value" placeholder="twitter's link">
 			       	 						</div>				                							                    	
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="twitter"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-media-save nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -931,13 +944,14 @@
 			       	 				<div class="save-shop-info-box">			       	 				
 			       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
 			       	 						<div class="row">
-			       	 						   <input type="text" id="shopkhname" class="form-control" placeholder="shop name in khmer">
+			       	 						   <input type="text" id="shopkhname" class="form-control insert-value" placeholder="intagram's link">
 			       	 					    </div>				                							                    	
 					                  	</div>
 					                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">					                 		
 					                  		<div class="row pull-right">
+					                  			<input type="hidden" class="update-param" value="instagram"/>
 					                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-					                  			<button type="button" class="btn btn-default nham-btn">save</button>
+					                  			<button type="button" class="btn btn-default update-shop-media-save nham-btn">save</button>
 					                  		</div>
 					                  	</div>
 					                  	<div style="clear:both;"></div>
@@ -965,6 +979,11 @@
 
 	var facilityarr = [];
 	var facilityarrdelete = [];
+
+	var g_shop_opening_time = "";
+	var g_shop_close_time = "";
+
+	var g_shop_phone = [];
     
 	var isclickbranch = false;
 	var isclickservecategory = false;
@@ -983,8 +1002,22 @@
         	if($(this).hasClass("facility")){
         		$(".close-default-facility-item").hide();
         	}
+
+        	if($(this).hasClass("phone")){
+				$("i.delete-phone").hide();
+            }
         	
         }else{
+            if($(this).hasClass("working-time")){
+                
+            	$("#shopopentime").val(g_shop_opening_time);
+            	$("#shopclosetime").val(g_shop_close_time);
+            }
+
+            if($(this).hasClass("phone")){
+				$("i.delete-phone").show();
+            }
+            
         	if($(this).hasClass("branch")){
         		
             	if(!isclickbranch){
@@ -1559,6 +1592,7 @@
 		 top.resizeIframe();		
 	}
 
+	var social_media;
 	loadDefaultUpdateInfo();
 	function loadDefaultUpdateInfo(){
 		$.ajax({
@@ -1583,17 +1617,23 @@
 				$("#shop-description").html(defaultNull(shopdata.shop_description));
 				$("#shop-remark").html(defaultNull(shopdata.shop_remark));
 
+				g_shop_opening_time = defaultNull(shopdata.shop_opening_time, 5);
+				g_shop_close_time = defaultNull(shopdata.shop_close_time, 5);
+				
 				$("#open-time").html(format24hour(defaultNull(shopdata.shop_opening_time, 5)));
 				$("#close-time").html(format24hour(defaultNull(shopdata.shop_close_time, 5)));
 
 				
-				$("#dis-working-day").html(convertToDay(defaultNull(shopdata.shop_working_day)));
+				$("#dis-working-day").html(convertToDay(shopdata.shop_working_day));
 
+				
 				if(shopdata.shop_phone)
 					$("#shop-phone").html(getPhoneNumber(shopdata.shop_phone));
 				else
 					$("#shop-phone").html("<span class='no-information'>NO INFORMATION!<span>");
-				
+
+				social_media = shopdata.shop_social_media;
+				console.log(social_media);
 				$("#shop-email").html(defaultNull(shopdata.shop_email));
 				$("#shop-facebook").html(getSocialLink(shopdata.shop_social_media.facebook, shopdata.shop_name_en, 'facebook'));
 				$("#shop-twitter").html(getSocialLink(shopdata.shop_social_media.twitter, shopdata.shop_name_en, 'twitter'));
@@ -1661,18 +1701,21 @@
 		var dis = '';
 		var phone = data.split("|");
 		for(var i=0; i<phone.length; i++){
-			dis += '<p class="shop-info wordwrap"><i class="fa fa-phone" aria-hidden="true"></i>'+phone[i]+'</p>';
+			g_shop_phone.push(phone[i]);
+			dis += '<p class="shop-info wordwrap"><i class="fa fa-phone" aria-hidden="true"></i><span class="phone-dis">'+phone[i]+'</span><i class="fa delete-phone fa-times" aria-hidden="true"></i></p>';
 		}
 		return dis;
 	}
 	function convertToDay( data ){
 		
-		if(!data) return data;
-
+		if(!data) return "<span class='no-information'>NO INFORMATION!<span>";;
+		if(data.length <= 0) return "<span class='no-information'>NO INFORMATION!<span>";;
 		var dis = '';
+		
 		var day = data.split("|");
-		for(var i=1; i<=day.length; i++){
-			dis += '<p class="shop-info wordwrap">'+ENUM_DAY[i].full+'</p>';
+		for(var i=0; i<day.length; i++){
+			
+			dis += '<p class="shop-info wordwrap">'+ENUM_DAY[day[i]].full+'</p>';
 		}
 		return dis;
 	}
@@ -1696,26 +1739,115 @@
 
 	$(".update-shop-save").on("click", function(){
 		$(this).siblings(".update-loading").show();
-		var value = $(this).parents(".save-btn-wrapper").siblings(".input-wrapper").find(".insert-value").eq(0).val();
+		var value = "";
+
+		if($(this).hasClass("working-day")){
+			value = countWorkingday().toString().replace(/[,]/g,"|").trim();
+			alert(value);	
+		}else{
+			value = $(this).parents(".save-btn-wrapper").siblings(".input-wrapper").find(".insert-value").eq(0).val();
+		}
 		var param = $(this).siblings("input.update-param").val();
 
-					
+		
 		updateShopField(value, param, this , function(obj){
 
-			$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(value);
+			if($(obj).hasClass("working-day")){
+				$("#dis-working-day").html(convertToDay(defaultNull(value)));
+			}else{
+				$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(value);
+			}			
 			$(obj).parents(".save-shop-info-box").slideUp(100);
 			$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
 			$(obj).parents(".save-btn-wrapper").siblings(".input-wrapper").find("input").eq(0).val("");
+			$(obj).parents(".save-btn-wrapper").siblings(".input-wrapper").find("textarea").eq(0).val("");
 			setTimeout(function(){top.resizeIframe()}, 120);
 			
 		});
+	});
+
+	$(".update-shop-media-save").on("click", function(){
+		
+		$(this).siblings(".update-loading").show();
+		var value = $(this).parents(".save-btn-wrapper").siblings(".input-wrapper").find(".insert-value").eq(0).val();
+		var param = $(this).siblings("input.update-param").val();
+		
+		switch( param ){
+			case "facebook" : social_media.facebook = value;break;
+			case "google_plus" : social_media.googleplus = value;break;
+			case "twitter": social_media.twitter = value;break;
+			case "instagram" : social_media.instagram = value;break;
+			default: break;
+		}
+
+		console.log(social_media);
+		updateShopField(social_media, "shop_social_media", this , function(obj){
+		
+			$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(getSocialLink(value,$("#dis-eng-name").text(),param));
+			$(obj).parents(".save-shop-info-box").slideUp(100);
+			$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+			$(obj).parents(".save-btn-wrapper").siblings(".input-wrapper").find("input").eq(0).val("");
+			$(obj).parents(".save-btn-wrapper").siblings(".input-wrapper").find("textarea").eq(0).val("");
+			setTimeout(function(){top.resizeIframe()}, 120); 
+			
+		});
+	});
+
+	$(".update-shop-working-time").on("click",function(){
+		$(this).siblings(".update-loading").show();
+		var open_time = $("#shopopentime").val();
+		var close_time = $("#shopclosetime").val();
+		var obj = this;
+		$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/ShopRestController/updateShopWorkingTime",
+			contentType : "application/json",
+			data : JSON.stringify({
+				"shopdata" : {
+					"shop_opening_time" : open_time,
+					"shop_close_time" : close_time,
+					"shop_id" : $("#shop_id").val()
+				}
+			}),
+			success : function(data){
+				data = JSON.parse(data);
+				if(data.is_updated == true){
+					g_shop_opening_time = open_time;
+					g_shop_close_time = close_time;
+					
+					$("#open-time").html(format24hour(defaultNull(open_time, 5)));
+					$("#close-time").html(format24hour(defaultNull(close_time, 5)));	
+					$(obj).parents(".save-shop-info-box").slideUp(100);
+					$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+					setTimeout(function(){top.resizeIframe()}, 120); 
+				}else{
+					top.swal("Update Error!", data.message, "error");
+				}
+				$(obj).siblings(".update-loading").hide();
+					
+			}
+		});
+		
+	});
+
+	$(document).on("click","i.delete-phone", function(){
+
+		var del_phone = $(this).siblings("span.phone-dis").text().trim();
+		for(var i=0; i<g_shop_phone.length; i++){
+
+			if(del_phone == g_shop_phone[i]){
+				g_shop_phone.splice(i , 1);
+			}
+		}
+		$(this).parent().remove();
+
 	});
 
 	function updateShopField(value, param,obj ,callback){
 		
 		$.ajax({
 			type : "POST",
-			url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
+			url : $("#base_url").val()+"API/ShopRestController/updateShopField",
 			contentType : "application/json",
 			data : JSON.stringify({
 				"shopdata" : {
