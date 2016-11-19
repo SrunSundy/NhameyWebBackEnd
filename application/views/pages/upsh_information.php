@@ -1554,7 +1554,9 @@
 		 if(data.length <= 0) return;
 		 for(var i=0; i<data.length ;i++){
 
-			 var textlng = $("<p></p>").append(data[i].serve_category_name).textWidth()+55;
+			 var textlng = $("<p></p>").append(data[i].serve_category_name).textWidth()+80;
+			 alert($("<p></p>").append(data[i].serve_category_name).textWidth());
+			 alert(textlng);
 			 var box = "<div class='selected-category-box pull-left' style='width:"+textlng+"px'>";
 			 box += "<input type='hidden' value='"+data[i].serve_cate_map_shop_id+"' />";
 			 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].serve_category_icon+"' />";
@@ -1578,7 +1580,7 @@
 		 }else{
 			 for(var i=0; i<data.length  ;i++){
 
-				 var textlng = $("<p></p>").append(data[i].sh_facility_name).textWidth()+55;
+				 var textlng = $("<p></p>").append(data[i].sh_facility_name).textWidth()+80;
 				 box += "<div class='selected-category-box pull-left' style='width:"+textlng+"px'>";
 				 box += "<input type='hidden' value='"+data[i].shop_facility_map_id+"' />";
 				 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].sh_facility_icon+"' />";
