@@ -14,45 +14,26 @@ span.select2-selection{
 
 </style>
   </head>
-  <body class="hold-transition skin-red-light sidebar-mini">
-    <div class="wrapper">
-
-      <header class="main-header">
-      	  <?php include 'pages/elements/headnavbar.php';?>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-       	  <?php include 'pages/elements/leftnavbar.php';?>
-      </aside>
-
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper" style="min-height: 910px;">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-        <h1>User Management</h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Shop Management</li>
-          </ol>
+  <body class="">
+  
+	    <section class="content-header">
+        <h1 class="text-center">User Login</h1>
+         
         </section>
 
         <!-- Main content -->
         <section class="content" >
          	 <!-- Chat box -->
               <div class="box box-danger" style="border-radius: 0;min-height: 500px;">
-                <div class="box-header">
-                	<div class=" col-sm-12 nham-dropdown-wrapper">
-              
-                  	</div>
-                </div>
-                
+            
                 <div class="box-body" >
                   	 <!-- Small boxes (Stat box) -->
 		        
 			        <!-- Main row -->
 					<div class="row">
 			            <!-- Left col -->
-			            <section class="col-lg-12 connectedSortable">
+			             <section class="col-lg-4 connectedSortable"></section>
+			            <section class="col-lg-4 connectedSortable">
 			             	<h5 class="gray-color">Informative Text</h5>
 		                  
 		                     <div class="form-group">
@@ -77,44 +58,31 @@ span.select2-selection{
 							 	</div>
 			                 </div>
 							 			                  
-			          
+			          	 <div class="box-footer">
+                 		<button type="button" class="btn btn-danger shop-save" onclick="login()"><b>Log in</b></button>
+                		</div>
 			            </section><!-- /.Left col -->
-			            
+			             <section class="col-lg-4 connectedSortable"></section>
 			            <!-- right col (We are only adding the ID to make the widgets sortable)-->
 			      
 			    	</div><!-- /.row (main row) -->
                 </div>
                 
-                <div class="box-footer">
-                 	<button type="button" class="btn btn-danger shop-save" onclick="login()"><b>Log in</b></button>
-                </div>
+               
 		</div><!-- /.box (chat box) -->
      
      </section><!-- /.content -->
-     </div><!-- /.content-wrapper -->
-     <footer class="main-footer">
-      		<?php include 'pages/elements/footnavbar.php';?>
-     </footer>
-
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        	<?php include 'pages/elements/settingnavbar.php';?>
-      </aside>
-      <div class="control-sidebar-bg"></div>
-    </div><!-- ./wrapper -->
-
     <?php include 'pages/imports/scriptimport.php'; ?>
-  </body>
-  
+    
 	<script type="text/javascript">
        var base_url="<?php echo base_url()?>";
 		function getDataToInsert(){
 			var userdata = {
 				"req_data" : {
 	
-					"type": $("#user_type").val(),
-					"email": $("#user_email").val(),
-					"password": $("#user_password").val()
+					"type":$("#user_type").val(),
+					"email":$("#user_email").val(),
+					"password":$("#user_password").val(),
 				}
 			};
 			return userdata;
@@ -122,8 +90,6 @@ span.select2-selection{
 		
 		function login(){
 			console.log(getDataToInsert());
-			
-			
 			 $.ajax({
 				 type: "POST",
 				 url: base_url+"API/UserRestController/login", 
@@ -132,13 +98,14 @@ span.select2-selection{
 					data = JSON.parse(data);
 					console.log(data);
 					if(data.status){
-						 swal({
+						 /* swal({
 							 title: data.status,
 						     text: "loging Sucess!",
 						     html: true,
 						     type: "success",
 						    			     
-						 });
+						 }); */
+						 window.location = base_url+"MainController/addshop";
 					}else{
 						swal({
 							 title: data.status,
@@ -153,5 +120,7 @@ span.select2-selection{
 		}
 	
   </script>
+  </body>
+  
 	
 </html>
