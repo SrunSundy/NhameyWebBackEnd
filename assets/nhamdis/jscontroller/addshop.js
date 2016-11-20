@@ -96,7 +96,7 @@ function initialize() {
 			}
 			var delocation = {lat: latpoint , lng: lngpoint};
 			getAddress(delocation);
-			
+			getShopTimeZone(latpoint, lngpoint);
 			marker.setPosition(delocation);												
 			map.panTo(delocation); 
 			//map.setCenter(test);
@@ -1554,7 +1554,7 @@ function displaySearchShopFacility( data , srchname){
 			
 			 dis += '<div  class="nham-dropdown-multi-result">';
 			 dis += ' <input type="hidden" value="'+data[i].sh_facility_id+'" />';
-			 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].sh_facility_icon+'"/>';
+			 dis += ' <img class="pull-left icon" src="http://dernhamm.s3.amazonaws.com/uploadimages/icon/'+data[i].sh_facility_icon+'"/>';
 			 dis += ' <p><span class="title">'+data[i].sh_facility_name+'</span></p></div>';
 			 
 		 }			
@@ -1754,7 +1754,7 @@ $("#shopfacilitysave").on("click", function(){
 						var checkcls = $("#display-result-shopfacility").siblings("input").val();
 						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
 						 box += "<input type='hidden' value='"+data.sh_facility_id+"' />";
-						 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+shopfacilityicon+"' />";
+						 box += "<img class='pull-left icon-after-select' src='http://dernhamm.s3.amazonaws.com/uploadimages/icon/"+shopfacilityicon+"' />";
 						 box += "<p class='text-serve-category-selected'>";
 						 box += "<span>"+$("#shopfacilitynamepopup").val()+"</span>";
 				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
@@ -1886,7 +1886,7 @@ function displaySearchServeCategory( data , srchname){
 		
 			 dis += '<div  class="nham-dropdown-multi-result">';
 			 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
-			 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+			 dis += ' <img class="pull-left icon" src="http://dernhamm.s3.amazonaws.com/uploadimages/icon/'+data[i].serve_category_icon+'"/>';
 			 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
 			 
 		 }			
@@ -2085,7 +2085,7 @@ $("#servecategoryesave").on("click", function(){
 						var checkcls = $("#display-result-servecategory").siblings("input").val();
 						 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
 						 box += "<input type='hidden' value='"+data.serve_category_id+"' />";
-						 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+servecategory+"' />";
+						 box += "<img class='pull-left icon-after-select' src='http://dernhamm.s3.amazonaws.com/uploadimages/icon/"+servecategory+"' />";
 						 box += "<p class='text-serve-category-selected'>";
 						 box += "<span>"+$("#servecategorynamepopup").val()+"</span>";
 				 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
