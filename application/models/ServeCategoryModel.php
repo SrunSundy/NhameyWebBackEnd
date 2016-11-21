@@ -11,7 +11,7 @@ class ServeCategoryModel extends CI_Model{
 		
     	$sql = "SELECT serve_category_id,serve_category_icon,serve_category_name from nham_serve_category 
     			WHERE REPLACE(serve_category_name, ' ', '') LIKE REPLACE(?,' ','')  AND serve_category_status in (?,?)
-    			ORDER BY serve_category_id DESC 
+    			ORDER BY serve_category_type DESC 
     			LIMIT ?";
     	$cate = "%".$cate."%";
     	$limit = (int)$limit;
@@ -25,7 +25,7 @@ class ServeCategoryModel extends CI_Model{
 		
 		$sql = "SELECT serve_category_id,serve_category_icon,serve_category_name from nham_serve_category
 				WHERE serve_category_status = 1
-				ORDER BY serve_category_id DESC";
+				ORDER BY serve_category_type DESC";
 		$query = $this->db->query($sql);
 		$data = $query->result();
 		return $data;

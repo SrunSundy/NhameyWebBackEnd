@@ -78,28 +78,44 @@ class ShopModel extends CI_Model{
 					shop_status,
 					shop_opening_time,
 					shop_close_time,
-					case 
-						 when shop_opening_time < TIME(NOW()) and shop_close_time > TIME(NOW()) then 1 else 0 end as is_shop_open,
-					case 
-						 when shop_opening_time < TIME(NOW()) and shop_close_time > TIME(NOW()) then 
-								TIMEDIFF(shop_close_time,TIME(NOW()))
-						 else 0 end as time_to_close,
-					case 
-						 when shop_opening_time > TIME(NOW()) then 
-								TIMEDIFF(shop_opening_time,TIME(NOW()))  
-						 when  shop_close_time < TIME(NOW()) then
-								ADDTIME(TIMEDIFF('24:00:00', TIME(NOW())) , TIMEDIFF(shop_opening_time, '00:00:00'))
-						 else 0 end as time_to_open
+					shop_time_zone
 				FROM nham_shop WHERE shop_id = ?";
 		$query = $this->db->query($sql , array($shopid));
 		$response = $query->result();
 		
-		if(count($response) > 0){						
-			if($response[0]->is_shop_open == 0){
-				$response[0]->time_to_open = $this->covertToMilisecond($response[0]->time_to_open);
-			}else{
-				$response[0]->time_to_close = $this->covertToMilisecond($response[0]->time_to_close);
-			}						
+		if(count($response) > 0){
+			foreach($response as $item){
+					
+				$now = new DateTime($item->shop_time_zone);
+				$now = strtotime($now->format('H:i:s'));
+					
+				$is_open = 0;
+				$time_to_close = 0;
+				$time_to_open = 0;
+			
+					
+				if(strtotime($item->shop_opening_time) < $now && strtotime($item->shop_close_time) > $now){
+					$is_open = 1;
+					$time_to_close = $this->substractCurrentTime($item->shop_time_zone, $item->shop_close_time);
+					$time_to_close = $this->covertToMilisecond($time_to_close);
+				}
+					
+				if(strtotime($item->shop_opening_time) > $now){
+					$time_to_open = $this->substractCurrentTime($item->shop_time_zone, $item->shop_opening_time);
+					$time_to_open = $this->covertToMilisecond($time_to_open);
+				}
+				if(strtotime($item->shop_close_time) < $now){
+					$subfulltime = $this->substractCurrentTime($item->shop_time_zone, "24:00:00");
+					$subzerotime = $this->substractTime($item->shop_opening_time, "00:00:00");
+					$time_to_open = $this->addTime($subfulltime , $subzerotime); // already return as milisecond
+				}
+					
+			
+				$item->is_shop_open = $is_open;
+				$item->time_to_close = $time_to_close;
+				$item->time_to_open = $time_to_open;
+			}
+			
 		}
 		
 		return $response;
@@ -163,7 +179,7 @@ class ShopModel extends CI_Model{
 		$limit = $row;
 		$offset = ($row*$page)-$row;
 		
-		$sql = "SELECT sh.shop_id, 
+		/* $sql = "SELECT sh.shop_id, 
 					 TRIM(COALESCE(sh.shop_logo,'')) shop_logo,
 					 sh.shop_name_en,
 					 sh.shop_name_kh,
@@ -179,15 +195,15 @@ class ShopModel extends CI_Model{
 							when  sh.shop_close_time < TIME(NOW()) then
 								ADDTIME(TIMEDIFF('24:00:00', TIME(NOW())) , TIMEDIFF(sh.shop_opening_time, '00:00:00'))
 							else 0 end as time_to_open,
-						sh.shop_opening_time,
-						sh.shop_close_time,			
-						sh.shop_created_date,
-						sh.shop_address,
-						sh.shop_view_count,
-						sh.shop_remark,
-						sh.shop_status,
-						ad.admin_id,
-						ad.admin_name		
+					 sh.shop_opening_time,
+					 sh.shop_close_time,			
+					 sh.shop_created_date,
+					 sh.shop_address,
+					 sh.shop_view_count,
+					 sh.shop_remark,
+					 sh.shop_status,
+					 ad.admin_id,
+					 ad.admin_name		
 				FROM nham_shop sh
 				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id
 				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name) LIKE ?
@@ -214,15 +230,14 @@ class ShopModel extends CI_Model{
 		$response["total_page"] = (int)$this->totalShop($countsetting)[0]->total_page;
 		$response["total_record"] = $this->totalShop($countsetting)[0]->total_record;
 		$response["response_data"] = $responsequery;
-		return $response;
+		return $response; */
 		//TODO: update this query when it's a bigger app ---- support timezone method
-		/* $sql = "SELECT sh.shop_id,
+		 $sql = "SELECT sh.shop_id,
 					TRIM(COALESCE(sh.shop_logo,'')) shop_logo,
 					sh.shop_name_en,
 					sh.shop_name_kh,
 					sh.shop_opening_time,
 					sh.shop_close_time,
-					sh.shop_serve_type,
 					sh.shop_created_date,
 					sh.shop_address,
 					sh.shop_view_count,
@@ -233,44 +248,56 @@ class ShopModel extends CI_Model{
 					ad.admin_name
 		
 				FROM nham_shop sh
-				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id ";
+				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id 
+				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name) LIKE ?
+				LIMIT ? OFFSET ?";
 		
-		$query = $this->db->query($sql);
+		$query = $this->db->query($sql , array("%".str_replace(' ', '', $whole_search)."%" ,$limit,$offset));
+		$responsequery = $query->result();
 		
-		$response = $query->result();
-		foreach($response as $item){	
+		if(count($responsequery) > 0){
+			foreach($responsequery as $item){
+					
+				$now = new DateTime($item->shop_time_zone);
+				$now = strtotime($now->format('H:i:s'));
+					
+				$is_open = 0;
+				$time_to_close = 0;
+				$time_to_open = 0;
 			
-			$now = new DateTime($item->shop_time_zone);
-			$now = strtotime($now->format('H:i:s'));
+					
+				if(strtotime($item->shop_opening_time) < $now && strtotime($item->shop_close_time) > $now){
+					$is_open = 1;
+					$time_to_close = $this->substractCurrentTime($item->shop_time_zone, $item->shop_close_time);
+					$time_to_close = $this->covertToMilisecond($time_to_close);
+				}
+					
+				if(strtotime($item->shop_opening_time) > $now){
+					$time_to_open = $this->substractCurrentTime($item->shop_time_zone, $item->shop_opening_time);
+					$time_to_open = $this->covertToMilisecond($time_to_open);
+				}
+				if(strtotime($item->shop_close_time) < $now){
+					$subfulltime = $this->substractCurrentTime($item->shop_time_zone, "24:00:00");
+					$subzerotime = $this->substractTime($item->shop_opening_time, "00:00:00");
+					$time_to_open = $this->addTime($subfulltime , $subzerotime); // already return as milisecond
+				}
+					
 			
-			$is_open = 0;
-			$time_to_close = 0;
-			$time_to_open = 0;
-		
-			
-			if(strtotime($item->shop_opening_time) < $now && strtotime($item->shop_close_time) > $now){
-				$is_open = 1;
-				$time_to_close = $this->substractCurrentTime($item->shop_time_zone, $item->shop_close_time);
-				$time_to_close = $this->covertToMilisecond($time_to_close);
+				$item->is_shop_open = $is_open;
+				$item->time_to_close = $time_to_close;
+				$item->time_to_open = $time_to_open;
 			}
 			
-			if(strtotime($item->shop_opening_time) > $now){
-				$time_to_open = $this->substractCurrentTime($item->shop_time_zone, $item->shop_opening_time);
-				$time_to_open = $this->covertToMilisecond($time_to_open);
-			}
-			if(strtotime($item->shop_close_time) < $now){
-				$subfulltime = $this->substractCurrentTime($item->shop_time_zone, "24:00:00");
-				$subzerotime = $this->substractTime($item->shop_opening_time, "00:00:00");
-				$time_to_open = $this->addTime($subfulltime , $subzerotime); // already return as milisecond
-			}
-			
+		}
 		
-			$item->is_shop_open = $is_open;	
-			$item->time_to_close = $time_to_close;
-			$item->time_to_open = $time_to_open;
-		} 
+		$countsetting["row"] = $row;
+		$countsetting["whole_search"] = $whole_search;
 		
-		return $response; */
+		$response["total_page"] = (int)$this->totalShop($countsetting)[0]->total_page;
+		$response["total_record"] = $this->totalShop($countsetting)[0]->total_record;
+		$response["response_data"] = $responsequery;
+		
+		return $response; 
 	}
 	
 	public function totalShop($countsetting){
@@ -353,7 +380,6 @@ class ShopModel extends CI_Model{
 		
 		if($this->IsNullOrEmptyString($validate)){
 			
-			$shopmapadd = json_encode($datashop["shop_map_address"]);
 			$shopmedia = json_encode($datashop["shop_social_media"]);
 			
 			/* $shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
@@ -365,7 +391,7 @@ class ShopModel extends CI_Model{
 			$shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
 		      shop_logo, shop_cover, shop_serve_type, shop_short_description, shop_description,
 		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, 
-		      shop_capacity ,shop_map_address, shop_social_media,shop_remark,shop_time_zone, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		      shop_capacity ,shop_lat_point, shop_lng_point, shop_social_media,shop_remark,shop_time_zone, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 			$shopparams = array( (int)$datashop["branch_id"], 1, (int)$datashop["country_id"],
 					(int)$datashop["city_id"], (int)$datashop["district_id"], (int)$datashop["commune_id"],
@@ -373,7 +399,8 @@ class ShopModel extends CI_Model{
 					$datashop["shop_cover"], $datashop["shop_serve_type"], $datashop["shop_short_description"],
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
-					$datashop["shop_close_time"], $datashop["shop_capacity"], $shopmapadd, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
+					$datashop["shop_close_time"], $datashop["shop_capacity"], $datashop["shop_lat_point"], $datashop["shop_lng_point"], 
+					$shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();
@@ -681,8 +708,8 @@ class ShopModel extends CI_Model{
 		if($this->IsNullOrEmptyString($datashop["shop_address"])){
 			return "Invalid SHOP_ADDRESS";
 		}
-		if($this->IsNullOrEmptyString($datashop["shop_map_address"]["lat"]) 
-			|| $this->IsNullOrEmptyString($datashop["shop_map_address"]["lng"]) ){
+		if($this->IsNullOrEmptyString($datashop["shop_lat_point"]) 
+			|| $this->IsNullOrEmptyString($datashop["shop_lng_point"]) ){
 			return "Invalid SHOP_MAP_ADDRESS";
 		}
 		return "";
@@ -690,7 +717,7 @@ class ShopModel extends CI_Model{
 	}
 	
 	function getSomeShopInfo($id){
-		$sql = "SELECT shop_name_en,shop_name_kh,country_id,city_id,district_id,commune_id,shop_map_address from nham_shop
+		$sql = "SELECT shop_name_en,shop_name_kh,country_id,city_id,district_id,commune_id,shop_lat_point,shop_lng_point from nham_shop
     			WHERE shop_id=?";
 		$query = $this->db->query($sql, array($id) );
 		$data = $query->result();
