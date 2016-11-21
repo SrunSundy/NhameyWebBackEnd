@@ -1205,10 +1205,8 @@ function getDataToInsert(){
 				"shop_has_reservation" : isCheckFacility("reserve"),
 				"shop_has_bikepark" : isCheckFacility("parking"),								
 				"shop_has_tax": isCheckFacility("taxinvoice"),*/
-				"shop_map_address": {
-					"lat" : $("#lat-location").val(),
-					"lng" : $("#lng-location").val()
-				},				
+				"shop_lat_point": $("#lat-location").val(),
+				"shop_lng_point": $("#lng-location").val(),
 				"shop_social_media": {
 					"facebook" : $("#shopfb").val(),
 					"instagram" : $("#shopinstagram").val(),
@@ -2158,6 +2156,7 @@ function clearShopForm(){
 	$("#shoptwitter").val("");
 	$("#shopremark").val("");
 	$("#shopstreetad").val("");
+	$("#shopcapacity").val("");
 	$("#lat-location").val("");
 	$("#lng-location").val("");
 	shoptimezone= "";
