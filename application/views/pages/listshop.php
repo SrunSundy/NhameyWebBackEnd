@@ -463,7 +463,13 @@
             <td>{{= shop_address }}</td>
  			<td>{{= shop_view_count }}</td>
  			<td>{{= shop_img_total }}</td>
- 			<td>{{= shop_remark }}</td>
+ 			<td>
+				<div class="progress" style="height:8px">
+                    <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                      <span class="sr-only">80% Complete</span>
+                    </div>
+                 </div>
+			</td>
 			<td>{{= admin_name }}</td>
  			<td>
 				<label class="switch">
