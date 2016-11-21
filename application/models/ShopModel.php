@@ -249,10 +249,10 @@ class ShopModel extends CI_Model{
 		
 				FROM nham_shop sh
 				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id 
-				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name) LIKE ?
+				WHERE REPLACE(CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name),' ','') LIKE REPLACE(?,' ','')
 				LIMIT ? OFFSET ?";
 		
-		$query = $this->db->query($sql , array("%".str_replace(' ', '', $whole_search)."%" ,$limit,$offset));
+		$query = $this->db->query($sql , array("%".$whole_search."%" ,$limit,$offset));
 		$responsequery = $query->result();
 		
 		if(count($responsequery) > 0){
@@ -308,9 +308,9 @@ class ShopModel extends CI_Model{
 						END as total_page 
 				FROM nham_shop sh
 				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id
-				WHERE CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name) LIKE ?";
+				WHERE REPLACE(CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name),' ','') LIKE REPLACE(?,' ','')";
 		
-		$query = $this->db->query($sql, array($row, $row, $row, "%".str_replace(' ', '',$countsetting["whole_search"])."%"));
+		$query = $this->db->query($sql, array($row, $row, $row, "%".$countsetting["whole_search"]."%"));
 		$response = $query->result();
 		return  $response;
 		
