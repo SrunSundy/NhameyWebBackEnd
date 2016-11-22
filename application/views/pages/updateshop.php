@@ -27,12 +27,39 @@
  			left: 50%;
  			top:48%;
  		}
+ 		.shop-notcomplete-detail{
+ 			border-radius: 0;
+ 			background: #fff !important;
+ 			border-left: 5px solid #dd4b39;
+ 			border-top: 1px solid #E0E0E0;
+ 			border-bottom: 1px solid #E0E0E0;
+ 			border-right: 1px solid #E0E0E0;
+ 		}
+ 		span.incompleted-item{
+ 			color:#BDBDBD;
+ 			font-size: 14px;
+ 		}
+ 		span.item-tocomplete{
+ 			float: right;
+ 			color: #BDBDBD;
+ 		}
+ 		
+ 		ul.nav-stacked li{
+ 			height: 30px;
+ 			border: 0 !important;
+ 		}
+ 		
+ 		#incompleted-info{
+ 			display: none;
+ 		}
+ 		
  	</style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     
     <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
     <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+    <input type="hidden" id="data_complete" value="<?php echo $data_complete ?>" />
     
     <div class="wrapper">	
 		
@@ -127,7 +154,43 @@
 	       	 				
 	       	 				</div>
 	       	 			</div>
-	       	 			<div class="col-lg-12" style="height: 20px;"></div>
+	       	 			<div class="col-lg-12" style="height: 18px;"></div>
+	       	 			<div class="col-lg-12" id="incompleted-info">
+	       	 				<div class="row">
+		       	 				<div class="callout  shop-notcomplete-detail" >
+					              <h4>Completed Information!</h4>
+					              <div>
+					              	 <span class="item-tocomplete"><?php echo $number_data_complete ?>/<?php echo $must_data_complete ?> completed</span>
+					              	 <div style="clear:both"></div>
+					              </div>
+					              
+					              <div class="progress" style="" >
+					                   <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $data_complete ?>"
+					                        aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $data_complete ?>%;background:#ed5b49">
+					                        <?php echo $data_complete ?>%
+					                   </div>
+					               </div>
+					               
+					               <div class="box box-solid collapsed-box" style="box-shadow:0 0 0;">
+					                <div class="box-header ">
+					                  <h3 class="box-title" style="font-size:16px">Incompleted Information<span class="incompleted-item"> (<?php echo (int)$must_data_complete-(int)$number_data_complete ?> incompleted)</span></h3>
+					                  <div class="box-tools">
+					                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+					                  </div>
+					                </div>
+					                <div class="box-body no-padding">
+					                  <ul class="nav nav-pills nav-stacked">
+					                    <li><i class="fa fa-circle-o text-red"></i> Important</li>
+					                    <li><i class="fa fa-circle-o text-red"></i> Promotions</li>
+					                    <li><i class="fa fa-circle-o text-red"></i> Social</li>
+					                  </ul>
+					                </div><!-- /.box-body -->
+					              </div><!-- /.box -->
+					              
+					            </div>
+	       	 				</div>       	 				
+	       	 			</div>
+	       	 			
 	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="padding-bottom:50px;position:relative;">
 	       	 				<div class="row" >	       	 						       	 						       	 					
 	       	 					<iframe style="width:100%;height:auto;display:none;" id="updateShopframe" 
@@ -311,7 +374,16 @@
     <script src="<?php echo base_url(); ?>assets/nhamdis/jscontroller/updateshop.js"></script>
     
     <script>
-   
+    test();
+	function test(){
+		var complete = $("#data_complete").val();
+		if(complete < 100){
+			$("#incompleted-info").show();
+		}else{
+			$("#incompleted-info").remove();
+		}
+	}
+    
     function resizeIframe(){
       
    	 	$("#updateShopframe").css("height", $("#updateShopframe").contents().find(".shop-event-wrapper").height() + "px");

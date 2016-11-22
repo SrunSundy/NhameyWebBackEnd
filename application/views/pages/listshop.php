@@ -117,6 +117,7 @@
   <body class="hold-transition skin-red-light sidebar-mini">
   	
   	<input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+  
     <div class="wrapper">
 
       <header class="main-header">
@@ -410,7 +411,7 @@
 	                      <th style="width:15%">address</th>
 	                      <th style="width:5%">view</th>                                         
 	                      <th style="width:5%">photo</th>
-	                      <th style="width:13%">remark</th>
+	                      <th style="width:13%">progress</th>
 	                      <th style="width:10%">creator</th>
 	                      <th style="width:5%">status</th>
 	                      <th style="width:10%">action</th>
@@ -463,12 +464,13 @@
             <td>{{= shop_address }}</td>
  			<td>{{= shop_view_count }}</td>
  			<td>{{= shop_img_total }}</td>
- 			<td>
-				<div class="progress" style="height:8px">
-                    <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                      <span class="sr-only">80% Complete</span>
-                    </div>
-                 </div>
+ 			<td >
+				<div class="progress" style="background: #E0E0E0" title="{{= shop_remark }}">
+                   <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="{{= data_complete }}"
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{= data_complete }}%">
+                        {{= data_complete }}%
+                   </div>
+                </div>
 			</td>
 			<td>{{= admin_name }}</td>
  			<td>

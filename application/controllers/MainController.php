@@ -93,6 +93,9 @@
 			$data["time_to_open"] = $response[0]->time_to_open;
 			$data["shop_opening_time"] = $response[0]->shop_opening_time;
 			$data["shop_close_time"] = $response[0]->shop_close_time;
+			$data["data_complete"] = $response[0]->data_complete;
+			$data["number_data_complete"] = $response[0]->number_data_complete;
+			$data["must_data_complete"] = $response[0]->must_data_complete;	
 			
 			$this->load->view('pages/updateshop', $data);
 			

@@ -34,6 +34,29 @@ class ShopModel extends CI_Model{
 
 	}
 	
+	public function getShopNotComplete($shopid){
+		
+		$sql = "SELECT (case when COALESCE(TRIM(shop_name_kh),'') = '' then 0 else 1  end) as shop_name_kh,
+				(case when COALESCE(TRIM(shop_logo),'') = '' then 0 else 1  end) as shop_logo,
+				(case when COALESCE(TRIM(shop_cover),'') = '' then 0 else 1  end) as shop_cover,
+				(case when COALESCE(TRIM(shop_short_description),'') = '' then 0 else 1  end) as shop_short_description,
+				(case when COALESCE(TRIM(shop_description),'') = '' then 0 else 1  end) as shop_description,
+				(case when COALESCE(TRIM(shop_serve_type),'') = '' then 0 else 1  end) as shop_serve_type,
+				(case when COALESCE(TRIM(shop_phone),'') = '' then 0 else 1  end)	as shop_phone,
+				(case when COALESCE(TRIM(shop_email),'') = '' then 0 else 1  end)	as shop_email,
+				(case when COALESCE(TRIM(shop_working_day),'') = '' then 0 else 1  end) as shop_working_day,
+				(case when COALESCE(TRIM(shop_opening_time),'') = '' then 0 else 1  end) as shop_opening_time,
+				(case when COALESCE(TRIM(shop_close_time),'') = '' then 0 else 1  end) as shop_close_time,
+				(case when COALESCE(TRIM(shop_capacity),'') = '' or shop_capacity = 0 then 0 else 1  end) as shop_capacity,
+				(case when (select count(*) from nham_shop_facility_map where shop_id=sh.shop_id) > 0 then 1 else 0 end ) as shop_facility,
+				(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end) as shop_image
+				FROM nham_shop sh WHERE shop_id = 1";
+		$query = $this->db->query($sql);		
+		$data = $query->row();
+		
+		return $data;
+	}
+	
 	public function toggleShop( $request ){
 		
 		$response = array();
@@ -71,15 +94,48 @@ class ShopModel extends CI_Model{
 	public function defaultShopUpdate( $shopid ){
 		
 		$sql = "SELECT 
-					shop_name_en,
-					shop_name_kh,
-					shop_logo,
-					shop_cover,
-					shop_status,
-					shop_opening_time,
-					shop_close_time,
-					shop_time_zone
-				FROM nham_shop WHERE shop_id = ?";
+					sh.shop_name_en,
+					sh.shop_name_kh,
+					sh.shop_logo,
+					sh.shop_cover,
+					sh.shop_status,
+					sh.shop_opening_time,
+					sh.shop_close_time,
+					sh.shop_time_zone,
+					FLOOR(100*( 
+						+(case when COALESCE(TRIM(shop_name_kh),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_logo),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_cover),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_short_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_serve_type),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_phone),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_email),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_working_day),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_opening_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_close_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_capacity),'') = '' or shop_capacity = 0 then 0 else 1  end)
+						+(case when (select count(*) from nham_shop_facility_map where shop_id=sh.shop_id) > 0 then 1 else 0 end )
+						+(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end)
+						+9
+	  				)/23) as data_complete,
+					((case when COALESCE(TRIM(shop_name_kh),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_logo),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_cover),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_short_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_serve_type),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_phone),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_email),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_working_day),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_opening_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_close_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_capacity),'') = '' or shop_capacity = 0 then 0 else 1  end)
+						+(case when (select count(*) from nham_shop_facility_map where shop_id=sh.shop_id) > 0 then 1 else 0 end )
+						+(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end)
+						+9) as number_data_complete,
+					23 as must_data_complete
+				FROM nham_shop sh WHERE sh.shop_id = ?";
 		$query = $this->db->query($sql , array($shopid));
 		$response = $query->result();
 		
@@ -245,7 +301,24 @@ class ShopModel extends CI_Model{
 					sh.shop_status,
 					sh.shop_time_zone,
 					ad.admin_id,
-					ad.admin_name
+					ad.admin_name,
+		 			FLOOR(100*( 
+						+(case when COALESCE(TRIM(shop_name_kh),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_logo),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_cover),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_short_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_serve_type),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_phone),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_email),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_working_day),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_opening_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_close_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_capacity),'') = '' or shop_capacity = 0 then 0 else 1  end)
+						+(case when (select count(*) from nham_shop_facility_map where shop_id=sh.shop_id) > 0 then 1 else 0 end )
+						+(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end)
+						+9
+	  				)/23) as data_complete
 		
 				FROM nham_shop sh
 				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id 

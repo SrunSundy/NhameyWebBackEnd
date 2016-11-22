@@ -36,6 +36,15 @@ class ShopRestController extends CI_Controller{
 		
 	}
 	
+	public function getShopNotComplete(){
+		
+		
+		$response = $this->ShopModel->getShopNotComplete(1);
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+		
+	}
+	
 	public function toggleShop(){
 				
 		
