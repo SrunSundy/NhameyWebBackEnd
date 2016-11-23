@@ -224,6 +224,7 @@ $("#logo-save-btn").on("click", function(){
 		$("#logo-btncrop-box").hide();
 		logoimage = "";
 		$("#uploadlogo").val(null);
+		loadNotCompletedInfo();
 	});
 	
 
@@ -439,6 +440,7 @@ $("#cover-save-btn").on("click", function(){
 		$("#cover-btncrop-box").hide();
 		coverimage = "";
 		$("#uploadcover").val(null);
+		loadNotCompletedInfo();
 	});
 	
 });
