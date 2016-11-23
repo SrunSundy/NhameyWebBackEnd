@@ -36,10 +36,11 @@ class ShopRestController extends CI_Controller{
 		
 	}
 	
-	public function getShopNotComplete(){
+	public function getShopNotComplete($shop_id){
 		
+		$shop_id  = urlencode($shop_id);
 		
-		$response = $this->ShopModel->getShopNotComplete(1);
+		$response = $this->ShopModel->getShopNotComplete($shop_id);
 		$json = json_encode($response, JSON_PRETTY_PRINT);
 		echo $json;
 		
@@ -98,6 +99,16 @@ class ShopRestController extends CI_Controller{
 		}
 		echo json_encode($response);
 		
+	}
+	
+	public function updateShopServeCateogry(){
+		
+		$shopdata = json_decode($this->input->raw_input_stream,true);
+		$shopdata = $shopdata["shopdata"];
+		
+		$response = $this->ShopModel->updateShopServeCategory($shopdata);
+		
+		echo json_encode($response);
 	}
 	
 	public function updateShopWorkingTime(){
