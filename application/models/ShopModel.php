@@ -49,12 +49,86 @@ class ShopModel extends CI_Model{
 				(case when COALESCE(TRIM(shop_close_time),'') = '' then 0 else 1  end) as shop_close_time,
 				(case when COALESCE(TRIM(shop_capacity),'') = '' or shop_capacity = 0 then 0 else 1  end) as shop_capacity,
 				(case when (select count(*) from nham_shop_facility_map where shop_id=sh.shop_id) > 0 then 1 else 0 end ) as shop_facility,
-				(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end) as shop_image
-				FROM nham_shop sh WHERE shop_id = 1";
-		$query = $this->db->query($sql);		
+				(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end) as shop_image,
+				FLOOR(100*( 
+						+(case when COALESCE(TRIM(shop_name_kh),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_logo),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_cover),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_short_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_serve_type),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_phone),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_email),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_working_day),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_opening_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_close_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_capacity),'') = '' or shop_capacity = 0 then 0 else 1  end)
+						+(case when (select count(*) from nham_shop_facility_map where shop_id=sh.shop_id) > 0 then 1 else 0 end )
+						+(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end)
+						+9
+	  			)/23) as data_complete,
+				((case when COALESCE(TRIM(shop_name_kh),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_logo),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_cover),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_short_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_description),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_serve_type),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_phone),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_email),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_working_day),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_opening_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_close_time),'') = '' then 0 else 1  end)
+						+(case when COALESCE(TRIM(shop_capacity),'') = '' or shop_capacity = 0 then 0 else 1  end)
+						+(case when (select count(*) from nham_shop_facility_map where shop_id=sh.shop_id) > 0 then 1 else 0 end )
+						+(case when (select count(*) from nham_shop_image where shop_id=sh.shop_id and sh_img_type=3) > 0 then 1 else 0 end)
+						+9) as number_data_complete,
+				23 as must_data_complete
+				FROM nham_shop sh WHERE shop_id = ?";
+		$query = $this->db->query($sql, $shopid);		
 		$data = $query->row();
 		
-		return $data;
+		if($data == null){
+			$response["data_complete"] =  "";
+			$response["number_data_complete"] =  "";
+			$response["must_data_complete"] =  "";
+			$response["message"] = [];
+			return $response;
+		}
+		$message = array();
+		if($data->shop_name_kh == 0)
+			array_push($message, "SHOP_KHMER_NAME has no information.");
+		if($data->shop_logo == 0)
+			array_push($message, "There is no LOGO for the shop.");
+		if($data->shop_cover == 0)
+			array_push($message, "There is no COVER for the shop.");
+		if($data->shop_short_description == 0)
+			array_push($message, "SHOP_SHORT_DESCRIPTION has no information.");
+		if($data->shop_description == 0)
+			array_push($message, "SHOP_DESCRIPTION has no information.");
+		if($data->shop_serve_type == 0)
+			array_push($message, "SHOP_SERVE_TYPE has no information.");
+		if($data->shop_phone == 0)
+			array_push($message, "There is no PHONE_NUMBER is provided.");
+		if($data->shop_email == 0)
+			array_push($message, "SHOP_EMAIL name has no information.");
+		if($data->shop_working_day == 0)
+			array_push($message, "SHOP_WORKING_DAY has no information.");
+		if($data->shop_opening_time == 0)
+			array_push($message, "SHOP_OPENING_TIME has no information.");
+		if($data->shop_close_time == 0)
+			array_push($message, "SHOP_CLOSE_TIME name has no information.");
+		if($data->shop_capacity == 0)
+			array_push($message, "SHOP_CAPACITY name has no information.");
+		if($data->shop_facility == 0)
+			array_push($message, "There is no SHOP_FACILITY is provided.");
+		if($data->shop_image == 0)
+			array_push($message, "There is no SHOP_IMAGE_DETAIL in the shop.");
+			
+		$response["data_complete"] =  $data->data_complete;
+		$response["number_data_complete"] =  $data->number_data_complete;
+		$response["must_data_complete"] =  $data->must_data_complete;
+		$response["message"] = $message;
+		return $response;
 	}
 	
 	public function toggleShop( $request ){
@@ -600,11 +674,11 @@ class ShopModel extends CI_Model{
 			$response["message"] = "PARAM is invalid";
 			return $response;
 		}
-		/* if($this->IsNullOrEmptyString($value)){
+		if($this->IsNullOrEmptyString($value)){
 			$response["is_updated"] = false;
 			$response["message"] = "UPDATED_VALUE is invalid";
 			return $response;
-		} */
+		} 
 		if($this->IsNullOrEmptyString($shopid)){
 			$response["is_updated"] = false;
 			$response["message"] = "SHOP_ID is invalid";
@@ -680,6 +754,56 @@ class ShopModel extends CI_Model{
 			$response["is_updated"] = false;
 			$response["message"] = "update error!";
 		}
+		return $response;
+		
+	}
+	
+	public function updateShopServeCategory( $shopdata ){
+		
+		$this->db->trans_begin();
+		$response = array();
+		
+		
+		if(!isset($shopdata["shop_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
+		
+		$shop_id = (int)$shopdata["shop_id"];
+		
+		if(count($shopdata["removeditem"]) > 0){
+			for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
+				$this->load->model("ServeCateMapShopModel");
+				$this->ServeCateMapShopModel->deleteServeCategoryMapShop($shopdata["removeditem"][$i]);
+			}
+		}
+		
+		if(count($shopdata["addeditem"]) > 0){
+			$servecategories = array();
+			$shopdata["addeditem"] = array_unique($shopdata["addeditem"]);
+			for($i=0; $i< count($shopdata["addeditem"]); $i++){
+			
+				$cateitem["serve_category_id"] = $shopdata["addeditem"][$i];
+				$cateitem["shop_id"] = $shop_id;
+				array_push($servecategories , $cateitem);
+			}
+			$this->db->insert_batch('nham_serve_cate_map_shop', $servecategories);
+		}
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			$response["is_updated"] = false;
+			$response["message"] = "Transaction rollback!";
+		}
+		else
+		{
+			$this->db->trans_commit();
+			$response["is_updated"] = true;
+			$response["message"] = "success";
+		}
+		
 		return $response;
 		
 	}
