@@ -377,7 +377,7 @@
 						                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">	                  		
 						                  		<div class="row pull-right">
 						                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-						                  			<button type="button" class="btn btn-default nham-btn">save</button>
+						                  			<button type="button" class="btn btn-default update-serve-category nham-btn">save</button>
 						                  		</div>
 						                  	</div>
 					                  		<div style="clear:both;"></div>
@@ -767,7 +767,7 @@
 			       	 			<div class="shop-info-wrapper">			       	 			
 			       	 				<div class="info-edit-wrapper">
 				       	 				<div class="div-left">
-				       	 					<span class="head-text">PHONE</span><p class="shop-info wordwrap" id="shop-phone"></p>
+				       	 					<span class="head-text">PHONE</span><div class="shop-info wordwrap" id="shop-phone"></div>
 				       	 				</div>
 				       	 				<div class="div-right" >
 				       	 					<div class="shop-info-edit-btn phone pull-right">
@@ -983,7 +983,7 @@
 	var g_shop_opening_time = "";
 	var g_shop_close_time = "";
 
-	var g_shop_phone = [];
+	
     
 	var isclickbranch = false;
 	var isclickservecategory = false;
@@ -1498,40 +1498,56 @@
 	/*================= end working day section =================*/
 	/*=================== phone adding =================*/
 
-	var shopphones = [];
+	
 	$(".nham-append-data").on("click",function(){
 		var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
-		if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
-		
-		shopphones.push(phonenum);
-		displayPhones(shopphones);
+		if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;		
+		displayPhones(phonenum);
 		
 		$("#shop_phonenum").val("");	
 	});
 	
-	$(document).on("click",".close-phone",function(){
-		var arrayno = parseInt($(this).siblings(".phone-wrapper").find("input").val());
-		shopphones.splice(arrayno , 1);
-		displayPhones(shopphones);
-		
-	});
+	 $(document).on("click",".close-phone",function(){	
+		$(this).parents(".nham-box-wrap").remove();
+	}) ;
 	
 	function displayPhones( data ){
 		var dis =""; 
-		for( var i=0 ; i<data.length ; i++){
 			dis += '<span class="nham-box-wrap">';
-			dis += '<span class="phone-wrapper"><input type="hidden" value="'+i+'" />'+data[i]+'</span>';
+			dis += '<span class="phone-wrapper">'+data+'</span>';
 			dis += '<i class="fa fa-close close-phone" style="margin-left:5px;margin-top:5px;" ></i>';
 			dis += '</span>';
+		$("#phone-add-result").append(dis);
+	}
+
+	$(document).on("click","i.delete-phone", function(){
+		$(this).parent().remove();
+	});
+
+	function getAllPhone(){
+		var shopphone = [];
+
+		var addlng = $("#phone-add-result").find("span.nham-box-wrap").length;
+		for(var i=0; i<addlng; i++){
+			var addphone = $("#phone-add-result").children().eq(i).find("span.phone-wrapper").text();
+			shopphone.push(addphone);
 		}
-		$("#phone-add-result").html(dis);
+
+		var remainlng = $("#shop-phone").find("p.shop-info").length;
+		for(var i=0; i<remainlng; i++){
+			var remainphone = $("#shop-phone").children().eq(i).find("span.phone-dis").text();
+			shopphone.push(remainphone);
+		}
+		
+		return shopphone;
 	}
 	/*================= close phone adding ==================*/
 	
 	$(document).on("click", ".close-default-item", function(){
 		var removeservecate = $(this).parents(".selected-category-box").find("input").val();
+		
+		servecatearrdelete.push(removeservecate);
 			
-		servecatearrdelete.push(removeservecate);	
 		$(this).parents(".selected-category-box").remove();
 		top.resizeIframe();		 
 	});	
@@ -1555,8 +1571,6 @@
 		 for(var i=0; i<data.length ;i++){
 
 			 var textlng = $("<p></p>").append(data[i].serve_category_name.replace(/\s+/g, '')).textWidth()+55;
-			 alert($("<p></p>").append(data[i].serve_category_name).textWidth());
-			 alert(textlng);
 			 var box = "<div class='selected-category-box pull-left' style='min-width:"+textlng+"px'>";
 			 box += "<input type='hidden' value='"+data[i].serve_cate_map_shop_id+"' />";
 			 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].serve_category_icon+"' />";
@@ -1700,10 +1714,10 @@
 		
 		if(!data) return data;
 
+		console.log(data);
 		var dis = '';
 		var phone = data.split("|");
 		for(var i=0; i<phone.length; i++){
-			g_shop_phone.push(phone[i]);
 			dis += '<p class="shop-info wordwrap"><i class="fa fa-phone" aria-hidden="true"></i><span class="phone-dis">'+phone[i]+'</span><i class="fa delete-phone fa-times" aria-hidden="true"></i></p>';
 		}
 		return dis;
@@ -1740,23 +1754,34 @@
 	});
 
 	$(".update-shop-save").on("click", function(){
-		$(this).siblings(".update-loading").show();
+		
 		var value = "";
 
 		if($(this).hasClass("working-day")){
 			value = countWorkingday().toString().replace(/[,]/g,"|").trim();
-			alert(value);	
-		}else{
+		}
+		else if($(this).hasClass("phone")){		
+			value = getAllPhone().toString().replace(/[,]/g,"|").trim();
+		}
+		else{
 			value = $(this).parents(".save-btn-wrapper").siblings(".input-wrapper").find(".insert-value").eq(0).val();
 		}
 		var param = $(this).siblings("input.update-param").val();
-
-		
+		if(!value){
+			top.swal("Update Error!", param+" is invalid", "error");
+			return;
+		}
+		$(this).siblings(".update-loading").show();
 		updateShopField(value, param, this , function(obj){
-
+			
 			if($(obj).hasClass("working-day")){
 				$("#dis-working-day").html(convertToDay(defaultNull(value)));
-			}else{
+			}
+			else if($(obj).hasClass("phone")){
+				$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(getPhoneNumber(value));
+				$("#phone-add-result").children().remove();
+			}
+			else{
 				$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(value);
 			}			
 			$(obj).parents(".save-shop-info-box").slideUp(100);
@@ -1770,7 +1795,7 @@
 
 	$(".update-shop-media-save").on("click", function(){
 		
-		$(this).siblings(".update-loading").show();
+		
 		var value = $(this).parents(".save-btn-wrapper").siblings(".input-wrapper").find(".insert-value").eq(0).val();
 		var param = $(this).siblings("input.update-param").val();
 		
@@ -1782,6 +1807,11 @@
 			default: break;
 		}
 
+		if(!value){
+			top.swal("Update Error!", param+" is invalid", "error");
+			return;
+		}
+		$(this).siblings(".update-loading").show();
 		console.log(social_media);
 		updateShopField(social_media, "shop_social_media", this , function(obj){
 		
@@ -1796,10 +1826,19 @@
 	});
 
 	$(".update-shop-working-time").on("click",function(){
-		$(this).siblings(".update-loading").show();
+		
 		var open_time = $("#shopopentime").val();
 		var close_time = $("#shopclosetime").val();
+		if(!open_time) {
+			top.swal("Update Error!", "shop_opening_time is invalid", "error");
+			return;
+		}
+		if(!close_time) {
+			top.swal("Update Error!", "shop_close_time is invalid", "error");
+			return;
+		}
 		var obj = this;
+		$(this).siblings(".update-loading").show();
 		$.ajax({
 			type : "POST",
 			url : $("#base_url").val()+"API/ShopRestController/updateShopWorkingTime",
@@ -1814,6 +1853,8 @@
 			success : function(data){
 				data = JSON.parse(data);
 				if(data.is_updated == true){
+
+					top.loadNotCompletedInfo();
 					g_shop_opening_time = open_time;
 					g_shop_close_time = close_time;
 					
@@ -1832,20 +1873,40 @@
 		
 	});
 
-	$(document).on("click","i.delete-phone", function(){
+	$("button.update-serve-category").on("click", function(){
+		
+		$(this).siblings(".update-loading").show();
+		var obj = this;
+		$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/ShopRestController/updateShopServeCateogry",
+			contentType : "application/json",
+			data : JSON.stringify({
+					"shopdata" : {
+						"shop_id" : $("#shop_id").val(),
+						"removeditem" : servecatearrdelete,
+						"addeditem" : getServeCategories()
+					}
+				}
+			),
+			success : function(data){
+				data = JSON.parse(data);
+				if(data.is_updated == true){
 
-		var del_phone = $(this).siblings("span.phone-dis").text().trim();
-		for(var i=0; i<g_shop_phone.length; i++){
-
-			if(del_phone == g_shop_phone[i]){
-				g_shop_phone.splice(i , 1);
+					$(obj).parents(".save-shop-info-box").slideUp(100);
+					$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+					setTimeout(function(){top.resizeIframe()}, 120); 
+				}else{
+					top.swal("Update Error!", data.message, "error");
+				}
+				$(obj).siblings(".update-loading").hide();
+					
 			}
-		}
-		$(this).parent().remove();
-
+		}); 
 	});
 
 	function updateShopField(value, param,obj ,callback){
+
 		
 		$.ajax({
 			type : "POST",
@@ -1863,6 +1924,7 @@
 				data = JSON.parse(data);
 				console.log(data);
 				if(data.is_updated == true){
+					top.loadNotCompletedInfo();
 					if( typeof callback === "function"){
 						callback(obj);
 					}				

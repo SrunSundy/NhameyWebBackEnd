@@ -52,6 +52,17 @@
  		#incompleted-info{
  			display: none;
  		}
+ 		span.alarm-info{
+ 			padding-left: 6px;
+ 			color: #757575;
+ 		}
+ 		
+ 		i.remove-icon{
+ 		
+ 			cursor: pointer;
+ 			color: #9E9E9E;
+ 			
+ 		}
  		
  	</style>
   </head>
@@ -158,14 +169,17 @@
 	       	 			<div class="col-lg-12" id="incompleted-info">
 	       	 				<div class="row">
 		       	 				<div class="callout  shop-notcomplete-detail" >
-					              <h4>Completed Information!</h4>
+					              <h4 class="pull-left">ALARM: Completed Information!</h4>
+					              <i class="fa fa-times pull-right remove-icon" aria-hidden="true"></i>
+	             
+					              <div style="clear:both;"></div>
 					              <div>
-					              	 <span class="item-tocomplete"><?php echo $number_data_complete ?>/<?php echo $must_data_complete ?> completed</span>
+					              	 <span class="item-tocomplete" id="item-tocomplete"><?php echo $number_data_complete ?>/<?php echo $must_data_complete ?> completed</span>
 					              	 <div style="clear:both"></div>
 					              </div>
 					              
 					              <div class="progress" style="" >
-					                   <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $data_complete ?>"
+					                   <div class="progress-bar" id="progress-info" role="progressbar" aria-valuenow="<?php echo $data_complete ?>"
 					                        aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $data_complete ?>%;background:#ed5b49">
 					                        <?php echo $data_complete ?>%
 					                   </div>
@@ -173,16 +187,14 @@
 					               
 					               <div class="box box-solid collapsed-box" style="box-shadow:0 0 0;">
 					                <div class="box-header ">
-					                  <h3 class="box-title" style="font-size:16px">Incompleted Information<span class="incompleted-item"> (<?php echo (int)$must_data_complete-(int)$number_data_complete ?> incompleted)</span></h3>
+					                  <h3 class="box-title" style="font-size:16px">Incompleted Information<span class="incompleted-item" id="incompleted-item"> (<?php echo (int)$must_data_complete-(int)$number_data_complete ?> incompleted)</span></h3>
 					                  <div class="box-tools">
 					                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
 					                  </div>
 					                </div>
 					                <div class="box-body no-padding">
-					                  <ul class="nav nav-pills nav-stacked">
-					                    <li><i class="fa fa-circle-o text-red"></i> Important</li>
-					                    <li><i class="fa fa-circle-o text-red"></i> Promotions</li>
-					                    <li><i class="fa fa-circle-o text-red"></i> Social</li>
+					                  <ul class="nav nav-pills nav-stacked" id="incompleted-data">
+					                   
 					                  </ul>
 					                </div><!-- /.box-body -->
 					              </div><!-- /.box -->
@@ -374,8 +386,9 @@
     <script src="<?php echo base_url(); ?>assets/nhamdis/jscontroller/updateshop.js"></script>
     
     <script>
-    test();
-	function test(){
+    alarmInfo();
+    loadNotCompletedInfo();
+	function alarmInfo(){
 		var complete = $("#data_complete").val();
 		if(complete < 100){
 			$("#incompleted-info").show();
@@ -383,6 +396,41 @@
 			$("#incompleted-info").remove();
 		}
 	}
+
+	function loadNotCompletedInfo(){
+		
+		$.ajax({
+			url :  $("#base_url").val()+"API/ShopRestController/getShopNotComplete/"+$("#shop_id").val(),
+			type: "GET",
+			success: function(data){
+				data = JSON.parse(data);
+				
+				if(data.data_complete < 100){
+					$("#incompleted-info").show();
+					$("#incompleted-data").children().remove();
+					for(var i=0; i<data.message.length; i++){
+						var message = '<li><i class="fa fa-circle-o text-red"></i> <span class="alarm-info"> '+data.message[i]+'</span></li>';
+						$("#incompleted-data").append(message);
+					}
+					$("#item-tocomplete").html(data.number_data_complete+"/"+data.must_data_complete+" completed");
+					$("#progress-info").css("width", data.data_complete+"%");
+					$("#progress-info").html(data.data_complete+"%");
+					var incomplete = parseInt(data.must_data_complete)-parseInt(data.number_data_complete);
+					$("#incompleted-item").html(" ("+ incomplete + " incompleted)");
+				}else{
+					$("#incompleted-info").remove();
+				}
+				
+				
+			}
+		});
+	}
+
+	$("i.remove-icon").on("click", function(){
+		$("#incompleted-info").slideUp(200);
+		setTimeout(function(){$("#incompleted-info").remove();}
+			, 200);
+	});
     
     function resizeIframe(){
       
