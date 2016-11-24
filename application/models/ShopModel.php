@@ -783,13 +783,26 @@ class ShopModel extends CI_Model{
 			$servecategories = array();
 			$shopdata["addeditem"] = array_unique($shopdata["addeditem"]);
 			for($i=0; $i< count($shopdata["addeditem"]); $i++){
-			
+				
 				$cateitem["serve_category_id"] = $shopdata["addeditem"][$i];
 				$cateitem["shop_id"] = $shop_id;
 				array_push($servecategories , $cateitem);
 			}
-			$this->db->insert_batch('nham_serve_cate_map_shop', $servecategories);
+
+			try
+			{
+				$this->db->insert_batch('nham_serve_cate_map_shop', $servecategories);
+			}
+			catch( Exception $e )
+			{
+				$response["is_updated"] = false;
+				$response["message"] = "Database Error!";
+				return $response;
+				// on error
+			}
+			
 		}
+		
 		
 		if ($this->db->trans_status() === FALSE)
 		{

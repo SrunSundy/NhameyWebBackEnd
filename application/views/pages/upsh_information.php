@@ -1563,6 +1563,22 @@
 	});	
 	/*================== display shop data =================*/
 	
+	/* function getRemainingServeCategory(){
+
+		var remainservecate = [];
+		var serveobj= $("#serve-category-wrapper").children(".selected-category-box");
+		var serveobj_add = $("#serve-categories").find(".selected-category-box");
+
+		for(var i =0; i<serveobj.length; i++){
+			remainservecate.push({"serve_category_name" : serveobj.eq(i).find("span.serve_cate").text()});
+		}
+
+		for(var i=0; i<serveobj_add.length; i++){
+			remainservecate.push({"serve_category_name" : serveobj_add.eq(i).find("span").text()});
+		}
+		console.log(remainservecate);
+		return remainservecate;
+	} */
 	
 	function loadServeCategoryDis( data ){
 		 $("#serve-category-wrapper").children().remove();
@@ -1575,13 +1591,13 @@
 			 box += "<input type='hidden' value='"+data[i].serve_cate_map_shop_id+"' />";
 			 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].serve_category_icon+"' />";
 			 box += "<p class='text-serve-category-selected'>";
-			 box += "<span>"+data[i].serve_category_name+"</span>";
+			 box += "<span class='serve_cate'>"+data[i].serve_category_name+"</span>";
 	 		 box += "<i class='fa fa-times close-default-item' style='margin-left:10px;cursor:pointer;display:none;'  aria-hidden='true'></i></p></div>";
 	 		
 	 		 $("#serve-category-wrapper").append(box);
 	 		 
 		 }	 
-		 top.resizeIframe();			
+		 top.resizeIframe();	
 	}
 
 	
@@ -1873,6 +1889,16 @@
 		
 	});
 
+	function loadUpdatedServeCategory(){
+		$.ajax({
+			type : "GET",
+			url : $("#base_url").val()+"API/ServeCategoryRestController/getServeCategoryByShopId/"+$("#shop_id").val(),
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+			}
+		}); 
+	}
 	$("button.update-serve-category").on("click", function(){
 		
 		$(this).siblings(".update-loading").show();
@@ -1892,11 +1918,15 @@
 			success : function(data){
 				data = JSON.parse(data);
 				if(data.is_updated == true){
-
+					loadUpdatedServeCategory();
+					/* servecatearr = getRemainingServeCategory();
+					loadServeCategoryDis(getRemainingServeCategory()); */
+					$("#serve-categories").children().remove();
 					$(obj).parents(".save-shop-info-box").slideUp(100);
 					$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
 					setTimeout(function(){top.resizeIframe()}, 120); 
 				}else{
+					console.log(data.message);
 					top.swal("Update Error!", data.message, "error");
 				}
 				$(obj).siblings(".update-loading").hide();
