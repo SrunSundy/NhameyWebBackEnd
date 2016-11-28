@@ -35,6 +35,15 @@ class ShopFacilityRestController extends CI_Controller{
 		
 	}
 	
+	public function getShopFacilityByShopId($shop_id){
+	
+		$shop_id  = urlencode($shop_id);
+		$data = $this->ShopFacilityModel->getShopFacilityByShopId($shop_id);
+		$json = json_encode($data);
+		echo $json;
+	
+	}
+	
 	public function insertShopFacility(){
 	
 		$shopfacilitydata = json_decode($this->input->raw_input_stream,true);

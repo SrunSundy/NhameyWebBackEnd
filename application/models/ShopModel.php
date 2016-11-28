@@ -821,6 +821,68 @@ class ShopModel extends CI_Model{
 		
 	}
 	
+	public function updateShopFacility( $shopdata ){
+		
+		$this->db->trans_begin();
+		$response = array();
+				
+		if(!isset($shopdata["shop_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
+		
+		$shop_id = (int)$shopdata["shop_id"];
+		
+		if(count($shopdata["removeditem"]) > 0){
+			for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
+				$this->load->model("FacilityMapShopModel");
+				$this->FacilityMapShopModel->deleteFacilityMapShop($shopdata["removeditem"][$i]);
+			}
+		}
+		
+		if(count($shopdata["addeditem"]) > 0){
+			
+			$shopfacilities = array();
+			$shopdata["addeditem"] = array_unique($shopdata["addeditem"]);
+			for($i=0; $i< count($shopdata["addeditem"]); $i++){
+					
+				$facilityitem["sh_facility_id"] = $shopdata["addeditem"][$i];
+				$facilityitem["shop_id"] = $shop_id;
+				array_push($shopfacilities , $facilityitem);
+			}
+		
+			try
+			{
+				$this->db->insert_batch('nham_shop_facility_map', $shopfacilities);
+			}
+			catch( Exception $e )
+			{
+				$response["is_updated"] = false;
+				$response["message"] = "Database Error!";
+				return $response;
+				// on error
+			}
+				
+		}
+		
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			$response["is_updated"] = false;
+			$response["message"] = "Transaction rollback!";
+		}
+		else
+		{
+			$this->db->trans_commit();
+			$response["is_updated"] = true;
+			$response["message"] = "success";
+		}
+		
+		return $response;
+	}
+	
 	public function updateShopImage( $shopdata ){
 		
 		$this->db->trans_begin();

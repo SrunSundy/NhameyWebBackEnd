@@ -464,7 +464,7 @@
 								             <div class="col-lg-12 col-sm-12 save-btn-wrapper">	                  		
 								                 <div class="row pull-right">
 								                  	<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-								                  	<button type="button" class="btn btn-default nham-btn">save</button>
+								                  	<button type="button" class="btn btn-default update-facility nham-btn">save</button>
 								                  </div>
 								             </div>
 							                 <div style="clear:both;"></div>
@@ -1889,16 +1889,31 @@
 		
 	});
 
-	function loadUpdatedServeCategory(){
+	function loadUpdatedServeCategory(obj ,callback){
 		$.ajax({
 			type : "GET",
 			url : $("#base_url").val()+"API/ServeCategoryRestController/getServeCategoryByShopId/"+$("#shop_id").val(),
 			success : function(data){
 				data = JSON.parse(data);
 				console.log(data);
+				$("#serve-categories").children().remove();
+				servecatearr = [];
+				
+				for(var i=0; i<data.length; i++){
+					servecatearr.push(data[i].serve_category_id);
+				}
+				loadServeCategoryDis(data);
+				displaySearchServeCategory(myServeCategory, $("#servecategoryname").val());
+
+				if( typeof callback === "function"){
+					callback(obj);
+				}	
+				
 			}
 		}); 
 	}
+
+	
 	$("button.update-serve-category").on("click", function(){
 		
 		$(this).siblings(".update-loading").show();
@@ -1917,14 +1932,72 @@
 			),
 			success : function(data){
 				data = JSON.parse(data);
-				if(data.is_updated == true){
-					loadUpdatedServeCategory();
-					/* servecatearr = getRemainingServeCategory();
-					loadServeCategoryDis(getRemainingServeCategory()); */
-					$("#serve-categories").children().remove();
-					$(obj).parents(".save-shop-info-box").slideUp(100);
-					$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
-					setTimeout(function(){top.resizeIframe()}, 120); 
+				if(data.is_updated == true){			
+					loadUpdatedServeCategory(obj ,function(obj){
+						$(obj).parents(".save-shop-info-box").slideUp(100);
+						$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+						setTimeout(function(){top.resizeIframe()}, 120); 
+					});
+							
+				}else{
+					console.log(data.message);
+					top.swal("Update Error!", data.message, "error");
+				}
+				$(obj).siblings(".update-loading").hide();
+					
+			}
+		}); 
+	});
+
+	function loadUpdatedShopFacility(obj ,callback){
+		$.ajax({
+			type : "GET",
+			url : $("#base_url").val()+"API/ShopFacilityRestController/getShopFacilityByShopId/"+$("#shop_id").val(),
+			success : function(data){
+				data = JSON.parse(data);
+				console.log(data);
+				$("#shop-facilities").children().remove();
+				facilityarr = [];
+				
+				for(var i=0; i<data.length; i++){
+					facilityarr.push(data[i].sh_facility_id);
+				}
+				loadFacilityDis(data);
+				displaySearchShopFacility(myShopFacility, $("#servecategoryname").val());
+				if( typeof callback === "function"){
+					callback(obj);
+				}	
+				
+			}
+		}); 
+	}
+
+	$("button.update-facility").on("click", function(){
+		
+		$(this).siblings(".update-loading").show();
+		var obj = this;
+		console.log(getShopFacilities());
+		$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/ShopRestController/updateShopFacility",
+			contentType : "application/json",
+			data : JSON.stringify({
+					"shopdata" : {
+						"shop_id" : $("#shop_id").val(),
+						"removeditem" : facilityarrdelete,
+						"addeditem" : getShopFacilities()
+					}
+				}
+			),
+			success : function(data){
+				data = JSON.parse(data);
+				if(data.is_updated == true){			
+					loadUpdatedShopFacility(obj ,function(obj){
+						$(obj).parents(".save-shop-info-box").slideUp(100);
+						$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+						setTimeout(function(){top.resizeIframe()}, 120); 
+					}); 
+							
 				}else{
 					console.log(data.message);
 					top.swal("Update Error!", data.message, "error");

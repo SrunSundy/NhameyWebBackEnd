@@ -111,6 +111,16 @@ class ShopRestController extends CI_Controller{
 		echo json_encode($response);
 	}
 	
+	public function updateShopFacility(){
+		
+		$shopdata = json_decode($this->input->raw_input_stream,true);
+		$shopdata = $shopdata["shopdata"];
+		
+		$response = $this->ShopModel->updateShopFacility($shopdata);
+		
+		echo json_encode($response);
+	}
+	
 	public function updateShopWorkingTime(){
 		
 		$shopdata = json_decode($this->input->raw_input_stream,true);

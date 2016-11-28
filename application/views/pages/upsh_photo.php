@@ -38,6 +38,12 @@
        
     $(window).load(function(){
    		top.resizeIframe();
+   		window.parent.$(".iframe_hover").hide();
+		window.parent.$("#updateShopframe").show();
+    });
+
+    $(window).on("resize", function() {
+    	top.resizeIframe();
     });
      
 	function updateShopField(value , param){
