@@ -207,7 +207,7 @@
                   				<div class="col-lg-12">
                   					<div class="row">
                   						<button type="button" class="btn btn-default pull-right header-shop-btn" >
-		                  					<i class="fa fa-plus" aria-hidden="true"></i> 
+		                  					<i class="fa fa-plus-circle" aria-hidden="true"></i>
 		                  					Add shop 
 		                  				</button>
 		                  				
