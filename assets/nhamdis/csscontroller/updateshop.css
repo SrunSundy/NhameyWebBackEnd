@@ -87,7 +87,7 @@ div.bar-box {
 }
 
 div.small-bar-box {
-	height: 50px;
+	
 	background: #fff;
 	min-height: 110px;
 	position: relative;
@@ -140,7 +140,7 @@ div.space-logo-box i {
 }
 
 div.small-shop-name {
-	float: left;
+	
 	height: 50px;
 	margin-left: 0px;
 	margin-top: 10px;
@@ -324,7 +324,7 @@ div.shop-edit-form-wrapper {
 
 .tab-header {
 	background: #f6f7f9;
-	height: 60px;
+	min-height: 60px;
 	border-bottom: 1px solid #E0E0E0;
 }
 
