@@ -102,6 +102,8 @@ class BranchRestController extends CI_Controller{
 		print_r(json_encode($tzlist));
 	}
 	
+	
+	
 	public function insertBranch(){
 		
 		$branchdata = json_decode($this->input->raw_input_stream,true);

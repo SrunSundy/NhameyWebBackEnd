@@ -20,45 +20,22 @@ class ShopImageModel extends CI_Model{
 		$sql = "SELECT  
 					sh_img_id,
 					sh_img_name,
-					sh_img_remark
-					
+					sh_img_remark,
+					sh_img_created_date
 				FROM nham_shop_image
 				WHERE sh_img_type = ?
-				AND shop_id = ?";
+				AND shop_id = ? ";
 		
-		array_push($param, $img_type, $shop_id);
-		if($status == 0 || $statis == 1){
-			$sql .= "AND sh_img_status = ?";
-			array_push($param, $status);
+		array_push($params, $img_type, $shop_id);
+		if($status == 0 || $status == 1){
+			$sql .= " AND sh_img_status = ? ";
+			array_push($params, $status);
 		}
-		$sql .="ORDER BY sh_img_dis_order LIMIT ?";
-		array_push($param, $limit);
+		$sql .=" ORDER BY sh_img_dis_order LIMIT ? ";
+		array_push($params, $limit);
 		$query = $this->db->query($sql , $params);
 		
-		$logo_count = 0;
-		$cover_count = 0;
-		$detail_count = 0;
-		
-		if(count($query->result()) >= 0){
-			
-			$request_count["sh_img_status"] = $status;
-			$request_count["shop_id"] = $shop_id;
-			
-			$request_count["sh_img_type"] = 1;		
-			$logo_count = $this->countShopImageByImgtypeAndShopId($request_count);
-			
-			$request_count["sh_img_type"] = 2;
-			$cover_count = $this->countShopImageByImgtypeAndShopId($request_count);
-			
-			$request_count["sh_img_type"] = 3;
-			$detail_count = $this->countShopImageByImgtypeAndShopId($request_count);
-		}
-		
-		$response["total_logo"] = $logo_count;
-		$response["total_cover"] = $cover_count;
-		$response["total_detail"] = $detail_count;
-		$response["response_data"] = $query->result();
-		
+		$response = $query->result();		
 		return $response;		
 	}
 	
@@ -74,10 +51,10 @@ class ShopImageModel extends CI_Model{
 				FROM nham_shop_image image
 				WHERE sh_img_type = ?
 				AND shop_id = ?";
-		array_push($param, $img_type, $shop_id);
-		if($status == 0 || $statis == 1){
+		array_push($params, $img_type, $shop_id);
+		if($status == 0 || $status == 1){
 			$sql .= "AND sh_img_status = ?";
-			array_push($param, $status);
+			array_push($params, $status);
 		}
 		$query = $this->db->query($sql , $params);
 		$response = $query->row();

@@ -15,7 +15,7 @@
 	 	
 	 	div.menu-header-bar{
 	 		position: relative;
-	 		height: 25px;
+	 		height: 40px;
 	 	}
 	 	
 	 	ul.ul-menu {
@@ -73,7 +73,8 @@
 	 	}
 	 	
 	 	span.photo-type{
-	 		color: #ab0707;
+	 		color: #760707;
+	 		font-size: 16px;
 	 		font-weight: bold;
 	 	}
 	 	
@@ -88,6 +89,7 @@
 	 	}
 	 	
 	 	div.box-image-wrapper{
+	 		position: relative;
 	 		margin-left: 5px;
 	 	}
 	 	
@@ -107,9 +109,15 @@
 	 	}
 	 	
 	 	img.image-inside{
-	 		width: 100%; 
+	 		width: 100%;
 	 		border-radius: 2px;
+	 		 box-shadow: 1px 1px 2px #888888;
+	 	}
+	 	
+	 	div.image-wrapper{
+	 		 
 	 		padding:5px 5px 0 0;
+	 
 	 	}
 	 	
 	 	div.box-gradient{
@@ -153,26 +161,54 @@
 	 	}
 	 	
 	 	p.des-title{
-	 		color: #f1f1f1;
+	 		color: #fff;
 	 		padding: 0 5px 5px 5px;
 	 		font-weight: bold;
-	 		border-bottom: 1px solid #BDBDBD;
-	 		display:block;
+	 		border-bottom: 1px solid #fff;
 	 		width: 97%;
 	 		font-size: 18px;
 	 		text-shadow: 1px 1px #212121;
 	 	}
 	 	
 	 	p.image-des{
-	 		color: #f1f1f1;
+	 		color: #fff;
 	 		padding: 0 5px 0 5px ;
 	 		text-shadow: 1px 1px #212121;
-	 		
+	 		margin: 0;
+	 	}
+	 	
+	 	p.no-image-des{
+	 		color: #BDBDBD;
+	 		font-style: italic;
+	 		padding: 0 5px 0 5px ;
+	 		font-size: 5px;
+	 		text-shadow: 1px 1px #212121;
+	 		margin: 0;
+	 	}
+	 	
+	 	p.posted-date{
+	 		color: #fff;
+	 		margin: 0;
+	 		margin-left: 5px;
+	 		font-size:13px;
+	 		text-shadow: 1px 1px #212121;
+	 	}
+	 	
+	 	div.loading-image{
+	 		position: absolute;
+	 		top: 80px;
+	 		width: 100%;
+	 		height: 100%;
+	 		background: #fff;	
+	 		display: none;
+	 	 	
 	 	}
 	 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
-    
+  
+    <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
+    <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />  
     <div class="shop-event-wrapper">			     	 						       	 						       	 					
 	    <div  class="tab-wrapper">	       	 				
 	       	 <div class="tab-header col-lg-12">
@@ -184,6 +220,8 @@
 	       	 			<button type="button" class="btn add-more-img btn-default pull-right">
 	       	 				<i class="fa fa-plus-circle" aria-hidden="true"></i>Add image
 	       	 			</button>
+	       	 			
+	       	 			
 	       	 		</div>
 	       	 	</div>
 	       	 	
@@ -191,22 +229,25 @@
 	       	 		<div class="row">
 	       	 			<div class="row">
 	       	 				<ul class="ul-menu">
-	       	 					<li >
-	       	 						<a href="javascript:;">
-	       	 							<span class="photo-type">Detail</span> 
-	       	 							<span class="photo-num">300</span>
-	       	 						</a>
-	       	 					</li>	       	 					
-	       	 					<li >
-	       	 						<a href="javascript:;">
-	       	 							<span class="photo-type">Logo</span> 
-	       	 							<span class="photo-num">30</span>
-	       	 						</a>
-	       	 					</li>	       	 					
 	       	 					<li class="li-select">
 	       	 						<a href="javascript:;">
+	       	 							<input type="hidden" class="image_type" value="3" />
+	       	 							<span class="photo-type">Detail</span> 
+	       	 							<span class="photo-num" id="totol-detail-img"></span>
+	       	 						</a>
+	       	 					</li>	       	 					
+	       	 					<li >
+	       	 						<a href="javascript:;">
+	       	 							<input type="hidden" class="image_type" value="1" />
+	       	 							<span class="photo-type">Logo</span> 
+	       	 							<span class="photo-num" id="totol-logo-img"></span>
+	       	 						</a>
+	       	 					</li>	       	 					
+	       	 					<li >
+	       	 						<a href="javascript:;">
+	       	 							<input type="hidden" class="image_type" value="2" />
 	       	 							<span class="photo-type on-select">Cover</span> 
-	       	 							<span class="photo-num">20</span>
+	       	 							<span class="photo-num" id="totol-cover-img"></span>
 	       	 						</a>
 	       	 					</li>
 	       	 					
@@ -220,78 +261,10 @@
 	       	 	 <div class="row">
 		       	 	 <div class="box-image-wrapper col-lg-12">
 		       	 	 	<div class="row">
-		       	 	 		
-		       	 	 		<div class="box-image col-lg-2 col-sm-3 col-xs-6">
-		       	 	 			<div class="row">
-		       	 	 				<img class="image-inside" src="/NhameyWebBackEnd/uploadimages/cover/small/cover_kzW334bq4IobBmyUmk6H_1480412431.jpg" />
-		       	 	 				<div class="box-gradient"></div>
-		       	 	 				<div class="box-image-detail">
-		       	 	 					<div class="image-event">
-		       	 	 						<div class="menu-arrow">			       	 				
-			       	 					 		<div class="dropdown menu-image-wrapper" >
-												    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-												    	<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-												    </button>
-												    <ul class="dropdown-menu " style="width:30px;" >
-													    <li>
-															<a href="javascript:;">
-																<i class="fa fa-trash" aria-hidden="true"></i>
-																Delete
-															</a>
-														</li>
-														
-												    </ul>
-												</div>
-			       	 						</div>
-			       	 					       	 	 	
-		       	 	 					</div>
-		       	 	 					
-		       	 	 					<div class="image-detail">
-		       	 	 						<p class="des-title">Description</p>		       	 	 						
-		       	 	 						<p class="image-des">This is testing h
-		       	 	 						df sdfs ssssssdfsf sdfsfdsfdsfsdfsdfdf...</p>
-		       	 	 					</div>
-		       	 	 					
-		       	 	 				</div>
-		       	 	 			</div>		       	 	 			
-		       	 	 		</div>
-		       	 	 		
-		       	 	 		<div class="box-image col-lg-2 col-sm-3 col-xs-6">
-		       	 	 			<div class="row">
-		       	 	 				<img class="image-inside" src="/NhameyWebBackEnd/uploadimages/cover/small/cover_kzW334bq4IobBmyUmk6H_1480412431.jpg" />
-		       	 	 				<div class="box-gradient"></div>
-		       	 	 				<div class="box-image-detail">
-		       	 	 					<div class="image-event">
-		       	 	 						<div class="menu-arrow">			       	 				
-			       	 					 		<div class="dropdown menu-image-wrapper" >
-												    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-												    	<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-												    </button>
-												    <ul class="dropdown-menu " style="width:30px;" >
-													    <li>
-															<a href="javascript:;">
-																<i class="fa fa-trash" aria-hidden="true"></i>
-																Delete
-															</a>
-														</li>
-														
-												    </ul>
-												</div>
-			       	 						</div>
-			       	 					       	 	 	
-		       	 	 					</div>
-		       	 	 					
-		       	 	 					<div class="image-detail">
-		       	 	 						<p class="des-title">Description</p>		       	 	 						
-		       	 	 						<p class="image-des">This is testing h
-		       	 	 						df sdfs ssssssdfsf sdfsfdsfdsfsdfsdfdf...</p>
-		       	 	 					</div>
-		       	 	 					
-		       	 	 				</div>
-		       	 	 			</div>		       	 	 			
-		       	 	 		</div>
-		       	 	 		
-		       	 	 		  	 	 		
+							<div id="image_display_result"></div>
+							<div class="loading-image" align="center" id="loading-image">
+								<img class="data-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+							</div>	 	 		  	 	 		
 		       	 	 	</div>		       	 	 	
 		       	 	 </div>
 	       	 
@@ -303,14 +276,65 @@
 
    
     <?php include 'imports/scriptimport.php'; ?>
-   
+   <script id="image_data_result" type="text/x-jQuery-tmpl">
+		<div class="box-image col-lg-2 col-sm-3 col-xs-6">
+			 <input type="hidden" class="shop_id" value="{{= shop_id }}"/>
+		     <div class="row">
+				 <div class="image-wrapper">
+					<img class="image-inside" src="{{= getSourceImage(sh_img_name) }}"  onerror="imgError(this);"/>
+				 </div>		       	 
+		       	 <div class="box-gradient"></div>
+		       	 <div class="box-image-detail">
+		       	 	 <div class="image-event">
+		       	 	 	<div class="menu-arrow">			       	 				
+			       	 		<div class="dropdown menu-image-wrapper" >
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								</button>
+								<ul class="dropdown-menu " style="width:30px;" >
+									<li>
+										<a href="javascript:;">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+											Delete
+										</a>
+									</li>
+														
+								</ul>
+							</div>
+			       	 	</div>
+			       	 					       	 	 	
+		       	 	 </div>
+		       	 	 					
+		       	 	 <div class="image-detail">
+		       	 	 	<p class="des-title">Description</p>
+						{{if sh_img_remark == null || sh_img_remark == ""}}
+							<p class="no-image-des">NO INFORMATION!</p>
+						{{else}}
+							<p class="image-des">{{= cutString(sh_img_remark,60)}}</p>
+						{{/if}}		       	 	 						
+		       	 	 	<p class="posted-date">posted: {{= sh_img_created_date }}</p>
+		       	 	 </div>
+		       	 	 					
+		       	 </div>
+		      </div>		       	 	 			
+		 </div>
+					           	
+   	</script>
     <script>
-   
-       
+
+    var request ={
+  
+		"row" : 16,
+		"sh_img_status": 3,
+		"shop_id" : $("#shop_id").val(),
+		"sh_img_type" : 3
+	
+   	}; 
+    var folder = "shopimages/small/";
+
+    
     $(window).load(function(){
-   		top.resizeIframe();
-   		window.parent.$(".iframe_hover").hide();
-		window.parent.$("#updateShopframe").show();
+    	top.resizeIframe();		
     });
 
     $(window).on("resize", function() {
@@ -318,29 +342,77 @@
     });
 
     $("ul.ul-menu li").on("click", function(){
-		$("ul.ul-menu li").removeClass("li-select");
-        
+
+        if($(this).hasClass("li-select")){
+			return;
+        }
+		$("ul.ul-menu li").removeClass("li-select");       
 		$(this).addClass("li-select");
+
+		var image_type = $(this).find("input.image_type").val();
+		request["sh_img_type"] = image_type;
+
+		switch(image_type){
+			case "1": 
+				folder = "logo/medium/";
+				break;
+			
+			case "2": 
+				folder ="cover/small/";
+				break;
+			
+			case "3": 
+				folder ="shopimages/small/";
+				break;
+			
+		}
+	
+		loadShopImage();
     });
-     
-	function updateShopField(value , param){
+
+    loadShopImage();
+	function loadShopImage(){
+
+		$("#loading-image").show();
 		$.ajax({
 			type : "POST",
-			url : "/NhameyWebBackEnd/API/ShopRestController/updateShopField",
-			data : {
-				"shopdata" : {
-					"updated_value" : value,
-					"shop_id" : $("#shop_id").val(),
-					"param" : param
-				}
-			},
+			url : $("#base_url").val()+"API/ShopImageRestController/listShopImageByShopId",
+			contentType : "application/json",
+			data :  JSON.stringify({"request_data" : request}),
 			success : function(data){
 				data = JSON.parse(data);
+				
 				console.log(data);
-					
+
+				$("#totol-detail-img").html(data.total_detail);
+				$("#totol-logo-img").html(data.total_logo);
+				$("#totol-cover-img").html(data.total_cover);
+				
+				$("#image_display_result").empty();
+				$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");
+
+				top.resizeIframe();
+
+				$("#loading-image").hide();
+				window.parent.$(".iframe_hover").hide();
+				window.parent.$("#updateShopframe").show();
+				
 			}
-		});
+    	});
 	}
+
+	function getSourceImage(src){
+	
+		return $("#base_url").val()+"uploadimages/"+folder+src;
+	}
+
+
+	function imgError(image) {
+	    image.onerror = "";
+	    image.src = "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg";
+	    return true;
+	}
+	
     </script>
   </body>
 </html>
