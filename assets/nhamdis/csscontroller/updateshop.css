@@ -307,6 +307,9 @@ div.shop-edit-form-wrapper {
 		display: block !important;
 	}
 	
+	.shop-name-text{
+		font-size: 17px !important;
+	}
 	.small-detail-description{
 		display: block !important;
 	}
