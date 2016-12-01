@@ -15,6 +15,7 @@ class ShopImageRestController extends CI_Controller{
 	
 	public function listShopImageByShopId(){
 		
+		
 		$request = json_decode($this->input->raw_input_stream,true);
 		if(!isset($request["request_data"])){
 			$response["response_code"] = "400";
@@ -23,6 +24,9 @@ class ShopImageRestController extends CI_Controller{
 			echo $json;
 			die;
 		}
+		
+		if(!isset($request["row"]) || $request["row"] <= 0) $request["row"] = 16;
+		if(!isset($request["page"]) || $request["page"] <= 0) $request["page"] = 1;
 		
 		$request = $request["request_data"];
 		
@@ -53,11 +57,18 @@ class ShopImageRestController extends CI_Controller{
 		$response["total_logo"] = $logo_count;
 		$response["total_cover"] = $cover_count;
 		$response["total_detail"] = $detail_count;
+		
+		$this->load->helper('calculator');
+		$response["total_cover_page"] = calculatePage($cover_count, $request["row"]);
+		$response["total_logo_page"] = calculatePage($logo_count, $request["row"]);
+		$response["total_detail_page"] = calculatePage($detail_count, $request["row"]);
 		$response["response_data"] = $response_data;
 		
 		$json = json_encode($response, JSON_PRETTY_PRINT);
 		echo $json;
 		
 	}
+	
+	
 	
 }
