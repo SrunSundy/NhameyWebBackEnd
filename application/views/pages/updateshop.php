@@ -995,7 +995,6 @@
 	        		var upsh_photo = document.getElementById('updateShopframe').contentWindow;
 	        		var image_type = upsh_photo.request["sh_img_type"];
 	        		
-	        		upsh_photo.request["page"]++;
 	        		
 	        		if(image_type==3 && upsh_photo.request["page"] <= upsh_photo.total_detail_page){
 	        			upsh_photo.loadShopImage(function(){
