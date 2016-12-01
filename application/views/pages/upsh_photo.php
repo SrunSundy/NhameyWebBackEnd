@@ -196,12 +196,48 @@
 	 	
 	 	div.loading-image{
 	 		position: absolute;
-	 		top: 80px;
+	 		top:0;
+	 		left:0;
 	 		width: 100%;
 	 		height: 100%;
 	 		background: #fff;	
 	 		display: none;
-	 	 	
+	 	 
+	 	}
+	 	
+	 	img.data-loading{
+	 		position: absolute;
+	 		top: 80px;
+	 	}
+	 	
+	 	div.more-loading{
+	 		width: 100%;
+	 		min-height: 50px;	 		
+	 		padding: 5px;
+	 		margin-top: 30px;
+	 	}
+	 	
+	 	div.more-loading-inside, div.no-more-loading-inside{
+	 	
+	 		width: 100%;
+	 		height: 65px;
+	 		display:none;
+	 	}
+	 	
+	 	
+	 	img.loading-more-img,p.loading-more-text{
+	 		display:inline;
+	 	}
+	 	
+	 	p.loading-more-text{
+	 		font-weight: bold;
+	 		font-size: 20px;
+	 		color: #cec9c9;
+	 	}
+	 	
+	 	img.loading-more-img{
+	 		width: 50px;
+	 		height:50px;
 	 	}
 	 </style>
   </head>
@@ -257,18 +293,35 @@
 	       	 	</div>
 	       	 	
 	       	 </div>
-	       	 <div class="tab-body col-lg-12">
+	       	 <div class="tab-body col-lg-12" style="min-height: 500px;position:relative;">
 	       	 	 <div class="row">
 		       	 	 <div class="box-image-wrapper col-lg-12">
 		       	 	 	<div class="row">
 							<div id="image_display_result"></div>
-							<div class="loading-image" align="center" id="loading-image">
-								<img class="data-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-							</div>	 	 		  	 	 		
+								  	 	 		
 		       	 	 	</div>		       	 	 	
 		       	 	 </div>
-	       	 
-	       	 	 </div>	       	 	
+		       	 	 <div class="more-loading">
+		       	 	 	<div class="more-loading-inside" align="center" id="loading-more">		       	 	 		
+			       	 	 	<img class="loading-more-img" src="<?php echo base_url() ?>assets/nhamdis/img/default.gif" />
+				       	 	<p class="loading-more-text">
+								Loading...
+							</p>
+		       	 	 			       	 	 		
+		       	 	 	</div>
+		       	 	 	
+		       	 	 	<div class="no-more-loading-inside" align="center" id="loading-no-record">		       	 	 					       	 	 
+				       	 	<p class="loading-more-text">
+								:'( No Result Found!
+							</p>		       	 	 			       	 	 		
+		       	 	 	</div>
+						
+					 </div> 	 	
+	       	 		 
+	       	 	 </div>
+	       	 	 <div class="loading-image" align="center" id="loading-image">
+					<img class="data-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+				 </div>		       	 	
 	       	 </div>
 	    </div>
 	       	 			
@@ -325,14 +378,17 @@
     var request ={
   
 		"row" : 16,
+		"page": 1,
 		"sh_img_status": 3,
 		"shop_id" : $("#shop_id").val(),
 		"sh_img_type" : 3
 	
    	}; 
     var folder = "shopimages/small/";
-
-    
+	var total_detail_page = 1;
+	var total_cover_page = 1;
+	var total_logo_page = 1;
+  
     $(window).load(function(){
     	top.resizeIframe();		
     });
@@ -350,6 +406,7 @@
 		$(this).addClass("li-select");
 
 		var image_type = $(this).find("input.image_type").val();
+		request["page"] = 1;
 		request["sh_img_type"] = image_type;
 
 		switch(image_type){
@@ -366,43 +423,60 @@
 				break;
 			
 		}
-	
-		loadShopImage();
-    });
-
-    loadShopImage();
-	function loadShopImage(){
 
 		$("#loading-image").show();
+		loadShopImage(function(){
+			$("#loading-image").hide();
+			top.resizeIframe();
+		}, true);
+    });
+
+    loadShopImage(function(){
+    	window.parent.$(".iframe_hover").hide();
+		window.parent.$("#updateShopframe").show();
+		top.resizeIframe();
+    }, true);
+
+	function loadShopImage( callback, isEmpty ){
+
+		$("#loading-more").show();
 		$.ajax({
 			type : "POST",
 			url : $("#base_url").val()+"API/ShopImageRestController/listShopImageByShopId",
 			contentType : "application/json",
 			data :  JSON.stringify({"request_data" : request}),
 			success : function(data){
-				data = JSON.parse(data);
-				
+				data = JSON.parse(data);				
 				console.log(data);
 
 				$("#totol-detail-img").html(data.total_detail);
 				$("#totol-logo-img").html(data.total_logo);
 				$("#totol-cover-img").html(data.total_cover);
-				
-				$("#image_display_result").empty();
-				$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");
 
-				top.resizeIframe();
+				total_detail_page = data.total_detail_page;
+				total_cover_page = data.total_cover_page;
+				total_logo_page = data.total_logo_page;
 
-				$("#loading-image").hide();
-				window.parent.$(".iframe_hover").hide();
-				window.parent.$("#updateShopframe").show();
+				if(isEmpty){
+					$("#image_display_result").empty();
+				}	
+				if(data.response_data!= null && data.response_data.length <= 0){
+					$("#loading-no-record").show();
+				}else{
+					$("#loading-no-record").hide();									
+					$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");									
+				}	
+				if( typeof callback === "function"){
+					callback();
+				}	
 				
+				$("#loading-more").hide();			
+				top.resizeIframe();		
 			}
     	});
 	}
 
-	function getSourceImage(src){
-	
+	function getSourceImage(src){	
 		return $("#base_url").val()+"uploadimages/"+folder+src;
 	}
 
