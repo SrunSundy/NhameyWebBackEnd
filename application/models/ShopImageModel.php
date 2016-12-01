@@ -9,12 +9,13 @@ class ShopImageModel extends CI_Model{
 	
 	public function listShopImageByShopId( $request ){
 		
-		if(!isset($request["row"]) || $request["row"] <= 0) $request["row"] = 16;
-		
 		$status = (int)$request["sh_img_status"];
 		$img_type = (int)$request["sh_img_type"];
 		$shop_id = (int)$request["shop_id"];
 		$limit = (int)$request["row"];
+		$page = (int)$request["page"];
+		
+		$offset = ($limit*$page)-$limit;
 		$params = array();
 		
 		$sql = "SELECT  
@@ -31,8 +32,8 @@ class ShopImageModel extends CI_Model{
 			$sql .= " AND sh_img_status = ? ";
 			array_push($params, $status);
 		}
-		$sql .=" ORDER BY sh_img_dis_order LIMIT ? ";
-		array_push($params, $limit);
+		$sql .=" ORDER BY sh_img_dis_order LIMIT ? OFFSET ?";
+		array_push($params, $limit,$offset);
 		$query = $this->db->query($sql , $params);
 		
 		$response = $query->result();		
