@@ -312,7 +312,7 @@
 		       	 	 	
 		       	 	 	<div class="no-more-loading-inside" align="center" id="loading-no-record">		       	 	 					       	 	 
 				       	 	<p class="loading-more-text">
-								:'( No Result Found!
+								:'( <span style="padding-left:10px;">No Result Found!</span>
 							</p>		       	 	 			       	 	 		
 		       	 	 	</div>
 						
@@ -464,7 +464,8 @@
 					$("#loading-no-record").show();
 				}else{
 					$("#loading-no-record").hide();									
-					$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");									
+					$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");		
+					request["page"]++;
 				}	
 				if( typeof callback === "function"){
 					callback();
