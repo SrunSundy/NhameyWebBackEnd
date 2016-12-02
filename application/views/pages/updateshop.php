@@ -125,7 +125,7 @@
 												<a href="javascript:;">Location</a>
 											</li>
 										    </ul>
-										  </div>
+										</div>
 	       	 						</div>
 	       	 					</div>
 	       	 					
@@ -998,14 +998,15 @@
 	        		
 	        		if(image_type==3 && upsh_photo.request["page"] <= upsh_photo.total_detail_page){
 	        			upsh_photo.loadShopImage(function(){
+		        			        					
 	        				top.resizeIframe();
 		        		});
 		        	}else if(image_type==2 && upsh_photo.request["page"] <= upsh_photo.total_cover_page){			        	
-		        		upsh_photo.loadShopImage(function(){
+		        		upsh_photo.loadShopImage(function(){		        			
 		        			top.resizeIframe();
 			        	});
 			        }else if(image_type==1 && upsh_photo.request["page"] <= upsh_photo.total_logo_page){
-			        	upsh_photo.loadShopImage(function(){
+			        	upsh_photo.loadShopImage(function(){			        		
 			        		top.resizeIframe();
 				        });
 				    }

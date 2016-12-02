@@ -29,7 +29,7 @@
 	 	ul.ul-menu li {
 	 		list-style: none;
 	 		display: inline;
-	 		min-width: 80px;
+	 		min-width: 60px;
 	 		float: left;
 	 		height: 30px;
 	 		cursor: pointer;
@@ -41,9 +41,15 @@
 	 		color: #7c3535;
 	 	}
 	 	
-	 	ul.ul-menu li a{
+	 	div.menu-header-bar ul.ul-menu li a{
 	 		padding-left: 20px;
 	 		padding-right: 20px;	 		
+	 		position: relative;
+	 	}
+	 	
+	 	div.menu-header-bar-small ul.ul-menu li a{
+	 		padding-left: 7px;
+	 		padding-right: 7px;		
 	 		position: relative;
 	 	}
 	 	
@@ -78,6 +84,18 @@
 	 		font-weight: bold;
 	 	}
 	 	
+	 	span.photo-num-small{
+	 		color: #9E9E9E;
+	 		padding-left: 5px;
+	 		font-size: 10px;
+	 	}
+	 	
+	 	span.photo-type-small{
+	 		color: #760707;
+	 		font-size: 10px;
+	 		font-weight: bold;
+	 	}
+	 	
 	 	button.add-more-img{
 	 		border-radius: 0; 
 	 		margin-top: 10px;
@@ -98,6 +116,17 @@
 	 		cursor: pointer;
 	 		position: relative;
 	 	}
+	 	
+	 	div.shop-image-front-show-box{
+	 		height: 10%;
+	 		width: 10%;
+	 		position: absolute;
+	 		top:10px;
+	 		right: 10px;
+	 		
+	 	}
+	 	
+	 	
 	 	
 	 	div.box-image:hover div.box-gradient{
 	 		height: 80px;
@@ -181,7 +210,7 @@
 	 		color: #BDBDBD;
 	 		font-style: italic;
 	 		padding: 0 5px 0 5px ;
-	 		font-size: 5px;
+	 		font-size: 12px;
 	 		text-shadow: 1px 1px #212121;
 	 		margin: 0;
 	 	}
@@ -239,6 +268,24 @@
 	 		width: 50px;
 	 		height:50px;
 	 	}
+	 	
+	 	div.menu-header-bar-small{
+	 		position:relative;
+	 	}
+	 	
+	 	span.check-box-text {
+	 		
+	 	}
+	 	
+	 	@media screen and (max-width: 768px) {
+			div.menu-header-bar{
+				display: none;
+			}
+			
+			div.menu-header-bar-small{
+				display: block !important;
+			}
+		}
 	 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -261,35 +308,81 @@
 	       	 		</div>
 	       	 	</div>
 	       	 	
-	       	 	<div class="menu-header-bar col-lg-12">
+	       	 	<div class="menu-header-bar col-lg-7 col-sm-7">
 	       	 		<div class="row">
 	       	 			<div class="row">
 	       	 				<ul class="ul-menu">
-	       	 					<li class="li-select">
+	       	 					<li class="item li-select">
 	       	 						<a href="javascript:;">
 	       	 							<input type="hidden" class="image_type" value="3" />
 	       	 							<span class="photo-type">Detail</span> 
 	       	 							<span class="photo-num" id="totol-detail-img"></span>
 	       	 						</a>
 	       	 					</li>	       	 					
-	       	 					<li >
+	       	 					<li class="item">
 	       	 						<a href="javascript:;">
 	       	 							<input type="hidden" class="image_type" value="1" />
 	       	 							<span class="photo-type">Logo</span> 
 	       	 							<span class="photo-num" id="totol-logo-img"></span>
 	       	 						</a>
 	       	 					</li>	       	 					
-	       	 					<li >
+	       	 					<li class="item">
 	       	 						<a href="javascript:;">
 	       	 							<input type="hidden" class="image_type" value="2" />
 	       	 							<span class="photo-type on-select">Cover</span> 
 	       	 							<span class="photo-num" id="totol-cover-img"></span>
 	       	 						</a>
-	       	 					</li>
-	       	 					
+	       	 					</li>	       	 					
 	       	 				</ul>
+	       	 				
+	       	 			
 	       	 			</div>
 	       	 		</div>
+	       	 	</div>
+	       	 	
+	       	 	<div class="col-lg-5 col-sm-5">
+	       	 		<div class="row">
+	       	 			<div class="form-group" style="margin:0 0 7px 0">		                   
+			                 <div class="input-group">
+				                  
+				                  <input type="text" class="form-control pull-right" placeholder="search by date range" id="createddate" >
+				                  <div class="input-group-addon btn" id="search-img-btn">
+				                      <i class="fa fa-search" aria-hidden="true"></i>
+				                  </div>
+			                 </div><!-- /.input group -->
+			            </div><!-- /.form group -->
+	       	 		</div>
+	       	 	</div>
+	       	 	
+	       	 	<div style="clear:both;"></div>
+	       	 	
+	       	 	<div class="col-lg-12 menu-header-bar-small" style="min-height: 30px;display:none;">
+	       	 		<div class="row">
+		       	 		<ul class="ul-menu">
+	       	 					<li class="item-small li-select">
+	       	 						<a href="javascript:;">
+	       	 							<input type="hidden" class="image_type" value="3" />
+	       	 							<span class="photo-type-small">Detail</span> 
+	       	 							<span class="photo-num-small" id="totol-detail-img-small"></span>
+	       	 						</a>
+	       	 					</li>	       	 					
+	       	 					<li class="item-small">
+	       	 						<a href="javascript:;">
+	       	 							<input type="hidden" class="image_type" value="1" />
+	       	 							<span class="photo-type-small">Logo</span> 
+	       	 							<span class="photo-num-small" id="totol-logo-img-small"></span>
+	       	 						</a>
+	       	 					</li>	       	 					
+	       	 					<li class="item-small">
+	       	 						<a href="javascript:;">
+	       	 							<input type="hidden" class="image_type" value="2" />
+	       	 							<span class="photo-type-small on-select">Cover</span> 
+	       	 							<span class="photo-num-small" id="totol-cover-img-small"></span>
+	       	 						</a>
+	       	 					</li>	       	 					
+	       	 			</ul> 
+	       	 		</div>
+					     	 		
 	       	 	</div>
 	       	 	
 	       	 </div>
@@ -331,26 +424,54 @@
     <?php include 'imports/scriptimport.php'; ?>
    <script id="image_data_result" type="text/x-jQuery-tmpl">
 		<div class="box-image col-lg-2 col-sm-3 col-xs-6">
-			 <input type="hidden" class="shop_id" value="{{= shop_id }}"/>
+			 
 		     <div class="row">
+				 <div class="shop-image-front-show-box" >
+					{{if sh_img_is_front_show == 1 }}	
+ 						<img src="https://www.cvdequipment.com/wp-content/uploads/2016/06/check-mark.png" style="width: 20px;height:20px;" />
+					{{/if}}		
+				 </div>
 				 <div class="image-wrapper">
 					<img class="image-inside" src="{{= getSourceImage(sh_img_name) }}"  onerror="imgError(this);"/>
 				 </div>		       	 
 		       	 <div class="box-gradient"></div>
 		       	 <div class="box-image-detail">
 		       	 	 <div class="image-event">
+					   
 		       	 	 	<div class="menu-arrow">			       	 				
 			       	 		<div class="dropdown menu-image-wrapper" >
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
 									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 								</button>
-								<ul class="dropdown-menu " style="width:30px;" >
+								<ul class="dropdown-menu image-event-list" style="width:30px;" >
+									
+								
+									<li>
+										<a href="javascript:;">	
+											<input type="hidden" class="sh_img_id" value="{{= sh_img_id}}"/>	
+											{{if sh_img_is_front_show == 1 }}																					
+												<i class="fa fa-times-circle" aria-hidden="true"></i>
+												<span class="check-box-text" >Uncheck</span>
+											{{else}}																							
+												<i class="fa fa-check-circle" aria-hidden="true"></i>
+												<span class="check-box-text" >Check</span>
+											{{/if}}											
+										</a>
+									</li>
+								
+									<li>
+										<a href="javascript:;">
+											<i class="fa fa-ban" aria-hidden="true"></i>
+											Disable
+										</a>
+									</li>
 									<li>
 										<a href="javascript:;">
 											<i class="fa fa-trash" aria-hidden="true"></i>
 											Delete
 										</a>
 									</li>
+									
 														
 								</ul>
 							</div>
@@ -381,15 +502,21 @@
 		"page": 1,
 		"sh_img_status": 3,
 		"shop_id" : $("#shop_id").val(),
-		"sh_img_type" : 3
+		"sh_img_type" : 3,
+		"start_date_srch": "",
+		"end_date_srch": ""
 	
    	}; 
     var folder = "shopimages/small/";
 	var total_detail_page = 1;
 	var total_cover_page = 1;
 	var total_logo_page = 1;
+
+	var start_date_srch;
+	var end_date_srch;
   
     $(window).load(function(){
+    	top.$(window).scrollTop(0);
     	top.resizeIframe();		
     });
 
@@ -397,13 +524,18 @@
     	top.resizeIframe();
     });
 
-    $("ul.ul-menu li").on("click", function(){
+    $("ul.ul-menu li.item-small,ul.ul-menu li.item").on("click", function(){
 
+    	
         if($(this).hasClass("li-select")){
 			return;
         }
-		$("ul.ul-menu li").removeClass("li-select");       
-		$(this).addClass("li-select");
+
+        $("ul.ul-menu li.item").removeClass("li-select");
+		$("ul.ul-menu li.item-small").removeClass("li-select");
+		
+		$("ul.ul-menu li.item").eq($(this).index()).addClass("li-select");
+		$("ul.ul-menu li.item-small").eq($(this).index()).addClass("li-select");
 
 		var image_type = $(this).find("input.image_type").val();
 		request["page"] = 1;
@@ -431,6 +563,73 @@
 		}, true);
     });
 
+    $(document).on("click", "ul.image-event-list li:first-child", function(){
+        
+    	
+        var obj = this;
+      	var updaterequest = {
+			"param" : "sh_img_is_front_show",
+			"updated_value" : $(this).find("i").hasClass("fa-times-circle") ? 0 : 1 ,
+			"sh_img_id" : $(this).find("input.sh_img_id").val()
+		};
+
+		console.log(updaterequest);
+    	$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/ShopImageRestController/updateShopImageIsFontShow",
+			contentType : "application/json",
+			data :  JSON.stringify({"request_data" : updaterequest
+			}),
+			success : function(data){
+				data = JSON.parse(data);				
+				console.log(data);
+				if(data.is_updated){
+					
+					if($(obj).find("i").hasClass("fa-times-circle")){
+			     		$(obj).find("i").removeClass("fa-times-circle");
+			     		$(obj).find("i").addClass("fa-check-circle");
+			     		$(obj).find("span.check-box-text").html("Check");
+			     		$(obj).parents("div.box-image").find("div.shop-image-front-show-box").children().remove();
+			        }else{
+			        	$(obj).find("i").removeClass("fa-check-circle");
+			     		$(obj).find("i").addClass("fa-times-circle");
+			     		$(obj).find("span.check-box-text").html("Uncheck");
+			     		$(obj).parents("div.box-image").find("div.shop-image-front-show-box").append('<img src="https://www.cvdequipment.com/wp-content/uploads/2016/06/check-mark.png" style="width: 20px;height:20px;" />');
+			        }
+				}			
+			}
+    	});
+     	
+    });
+
+    $('#createddate').daterangepicker({      
+        timePicker: false,
+        buttonClasses: ['btn btn-default'],
+        applyClass: 'btn-small btn-danger',
+        cancelClass: 'btn-small',
+        format: 'YYYY/MM/DD'
+       
+        
+   		}, function(start, end) {
+		   start_date_srch = start.format('YYYY-MM-DD');
+		   end_date_srch = end.format('YYYY-MM-DD');
+   });
+
+    $("#search-img-btn").on("click", function(){
+    	request["page"] = 1;
+    	request["start_date_srch"] = start_date_srch;
+		request["end_date_srch"] = end_date_srch;
+       	if($('#createddate').val().trim() == ""){
+       		request["start_date_srch"] = "";
+       		request["end_date_srch"] = "";
+        }
+       	$("#loading-image").show();
+		loadShopImage(function(){
+			$("#loading-image").hide();
+			top.resizeIframe();
+		}, true);
+    });
+
     loadShopImage(function(){
     	window.parent.$(".iframe_hover").hide();
 		window.parent.$("#updateShopframe").show();
@@ -439,6 +638,7 @@
 
 	function loadShopImage( callback, isEmpty ){
 
+		console.log(request);
 		$("#loading-more").show();
 		$.ajax({
 			type : "POST",
@@ -448,10 +648,13 @@
 			success : function(data){
 				data = JSON.parse(data);				
 				console.log(data);
-
 				$("#totol-detail-img").html(data.total_detail);
 				$("#totol-logo-img").html(data.total_logo);
 				$("#totol-cover-img").html(data.total_cover);
+
+				$("#totol-detail-img-small").html(data.total_detail);
+				$("#totol-logo-img-small").html(data.total_logo);
+				$("#totol-cover-img-small").html(data.total_cover);
 
 				total_detail_page = data.total_detail_page;
 				total_cover_page = data.total_cover_page;
@@ -464,15 +667,15 @@
 					$("#loading-no-record").show();
 				}else{
 					$("#loading-no-record").hide();									
-					$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");		
-					request["page"]++;
-				}	
+					$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");							
+				}
+				request["page"]++;	
 				if( typeof callback === "function"){
 					callback();
 				}	
 				
 				$("#loading-more").hide();			
-				top.resizeIframe();		
+				setTimeout(function(){top.resizeIframe();}, 100);
 			}
     	});
 	}
@@ -480,7 +683,6 @@
 	function getSourceImage(src){	
 		return $("#base_url").val()+"uploadimages/"+folder+src;
 	}
-
 
 	function imgError(image) {
 	    image.onerror = "";
