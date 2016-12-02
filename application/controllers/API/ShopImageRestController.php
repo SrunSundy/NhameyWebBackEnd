@@ -42,6 +42,8 @@ class ShopImageRestController extends CI_Controller{
 			
 			$request_count["sh_img_status"] = $status;
 			$request_count["shop_id"] = $shop_id;
+			$request_count["start_date_srch"] = $request["start_date_srch"];
+			$request_count["end_date_srch"] = $request["end_date_srch"];
 				
 			$this->load->helper('ImageType');
 			$request_count["sh_img_type"] = ImageType::Logo;
@@ -67,6 +69,21 @@ class ShopImageRestController extends CI_Controller{
 		$json = json_encode($response, JSON_PRETTY_PRINT);
 		echo $json;
 		
+	}
+	
+	public function updateShopImageIsFontShow(){
+		
+		$request = json_decode($this->input->raw_input_stream,true);
+		if(!isset($request["request_data"])){
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+		}
+			
+		$response = $this->ShopImageModel->updateShopImageField($request["request_data"]);	
+		echo json_encode($response);
 	}
 	
 	

@@ -747,7 +747,7 @@ class ShopModel extends CI_Model{
 		$sql = "UPDATE nham_shop SET shop_opening_time = ?, shop_close_time = ? WHERE shop_id = ?";
 		$query = $this->db->query($sql , $updatedata);
 		
-		if($this->db->affected_rows() >=0){
+		if($this->db->affected_rows() >0){
 			$response["is_updated"] = true;
 			$response["message"] = "update successfully!";
 		}else{
