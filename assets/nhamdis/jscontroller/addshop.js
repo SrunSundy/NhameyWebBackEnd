@@ -873,10 +873,12 @@ function getImageNameAndDetail(){
 	
 	var imglng = $(".file-preview-frame").length;
 	for(var i=0; i<imglng ; i++){		
-		arrshopimagedetail.push({
-			"sh_img_name" : $(".file-preview-frame").eq(i).find("input.img-new-name").val(),
-			"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
-		});		
+		if($(".file-preview-frame").eq(i).find("div.file-input-err-message").length <= 0){
+			arrshopimagedetail.push({
+				"sh_img_name" : $(".file-preview-frame").eq(i).find("input.img-new-name").val(),
+				"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
+			});		
+		}	
 	} 	
 	return arrshopimagedetail;
 	
