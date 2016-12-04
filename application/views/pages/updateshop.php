@@ -995,21 +995,23 @@
 	        		var upsh_photo = document.getElementById('updateShopframe').contentWindow;
 	        		var image_type = upsh_photo.request["sh_img_type"];
 	        		
+	        		if(upsh_photo.request["page"] > 1 && !upsh_photo.is_loading){
+	        			if(image_type==3 && upsh_photo.request["page"] <= upsh_photo.total_detail_page){
+		        			upsh_photo.loadShopImage(function(){
+			        			        					
+		        				top.resizeIframe();
+			        		});
+			        	}else if(image_type==2 && upsh_photo.request["page"] <= upsh_photo.total_cover_page){			        	
+			        		upsh_photo.loadShopImage(function(){		        			
+			        			top.resizeIframe();
+				        	});
+				        }else if(image_type==1 && upsh_photo.request["page"] <= upsh_photo.total_logo_page){
+				        	upsh_photo.loadShopImage(function(){			        		
+				        		top.resizeIframe();
+					        });
+					    }
+		        	}
 	        		
-	        		if(image_type==3 && upsh_photo.request["page"] <= upsh_photo.total_detail_page){
-	        			upsh_photo.loadShopImage(function(){
-		        			        					
-	        				top.resizeIframe();
-		        		});
-		        	}else if(image_type==2 && upsh_photo.request["page"] <= upsh_photo.total_cover_page){			        	
-		        		upsh_photo.loadShopImage(function(){		        			
-		        			top.resizeIframe();
-			        	});
-			        }else if(image_type==1 && upsh_photo.request["page"] <= upsh_photo.total_logo_page){
-			        	upsh_photo.loadShopImage(function(){			        		
-			        		top.resizeIframe();
-				        });
-				    }
 	        		
 	        	}
 	        	

@@ -432,7 +432,7 @@
 					{{/if}}		
 				 </div>
 				 <div class="image-wrapper">
-					<img class="image-inside" src="{{= getSourceImage(sh_img_name) }}"  onerror="imgError(this);"/>
+					<img class="image-inside" src="{{= getSourceImage(sh_img_name) }}" />
 				 </div>		       	 
 		       	 <div class="box-gradient"></div>
 		       	 <div class="box-image-detail">
@@ -446,6 +446,7 @@
 								<ul class="dropdown-menu image-event-list" style="width:30px;" >
 									
 								
+								{{if sh_img_type == 3 }}
 									<li>
 										<a href="javascript:;">	
 											<input type="hidden" class="sh_img_id" value="{{= sh_img_id}}"/>	
@@ -458,7 +459,7 @@
 											{{/if}}											
 										</a>
 									</li>
-								
+								{{/if}}
 									<li>
 										<a href="javascript:;">
 											<i class="fa fa-ban" aria-hidden="true"></i>
@@ -514,6 +515,8 @@
 
 	var start_date_srch;
 	var end_date_srch;
+
+	var is_loading = false;
   
     $(window).load(function(){
     	top.$(window).scrollTop(0);
@@ -637,7 +640,7 @@
     }, true);
 
 	function loadShopImage( callback, isEmpty ){
-
+		is_loading = true;
 		console.log(request);
 		$("#loading-more").show();
 		$.ajax({
@@ -676,6 +679,7 @@
 				
 				$("#loading-more").hide();			
 				setTimeout(function(){top.resizeIframe();}, 100);
+				is_loading = false;
 			}
     	});
 	}
