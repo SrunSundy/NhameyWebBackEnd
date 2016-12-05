@@ -81,9 +81,91 @@ class ShopImageRestController extends CI_Controller{
 			echo $json;
 			die;
 		}
-			
+		if(!isset($request["request_data"]["shop_id"]) || $request["request_data"]["shop_id"] == ""){
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+		}			
 		$response = $this->ShopImageModel->updateShopImageField($request["request_data"]);	
+		
+		if($response["is_updated"]){	
+			$this->load->model('ShopModel');
+			
+			$shopdata["shop_id"] = $request["request_data"]["shop_id"];
+			$shopdata["param"] = "shop_has_detail_img";
+						
+			if($this->ShopImageModel->checkIfFrontShow($request["request_data"]) >= 1){
+				$shopdata["updated_value"] = 1;
+				$this->ShopModel->updateShopField($shopdata);
+			}else{
+				$shopdata["updated_value"] = 0;
+				$this->ShopModel->updateShopField($shopdata);
+			}
+		}
 		echo json_encode($response);
+	}
+	
+	public function updateShopImageField(){
+		
+		$request = json_decode($this->input->raw_input_stream,true);
+		if(!isset($request["request_data"])){
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+		}
+		$response = $this->ShopImageModel->updateShopImageField($request["request_data"]);
+		echo json_encode($response);
+	}
+	
+	public function deleteShopImage(){
+		
+		$request = json_decode($this->input->raw_input_stream,true);
+		if(!isset($request["request_data"])){
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+		}
+		
+		$response = array();
+		$image_type = (int)$request["request_data"]["image_type"];
+		
+		$this->load->helper('ImageType');
+		if($image_type == ImageType::Logo || $image_type == ImageType::Cover){
+			$this->load->model('ShopModel');
+			$coverlogo = $this->ShopModel->getCurrentLogoAndCover($request["request_data"]["shop_id"]);
+			
+			$cover = $coverlogo[0]->shop_logo;
+			$logo = $coverlogo[0]->shop_cover;
+			
+			if(trim($cover) == trim($request["request_data"]["image_name"]) || 
+					trim($logo) == trim($request["request_data"]["image_name"]) ){
+				$response["is_deleted"] = false;
+				$textimg = "";
+				if($image_type ==  ImageType::Logo) $textimg = "logo";
+				if( $image_type == ImageType::Cover) $textimg = "cover";
+				$response["message"] = "This photo is currently used as shop's $textimg!";
+				$json = json_encode($response, JSON_PRETTY_PRINT);
+				echo $json;
+				die;
+			}
+			
+		}
+		
+		if($this->ShopImageModel->deleteShopImage($request["request_data"]["sh_img_id"])){
+			$response["is_deleted"] = true;
+			$response["message"] = "Delete successfully!";
+		}else{
+			$response["is_deleted"] = false;
+			$response["message"] = "Delete fail!";
+		}
+		echo json_encode($response);
+		
 	}
 	
 	

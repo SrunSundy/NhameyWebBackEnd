@@ -883,6 +883,16 @@ class ShopModel extends CI_Model{
 		return $response;
 	}
 	
+	public function getCurrentLogoAndCover( $shopid ){
+		
+		$sql = "SELECT shop_logo, shop_cover from nham_shop WHERE shop_id = ?";
+		
+		$query = $this->db->query($sql , $shopid);
+		$response = $query->result();
+	
+		return $response;
+	}
+	
 	public function updateShopImage( $shopdata ){
 		
 		$this->db->trans_begin();

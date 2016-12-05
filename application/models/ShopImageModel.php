@@ -24,7 +24,8 @@ class ShopImageModel extends CI_Model{
 					sh_img_remark,
 					sh_img_created_date,
 					sh_img_is_front_show,
-					sh_img_type
+					sh_img_type,
+					sh_img_status
 				FROM nham_shop_image
 				WHERE sh_img_type = ?
 				AND shop_id = ? ";
@@ -41,8 +42,8 @@ class ShopImageModel extends CI_Model{
 			
 			$sql .=" AND sh_img_created_date BETWEEN ? AND ? ";
 			
-			$request["start_date_srch"] = date('Y-m-d', strtotime($request["start_date_srch"]));
-			$request["end_date_srch"] = date('Y-m-d', strtotime($request["end_date_srch"]));
+			$request["start_date_srch"] = date('Y-m-d H:i:s', strtotime($request["start_date_srch"]." 00:00:00"));
+			$request["end_date_srch"] = date('Y-m-d H:i:s', strtotime($request["end_date_srch"]." 23:59:59"));
 			array_push($params, $request["start_date_srch"], $request["end_date_srch"]);
 		}
 		
@@ -79,8 +80,8 @@ class ShopImageModel extends CI_Model{
 				
 			$sql .=" AND sh_img_created_date BETWEEN ? AND ? ";
 				
-			$request["start_date_srch"] = date('Y-m-d', strtotime($request["start_date_srch"]));
-			$request["end_date_srch"] = date('Y-m-d', strtotime($request["end_date_srch"]));
+			$request["start_date_srch"] = date('Y-m-d H:i:s', strtotime($request["start_date_srch"]." 00:00:00"));
+			$request["end_date_srch"] = date('Y-m-d H:i:s', strtotime($request["end_date_srch"]." 23:59:59"));
 			array_push($params, $request["start_date_srch"], $request["end_date_srch"]);
 		}
 		
@@ -111,6 +112,7 @@ class ShopImageModel extends CI_Model{
 			return $response;
 		}
 		
+		
 		$param = $request["param"];
 		$value = $request["updated_value"];
 		$sh_img_id = $request["sh_img_id"];
@@ -140,6 +142,7 @@ class ShopImageModel extends CI_Model{
 			$sql .=" AND sh_img_type = ?";
 			$this->load->helper('ImageType');
 			array_push($input_params, ImageType::Detail);
+			
 		}
 		$this->db->query($sql , $input_params);
 		$affected_row = $this->db->affected_rows();
@@ -162,6 +165,33 @@ class ShopImageModel extends CI_Model{
 			}
 		}
 		return $response;
+	}
+	
+	public function checkIfFrontShow( $request ){
+		
+		$sql = "SELECT count(*) as count_font_show FROM nham_shop_image
+					WHERE sh_img_status = 1
+					AND sh_img_is_front_show = 1
+					AND shop_id = ?";
+		$query = $this->db->query($sql , $request["shop_id"]);
+		$response = $query->row();
+		
+		return (int)$response->count_font_show;
+		
+	}
+	
+	public function deleteShopImage( $shopimageid ){
+				
+		$sql = "DELETE FROM nham_shop_image WHERE sh_img_id = ? ";
+		$this->db->query($sql , $shopimageid);
+		$affected_row = $this->db->affected_rows();
+
+		if($affected_row >0){
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	

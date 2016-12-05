@@ -143,6 +143,8 @@
 	 		 box-shadow: 1px 1px 2px #888888;
 	 	}
 	 	
+	 	
+	 	
 	 	div.image-wrapper{
 	 		 
 	 		padding:5px 5px 0 0;
@@ -286,6 +288,52 @@
 				display: block !important;
 			}
 		}
+		
+		div.loading-event-box{
+			width: 100%;
+			height: 100%;
+			background: #fff;
+			opacity: 0.4;
+			position:absolute;
+			top: 0;
+			left: 0;
+			z-index: 95;
+			
+		}
+		
+		img.loading-img-in{
+			margin: auto;
+		    position: absolute;
+		    top: 0; left: 0; bottom: 0; right: 0;
+		    z-index:96;
+		   
+		}
+		div.loading-wrapper{
+			display: none;
+		}
+		
+		div.disabled-image-box{
+			
+			width: 98%;
+			height: 100%;
+			background: black;
+			opacity: 0.8;
+			position: absolute;
+			top: 0;
+			left: 0;
+			
+			
+		}
+		
+		div.disabled-image-box p{
+			color:#fff;
+			font-size: 20px;
+			font-weight: bold;
+			text-align: center;
+		    position: absolute;
+		    top: 30%;
+		    
+		}
 	 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -424,15 +472,26 @@
     <?php include 'imports/scriptimport.php'; ?>
    <script id="image_data_result" type="text/x-jQuery-tmpl">
 		<div class="box-image col-lg-2 col-sm-3 col-xs-6">
-			 
+			 <input type="hidden" class="shop_image_name" value="{{= sh_img_name }}" />
 		     <div class="row">
+				 <div class="loading-wrapper">
+					<div class="loading-event-box"></div>
+					<div class="loading-event-img">
+						<img src="{{= getSourceLoadingImg()}}"  class="loading-img-in" style="width: 20px;height:20px;"/>
+				 	</div>
+				 </div>
+				 				
+				 <div class="disabled-image-box" style="display:{{if sh_img_status == 0}}block{{else}}none{{/if}}">
+					<p>This image has been disabled!</p>
+				 </div>
+				 			
 				 <div class="shop-image-front-show-box" >
 					{{if sh_img_is_front_show == 1 }}	
  						<img src="https://www.cvdequipment.com/wp-content/uploads/2016/06/check-mark.png" style="width: 20px;height:20px;" />
 					{{/if}}		
 				 </div>
 				 <div class="image-wrapper">
-					<img class="image-inside" src="{{= getSourceImage(sh_img_name) }}" />
+					<img class="image-inside" src="{{= getSourceImage(sh_img_name) }}" onerror = "imgError(this)" />
 				 </div>		       	 
 		       	 <div class="box-gradient"></div>
 		       	 <div class="box-image-detail">
@@ -447,7 +506,7 @@
 									
 								
 								{{if sh_img_type == 3 }}
-									<li>
+									<li class="event-front-show">
 										<a href="javascript:;">	
 											<input type="hidden" class="sh_img_id" value="{{= sh_img_id}}"/>	
 											{{if sh_img_is_front_show == 1 }}																					
@@ -460,13 +519,20 @@
 										</a>
 									</li>
 								{{/if}}
-									<li>
+									<li class="event-status">
 										<a href="javascript:;">
-											<i class="fa fa-ban" aria-hidden="true"></i>
-											Disable
+											<input type="hidden" class="sh_img_id" value="{{= sh_img_id}}"/>	
+											{{if sh_img_status == 1}}
+												<i class="fa fa-ban" aria-hidden="true"></i>
+												<span class="check-box-text" >Disable</span>
+											{{else}}
+												<i class="fa fa-circle-o" aria-hidden="true"></i>
+												<span class="check-box-text" >Enable</span>
+											{{/if}}
 										</a>
 									</li>
-									<li>
+									<li class="event-delete">
+										<input type="hidden" class="sh_img_id" value="{{= sh_img_id}}"/>
 										<a href="javascript:;">
 											<i class="fa fa-trash" aria-hidden="true"></i>
 											Delete
@@ -555,8 +621,7 @@
 			
 			case "3": 
 				folder ="shopimages/small/";
-				break;
-			
+				break;			
 		}
 
 		$("#loading-image").show();
@@ -566,14 +631,15 @@
 		}, true);
     });
 
-    $(document).on("click", "ul.image-event-list li:first-child", function(){
+    $(document).on("click", "ul.image-event-list li.event-front-show", function(){
         
-    	
+    	$(this).parents("div.box-image").find("div.loading-wrapper").show();
         var obj = this;
       	var updaterequest = {
 			"param" : "sh_img_is_front_show",
 			"updated_value" : $(this).find("i").hasClass("fa-times-circle") ? 0 : 1 ,
-			"sh_img_id" : $(this).find("input.sh_img_id").val()
+			"sh_img_id" : $(this).find("input.sh_img_id").val(),
+			"shop_id" : $("#shop_id").val()
 		};
 
 		console.log(updaterequest);
@@ -598,12 +664,176 @@
 			     		$(obj).find("i").addClass("fa-times-circle");
 			     		$(obj).find("span.check-box-text").html("Uncheck");
 			     		$(obj).parents("div.box-image").find("div.shop-image-front-show-box").append('<img src="https://www.cvdequipment.com/wp-content/uploads/2016/06/check-mark.png" style="width: 20px;height:20px;" />');
-			        }
-				}			
+			        }										
+				}	
+				$(obj).parents("div.box-image").find("div.loading-wrapper").hide();		
 			}
     	});
      	
     });
+
+    $(document).on("click", "ul.image-event-list li.event-status", function(){
+    	var obj = this;
+
+    	if($(obj).find("i").hasClass("fa-ban")){
+    		top.swal({
+  			  title: "Are you sure?",
+  			  text: "The client will not be able to see this image",
+  			  type: "warning",
+  			  showCancelButton: true,
+  			  confirmButtonColor: "#DD6B55",
+  			  confirmButtonText: "Yes",
+  			  closeOnConfirm: false
+	  		},
+	  		 function(isConfirm) {
+	  	        if (isConfirm) {	
+	  	        	updateShopImageStatus(obj);	      			 
+	  	        }
+	  	    });
+        }else{
+        	updateShopImageStatus(obj);
+        }  	
+    });
+
+    function updateShopImageStatus( obj , callback ){
+        
+    	$(obj).parents("div.box-image").find("div.loading-wrapper").show();
+    	var updaterequest = {
+        		"param" : "sh_img_status",
+        		"updated_value" : $(obj).find("i").hasClass("fa-ban") ? 0 : 1 ,
+        		"sh_img_id" : $(obj).find("input.sh_img_id").val()
+        };
+    	console.log(updaterequest);
+    	$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/ShopImageRestController/updateShopImageField",
+			contentType : "application/json",
+			data :  JSON.stringify({"request_data" : updaterequest
+			}),
+			success : function(data){
+				data = JSON.parse(data);				
+				console.log(data);
+				if(data.is_updated){
+					
+					if($(obj).find("i").hasClass("fa-ban")){
+			     		$(obj).find("i").removeClass("fa-ban");
+			     		$(obj).find("i").addClass("fa-circle-o");
+			     		$(obj).find("span.check-box-text").html("Enable");
+			     		$(obj).parents("div.box-image").find("div.disabled-image-box").show();
+			     		//top.swal("Shop is updated!", "The client will not be able to view this image", "success"); 
+			        }else{
+			        	$(obj).find("i").removeClass("fa-circle-o");
+			     		$(obj).find("i").addClass("fa-ban");
+			     		$(obj).find("span.check-box-text").html("Disable");
+			     		$(obj).parents("div.box-image").find("div.disabled-image-box").hide();
+			        }									
+				}else{
+					top.swal("Update fail!", "", "error"); 
+				}
+				$(obj).parents("div.box-image").find("div.loading-wrapper").hide();	 
+			}
+    	});		
+    }
+
+    $(document).on("click", "ul.image-event-list li.event-delete", function(){
+
+    	var obj = this;
+    	var image_name_remove = $(obj).parents("div.box-image").find("input.shop_image_name").val();
+    	
+    	if(request["sh_img_type"] == 1 || request["sh_img_type"] == 2){
+    		var current_cover_name = $("#cover-image-display-hidden", window.parent.document).val();
+        	var current_logo_name = $("#logo-image-display-hidden", window.parent.document).val();
+        
+        	var textimg = "";
+        	if(request["sh_img_type"] == 1) textimg ="logo";
+        	if(request["sh_img_type"] == 2) textimg ="cover";
+        	
+        	if(current_cover_name.trim() == image_name_remove || current_logo_name == image_name_remove){
+        		top.swal("Delete fail!", "This photo is currently used as shop's "+textimg, "error"); 
+        		return;
+            }        	      	
+        }
+            	   
+    	top.swal({
+			  title: "Are you sure?",
+			  text: "The client will not be able to see this image",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "Yes",
+			  closeOnConfirm: false
+	  	},
+	  	function(isConfirm) {
+	  	    if (isConfirm) {
+	  	    	$(obj).parents("div.box-image").find("div.loading-wrapper").show();	
+	  	    	var deleterequest = {
+					"shop_id" :  $("#shop_id").val(),
+					"sh_img_id" : $(obj).find("input.sh_img_id").val(),
+					"image_type" : request["sh_img_type"],
+					"image_name" : image_name_remove
+	  		  	};
+
+	  		  	console.log(deleterequest);
+	  	    	$.ajax({
+	  				type : "POST",
+	  				url : $("#base_url").val()+"API/ShopImageRestController/deleteShopImage",
+	  				contentType : "application/json",
+	  				data :  JSON.stringify({"request_data" : deleterequest}), 
+	  				success : function(data){
+	  					data = JSON.parse(data);				
+	  					console.log(data);
+	  					if(data.is_deleted){
+	  						
+	  						var imagename = $(obj).parents("div.box-image").find("input.shop_image_name").val();
+	  						removeShopImageFromServer(imagename).success(function(){
+	  							$(obj).parents(".box-image").remove();
+
+	  							if(request["sh_img_type"] == 1){
+
+									var logo_cnt = parseInt($("#totol-logo-img").text()) - 1;
+									if(logo_cnt <= 0) logo_cnt = 0;
+									$("#totol-logo-img").html(logo_cnt);
+		  							$("#totol-logo-img-small").html(logo_cnt);
+		  						}else if(request["sh_img_type"] == 2){
+
+			  						var cover_cnt = parseInt($("#totol-detail-img").text()) -1;
+		  							$("#totol-detail-img").html(cover_cnt);		  							
+		  							$("#totol-cover-img-small").html(cover_cnt);
+		  						}else if(request["sh_img_type"] == 3){
+
+									var detail_cnt = parseInt($("#totol-detail-img").text())-1;
+									if(detail_cnt <= 0) detail_cnt = 0;
+									$("#totol-detail-img").html(detail_cnt);
+									$("#totol-detail-img-small").html(detail_cnt);
+		  						}
+	  							top.resizeIframe();
+		  					});
+	  						 
+	  					}else{
+	  						top.swal("Delete fail!", data.message, "error"); 
+	  					}
+	  					$(obj).parents("div.box-image").find("div.loading-wrapper").hide();
+	  				}
+	  	    	});		      			 
+	  	    }
+	  	});
+    		
+   
+    });
+
+    function removeShopImageFromServer( imagename ){
+
+    	return $.ajax({
+    		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
+    		type: "POST",
+    		data : {
+    			"removeimagedata":{
+    				"image_type" : request["sh_img_type"],
+    				"imagename" : imagename
+    			}			
+    		}
+    	});	
+    }
 
     $('#createddate').daterangepicker({      
         timePicker: false,
@@ -613,24 +843,28 @@
         format: 'YYYY/MM/DD'
        
         
-   		}, function(start, end) {
+   		}/* , function(start, end) {
 		   start_date_srch = start.format('YYYY-MM-DD');
 		   end_date_srch = end.format('YYYY-MM-DD');
-   });
+   } */);
 
     $("#search-img-btn").on("click", function(){
-    	request["page"] = 1;
-    	request["start_date_srch"] = start_date_srch;
-		request["end_date_srch"] = end_date_srch;
-       	if($('#createddate').val().trim() == ""){
-       		request["start_date_srch"] = "";
-       		request["end_date_srch"] = "";
-        }
-       	$("#loading-image").show();
-		loadShopImage(function(){
-			$("#loading-image").hide();
-			top.resizeIframe();
-		}, true);
+        
+    	request["page"] = 1;  	
+		var combodate = $('#createddate').val().split("-");
+		if(combodate.length < 2 || combodate.length > 2){
+			alert("Invalid Date!");
+		}else{
+			request["start_date_srch"] = combodate[0];
+			request["end_date_srch"] = combodate[1];	
+		 	$("#loading-image").show();
+			loadShopImage(function(){
+				$("#loading-image").hide();
+				top.resizeIframe();
+			}, true);		
+		}
+		       
+      
     });
 
     loadShopImage(function(){
@@ -686,6 +920,10 @@
 
 	function getSourceImage(src){	
 		return $("#base_url").val()+"uploadimages/"+folder+src;
+	}
+
+	function getSourceLoadingImg(){
+		return $("#base_url").val()+"assets/nhamdis/img/updateload.gif";
 	}
 
 	function imgError(image) {
