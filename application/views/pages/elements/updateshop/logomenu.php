@@ -2,6 +2,7 @@
 
 <div class="col-lg-12 logo-wrapper" style="margin-left: 35px;">
 	<div class="logo-box">
+		<input type="hidden" value="<?php echo $shop_logo ?>" id="logo-image-display-hidden"/>
 		<img  id="logo-image-display" src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
 			class="logo-img" /> <i class="fa fa-camera" id="edit-logo-pop-up" aria-hidden="true"></i>
 		<div class="edit-logo"></div>

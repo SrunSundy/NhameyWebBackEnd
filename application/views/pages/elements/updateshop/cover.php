@@ -57,6 +57,7 @@
 	
 </style>
 <div class="img-cover-box">
+	<input type="hidden" value="<?php echo $shop_cover ?>" id="cover-image-display-hidden"/>
 	<img src="<?php echo base_url(); ?>uploadimages/cover/big/<?php echo $shop_cover ?>"
 		class="img-cover" id="cover-image-display" />
 
