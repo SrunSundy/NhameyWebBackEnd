@@ -14,9 +14,19 @@ class ShopImageModel extends CI_Model{
 		$shop_id = (int)$request["shop_id"];
 		$limit = (int)$request["row"];
 		$page = (int)$request["page"];
-		
+			
 		$offset = ($limit*$page)-$limit;
-		$params = array();
+		
+		if(isset($request["row_minus"])){
+			
+			$row_minus = (int)$request["row_minus"];
+			if( $row_minus > 0){
+				$limit = $limit - $row_minus;
+				$offset = $offset - $row_minus;
+			}
+			
+		}
+		$params = array();	
 		
 		$sql = "SELECT  
 					sh_img_id,

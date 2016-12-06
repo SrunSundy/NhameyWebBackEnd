@@ -388,7 +388,7 @@ class UploadRestController extends CI_Controller{
 				$checkdirectory_big = $this->checkDirectory($target_big_dir);
 				$allowfiletype = $this->allowImageType(array("image/jpeg", "image/gif", "image/png"), $_FILES['file']['type'][$i]);
 				$allowsize = $this->allowImageSize(5120 , 20000000, $_FILES["file"]["size"][$i]);//20MB
-				$allowmindimension = $this->allowImageMinimumDimension(350, 350, $_FILES["file"]["tmp_name"][$i]);
+				$allowmindimension = $this->allowImageMinimumDimension(200, 200, $_FILES["file"]["tmp_name"][$i]);
 				$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"][$i]);
 				
 				$permission = array();

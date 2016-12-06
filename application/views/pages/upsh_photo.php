@@ -567,6 +567,7 @@
   
 		"row" : 16,
 		"page": 1,
+		"row_minus" : 0,
 		"sh_img_status": 3,
 		"shop_id" : $("#shop_id").val(),
 		"sh_img_type" : 3,
@@ -608,6 +609,7 @@
 
 		var image_type = $(this).find("input.image_type").val();
 		request["page"] = 1;
+		request["row_minus"] = 0;
 		request["sh_img_type"] = image_type;
 
 		switch(image_type){
@@ -683,7 +685,7 @@
   			  showCancelButton: true,
   			  confirmButtonColor: "#DD6B55",
   			  confirmButtonText: "Yes",
-  			  closeOnConfirm: false
+  			  closeOnConfirm: true
 	  		},
 	  		 function(isConfirm) {
 	  	        if (isConfirm) {	
@@ -761,7 +763,7 @@
 			  showCancelButton: true,
 			  confirmButtonColor: "#DD6B55",
 			  confirmButtonText: "Yes",
-			  closeOnConfirm: false
+			  closeOnConfirm: true
 	  	},
 	  	function(isConfirm) {
 	  	    if (isConfirm) {
@@ -786,6 +788,8 @@
 	  						
 	  						var imagename = $(obj).parents("div.box-image").find("input.shop_image_name").val();
 	  						removeShopImageFromServer(imagename).success(function(){
+
+		  						request["row_minus"]++;
 	  							$(obj).parents(".box-image").remove();
 
 	  							if(request["sh_img_type"] == 1){
@@ -850,7 +854,8 @@
 
     $("#search-img-btn").on("click", function(){
         
-    	request["page"] = 1;  	
+    	request["page"] = 1; 
+    	request["row_minus"] = 0; 	
 		var combodate = $('#createddate').val().split("-");
 		if(combodate.length < 2 || combodate.length > 2){
 			alert("Invalid Date!");
