@@ -854,6 +854,9 @@ class UploadRestController extends CI_Controller{
 			$image = imagecreatefrompng($source_img);
 		else 
 			return false;
+		
+		$white = imagecolorallocate($image_p,  255, 255, 255);
+		imagefilledrectangle($image_p, 0, 0, $width, $height, $white);
 		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 		return imagejpeg($image_p, $destination_img, $quality);
 		
@@ -886,6 +889,8 @@ class UploadRestController extends CI_Controller{
 		$image = imagecreatefrompng($source_img);
 		else
 			return false;
+		$white = imagecolorallocate($image_p,  255, 255, 255);
+		imagefilledrectangle($image_p, 0, 0, $img_w, $img_h, $white);
 		imagecopyresampled($image_p, $image, 0, 0, $img_x, $img_y, $new_width, $new_height, $img_w, $img_h);
 		return imagejpeg($image_p, $destination_img, $quality);
 	
@@ -919,6 +924,8 @@ class UploadRestController extends CI_Controller{
 			$image = imagecreatefrompng($source_img);
 		else 
 			return false;
+		$white = imagecolorallocate($image_p,  255, 255, 255);
+		imagefilledrectangle($image_p, 0, 0, $width, $height, $white);
 		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 		return imagejpeg($image_p, $destination_img, $quality);	
 		
@@ -957,6 +964,8 @@ class UploadRestController extends CI_Controller{
 		$image = imagecreatefrompng($source_img);
 		else
 			return false;
+		$white = imagecolorallocate($image_p,  255, 255, 255);
+		imagefilledrectangle($image_p, 0, 0, $img_w, $img_h, $white);
 		imagecopyresampled($image_p, $image, 0, 0, $img_x, $img_y, $new_width, $new_height, $img_w, $img_h);
 		return imagejpeg($image_p, $destination_img, $quality);
 	
@@ -1010,6 +1019,8 @@ class UploadRestController extends CI_Controller{
 			$image = imagecreatefrompng($source_img);
 			else
 				return false;
+			$white = imagecolorallocate($image_p,  255, 255, 255);
+			imagefilledrectangle($image_p, 0, 0, $width, $height, $white);
 				imagecopyresampled($image_p, $image, 0, 0, $img_x, $img_y, $new_width, $new_height, $img_w, $img_h);
 				return imagejpeg($image_p, $destination_img, $quality);	
 	}
