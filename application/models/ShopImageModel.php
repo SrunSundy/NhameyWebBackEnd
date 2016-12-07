@@ -21,7 +21,7 @@ class ShopImageModel extends CI_Model{
 			
 			$row_minus = (int)$request["row_minus"];
 			if( $row_minus > 0){
-				$limit = $limit - $row_minus;
+				
 				$offset = $offset - $row_minus;
 			}
 			
