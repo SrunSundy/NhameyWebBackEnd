@@ -477,7 +477,7 @@
 				 <div class="loading-wrapper">
 					<div class="loading-event-box"></div>
 					<div class="loading-event-img">
-						<img src="{{= getSourceLoadingImg()}}"  class="loading-img-in" style="width: 20px;height:20px;"/>
+						<img src="{{= getSourceLoadingImg()}}"  class="loading-img-in" style="width: 25px;height:25px;"/>
 				 	</div>
 				 </div>
 				 				
@@ -487,7 +487,7 @@
 				 			
 				 <div class="shop-image-front-show-box" >
 					{{if sh_img_is_front_show == 1 }}	
- 						<img src="https://www.cvdequipment.com/wp-content/uploads/2016/06/check-mark.png" style="width: 20px;height:20px;" />
+ 						<img src="{{= getCheckImgSource() }}" style="width: 20px;height:20px;" />
 					{{/if}}		
 				 </div>
 				 <div class="image-wrapper">
@@ -665,7 +665,7 @@
 			        	$(obj).find("i").removeClass("fa-check-circle");
 			     		$(obj).find("i").addClass("fa-times-circle");
 			     		$(obj).find("span.check-box-text").html("Uncheck");
-			     		$(obj).parents("div.box-image").find("div.shop-image-front-show-box").append('<img src="https://www.cvdequipment.com/wp-content/uploads/2016/06/check-mark.png" style="width: 20px;height:20px;" />');
+			     		$(obj).parents("div.box-image").find("div.shop-image-front-show-box").append('<img src="'+getCheckImgSource()+'" style="width: 20px;height:20px;" />');
 			        }										
 				}	
 				$(obj).parents("div.box-image").find("div.loading-wrapper").hide();		
@@ -929,6 +929,10 @@
 
 	function getSourceLoadingImg(){
 		return $("#base_url").val()+"assets/nhamdis/img/updateload.gif";
+	}
+
+	function getCheckImgSource(){
+		return $("#base_url").val()+"assets/nhamdis/img/check.jpg";
 	}
 
 	function imgError(image) {
