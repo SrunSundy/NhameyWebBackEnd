@@ -917,7 +917,7 @@
 				}	
 				
 				$("#loading-more").hide();			
-				setTimeout(function(){top.resizeIframe();}, 100);
+				setTimeout(function(){top.resizeIframe();}, 200);
 				is_loading = false;
 			}
     	});

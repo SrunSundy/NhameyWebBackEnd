@@ -267,7 +267,8 @@ class ShopModel extends CI_Model{
 						sh.shop_working_day,
 						sh.shop_email,
 						sh.shop_phone,
-						sh.shop_social_media		
+						sh.shop_social_media,
+						sh.shop_capacity		
 				FROM nham_shop sh
 				LEFT JOIN nham_branch br on sh.branch_id = br.branch_id
 				WHERE shop_id = ?";
@@ -287,6 +288,26 @@ class ShopModel extends CI_Model{
 		
 		return $response;
 		
+	}
+	
+	public function getDefaultUpdateLocation( $request ){
+		
+		$sql = "SELECT
+					country_id,
+					city_id,
+					district_id,
+					commune_id,
+					shop_address,
+					shop_lat_point,
+					shop_lng_point
+				FROM nham_shop 
+				WHERE shop_id = ?";
+		$query = $this->db->query($sql , $request["shop_id"]);
+		$shop_data = $query->row();
+	
+		$response["shop_data"] = $shop_data;
+		
+		return $response;
 	}
 	
 	public function listShop($setting){

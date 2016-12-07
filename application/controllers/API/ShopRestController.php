@@ -36,6 +36,17 @@ class ShopRestController extends CI_Controller{
 		
 	}
 	
+	public function getDefaultUpdateLocation(){
+	
+		$request = json_decode($this->input->raw_input_stream,true);
+		$request = $request["resq_data"];
+	
+		$response = $this->ShopModel->getDefaultUpdateLocation($request);
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+	
+	}
+	
 	public function getShopNotComplete($shop_id){
 		
 		$shop_id  = urlencode($shop_id);

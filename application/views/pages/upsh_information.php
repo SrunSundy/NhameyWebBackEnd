@@ -8,158 +8,9 @@
  	
  	<?php include 'imports/cssimport.php' ?>
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-input.css" />
  
-	 <style>
-	 	.shop-event-wrapper{
-	 		min-height:600px;
-	 		background: #fff;
-	 		
-	 	}
-	 	
-	 	p.update-title{
-	 		
-	 		font-size: 15px;
-	 		font-weight: bold;
-	 		padding-bottom: 4px;
-	 		color: #90949c;
-	 		border-bottom: 1px solid #EEEEEE;
-	 		
-	 	}
-	 	
-	 	.update-info-box{
-	 		padding-top: 15px;
-	 	}
-	 	
-	 	p.shop-info{
-	 		font-size: 14px;
-	 		padding-left:10px;
-	 		color: #616161; 	
-	 	}
-	 	
-	 	p.shop-info i{
-	 		padding-right: 5px;
-	 	}
-	 	
-	 	.wordwrap { 
-		   white-space: pre-wrap;      /* CSS3 */   
-		   white-space: -moz-pre-wrap; /* Firefox */    
-		   white-space: -pre-wrap;     /* Opera <7 */   
-		   white-space: -o-pre-wrap;   /* Opera 7 */    
-		   word-wrap: break-word;      /* IE */
-		}
-	 	
-	 	div.shop-info-edit-btn{
-	 		width: 30px;
-	 		height: 30px;
-	 		line-height: 30px;
-	 		border: 1px dashed #eb5c4a;
-	 		text-align:center;
-	 		cursor: pointer;
-	 	}
-	 	
-	 	div.shop-info-edit-btn:hover{
-	 		background:#EEEEEE;
-	 	}
-	 	
-	 	div.shop-info-edit-btn i{
-	 		color: #eb5c4a;
-	 		
-	 	}
-	 	
-	 	div.shop-info-wrapper{
-	 		
-	 	}
-	 	
-	 	div.div-left{
-	 		float:left;
-	 		width: 82%;
-	 		
-	 	}
-	 	div.div-right{
-	 		float:left;
-	 		width: 18%;
-	 		position:absolute; 
-	 		right:0;
-	 		bottom: 0;
-	 	}
-	 	
-	 	div.save-shop-info-box{
-	 		padding-top: 6px;
-	 		display:none;
-	 	}
-	 	
-	 	div.save-btn-wrapper{
-	 		padding-top: 6px;
-	 	}
-	 	
-	 	.edit-active{
-	 		border: 1px dashed #9E9E9E !important;
-	 	}
-	 	.edit-active i{
-	 		color :  #9E9E9E !important;
-	 	}
-	 	
-	 	button.nham-btn{
-	 		border-radius: 0;	 		
-	 	}
-	 	
-	 	div.info-edit-wrapper{
-	 		position:relative;
-	 		min-height: 30px;
-	 	}
-	 	
-	 	.head-text{
-	 		font-size: 14px;
-	 		color: #BDBDBD;
-	 		font-weight: bold;
-	 	}
-	 	
-	 	.head-text i{
-	 		padding-right: 5px;
-	 	}
-	 	
-	 	img.update-loading{
-	 		display: none;
-	 		padding-right: 8px;
-	 	}
-	 	
-	 	img.update-loading-data{
-	 		width: 16px;
-	 		height: 16px;
-	 		
-	 	}
-	 	div.shop-update-loading{
-	 		
-	 		padding-top: 15px;
-	 		padding-right: 8px;
-	 		display:none;
-	 	}
-	 	
-	 	div.chosen-record {
-	 		background: #EEEEEE;
-	 		position:relative;
-	 		cursor: not-allowed !important;
-	 	}
-	 	
-	 	i.chosen-icon{
-	 		position:absolute;
-	 		top:6px;
-	 		right:10px;
-	 		color: #eb5c4a;
-	 	}
-	 	
-	 	span.no-information{
-	 		font-style : italic;
-	 		font-size: 12px;
-	 		color: #BDBDBD;
-	 	}
-	 	
-	 	i.delete-phone{
-	 		padding-left:20px;
-	 		cursor: pointer;
-	 		display: none;
-	 	}
-	 </style>
+	 
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
   
@@ -471,6 +322,40 @@
 					       	 			</div>		       	 							       	 				
 					       	 		</div>			       	 			
 					       	 	</div>
+					       	 	
+					       	 	<div class="col-lg-12 col-sm-12 update-info-box">
+				       	 			<p class="update-title">SHOP CAPACITY</p>
+				       	 			<div class="shop-info-wrapper">			       	 			
+				       	 				<div class="info-edit-wrapper">
+					       	 				<div class="div-left">
+					       	 					<p class="shop-info wordwrap " style="display: inline;" id="shop-capacity"></p> 
+					       	 					<span class="wordwrap" id="shop-capacity-num" style="display: inline;font-style: italic;font-size: 12px;color: #BDBDBD;"> PEOPLE</span>
+					       	 				</div>
+					       	 				<div class="div-right" >
+					       	 					<div class="shop-info-edit-btn pull-right">
+					       	 						<i class="fa fa-pencil" aria-hidden="true"></i>
+					       	 					</div>
+					       	 				</div>
+					       	 				<div style="clear:both;"></div>	
+				       	 				</div>			       	 				
+				       	 				<div style="clear:both;"></div>				       	 				
+				       	 				<div class="save-shop-info-box">			       	 				
+				       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
+				       	 						<div class="row">
+				       	 						     <input type="text" id="shopcapacity" class="form-control insert-value" placeholder="number of customer">
+				       	 						</div>				                							                    	
+						                  	</div>
+						                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
+						                  		<div class="row pull-right">
+						                  			<input type="hidden" class="update-param" value="shop_capacity"/>
+						                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+						                  			<button type="button" class="btn btn-default update-shop-save nham-btn">save</button>
+						                  		</div>
+						                  	</div>
+						                  	<div style="clear:both;"></div>
+				       	 				</div>		       	 							       	 				
+				       	 			</div>				       	 							       	 			
+			       	 		    </div>
 					       	 	
 					       	 	<div class="col-lg-12 col-sm-12 update-info-box">
 				       	 			<p class="update-title">SHOP'S SERVE-TYPE</p>
@@ -1643,7 +1528,12 @@
 				$("#dis-branch").html(shopdata.branch_name);
 				$("#dis-eng-name").html(shopdata.shop_name_en);
 				
-				$("#dis-kh-name").html(defaultNull(shopdata.shop_name_kh));							
+				$("#dis-kh-name").html(defaultNull(shopdata.shop_name_kh));
+				$("#shop-capacity").html(defaultNull(shopdata.shop_capacity));
+				if(shopdata.shop_capacity <= 0 || shopdata.shop_capacity =="0" ){
+					$("#shop-capacity-num").hide();
+				}
+											
 				$("#shop-serve-type").html(defaultNull(shopdata.shop_serve_type.toUpperCase()));			
 				$("#shop-short-description").html(defaultNull(shopdata.shop_short_description));		
 				$("#shop-description").html(defaultNull(shopdata.shop_description));
@@ -1654,10 +1544,8 @@
 				
 				$("#open-time").html(format24hour(defaultNull(shopdata.shop_opening_time, 5)));
 				$("#close-time").html(format24hour(defaultNull(shopdata.shop_close_time, 5)));
-
 				
 				$("#dis-working-day").html(convertToDay(shopdata.shop_working_day));
-
 				
 				if(shopdata.shop_phone)
 					$("#shop-phone").html(getPhoneNumber(shopdata.shop_phone));
@@ -1692,7 +1580,7 @@
 
 	function defaultNull( text , cutstring){
 
-		if(text){
+		if(text && text > 0){
 			if(cutstring == undefined)
 				return text;
 			else
