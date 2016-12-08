@@ -24,6 +24,13 @@
   	h4.pop-title i{
   		margin-right:7px;
   	}
+  	
+  	img.loaction-loading{
+	 	margin-left: 10px;
+	 	width: 18px;
+	 	height: 18px;
+	 	display:none;
+	 }
   </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini" >
@@ -552,37 +559,53 @@
 			                    <label>Shop Address</label>
 			                	<div class="col-lg-12 top-gap">
 			                		<div class="row">
-			                			<label>Country </label>						                						                    
-						                <select class="form-control nham-control  select2" id="nham_country" style="width: 100%; border-radius: 0!important;">
-						                      	
-						                </select>						                					                
+			                			<div class="form-group">
+				                			<label>Country 
+				                				<img  class="pull-right update-loading-data loaction-loading"  
+							       	 					 		 		id="country-img-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+				                			</label>						                						                    
+							                <select class="form-control nham-control  select2" id="nham_country" style="width: 100%; border-radius: 0!important;">						                      	
+							                </select>
+						                </div>						                					                
 					                 </div>
 				                 </div>
 				                  
 				                 <div class="col-lg-12 ">
 			                		<div class="row">
-						                 <label>City </label>	
-						                  <select class="form-control nham-control  select2" id="nham_city"  style="width: 100%; border-radius: 0!important;">
-						                     	
-						                  </select>						                  						                
+			                			<div class="form-group">
+							                  <label>City 
+							                  	  <img  class="pull-right update-loading-data loaction-loading" 
+								               					 		id="city-img-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+							                  </label>	
+							                  <select class="form-control nham-control  select2" id="nham_city"  style="width: 100%; border-radius: 0!important;">							                     	
+							                  </select>	
+						                 </div>					                  						                
 					                 </div>
 				                 </div>
 				                 
 				                 <div class="col-lg-12 ">
 			                		<div class="row">
-						                 <label>District </label>
-						                 <select class="form-control nham-control  select2" id="nham_district"  style="width: 100%; border-radius: 0!important;">
-						                    	
-						                 </select>						                 
+			                			<div class="form-group">
+							                 <label>District 
+							                 	<img  class="pull-right update-loading-data loaction-loading"
+							       	 					 		 		id="district-img-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+							                 </label>
+							                 <select class="form-control nham-control  select2" id="nham_district"  style="width: 100%; border-radius: 0!important;">							                    	
+							                 </select>
+						                 </div>						                 
 					                 </div>
 				                 </div>
 				                 
 				                  <div class="col-lg-12 ">
 			                		<div class="row">
-						                  <label>Commune </label>
-						                  <select class="form-control nham-control select2" id="nham_commune"  style="width: 100%; border-radius: 0!important;">
-						                     	
-						                   </select>						                
+			                			<div class="form-group">
+						                     <label>Commune 
+						                     	  <img  class="pull-right update-loading-data loaction-loading"  
+								                				 	id="commune-img-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+						                     </label>
+						                     <select class="form-control nham-control select2" id="nham_commune"  style="width: 100%; border-radius: 0!important;">				                     	
+						                     </select>
+						                </div>						                
 					                 </div>
 				                 </div>
 				                 

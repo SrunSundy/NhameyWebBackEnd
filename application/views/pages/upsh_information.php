@@ -1529,7 +1529,7 @@
 				$("#dis-eng-name").html(shopdata.shop_name_en);
 				
 				$("#dis-kh-name").html(defaultNull(shopdata.shop_name_kh));
-				$("#shop-capacity").html(defaultNull(shopdata.shop_capacity));
+				$("#shop-capacity").html(defaultNum(shopdata.shop_capacity));
 				if(shopdata.shop_capacity <= 0 || shopdata.shop_capacity =="0" ){
 					$("#shop-capacity-num").hide();
 				}
@@ -1578,9 +1578,16 @@
 
 	}
 
+	function defaultNum( num ){
+		if(num > 0){
+			return num;
+		}else{
+			return "<span class='no-information'>NO INFORMATION!<span>";
+		}
+	}
 	function defaultNull( text , cutstring){
 
-		if(text && text > 0){
+		if(text){
 			if(cutstring == undefined)
 				return text;
 			else

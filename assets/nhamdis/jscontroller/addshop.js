@@ -197,7 +197,8 @@ function loadDefault(){
 
 function loadCountryData( callback){
 	
-	
+	$("#nham_country").prop('disabled', true);
+	$("#country-img-loading").show();
 	$.ajax({
 		type : "GET",
 		url  : $("#base_url").val()+"API/CountryRestController/getCountryCombo",
@@ -222,6 +223,8 @@ function loadCountryData( callback){
 			if( typeof callback === "function"){
 				callback();
 			}
+			$("#nham_country").prop('disabled', false);
+			$("#country-img-loading").hide();
 			loadCityData($("#nham_country option:selected").val());
 		}		
 	});
@@ -233,6 +236,8 @@ $("#nham_country").on("change", function(){
 
 function loadCityData( countryid ){
 	
+	$("#nham_city").prop('disabled', true);
+	$("#city-img-loading").show();
 	$.ajax({
 		type : "GET",
 		url  : $("#base_url").val()+"API/CityRestController/getCityCombo/"+countryid,
@@ -255,7 +260,9 @@ function loadCityData( countryid ){
 				$("#nham_city").append(city);
 				$("#select2-nham_city-container").html($("#nham_city option:selected").text());
 				//$("#nham_city").select2("val", 1);
-			}	
+			}
+			$("#nham_city").prop('disabled', false);
+			$("#city-img-loading").hide();
 			loadDistrictData( $("#nham_city option:selected").val() );
 		}		
 	});	 
@@ -267,6 +274,8 @@ $("#nham_city").on("change", function(){
 
 function loadDistrictData( cityid ){
 	
+	$("#nham_district").prop('disabled', true);
+	$("#district-img-loading").show();
 	$.ajax({
 		type : "GET",
 		url  : $("#base_url").val()+"API/DistrictRestController/getDistrictCombo/"+cityid,
@@ -292,6 +301,9 @@ function loadDistrictData( cityid ){
 			//	$("#nham_district").select2("val", 1);
 				
 			}
+			
+			$("#nham_district").prop('disabled', false);
+			$("#district-img-loading").hide();
 			loadCommuneData( $("#nham_district option:selected").val());
 		}		
 	});			
@@ -303,6 +315,8 @@ $("#nham_district").on("change", function(){
 
 function loadCommuneData( districtid ){
 		
+	 $("#nham_commune").prop('disabled', true);
+	 $("#commune-img-loading").show();
 	 $.ajax({
 		type : "GET",
 		url  : $("#base_url").val()+"API/CommuneRestController/getCommuneCombo/"+districtid,
@@ -326,7 +340,9 @@ function loadCommuneData( districtid ){
 				$("#nham_commune").append(commune);
 				$("#select2-nham_commune-container").html($("#nham_commune option:selected").text());
 				//$("#nham_commune").select2("val", 1);
-			}				
+			}
+			$("#nham_commune").prop('disabled', false);
+			$("#commune-img-loading").hide();
 		}		
 	});
 }

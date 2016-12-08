@@ -132,6 +132,78 @@ class ShopRestController extends CI_Controller{
 		echo json_encode($response);
 	}
 	
+	public function updateShopLocation(){
+		
+		$response = array();
+		$request = json_decode($this->input->raw_input_stream,true);
+		
+		if(!isset($request["request_data"])){
+			$response["is_updated"] = false;
+			$response["message"] = "bad request";
+			
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+		}
+		
+		$request = $request["request_data"];
+		if(!isset($request["country_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "country_id is required!";
+				
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+		}
+		
+		if(!isset($request["city_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "city_id is required!";
+			
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+			
+		}
+		
+		if(!isset($request["district_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "district_id is required!";
+			
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+				
+		}
+		
+		if(!isset($request["commune_id"])){
+				
+			$response["is_updated"] = false;
+			$response["message"] = "commune_id is required!";
+			
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+		}
+		
+		if(!isset($request["shop_address"])){
+				
+			$response["is_updated"] = false;
+			$response["message"] = "shop_address is required!";
+			
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+		}
+		
+		if(!isset($request["shop_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_id is required!";
+			
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+				
+		}
+		
+		$response = $this->ShopModel->updateShopLocation($request);
+		echo json_encode($response);
+		
+	}
+	
 	public function updateShopWorkingTime(){
 		
 		$shopdata = json_decode($this->input->raw_input_stream,true);

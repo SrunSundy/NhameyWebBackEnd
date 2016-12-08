@@ -981,6 +981,46 @@ class ShopModel extends CI_Model{
 		
 	}
 	
+	function updateShopLocation($request){
+		
+		$response = array();
+		$sql = "UPDATE nham_shop SET 
+				 country_id = ? ,
+				 city_id = ? ,
+				 district_id = ? ,
+				 commune_id = ? ,
+				 shop_address = ?
+			 WHERE shop_id = ? ";
+		
+		$param = array();
+		array_push($param, $request["country_id"], $request["city_id"], $request["district_id"], $request['commune_id'],
+			$request["shop_address"], $request["shop_id"]);
+		
+		$update_effect = 0;
+		try
+		{
+			$this->db->query($sql, $param);
+			$update_effect = $this->db->affected_rows();
+		}
+		catch( Exception $e )
+		{
+			$response["is_updated"] = false;
+			$response["message"] = "Database Error!";
+			return $response;
+		}
+		
+		if($update_effect >0){
+			$response["is_updated"] = true;
+			$response["message"] = "update successfully!";
+		}else{
+			$response["is_updated"] = false;
+			$response["message"] = "update error!";
+		}
+		
+		return $response;
+		
+	}
+	
 	function validateInput($shopdata){
 		
 		$datashop = $shopdata["datashop"];
