@@ -748,7 +748,7 @@ class UploadRestController extends CI_Controller{
 			$srcbig = "./uploadimages/shopimages/big/";
 			$srcmedium = "./uploadimages/shopimages/medium/";
 			$srcsmall = "./uploadimages/shopimages/small/";
-			$srcextremesmall = "./uploadimages/shopimages/extreme_small/";
+			$srcextremesmall = "./uploadimages/shopimages/extreme-small/";
 			
 			if(file_exists($srcextremesmall.$imagename)){
 				unlink($srcextremesmall.$imagename);
@@ -810,8 +810,8 @@ class UploadRestController extends CI_Controller{
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';
 			}
-			if(file_exists("./uploadimages/shopimages/extreme_small/".$removedata[$i]["filename"])){
-				unlink("./uploadimages/shopimages/extreme_small/".$removedata[$i]["filename"]);
+			if(file_exists("./uploadimages/shopimages/extreme-small/".$removedata[$i]["filename"])){
+				unlink("./uploadimages/shopimages/extreme-small/".$removedata[$i]["filename"]);
 				$data[$removedata[$i]["filename"]]= "File is removed";
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';

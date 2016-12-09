@@ -204,6 +204,49 @@ class ShopRestController extends CI_Controller{
 		
 	}
 	
+	public function updateShopStreet(){
+		
+		$response = array();
+		$request = json_decode($this->input->raw_input_stream,true);
+		
+		if(!isset($request["request_data"])){
+			$response["is_updated"] = false;
+			$response["message"] = "bad request";
+				
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+		}
+		
+		$request = $request["request_data"];
+		if(!isset($request["shop_lat_point"])){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_lat_point is required!";
+		
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+		}
+		
+		if(!isset($request["shop_lng_point"])){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_lng_point is required!";
+				
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+				
+		}
+		
+		if(!isset($request["shop_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "shop_id is required!";
+				
+			echo json_encode($response,  JSON_PRETTY_PRINT);
+			die();
+		
+		}
+		
+		$response = $this->ShopModel->updateShopStreet($request);
+		echo json_encode($response);
+	}
 	public function updateShopWorkingTime(){
 		
 		$shopdata = json_decode($this->input->raw_input_stream,true);

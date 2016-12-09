@@ -4,11 +4,10 @@ class ProductRestController extends CI_Controller{
 		
 		parent::__construct();
 
-		$this->load->model('ProductModel');
-		$this->load->model('ShopModel');
+		$this->load->model('ProductModel');		
 		$this->load->library('session');
-		if(!isset($_SESSION['admin_id']))
-			die("you are kick out");
+		/* if(!isset($_SESSION['admin_id']))
+			die("you are kick out"); */
 	}
 	public function index(){
 		$this->load->view('index');
@@ -59,8 +58,29 @@ class ProductRestController extends CI_Controller{
 	}		
 	private function getSomeShopInfo($id){
 		
+		$this->load->model('ShopModel');
 		$data=$this->ShopModel->getSomeShopInfo($id);
 		return $data;
+	}
+	
+	public function listProductByShopId(){
+		
+		$request = json_decode($this->input->raw_input_stream,true);
+		if(!isset($request["request_data"])){
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+		}		
+		
+		if(!isset($request["row"]) || $request["row"] <= 0) $request["row"] = 16;
+		if(!isset($request["page"]) || $request["page"] <= 0) $request["page"] = 1;
+		if(!isset($request["pro_status"]) || $request["pro_status"] <= 0) $request["pro_status"] = 3;
+		$request = $request["request_data"];
+		
+		$response_data = $this->ProductModel->listProductByShopId($request);
+		echo json_encode($response_data);
 	}
 
 }

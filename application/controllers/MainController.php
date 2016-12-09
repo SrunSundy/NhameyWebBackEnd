@@ -60,8 +60,11 @@
 			$this->load->view('pages/upsh_photo', $data);
 		}
 		
-		public function updateshop_product(){
-			$this->load->view('pages/upsh_product');
+		public function updateshop_product($shopid = null){
+			
+			$shopid  = urlencode($shopid);
+			$data["shop_id"] = $shopid;
+			$this->load->view('pages/upsh_product', $data);
 		}
 		
 		public function updateshop_location($shopid = null){
