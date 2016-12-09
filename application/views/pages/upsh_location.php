@@ -228,7 +228,7 @@
 						       	 			<p class="shop-info wordwrap" id="shop-street"></p>
 						       	 		</div>
 						       	 		<div class="div-right" >
-						       	 			<div class="shop-info-edit-btn pull-right">
+						       	 			<div class="shop-info-edit-btn address-edit-btn pull-right">
 						       	 				<i class="fa fa-pencil" aria-hidden="true"></i>
 						       	 			</div>						       	 			
 						       	 		</div>
@@ -276,7 +276,7 @@
 							                 <div class="row pull-right">
 							                  	 <input type="hidden" class="update-param" value="shop_serve_type"/>
 							                  	 <img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
-							                  	 <button type="button" class="btn btn-default shop-street update-shop-save nham-btn">save</button>
+							                  	 <button type="button" id="shop-street-btn" class="btn btn-default shop-street update-shop-save nham-btn">save</button>
 							                  </div>
 							             </div>
 							             <div style="clear:both;"></div>
@@ -310,10 +310,12 @@
     
     <script>
     /*=================  google map code  =================*/    						
-    
+    var shoptimezone;
+    var marker;
+    var map;
     function initialize(coord) {
 
-    	if(coord.lat == null || coord.lng == null || coord.lat == "" || coord.lng == "")  {
+    	if(coord.lat == null || coord.lng == null)  {
     		top.swal("Display Error!", "Invalid Coordinate", "error");
         	return;
         }
@@ -325,7 +327,7 @@
     		mapTypeId: google.maps.MapTypeId.ROADMAP
     	};
     	geocoder = new google.maps.Geocoder();
-    	var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+    	map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
     	google.maps.event.addListener(map, 'click', function(event) {
     		
     		this.setOptions({scrollwheel:true});
@@ -335,7 +337,7 @@
     		this.setOptions({scrollwheel:false});
     	});	
     	
-    	var marker = new google.maps.Marker({
+    	marker = new google.maps.Marker({
     		position: mylocationmarker,
     		map: map,
     		optimized:false
@@ -415,6 +417,7 @@
     		
     													
     	});
+
     		
     	
     	function getAddress(latLng) {
@@ -436,6 +439,19 @@
     				}
     			}												  										        															           
     		});
+    	}
+
+    	function getShopTimeZone(lat, lng){	
+    		$.ajax({
+    	  	   url:"https://maps.googleapis.com/maps/api/timezone/json?location="+parseFloat(lat)+","+parseFloat(lng)+"&timestamp="+(Math.round((new Date().getTime())/1000)).toString()+"&sensor=false",
+    	  	}).done(function(response){
+    	  		
+    	  	   if(response.timeZoneId != null){
+    	  		 shoptimezone = response.timeZoneId;
+    	  	   }else{
+    	  		 shoptimezone = "";
+    	  	   }
+    	  	});
     	}
     	
     	
@@ -476,6 +492,10 @@
 	$(document).on("click",".shop-info-edit-btn", function(){    	
 		$(this).focus();
         if($(this).hasClass("edit-active")){
+
+        	if($(this).hasClass("address-edit-btn")){
+                $("div.disable-google-map").show();
+            }
         	$(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideUp(100);
         	$(this).removeClass("edit-active");
         }else{
@@ -506,6 +526,11 @@
                 setTimeout(function(){top.resizeIframe();},150);
 				return;
             }
+
+            if($(this).hasClass("address-edit-btn")){
+
+                $("div.disable-google-map").hide();
+            }
         	
             $(this).parents(".info-edit-wrapper").siblings(".save-shop-info-box").slideDown(100);       	
         	$(this).addClass("edit-active");                      		        	
@@ -514,63 +539,182 @@
 				
     });
 
+	function updateLoactionValidate( data ){
+
+		if(!data.country_id){
+			top.swal("Input Error!", "country_id is invalid!", "error");
+			return false;
+		}
+		if(!data.city_id){
+			top.swal("Input Error!", "city_id is invalid!", "error");
+			return false;
+		}
+		if(!data.district_id){
+			top.swal("Input Error!", "district_id is invalid!", "error");
+			return false;
+		}
+		if(!data.commune_id){
+			top.swal("Input Error!", "coummune_id is invalid!", "error");
+			return false;
+		}
+		if(!data.shop_id){
+			top.swal("Input Error!", "shop_id is invalid!", "error");
+			return false;
+		}
+		return true;
+	}
     $("#update-location").on("click", function(){
 
+    	
 		var updatedata = {
 			"country_id" : $("#nham_country").val(),
 			"city_id" : $("#nham_city").val(),
 			"district_id" : $("#nham_district").val(),
 			"commune_id" : $("#nham_commune").val(),
-			"shop_address" : getAddress(),
+			"shop_address" : getAddress_add(),
 			"shop_id" : $("#shop_id").val()
 		};
 
-		var obj = this;
-		$(this).siblings("img.update-loading").show();
-		console.log(updatedata);
-		
-		$.ajax({
-			type : "POST",
-			url : $("#base_url").val()+"API/ShopRestController/updateShopLocation",
-			contentType : "application/json",
-			data : JSON.stringify({
-				"request_data" : updatedata
-			}),
-			success : function(data){
-				data = JSON.parse(data);
-				console.log(data);
-				if(data.is_updated == true){
-					//top.swal("Update Success!", data.message, "success");
-					$("#shop-country").html(country_text);
-					$("#shop-city").html(city_text);
-					$("#shop-district").html(district_text);
-					$("#shop-commune").html(commune_text);
-					
-					$(obj).parents(".save-shop-info-box").slideUp(100);
-					$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
-					setTimeout(function(){top.resizeIframe()}, 120); 			
-				}else{
-					top.swal("Update Error!", data.message, "error");
+		if(updateLoactionValidate(updatedata)){
+			var obj = this;
+			$(this).siblings("img.update-loading").show();
+			console.log(updatedata);
+			
+			$.ajax({
+				type : "POST",
+				url : $("#base_url").val()+"API/ShopRestController/updateShopLocation",
+				contentType : "application/json",
+				data : JSON.stringify({
+					"request_data" : updatedata
+				}),
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_updated == true){
+						//top.swal("Update Success!", data.message, "success");
+						$("#shop-country").html(country_text);
+						$("#shop-city").html(city_text);
+						$("#shop-district").html(district_text);
+						$("#shop-commune").html(commune_text);
+						
+						$(obj).parents(".save-shop-info-box").slideUp(100);
+						$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+						setTimeout(function(){top.resizeIframe()}, 120); 			
+					}else{
+						top.swal("Update Error!", data.message, "error");
+					}
+					$(obj).siblings(".update-loading").hide(); 
+						
 				}
-				$(obj).siblings(".update-loading").hide(); 
-					
-			}
-		});
-    });
+			});
+		}
 
-    $("#shop-street").on("click", function(){
 		
     });
 
-    function getAddress(){//name of country, city........
+    function updateStreetValidate(data){
+
+		if(!$("#shopstreetad").val()){
+			
+			top.swal("Input Error!", "street no is invalid!", "error");
+			return false;
+		}
+		
+    	if(!data.shop_id){
+        	
+			top.swal("Input Error!", "shop_id is invalid!", "error");
+			return false;
+		}
+		if(!data.shop_lat_point){
+			
+			top.swal("Input Error!", "shop_lat_point is invalid!", "error");
+			return false;
+		}
+		if(!data.shop_lng_point){
+			
+			top.swal("Input Error!", "shop_lng_point is invalid!", "error");
+			return false;
+		}
+
+		
+		return true;
+    }
+    $("#shop-street-btn").on("click", function(){
+  	
+		var updatedata = {
+			"shop_id" : $("#shop_id").val(),
+			"shop_lat_point" : $("#lat-location").val(),
+			"shop_lng_point" : $("#lng-location").val(),
+			"shop_address" : getAddress_street(),
+			"shop_time_zone" : shoptimezone
+		};
+
+		if(updateStreetValidate(updatedata)){
+			
+			var obj = this;
+			$(this).siblings("img.update-loading").show();
+			console.log(updatedata);
+			
+			$.ajax({
+				type : "POST",
+				url : $("#base_url").val()+"API/ShopRestController/updateShopStreet",
+				contentType : "application/json",
+				data : JSON.stringify({
+					"request_data" : updatedata
+				}),
+				success : function(data){
+					data = JSON.parse(data);
+					console.log(data);
+					if(data.is_updated == true){
+					
+						//$("#detectlocation").click();
+						console.log(updatedata);
+						var pointlocation = {lat: parseFloat(updatedata.shop_lat_point) , lng: parseFloat(updatedata.shop_lng_point)};
+
+						console.log(pointlocation);
+						marker.setPosition(pointlocation);												
+		    			map.panTo(pointlocation); 
+		    			marker.setAnimation(google.maps.Animation.DROP);	
+						$("#shop-street").html(getAddress_street().split(",")[0]);
+						$("div.disable-google-map").show();
+
+						$("#lat-location").val("");
+						$("#lng-location").val("");
+						$("#shopstreetad").val("");
+						
+						setTimeout(function(){
+							$(obj).parents(".save-shop-info-box").slideUp(100);
+							$(obj).parents(".shop-info-wrapper").find(".shop-info-edit-btn").removeClass("edit-active");
+							setTimeout(function(){top.resizeIframe()}, 120); 
+						}, 400);
+									
+					}else{
+						top.swal("Update Error!", data.message, "error");
+					}
+					$(obj).siblings(".update-loading").hide(); 
+						
+				}
+			});
+		}
+    });
+
+    function getAddress_street(){
+    	var streetupdate = $("#shopstreetad").val().split(",");
+    	country_text = $("#shop-country").text().trim();
+    	city_text = $("#shop-city").text().trim();
+    	district_text = $("#shop-district").text().trim();
+    	commune_text = $("#shop-commune").text().trim();
+    	    	  	
+    	return streetupdate[0]+", "+commune_text+", "+district_text+", "+city_text+", "+country_text;
+    }
+    function getAddress_add(){//name of country, city........
 
     	country_text = $("#nham_country option:selected").text();
     	city_text = $("#nham_city option:selected").text();
     	district_text = $("#nham_district option:selected").text();
     	commune_text = $("#nham_commune option:selected").text();
-    	var streetad = shopaddress[0];
-    	  	
-    	return streetad +", "+commune_text+", "+district_text+", "+city_text+", "+country_text;
+    	    	  	
+    	return shopaddress[0]+", "+commune_text+", "+district_text+", "+city_text+", "+country_text;
     }
     
 	loadDefaultData();

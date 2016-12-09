@@ -169,7 +169,7 @@
 	       	 			<div class="col-lg-12" id="incompleted-info">
 	       	 				<div class="row">
 		       	 				<div class="callout  shop-notcomplete-detail" >
-					              <h4 class="pull-left">ALARM: Completed Information!</h4>
+					              <h4 class="pull-left">REMINDER: Completed Information!</h4>
 					              <i class="fa fa-times pull-right remove-icon" aria-hidden="true"></i>
 	             
 					              <div style="clear:both;"></div>
