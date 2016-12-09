@@ -43,7 +43,52 @@ class ProductModel extends CI_Model{
 				$response["message"] = "success";
 			}
 			
-			return $response;
+			return $response;	
+	}
+	
+	public function listProductByShopId ($request){
+		
+		$status = (int)$request["pro_status"];
+		$shop_id = (int)$request["shop_id"];
+		$limit = (int)$request["row"];
+		$page = (int)$request["page"];
+			
+		$offset = ($limit*$page)-$limit;
+		
+		if(isset($request["row_minus"])){				
+			$row_minus = (int)$request["row_minus"];
+			if( $row_minus > 0){
+		
+				$offset = $offset - $row_minus;
+			}				
+		}
+		
+		$params = array();
+		$sql = "SELECT 
+				pro_id,
+				pro_name_en,
+				pro_name_kh,
+				pro_image,
+				pro_price,
+				pro_promote_price,
+				pro_local_popularity,
+				pro_description,
+				pro_created_date,
+				pro_status
+			FROM nham_product 
+			WHERE shop_id = ? ";
+		
+		array_push($params, $shop_id);
+		if($status == 0 || $status == 1){
+			$sql .= " AND sh_img_status = ? ";
+			array_push($params, $status);
+		}
+		$sql .=" ORDER BY pro_dis_order LIMIT ? OFFSET ? ";
+		array_push($params, $limit,$offset);
+		$query = $this->db->query($sql , $params);
+		
+		$response = $query->result();
+		return $response;
 		
 	}
 }

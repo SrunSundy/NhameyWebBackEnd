@@ -216,6 +216,10 @@ class ShopModel extends CI_Model{
 		if(count($response) > 0){
 			foreach($response as $item){
 					
+				if($item->shop_time_zone == null || trim($item->shop_time_zone)== "" ){
+					$item->shop_time_zone = "Asia/Phnom_Penh";
+				}
+				
 				$now = new DateTime($item->shop_time_zone);
 				$now = strtotime($now->format('H:i:s'));
 					
@@ -426,6 +430,9 @@ class ShopModel extends CI_Model{
 		if(count($responsequery) > 0){
 			foreach($responsequery as $item){
 					
+				if($item->shop_time_zone == null || trim($item->shop_time_zone)== "" ){
+					$item->shop_time_zone = "Asia/Phnom_Penh";
+				}
 				$now = new DateTime($item->shop_time_zone);
 				$now = strtotime($now->format('H:i:s'));
 					
@@ -1009,16 +1016,58 @@ class ShopModel extends CI_Model{
 			return $response;
 		}
 		
-		if($update_effect >0){
+		//if($update_effect >0){
 			$response["is_updated"] = true;
 			$response["message"] = "update successfully!";
-		}else{
+	/* 	}else{
 			$response["is_updated"] = false;
-			$response["message"] = "update error!";
-		}
+			$response["message"] = "Updating isn't affected!";
+		} */
 		
 		return $response;
 		
+	}
+	
+	function updateShopStreet($request){
+	
+		$response = array();
+		$sql = "UPDATE nham_shop SET
+				 shop_lat_point = ? ,
+				 shop_lng_point = ? ,
+				 shop_address = ?,
+				 shop_time_zone = ?
+			 WHERE shop_id = ? ";
+	
+		$param = array();
+		array_push($param, $request["shop_lat_point"], $request["shop_lng_point"],$request["shop_address"],
+				 $request["shop_time_zone"], $request["shop_id"]);
+	
+		$update_effect = 0;
+		try
+		{
+			/* $this->load->helper('ExecuteQueryString');
+			echo interpolateQuery($sql, $param);
+			die(); */
+			$this->db->query($sql, $param);
+			$update_effect = $this->db->affected_rows();
+		}
+		catch( Exception $e )
+		{
+			$response["is_updated"] = false;
+			$response["message"] = "Database Error!";
+			return $response;
+		}
+	
+		//if($update_effect >0){
+			$response["is_updated"] = true;
+			$response["message"] = "update successfully!";
+		/* }else{
+			$response["is_updated"] = false;
+			$response["message"] = "Updating isn't affected!";
+		} */
+	
+		return $response;
+	
 	}
 	
 	function validateInput($shopdata){

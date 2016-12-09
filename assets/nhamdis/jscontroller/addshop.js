@@ -146,7 +146,7 @@ function getShopTimeZone(lat, lng){
   	   if(response.timeZoneId != null){
   		 shoptimezone = response.timeZoneId;
   	   }else{
-  		 shoptimezone = "No Time zone";
+  		 shoptimezone = "";
   	   }
   	});
 }
@@ -1062,7 +1062,7 @@ function checkIfSetimgNameFail(){
 
 
 
-function getAddress(){//name of country, city........
+function getAddress_add(){//name of country, city........
 
 	var streetad = $("#shopstreetad").val().split(",");
 	var country = $("#nham_country option:selected").text();
@@ -1211,7 +1211,7 @@ function getDataToInsert(){
 				"shop_serve_type" : $("#shopservetype").val(),
 				"shop_short_description": $("#shopshortdes").val() ,
 				"shop_description" : $("#shopdes").val(),
-				"shop_address": getAddress(),	
+				"shop_address": getAddress_add(),	
 				"shop_phone": shopphones.toString().replace(/[,]/g,"|").trim(),
 				"shop_email":$("#shopemail").val(),
 				"shop_working_day": countWorkingday().toString().replace(/[,]/g,"|").trim(),
