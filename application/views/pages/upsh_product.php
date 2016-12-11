@@ -206,7 +206,184 @@
 			       	 							<img class="is-popular-product" src="http://logotipka.ru/images/stories/skachat_img/stars/star27-150.png"  />
 			       	 						</div>
 			       	 						<div class="product-img-wrapper" align="center">
-			       	 							<img class="product-img" src="<?php echo base_url(); ?>uploadimages/product/small/logo_CgNNVThoGQkfuQgPp6X5_1481268360.jpg" />
+			       	 							<img class="product-img" src="<?php echo base_url(); ?>uploadimages/shopimages/small/detail_duoeJGCj0gdcDXwnHYnN_1481376022.jpg" />
+			       	 						</div>
+			       	 					</div>
+			       	 					<div class="product-body">
+			       	 						<div class="product-detail-wrapper">
+			       	 							<h4 class="product-name wordwrap"> Fried Mushroom</h4>
+			       	 							<p class="product-description wordwrap"> this is the best mushroom I have ever tasted. Love it! Really delicious!</p>
+			       	 						</div>
+			       	 					</div>
+			       	 					<span class="product-price">$18</span>
+			       	 				</div>
+		       	 				</div>		       	 				
+		       	 			</div>
+		       	 			
+		       	 			<div class="product-box col-lg-2 col-sm-3 col-xs-6">
+		       	 				<div class="row">
+			       	 				<div class="product-inside-box">
+			       	 					<div class="black-edge-box"></div>
+			       	 					<div class="product-event-menu">
+			       	 						<div class="menu-arrow">			       	 				
+									       	 	<div class="dropdown product-menu-wrapper" >
+													<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+													</button>
+													<ul class="dropdown-menu image-event-list" style="width:30px;" >
+																																					
+														<li class="event-front-show">
+															<a href="javascript:;">	
+																<input type="hidden" class="sh_img_id" value=""/>																																						
+																<i class="fa fa-times-circle" aria-hidden="true"></i>
+																<span class="check-box-text" >Uncheck</span>																																																																		
+															</a>
+														</li>
+														
+														<li class="event-status">
+															<a href="javascript:;">
+																<input type="hidden" class="sh_img_id" value=""/>																
+																<i class="fa fa-circle-o" aria-hidden="true"></i>
+																<span class="check-box-text" >Enable</span>																	
+															</a>
+														</li>
+														<li class="event-delete">
+															<input type="hidden" class="sh_img_id" value=""/>
+															<a href="javascript:;">
+																<i class="fa fa-trash" aria-hidden="true"></i>
+																Delete
+															</a>
+														</li>
+																																			
+													</ul>
+												</div>
+									       	 </div>
+			       	 					</div>
+			       	 							       	 					
+			       	 					<div class="product-header">
+			       	 						<div class="is-popular-wrapper">
+			       	 							<img class="is-popular-product" src="http://logotipka.ru/images/stories/skachat_img/stars/star27-150.png"  />
+			       	 						</div>
+			       	 						<div class="product-img-wrapper" align="center">
+			       	 							<img class="product-img" src="<?php echo base_url(); ?>uploadimages/shopimages/small/detail_a0FCDa82jOb6jaENeWTz_1481376026.jpg" />
+			       	 						</div>
+			       	 					</div>
+			       	 					<div class="product-body">
+			       	 						<div class="product-detail-wrapper">
+			       	 							<h4 class="product-name wordwrap"> Bread With Ham</h4>
+			       	 							<p class="product-description wordwrap"> this is the best mushroom I have ever tasted. Love it! Really delicious!</p>
+			       	 						</div>
+			       	 					</div>
+			       	 					<span class="product-price">$18</span>
+			       	 				</div>
+		       	 				</div>		       	 				
+		       	 			</div>
+		       	 			
+		       	 			<div class="product-box col-lg-2 col-sm-3 col-xs-6">
+		       	 				<div class="row">
+			       	 				<div class="product-inside-box">
+			       	 					<div class="black-edge-box"></div>
+			       	 					<div class="product-event-menu">
+			       	 						<div class="menu-arrow">			       	 				
+									       	 	<div class="dropdown product-menu-wrapper" >
+													<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+													</button>
+													<ul class="dropdown-menu image-event-list" style="width:30px;" >
+																																					
+														<li class="event-front-show">
+															<a href="javascript:;">	
+																<input type="hidden" class="sh_img_id" value=""/>																																						
+																<i class="fa fa-times-circle" aria-hidden="true"></i>
+																<span class="check-box-text" >Uncheck</span>																																																																		
+															</a>
+														</li>
+														
+														<li class="event-status">
+															<a href="javascript:;">
+																<input type="hidden" class="sh_img_id" value=""/>																
+																<i class="fa fa-circle-o" aria-hidden="true"></i>
+																<span class="check-box-text" >Enable</span>																	
+															</a>
+														</li>
+														<li class="event-delete">
+															<input type="hidden" class="sh_img_id" value=""/>
+															<a href="javascript:;">
+																<i class="fa fa-trash" aria-hidden="true"></i>
+																Delete
+															</a>
+														</li>
+																																			
+													</ul>
+												</div>
+									       	 </div>
+			       	 					</div>
+			       	 							       	 					
+			       	 					<div class="product-header">
+			       	 						<div class="is-popular-wrapper">
+			       	 							<img class="is-popular-product" src="http://logotipka.ru/images/stories/skachat_img/stars/star27-150.png"  />
+			       	 						</div>
+			       	 						<div class="product-img-wrapper" align="center">
+			       	 							<img class="product-img" src="<?php echo base_url(); ?>uploadimages/shopimages/small/detail_duoeJGCj0gdcDXwnHYnN_1481376022.jpg" />
+			       	 						</div>
+			       	 					</div>
+			       	 					<div class="product-body">
+			       	 						<div class="product-detail-wrapper">
+			       	 							<h4 class="product-name wordwrap"> Fried Mushroom</h4>
+			       	 							<p class="product-description wordwrap"> this is the best mushroom I have ever tasted. Love it! Really delicious!</p>
+			       	 						</div>
+			       	 					</div>
+			       	 					<span class="product-price">$18</span>
+			       	 				</div>
+		       	 				</div>		       	 				
+		       	 			</div>
+		       	 			
+		       	 			<div class="product-box col-lg-2 col-sm-3 col-xs-6">
+		       	 				<div class="row">
+			       	 				<div class="product-inside-box">
+			       	 					<div class="black-edge-box"></div>
+			       	 					<div class="product-event-menu">
+			       	 						<div class="menu-arrow">			       	 				
+									       	 	<div class="dropdown product-menu-wrapper" >
+													<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+													</button>
+													<ul class="dropdown-menu image-event-list" style="width:30px;" >
+																																					
+														<li class="event-front-show">
+															<a href="javascript:;">	
+																<input type="hidden" class="sh_img_id" value=""/>																																						
+																<i class="fa fa-times-circle" aria-hidden="true"></i>
+																<span class="check-box-text" >Uncheck</span>																																																																		
+															</a>
+														</li>
+														
+														<li class="event-status">
+															<a href="javascript:;">
+																<input type="hidden" class="sh_img_id" value=""/>																
+																<i class="fa fa-circle-o" aria-hidden="true"></i>
+																<span class="check-box-text" >Enable</span>																	
+															</a>
+														</li>
+														<li class="event-delete">
+															<input type="hidden" class="sh_img_id" value=""/>
+															<a href="javascript:;">
+																<i class="fa fa-trash" aria-hidden="true"></i>
+																Delete
+															</a>
+														</li>
+																																			
+													</ul>
+												</div>
+									       	 </div>
+			       	 					</div>
+			       	 							       	 					
+			       	 					<div class="product-header">
+			       	 						<div class="is-popular-wrapper">
+			       	 							<img class="is-popular-product" src="http://logotipka.ru/images/stories/skachat_img/stars/star27-150.png"  />
+			       	 						</div>
+			       	 						<div class="product-img-wrapper" align="center">
+			       	 							<img class="product-img" src="<?php echo base_url(); ?>uploadimages/shopimages/small/detail_9cFAjJJ8KyWFyT88ltFZ_1481376022.jpg" />
 			       	 						</div>
 			       	 					</div>
 			       	 					<div class="product-body">
