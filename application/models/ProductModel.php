@@ -70,9 +70,10 @@ class ProductModel extends CI_Model{
 				pro_name_kh,
 				pro_image,
 				pro_price,
-				pro_promote_price,
+				COALESCE(TRIM(pro_promote_price),'') as pro_promote_price,
 				pro_local_popularity,
-				pro_description,
+				COALESCE(TRIM(pro_view_count),'0') as pro_view_count,
+				pro_short_description,
 				pro_created_date,
 				pro_status
 			FROM nham_product 
