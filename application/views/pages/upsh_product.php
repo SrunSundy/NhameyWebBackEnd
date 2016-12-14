@@ -14,7 +14,7 @@
 	 	}
 	 	
 	 	div.product-wrapper{
-	 		margin-left: 5px;
+	 		margin-left: 8px;
 	 	}
 	 	
 	 	div.product-box{
@@ -23,8 +23,8 @@
 	 	}
 	 	
 	 	div.product-inside-box{
-	 		margin-right:5px;
-	 		margin-top: 5px;
+	 		margin-right:8px;
+	 		margin-top: 8px;
 	 		background: #eeeeee;
 	 		box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
 	 		height: 250px;
@@ -58,7 +58,7 @@
 	 		width: 52%;
 	 		height: auto;
 	 		border-radius: 100%;
-	 		margin-top: 15px;
+	 		margin-top: 25px;
 	 		border: 3px solid #fff;
 	 		
 	 	}
@@ -72,6 +72,11 @@
 	 	
 	 	div.product-body{
 	 		position:relative;
+	 	}
+	 	
+	 	div.product-footer{
+	 		position: absolute;
+	 		bottom: 0;
 	 	}
 	 	
 	 	div.product-detail-wrapper{
@@ -105,8 +110,8 @@
 	 		font-weight: bold;
 	 		font-size: 18px;
 	 		position: absolute;
-	 		bottom: 0px;
-	 		right: 5px;
+	 		top: 0px;
+	 		left: 5px;
 	 		color: green;
 	 	
 	 	}
@@ -120,16 +125,26 @@
 	 		font-weight: bold;
 	 		font-size: 20px;
 	 		position: absolute;
-	 		bottom: -1px;
-	 		right: 40px;
+	 		top: -1px;
+	 		left: 40px;
 	 		color: #dd4b39;
 	 	}
 	 	
-	 	span.product-view-cnt{
+	 	span.product-cnt{
 	 		color: #757575;
-	 		position: absolute;
-	 		bottom: 5px;
-	 		left: 5px;
+	 		font-size: 12px;
+	 		padding: 5px 2px 0px 6px;
+	 		margin-top: -10px;
+	 	}
+	 	
+	 	span.product-cnt i{
+	 		font-size: 12px;
+	 		padding-r: 1px;
+	 	}
+	 	
+	 	span.product-cnt i.fa-eye{
+	 		font-size: 14px;
+	 		padding-r: 1px;
 	 	}
 	 	
 	 	div.product-event-menu{
@@ -188,8 +203,8 @@
 	 	}
 	 	
 	 	img.is-popular-product{
-	 		width: 30px;
-	 		height: 30px;
+	 		width: 80px;
+	 		height: 80px;
 	 	}
 	 	
 	 	div.product-more-detail{
@@ -210,6 +225,40 @@
 	 		
 	 	}
 	 	
+	 	div.more-loading{
+	 		width: 100%;
+	 		min-height: 50px;	 		
+	 		padding: 5px;
+	 		margin-top: 30px;
+	 	}
+	 	
+	 	div.more-loading-inside, div.no-more-loading-inside{
+	 	
+	 		width: 100%;
+	 		height: 65px;
+	 		display: none;
+	 	}
+	 	
+	 	img.loading-more-img,p.loading-more-text{
+	 		display:inline;
+	 	}
+	 	
+	 	p.loading-more-text{
+	 		font-weight: bold;
+	 		font-size: 20px;
+	 		color: #cec9c9;
+	 	}
+	 	
+	 	img.loading-more-img{
+	 		width: 50px;
+	 		height:50px;
+	 	}
+	 	
+	 	span.number-of-product{
+	 		font-size: 18px;
+	 		color: #b1b1b1;
+	 	}
+	 	
 	 	
 	 	@media screen and (max-width: 768px) {
 			div.product-detail-wrapper .product-name{
@@ -219,6 +268,33 @@
 			div.product-detail-wrapper .product-description{
 	 			font-size: 14px;
 	 		}
+	 		
+	 		span.product-cnt{	 		
+	 			font-size: 11px;	 	
+		 	}
+		 	
+		 	span.product-cnt i{
+		 		font-size: 11px;
+		 		padding-r: 1px;
+		 	}		 	
+		 	span.product-cnt i.fa-eye{
+		 		font-size: 13px;
+		 		padding-r: 1px;
+		 	}
+		 	
+		 	
+		 	
+		}
+		
+		@media screen and (max-width: 400px) {
+			span.cnt-bookmark, span.cnt-share{
+		 		display:none;
+		 	}
+		 	
+		 	img.is-popular-product{
+		 		width: 60px;
+		 		height: 60px;
+		 	}
 		}
 	 </style>
   </head>
@@ -229,13 +305,31 @@
     <div class="shop-event-wrapper">			   	       	 						       	 					
 	     <div  class="tab-wrapper">	       	 				
 	       	 <div class="tab-header col-lg-12">
-	       	 	<p class="tab-intro-text"><i class="fa fa-product-hunt" aria-hidden="true"></i><span>Product</span></p>
+	       	 	<p class="tab-intro-text"><i class="fa fa-product-hunt" aria-hidden="true"></i><span>Product</span>
+	       	 	<span id="pro-total-record" class="number-of-product"></span></p>
 	       	 </div>
 	       	 <div class="tab-body col-lg-12">
 	       	 	<div class="row">
 		       	 	<div class="product-wrapper col-lg-12">
 		       	 		<div class="row">
-		       	 			 <div id="list_pro_result"></div>     			 			      	 					       	 		
+		       	 			 <div id="list_pro_result"></div>     
+		       	 			 
+		       	 			 <div class="more-loading">
+				       	 	 	<div class="more-loading-inside" align="center" id="loading-more">		       	 	 		
+					       	 	 	<img class="loading-more-img" src="<?php echo base_url() ?>assets/nhamdis/img/default.gif" />
+						       	 	<p class="loading-more-text">
+										Loading...
+									</p>
+				       	 	 			       	 	 		
+				       	 	 	</div>
+				       	 	 	
+				       	 	 	<div class="no-more-loading-inside" align="center" id="loading-no-record">		       	 	 					       	 	 
+						       	 	<p class="loading-more-text">
+										:'( <span style="padding-left:10px;">No Result Found!</span>
+									</p>		       	 	 			       	 	 		
+				       	 	 	</div>
+								
+							 </div>			 			      	 					       	 		
 		       	 		</div>
 		       	 	</div>						
 	       	 	</div>
@@ -291,9 +385,13 @@
 						 </div>
 			       	 							       	 					
 			       	 	 <div class="product-header">
+							  {{if pro_local_popularity ==1 || pro_local_popularity == ''}}
 			       	 		  <div class="is-popular-wrapper">
-			       	 			   <img class="is-popular-product" src=""  />
+			       	 			   <img class="is-popular-product" src="http://pitertour.ru/images/design/spo.png"  />
 			       	 		  </div>
+							  {{/if}}
+
+							 
 			       	 		  <div class="product-img-wrapper" align="center">
 			       	 			   <img class="product-img" src="{{= getSourceImage( pro_image )}}" onerror="imgError(this)" />
 			       	 		  </div>
@@ -307,7 +405,13 @@
 			       	 		  </div>
 			       	 	 </div>
 						
-						 <span class="product-view-cnt"> {{= pro_view_count}} views</span>
+						 <div class="product-footer">
+							  <span class="product-cnt cnt-heart" style=""><i class="fa fa-heart" aria-hidden="true"></i> {{= pro_view_count}}</span>
+							  <span class="product-cnt cnt-eye" style=""><i class="fa fa-eye" aria-hidden="true"></i> {{= pro_view_count}}</span>
+							  <span class="product-cnt cnt-bookmark" style=""><i class="fa fa-bookmark" aria-hidden="true"></i> {{= pro_view_count}}</span>
+ 							  <span class="product-cnt cnt-share" style=""><i class="fa fa-share-alt" aria-hidden="true"></i> {{= pro_view_count}}</span>						  	 						  	 
+						 </div>
+						  
 						 {{if pro_promote_price <=0 || pro_promote_price == ''}}
 							<span class="product-price">{{= formatDollar(pro_price) }}</span>
 						 {{else}}
@@ -320,6 +424,9 @@
 	</script>
     <script>   
 
+    var is_loading = false;
+    var pro_total_record = 0;
+    var pro_total_page = 0;
     var request ={
     		  
     	"row" : 16,
@@ -331,8 +438,6 @@
           
     $(window).load(function(){
     	
-    	window.parent.$(".iframe_hover").hide();
-		window.parent.$("#updateShopframe").show();	
 		top.resizeIframe();	    	
     });
 
@@ -340,10 +445,18 @@
     	top.resizeIframe();
     });
 
-    listProduct();     
-	function listProduct(){
-
-		$.ajax({
+    listProduct(function(){
+    	window.parent.$(".iframe_hover").hide();
+		window.parent.$("#updateShopframe").show();	
+		top.resizeIframe();
+		
+    });    
+     
+	function listProduct( callback ){
+		
+		is_loading = true;
+		$("#loading-more").show();
+	    $.ajax({
 			type : "POST",
 			url : $("#base_url").val()+"API/ProductRestController/listProductByShopId",
 			contentType : "application/json",
@@ -351,11 +464,27 @@
 			success : function(data){
 				data = JSON.parse(data);				
 				console.log(data);
-				$("#pro_data_result").tmpl(data.response_data).appendTo("#list_pro_result");	
-				setTimeout(function(){top.resizeIframe();}, 200);
+
+				pro_total_record = data.total_record;
+				pro_total_page = data.total_page;
+				$("#pro-total-record").html(pro_total_record);
 				
+				if(data.response_data!= null && data.response_data.length <= 0){
+					$("#loading-no-record").show();
+				}else{
+					$("#loading-no-record").hide();									
+					$("#pro_data_result").tmpl(data.response_data).appendTo("#list_pro_result");							
+				}
+
+				request["page"]++;
+				if( typeof callback === "function"){
+					callback();
+				}
+				$("#loading-more").hide();
+				setTimeout(function(){top.resizeIframe();}, 200);
+				is_loading = false;
 			}
-    	});
+    	}); 
 	}
 
 	function formatDollar( price ){

@@ -92,6 +92,30 @@ class ProductModel extends CI_Model{
 		return $response;
 		
 	}
+	
+	public function countListProductByShopId($request){
+		
+		$status = (int)$request["pro_status"];
+		$shop_id = (int)$request["shop_id"];
+		$row = (int)$request["row"];
+		
+		$params = array();
+		$sql = "SELECT
+					count(*) as total_record,
+					CASE WHEN count(*)% ? != 0 THEN count(*)/ ? +1 ELSE count(*)/ ? END as total_page
+			FROM nham_product
+			WHERE shop_id = ? ";
+		
+		array_push($params,$row ,$row, $row, $shop_id);
+		if($status == 0 || $status == 1){
+			$sql .= " AND sh_img_status = ? ";
+			array_push($params, $status);
+		}
+		$query = $this->db->query($sql , $params);
+		$response = $query->row();
+		return $response;
+		
+	}
 }
 
 ?>

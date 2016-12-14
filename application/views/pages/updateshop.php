@@ -1010,10 +1010,20 @@
 				        		top.resizeIframe();
 					        });
 					    }
-		        	}
-	        		
-	        		
+		        	}	        		
 	        	}
+
+	        	if( typeof document.getElementById('updateShopframe').contentWindow.listProduct === "function"){
+
+	        		var upsh_product = document.getElementById('updateShopframe').contentWindow;
+
+	        		if(!upsh_product.is_loading && upsh_product.request["page"] <= upsh_product.pro_total_page){
+	        			upsh_product.listProduct(function(){
+	        				top.resizeIframe();
+		        		});
+		        	}
+	        	}
+	        	
 	        	
 	        }
 	    });

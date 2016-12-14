@@ -49,7 +49,7 @@ class ProductRestController extends CI_Controller{
 				"commune_id"=>$commune_id,"taste_id"=>$taste_id,"pro_lat_point"=>$pro_lat_point,"pro_lng_point"=>$pro_lng_point,
 				"pro_serve_type"=>$pro_serve_type,"pro_price"=>$pro_price,"pro_promote_price"=>$pro_promote_price,
 				"pro_image"=>$pro_image,"pro_short_description"=>$pro_short_description,"pro_description"=>$pro_description,"pro_remark"=>$pro_remark,
-				"pro_made_duration"=>$pro_made_duration,"pro_local_popularity"=>$pro_local_popularity,"admin_id"=>$_SESSION['admin_id']);
+				"pro_made_duration"=>$pro_made_duration,"pro_local_popularity"=>$pro_local_popularity,"admin_id"=>1);
 		$pro_servertype = $this->input->post('serve_categories');
 		$tags=$this->input->post('tags');
 		$response = $this->ProductModel->insertProduct($datapro,$pro_servertype,$tags);	
@@ -88,6 +88,8 @@ class ProductRestController extends CI_Controller{
 
 		$response_data = $this->ProductModel->listProductByShopId($request);
 		
+		$response["total_record"] = $this->ProductModel->countListProductByShopId($request)->total_record;
+		$response["total_page"] = (int)$this->ProductModel->countListProductByShopId($request)->total_page;
 		$response["response_data"] = $response_data;
 		echo json_encode($response, JSON_PRETTY_PRINT);
 	}
