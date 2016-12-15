@@ -123,7 +123,7 @@
 	 		position: absolute;
 	 		top:10px;
 	 		right: 10px;
-	 		
+	 		z-index: 999;
 	 	}
 	 	
 	 	
@@ -131,10 +131,11 @@
 	 	div.box-image:hover div.box-gradient{
 	 		height: 80px;
 	 		visibility: visible;
+	 		
 	 	}
 	 	
 	 	div.box-image:hover div.box-image-detail{
-	 		display: block;
+	 		visibility: visible;
 	 	}
 	 	
 	 	img.image-inside{
@@ -163,6 +164,10 @@
 		    background: -o-linear-gradient(transparent, black); /* For Opera 11.1 to 12.0 */
 		    background: -moz-linear-gradient(transparent, black); /* For Firefox 3.6 to 15 */
 		    background: linear-gradient(transparent, black); 
+		     -webkit-transition: all 0.08s ease-out ;
+		    -moz-transition: all 0.08s ease-out ;
+		    -o-transition: all 0.08s ease-out ;
+		    transition: all 0.08s ease-out ;
 	 	}
 	 	
 	 	div.box-image-detail{
@@ -171,7 +176,8 @@
 	 		left: 0;
 	 		width: 100%;
 	 		height: 100%;
-	 		display:none;
+	 		visibility: hidden;
+	 		
 	 	}
 	 	
 	 	div.menu-image-wrapper{
@@ -334,6 +340,21 @@
 		    top: 30%;
 		    
 		}
+		
+		@media screen and (max-width: 400px) {
+			span.cnt-bookmark, span.cnt-share{
+		 		display:none;
+		 	}
+		 	
+		 	div.disabled-image-box p{
+		 		font-size: 15px;
+		 	}
+		 	
+		 	img.is-popular-product{
+		 		width: 60px;
+		 		height: 60px;
+		 	}
+		}
 	 </style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -485,9 +506,9 @@
 					<p>This image has been disabled!</p>
 				 </div>
 				 			
-				 <div class="shop-image-front-show-box" >
-					{{if sh_img_is_front_show == 1 }}	
- 						<img src="{{= getCheckImgSource() }}" style="width: 20px;height:20px;" />
+				 <div class="shop-image-front-show-box"  >
+					{{if sh_img_is_front_show == 1 }}						
+ 						<img src="{{= getCheckImgSource() }}" style="width: 20px;height:20px;" title="This image will be shown in the front page." />						
 					{{/if}}		
 				 </div>
 				 <div class="image-wrapper">
@@ -579,6 +600,8 @@
 	var total_detail_page = 1;
 	var total_cover_page = 1;
 	var total_logo_page = 1;
+
+	 var image_length = 0;
 
 	var start_date_srch;
 	var end_date_srch;
@@ -877,7 +900,7 @@
 		window.parent.$("#updateShopframe").show();
 		top.resizeIframe();
     }, true);
-
+    
 	function loadShopImage( callback, isEmpty ){
 		is_loading = true;
 		console.log(request);
@@ -908,6 +931,7 @@
 				if(data.response_data!= null && data.response_data.length <= 0){
 					$("#loading-no-record").show();
 				}else{
+					image_length +=data.response_data.length;
 					$("#loading-no-record").hide();									
 					$("#image_data_result").tmpl(data.response_data).appendTo("#image_display_result");							
 				}
@@ -917,10 +941,23 @@
 				}	
 				
 				$("#loading-more").hide();			
-				setTimeout(function(){top.resizeIframe();}, 200);
+				setTimeout(function(){doResize();}, 200);
 				is_loading = false;
 			}
     	});
+	}
+
+	function doResize(){
+		
+		setTimeout(function(){top.resizeIframe();}, 500);
+		var box_img = $("div.box-image").length;
+
+		console.log("ELEMENT:"+ box_img);
+		console.log("TOTAL:"+ image_length);
+		
+		if( box_img < image_length  ){
+			doResize();
+		}
 	}
 
 	function getSourceImage(src){	

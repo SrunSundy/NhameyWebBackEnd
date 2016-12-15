@@ -93,6 +93,16 @@ class ProductRestController extends CI_Controller{
 		$response["response_data"] = $response_data;
 		echo json_encode($response, JSON_PRETTY_PRINT);
 	}
+	
+	public function updateProductField(){
+	
+		$request = json_decode($this->input->raw_input_stream,true);
+		$request = $request["request_data"];
+			
+		$response = $this->ProductModel->updateProductField($request);		
+		echo json_encode($response);
+	
+	}
 
 }
 ?>

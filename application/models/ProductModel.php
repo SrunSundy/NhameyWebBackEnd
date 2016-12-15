@@ -3,6 +3,11 @@
 class ProductModel extends CI_Model{
 
 
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
 	
 	public function insertProduct( $data, $pro_servertype,$tag){
 		$this->db->trans_begin();
@@ -115,6 +120,35 @@ class ProductModel extends CI_Model{
 		$response = $query->row();
 		return $response;
 		
+	}
+	
+	function updateProductField($request){
+	
+		$response = array();
+		$param = $request["param"];
+		$value = $request["updated_value"];
+		$pro_id = $request["pro_id"];
+		
+		$sql = "UPDATE nham_product SET ".trim($param)." = ? WHERE pro_id = ?";
+	
+		$update_effect = 0;
+		try
+		{
+			$this->db->query($sql, array( $value, $pro_id ));
+			$update_effect = $this->db->affected_rows();
+		}
+		catch( Exception $e )
+		{
+			$response["is_updated"] = false;
+			$response["message"] = "Database Error!";
+			return $response;
+		}
+	
+		$response["is_updated"] = true;
+		$response["message"] = "update successfully!";
+		
+		return $response;
+	
 	}
 }
 

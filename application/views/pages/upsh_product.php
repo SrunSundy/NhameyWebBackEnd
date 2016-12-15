@@ -154,6 +154,10 @@
 	 		left: 5px;
 	 		z-index: 2;
 	 		visibility: hidden;
+	 		 -webkit-transition: all 0.08s ease-out ;
+		    -moz-transition: all 0.08s ease-out ;
+		    -o-transition: all 0.08s ease-out ;
+		    transition: all 0.08s ease-out ;
 	 	}
 	 	
 	 	div.black-edge-box{
@@ -169,10 +173,10 @@
 		    background: -o-linear-gradient(black, transparent); /* For Opera 11.1 to 12.0 */
 		    background: -moz-linear-gradient(black, transparent); /* For Firefox 3.6 to 15 */
 		    background: linear-gradient(black, transparent); 
-		    -webkit-transition: all 0.05s ease-out ;
-		    -moz-transition: all 0.05s ease-out ;
-		    -o-transition: all 0.05s ease-out ;
-		    transition: all 0.05s ease-out ;
+		    -webkit-transition: all 0.08s ease-out ;
+		    -moz-transition: all 0.08s ease-out ;
+		    -o-transition: all 0.08s ease-out ;
+		    transition: all 0.08s ease-out ;
 	 	}
 	 	
 	 	div.black-edge-box-bottom{
@@ -189,10 +193,10 @@
 		    background: -o-linear-gradient(transparent, black); /* For Opera 11.1 to 12.0 */
 		    background: -moz-linear-gradient(transparent, black); /* For Firefox 3.6 to 15 */
 		    background: linear-gradient(transparent, black); 
-		    -webkit-transition: all 0.05s ease-out ;
-		    -moz-transition: all 0.05s ease-out ;
-		    -o-transition: all 0.05s ease-out ;
-		    transition: all 0.05s ease-out ;
+		    -webkit-transition: all 0.08s ease-out ;
+		    -moz-transition: all 0.08s ease-out ;
+		    -o-transition: all 0.08s ease-out ;
+		    transition: all 0.08s ease-out ;
 	 	}
 	 	
 	 	div.is-popular-wrapper{
@@ -259,6 +263,50 @@
 	 		color: #b1b1b1;
 	 	}
 	 	
+	 	div.disabled-product{
+	 		width: 100%;
+			height: 100%;
+			background: black;
+			opacity: 0.8;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+	 	}
+	 	
+	 	p.disabled-pro-text{
+	 		color:#fff;
+			font-size: 20px;
+			font-weight: bold;
+			text-align: center;
+		    position: absolute;
+		    top: 30%;
+	 	}
+	 	
+	 	div.loading-wrapper{
+			display: none;
+		}
+		
+		div.loading-event-box{
+			width: 100%;
+			height: 100%;
+			background: #fff;
+			opacity: 0.4;
+			position:absolute;
+			top: 0;
+			left: 0;
+			z-index: 95;
+			
+		}
+		
+		img.loading-img-in{
+			margin: auto;
+		    position: absolute;
+		    top: 0; left: 0; bottom: 0; right: 0;
+		    z-index:96;
+		   
+		}
+	 	
 	 	
 	 	@media screen and (max-width: 768px) {
 			div.product-detail-wrapper .product-name{
@@ -294,6 +342,10 @@
 		 	img.is-popular-product{
 		 		width: 60px;
 		 		height: 60px;
+		 	}
+		 	
+		 	p.disabled-pro-text{
+		 		font-size: 15px;
 		 	}
 		}
 	 </style>
@@ -344,6 +396,14 @@
 		<div class="product-box col-lg-2 col-sm-3 col-xs-6">
 		     <div class="row">
 			      <div class="product-inside-box">
+						
+					   <input type="hidden" class="product_id" value="{{= pro_id}}"/>
+					   <div class="loading-wrapper">
+							<div class="loading-event-box"></div>
+							<div class="loading-event-img">
+								<img src="{{= getSourceLoadingImg()}}"  class="loading-img-in" style="width: 25px;height:25px;"/>
+				 			</div>
+				 	   </div>
 			       	   <div class="black-edge-box"></div>
 			       	   <div class="product-event-menu">
 			       	 		<div class="menu-arrow">			       	 				
@@ -353,17 +413,27 @@
 									  </button>
 									  <ul class="dropdown-menu image-event-list" style="width:30px;" >
 																																					
-										  <li class="event-front-show">
+										  <li class="event-popularity">
 											  <a href="javascript:;">																																												
-												 <i class="fa fa-times-circle" aria-hidden="true"></i>
-												 <span class="check-box-text" >Uncheck</span>																																																																		
+												  {{if pro_local_popularity ==1 || pro_local_popularity == ''}}																				
+													<i class="fa fa-times-circle" aria-hidden="true"></i>
+													<span class="check-box-text" >Uncheck</span>
+												 {{else}}																							
+													<i class="fa fa-check-circle" aria-hidden="true"></i>
+													<span class="check-box-text" >Check</span>
+												 {{/if}}																																																																		
 											  </a>
 										  </li>
 														
 										  <li class="event-status">
 											  <a href="javascript:;">												 															
-												  <i class="fa fa-circle-o" aria-hidden="true"></i>
-												  <span class="check-box-text" >Enable</span>																	
+												  {{if pro_status == 1}}
+													 <i class="fa fa-ban" aria-hidden="true"></i>
+													 <span class="check-box-text" >Disable</span>
+												  {{else}}
+													 <i class="fa fa-circle-o" aria-hidden="true"></i>
+													 <span class="check-box-text" >Enable</span>
+												  {{/if}}																
 											  </a>
 										  </li>
 
@@ -379,6 +449,10 @@
 							  </div>
 			       	 	 </div>
 
+						 <div class="disabled-product" style="display:{{if pro_status == 0}}block{{else}}none{{/if}}">
+							  <p class="disabled-pro-text">This product has been disabled!</p>
+						 </div>						 
+
 						 <div class="black-edge-box-bottom"></div>
 						 <div class="product-more-detail">
 							  <p class="created-date">{{= pro_created_date}}</p>
@@ -390,7 +464,6 @@
 			       	 			   <img class="is-popular-product" src="http://pitertour.ru/images/design/spo.png"  />
 			       	 		  </div>
 							  {{/if}}
-
 							 
 			       	 		  <div class="product-img-wrapper" align="center">
 			       	 			   <img class="product-img" src="{{= getSourceImage( pro_image )}}" onerror="imgError(this)" />
@@ -427,6 +500,8 @@
     var is_loading = false;
     var pro_total_record = 0;
     var pro_total_page = 0;
+
+    var pro_length = 0;
     var request ={
     		  
     	"row" : 16,
@@ -443,6 +518,34 @@
 
     $(window).on("resize", function() {
     	top.resizeIframe();
+    });
+
+    $(document).on("click", "li.event-popularity", function(){
+    	$(this).parents("div.product-box").find("div.loading-wrapper").show();
+
+    	var obj = this;
+    	var updaterequest = {
+			"pro_id" : $(this).parents("div.product-box").find("input.product_id").val(),
+			"param" : "pro_local_popularity",
+			"updated_value" : $(this).find("i").hasClass("fa-times-circle") ? 0 : 1 
+    	};
+
+    	console.log(updaterequest);
+    	$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/ProductRestController/updateProductField",
+			contentType : "application/json",
+			data :  JSON.stringify({"request_data" : updaterequest}),
+			success : function(data){
+				data = JSON.parse(data);				
+				console.log(data);
+				if(data.is_updated){
+					
+													
+				}	
+				$(obj).parents("div.product-box").find("div.loading-wrapper").hide();		
+			}
+    	});
     });
 
     listProduct(function(){
@@ -467,11 +570,15 @@
 
 				pro_total_record = data.total_record;
 				pro_total_page = data.total_page;
-				$("#pro-total-record").html(pro_total_record);
+				
 				
 				if(data.response_data!= null && data.response_data.length <= 0){
+					
 					$("#loading-no-record").show();
 				}else{
+
+					pro_length += data.response_data.length;
+					$("#pro-total-record").html(pro_total_record);
 					$("#loading-no-record").hide();									
 					$("#pro_data_result").tmpl(data.response_data).appendTo("#list_pro_result");							
 				}
@@ -481,12 +588,25 @@
 					callback();
 				}
 				$("#loading-more").hide();
-				setTimeout(function(){top.resizeIframe();}, 200);
+				setTimeout(function(){doResize();}, 200);
 				is_loading = false;
 			}
     	}); 
 	}
 
+	function doResize(){
+		
+		setTimeout(function(){top.resizeIframe();}, 500);
+		var product_box = $("div.product-box").length;
+
+		console.log("ELEMENT:"+ pro_length);
+		console.log("TOTAL:"+ pro_length);
+		
+		if( product_box < pro_length  ){
+			doResize();
+		}
+	}
+	
 	function formatDollar( price ){
 
 		if(price%1 != 0){
@@ -494,6 +614,10 @@
 		}else{
 			return "$"+parseInt(price);
 		}
+	}
+
+	function getSourceLoadingImg(){
+		return $("#base_url").val()+"assets/nhamdis/img/updateload.gif";
 	}
 
 	function getSourceImage(src){	
