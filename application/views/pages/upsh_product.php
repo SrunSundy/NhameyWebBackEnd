@@ -459,11 +459,13 @@
 						 </div>
 			       	 							       	 					
 			       	 	 <div class="product-header">
-							  {{if pro_local_popularity ==1 || pro_local_popularity == ''}}
+							 
 			       	 		  <div class="is-popular-wrapper">
+								  {{if pro_local_popularity ==1 || pro_local_popularity == ''}}
 			       	 			   <img class="is-popular-product" src="http://pitertour.ru/images/design/spo.png"  />
+								  {{/if}}
 			       	 		  </div>
-							  {{/if}}
+							  
 							 
 			       	 		  <div class="product-img-wrapper" align="center">
 			       	 			   <img class="product-img" src="{{= getSourceImage( pro_image )}}" onerror="imgError(this)" />
@@ -540,13 +542,65 @@
 				data = JSON.parse(data);				
 				console.log(data);
 				if(data.is_updated){
-					
-													
+					if($(obj).find("i").hasClass("fa-times-circle")){
+			     		$(obj).find("i").removeClass("fa-times-circle");
+			     		$(obj).find("i").addClass("fa-check-circle");
+			     		$(obj).find("span.check-box-text").html("Check");
+			     		$(obj).parents("div.product-box").find("div.is-popular-wrapper").children().remove();
+			        }else{
+			        	$(obj).find("i").removeClass("fa-check-circle");
+			     		$(obj).find("i").addClass("fa-times-circle");
+			     		$(obj).find("span.check-box-text").html("Uncheck");
+			     		$(obj).parents("div.product-box").find("div.is-popular-wrapper").append('<img class="is-popular-product" src="http://pitertour.ru/images/design/spo.png"  />');
+			        }														
 				}	
 				$(obj).parents("div.product-box").find("div.loading-wrapper").hide();		
 			}
     	});
     });
+
+    $(document).on("click", "li.event-status", function(){
+
+    });
+
+ 	function updateProductStatus( obj , callback ){
+        
+ 		$(obj).parents("div.product-box").find("div.loading-wrapper").show();
+    	var updaterequest = {
+        	"param" : "pro_status",
+        	"updated_value" : $(obj).find("i").hasClass("fa-ban") ? 0 : 1 ,
+        	"pro_id" : $(obj).parents("div.product-box").find("input.product_id").val()
+        };
+    	console.log(updaterequest);
+    	$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/ProductRestController/updateProductField",
+			contentType : "application/json",
+			data :  JSON.stringify({"request_data" : updaterequest}),
+			success : function(data){
+				data = JSON.parse(data);				
+				console.log(data);
+				if(data.is_updated){
+					
+					if($(obj).find("i").hasClass("fa-ban")){
+			     		$(obj).find("i").removeClass("fa-ban");
+			     		$(obj).find("i").addClass("fa-circle-o");
+			     		$(obj).find("span.check-box-text").html("Enable");
+			     		$(obj).parents("div.product-box").find("div.disabled-image-box").show();
+			     		
+			        }else{
+			        	$(obj).find("i").removeClass("fa-circle-o");
+			     		$(obj).find("i").addClass("fa-ban");
+			     		$(obj).find("span.check-box-text").html("Disable");
+			     		$(obj).parents("div.product-box").find("div.disabled-image-box").hide();
+			        }									
+				}else{
+					top.swal("Update fail!", "", "error"); 
+				}
+				$(obj).parents("div.box-image").find("div.loading-wrapper").hide();	 
+			}
+    	});		
+    }
 
     listProduct(function(){
     	window.parent.$(".iframe_hover").hide();
