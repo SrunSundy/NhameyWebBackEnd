@@ -150,6 +150,19 @@ class ProductModel extends CI_Model{
 		return $response;
 	
 	}
+	
+	function deleteProduct( $product_id ){
+		
+		$sql = "DELETE FROM nham_product WHERE pro_id = ? ";
+		$this->db->query($sql , $product_id);
+		$affected_row = $this->db->affected_rows();
+		
+		if($affected_row >0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
 
 ?>

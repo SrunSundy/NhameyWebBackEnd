@@ -104,5 +104,28 @@ class ProductRestController extends CI_Controller{
 	
 	}
 
+	public function deleteProduct(){
+	
+		$request = json_decode($this->input->raw_input_stream,true);
+		if(!isset($request["request_data"])){
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+		}
+	
+		$response = array();
+	
+		if($this->ProductModel->deleteProduct($request["request_data"]["pro_id"])){
+			$response["is_deleted"] = true;
+			$response["message"] = "Delete successfully!";
+		}else{
+			$response["is_deleted"] = false;
+			$response["message"] = "Delete fail!";
+		}
+		echo json_encode($response);
+	
+	}
 }
 ?>

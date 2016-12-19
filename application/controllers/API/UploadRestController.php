@@ -636,7 +636,25 @@ class UploadRestController extends CI_Controller{
 		$data['message'] = array();
 		$report = array();
 		
+		if(!$this->input->post('productimage')){
+				
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+				
+		}
 		$productimage = $this->input->post('productimage');
+		if(!$productimage){
+					
+			$response["response_code"] = "400";
+			$response["response_msg"] = "bad request";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			die;
+			
+		}
 		
 		$extreme_small = "./uploadimages/product/extreme-small/";
 		$small = "./uploadimages/product/small/";

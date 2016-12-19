@@ -781,7 +781,7 @@
             	   
     	top.swal({
 			  title: "Are you sure?",
-			  text: "The client will not be able to see this image",
+			  text: "This Photo will be removed permanently!",
 			  type: "warning",
 			  showCancelButton: true,
 			  confirmButtonColor: "#DD6B55",

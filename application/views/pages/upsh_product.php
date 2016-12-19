@@ -396,7 +396,8 @@
 		<div class="product-box col-lg-2 col-sm-3 col-xs-6">
 		     <div class="row">
 			      <div class="product-inside-box">
-						
+
+					   <input type="hidden" class="product_image_name" value="{{= pro_image }}" />
 					   <input type="hidden" class="product_id" value="{{= pro_id}}"/>
 					   <div class="loading-wrapper">
 							<div class="loading-event-box"></div>
@@ -561,6 +562,25 @@
 
     $(document).on("click", "li.event-status", function(){
 
+       	var obj = this;
+    	if($(obj).find("i").hasClass("fa-ban")){
+    		top.swal({
+  			  title: "Are you sure?",
+  			  text: "The client will not be able to see this product",
+  			  type: "warning",
+  			  showCancelButton: true,
+  			  confirmButtonColor: "#DD6B55",
+  			  confirmButtonText: "Yes",
+  			  closeOnConfirm: true
+	  		},
+	  		 function(isConfirm) {
+	  	        if (isConfirm) {	
+	  	        	updateProductStatus(obj);	      			 
+	  	        }
+	  	    });
+        }else{
+        	updateProductStatus(obj);
+        }  	
     });
 
  	function updateProductStatus( obj , callback ){
@@ -586,22 +606,91 @@
 			     		$(obj).find("i").removeClass("fa-ban");
 			     		$(obj).find("i").addClass("fa-circle-o");
 			     		$(obj).find("span.check-box-text").html("Enable");
-			     		$(obj).parents("div.product-box").find("div.disabled-image-box").show();
+			     		$(obj).parents("div.product-box").find("div.disabled-product").show();
 			     		
 			        }else{
 			        	$(obj).find("i").removeClass("fa-circle-o");
 			     		$(obj).find("i").addClass("fa-ban");
 			     		$(obj).find("span.check-box-text").html("Disable");
-			     		$(obj).parents("div.product-box").find("div.disabled-image-box").hide();
+			     		$(obj).parents("div.product-box").find("div.disabled-product").hide();
 			        }									
 				}else{
 					top.swal("Update fail!", "", "error"); 
 				}
-				$(obj).parents("div.box-image").find("div.loading-wrapper").hide();	 
+				$(obj).parents("div.product-box").find("div.loading-wrapper").hide();	 
 			}
     	});		
     }
 
+ 	$(document).on("click", "li.event-delete", function(){
+
+ 		var obj = this;
+ 		top.swal({
+			  title: "Are you sure?",
+			  text: "This Product will be removed permanently!",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "Yes",
+			  closeOnConfirm: true
+	  	},
+	  	function(isConfirm) {
+	  	    if (isConfirm) {
+		  	    
+	  	    	$(obj).parents("div.box-image").find("div.loading-wrapper").show();	
+	  	    	var deleterequest = {
+					"pro_id" : $(obj).parents("div.product-box").find("input.product_id").val()
+	  		  	};
+
+	  		  	console.log(deleterequest);
+	  	    	$.ajax({
+	  				type : "POST",
+	  				url : $("#base_url").val()+"API/ProductRestController/deleteProduct",
+	  				contentType : "application/json",
+	  				data :  JSON.stringify({"request_data" : deleterequest}), 
+	  				success : function(data){
+	  					data = JSON.parse(data);				
+	  					console.log(data);
+	  					if(data.is_deleted){
+
+	  						var imagename = $(obj).parents("div.product-box").find("input.product_image_name").val();
+	  						if(!imagename) imagename = "default.jpg";
+	  						
+	  						 removeProductImageFromServer(imagename).success(function(){
+
+		  						request["row_minus"]++;
+	  							 $(obj).parents(".product-box").remove();
+	  								  							
+								var pro_cnt = parseInt($("#pro-total-record").text()) - 1;
+								if(pro_cnt <= 0) pro_cnt = 0;
+								$("#pro-total-record").html(pro_cnt);
+		  						
+	  							top.resizeIframe();
+		  					}); 
+	  						 
+	  					}else{
+	  						top.swal("Delete fail!", data.message, "error"); 
+	  					}
+	  					$(obj).parents("div.box-image").find("div.loading-wrapper").hide();
+	  				}
+	  	    	});		      			 
+	  	    }
+	  	});
+ 	});	
+
+
+ 	function removeProductImageFromServer( imagename ){
+
+ 		
+    	return $.ajax({
+    		url : $("#base_url").val()+"API/UploadRestController/removeProductImage",
+    		type: "POST",
+    		data : {    		
+    			"productimage" : imagename   					
+    		}
+    	});	
+    }
+ 	
     listProduct(function(){
     	window.parent.$(".iframe_hover").hide();
 		window.parent.$("#updateShopframe").show();	
@@ -624,8 +713,7 @@
 
 				pro_total_record = data.total_record;
 				pro_total_page = data.total_page;
-				
-				
+								
 				if(data.response_data!= null && data.response_data.length <= 0){
 					
 					$("#loading-no-record").show();
