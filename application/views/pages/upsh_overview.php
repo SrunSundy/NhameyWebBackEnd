@@ -37,7 +37,9 @@
     <script>
 
     $(window).load(function(){
-   		top.resizeIframe();
+    	window.parent.$(".iframe_hover").hide();
+		window.parent.$("#updateShopframe").show();
+		top.resizeIframe();
    });
         
 	function updateShopField(value , param){

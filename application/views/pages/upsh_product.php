@@ -306,6 +306,16 @@
 		    z-index:96;
 		   
 		}
+		
+		button.add-more-img{
+	 		border-radius: 0; 
+	 		margin-top: 10px;
+  			font-weight: bold;
+	 	}
+	 	
+	 	button.add-more-img i{
+	 		padding-right: 7px;
+	 	}
 	 	
 	 	
 	 	@media screen and (max-width: 768px) {
@@ -357,9 +367,34 @@
     <div class="shop-event-wrapper">			   	       	 						       	 					
 	     <div  class="tab-wrapper">	       	 				
 	       	 <div class="tab-header col-lg-12">
-	       	 	<p class="tab-intro-text"><i class="fa fa-product-hunt" aria-hidden="true"></i><span>Product</span>
-	       	 	<span id="pro-total-record" class="number-of-product"></span></p>
+	       	 	<div class="col-lg-12">
+	       	 		<div class="row">
+			       	 	<div class="pull-left">
+				       	 	<p class="tab-intro-text"><i class="fa fa-product-hunt" aria-hidden="true"></i><span>Product</span>
+				       	 	<span id="pro-total-record" class="number-of-product"></span></p>
+			       	 	</div>
+			       	 		       	 	
+			       	 	<button type="button" class="btn add-more-img btn-default pull-right">
+			       	 		<i class="fa fa-plus-circle" aria-hidden="true"></i>Add image
+			       	 	</button>
+		       	 	</div>
+	       	 	</div>
+	       	 	
+	       	 	<div class="col-lg-12">
+	       	 		<div class="row">
+				       	 <div class="form-group" style="margin:0 0 7px 0">		                   
+						      <div class="input-group">
+							                  
+							       <input type="text" class="form-control pull-right" placeholder="search " id="" >
+							       <div class="input-group-addon btn" id="">
+							             <i class="fa fa-search" aria-hidden="true"></i>
+							        </div> 
+						      </div><!-- /.input group -->
+						 </div><!-- /.form group -->
+					 </div>
+		    	 </div>
 	       	 </div>
+	       	 
 	       	 <div class="tab-body col-lg-12">
 	       	 	<div class="row">
 		       	 	<div class="product-wrapper col-lg-12">
@@ -680,7 +715,6 @@
 
 
  	function removeProductImageFromServer( imagename ){
-
  		
     	return $.ajax({
     		url : $("#base_url").val()+"API/UploadRestController/removeProductImage",

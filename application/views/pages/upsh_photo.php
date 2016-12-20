@@ -731,9 +731,9 @@
     	console.log(updaterequest);
     	$.ajax({
 			type : "POST",
-			url : $("#base_url").val()+"API/ShopImageRestController/updateShopImageField",
-			contentType : "application/json",
-			data :  JSON.stringify({"request_data" : updaterequest
+				url : $("#base_url").val()+"API/ShopImageRestController/updateShopImageField",
+				contentType : "application/json",
+				data :  JSON.stringify({"request_data" : updaterequest
 			}),
 			success : function(data){
 				data = JSON.parse(data);				
