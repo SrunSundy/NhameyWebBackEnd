@@ -46,7 +46,7 @@ class ShopImageModel extends CI_Model{
 			array_push($params, $status);
 		}
 		
-		$this->load->helper('ValidateInput');
+		$this->load->helper('validateinput');
 		if(isset($request["start_date_srch"]) && isset($request["end_date_srch"]) 
 			&&!IsNullOrEmptyString($request["start_date_srch"]) && !IsNullOrEmptyString($request["end_date_srch"])){
 			
@@ -84,7 +84,7 @@ class ShopImageModel extends CI_Model{
 			array_push($params, $status);
 		}
 		
-		$this->load->helper('ValidateInput');
+		$this->load->helper('validateinput');
 		if(isset($request["start_date_srch"]) && isset($request["end_date_srch"])
 		&&!IsNullOrEmptyString($request["start_date_srch"]) && !IsNullOrEmptyString($request["end_date_srch"])){
 				
@@ -127,7 +127,7 @@ class ShopImageModel extends CI_Model{
 		$value = $request["updated_value"];
 		$sh_img_id = $request["sh_img_id"];
 		
-		$this->load->helper('ValidateInput');
+		$this->load->helper('validateinput');
 		if(IsNullOrEmptyString($param)){
 			$response["is_updated"] = false;
 			$response["message"] = "PARAM is invalid";
@@ -150,8 +150,8 @@ class ShopImageModel extends CI_Model{
 		
 		if($param == "sh_img_is_front_show"){
 			$sql .=" AND sh_img_type = ?";
-			$this->load->helper('ImageType');
-			array_push($input_params, ImageType::Detail);
+			$this->load->helper('imagetype');
+			array_push($input_params, imagetype::Detail);
 			
 		}
 		$this->db->query($sql , $input_params);
