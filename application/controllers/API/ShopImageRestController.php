@@ -45,14 +45,14 @@ class ShopImageRestController extends CI_Controller{
 			$request_count["start_date_srch"] = $request["start_date_srch"];
 			$request_count["end_date_srch"] = $request["end_date_srch"];
 				
-			$this->load->helper('ImageType');
-			$request_count["sh_img_type"] = ImageType::Logo;
+			$this->load->helper('imagetype');
+			$request_count["sh_img_type"] = imagetype::Logo;
 			$logo_count = $this->ShopImageModel->countShopImageByImgtypeAndShopId($request_count);
 				
-			$request_count["sh_img_type"] = ImageType::Cover;
+			$request_count["sh_img_type"] = imagetype::Cover;
 			$cover_count = $this->ShopImageModel->countShopImageByImgtypeAndShopId($request_count);
 				
-			$request_count["sh_img_type"] = ImageType::Detail;
+			$request_count["sh_img_type"] = imagetype::Detail;
 			$detail_count = $this->ShopImageModel->countShopImageByImgtypeAndShopId($request_count);
 		}
 		
@@ -135,8 +135,8 @@ class ShopImageRestController extends CI_Controller{
 		$response = array();
 		$image_type = (int)$request["request_data"]["image_type"];
 		
-		$this->load->helper('ImageType');
-		if($image_type == ImageType::Logo || $image_type == ImageType::Cover){
+		$this->load->helper('imagetype');
+		if($image_type == imagetype::Logo || $image_type == imagetype::Cover){
 			$this->load->model('ShopModel');
 			$coverlogo = $this->ShopModel->getCurrentLogoAndCover($request["request_data"]["shop_id"]);
 			
@@ -147,8 +147,8 @@ class ShopImageRestController extends CI_Controller{
 					trim($logo) == trim($request["request_data"]["image_name"]) ){
 				$response["is_deleted"] = false;
 				$textimg = "";
-				if($image_type ==  ImageType::Logo) $textimg = "logo";
-				if( $image_type == ImageType::Cover) $textimg = "cover";
+				if($image_type ==  imagetype::Logo) $textimg = "logo";
+				if( $image_type == imagetype::Cover) $textimg = "cover";
 				$response["message"] = "This photo is currently used as shop's $textimg!";
 				$json = json_encode($response, JSON_PRETTY_PRINT);
 				echo $json;
