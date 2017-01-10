@@ -6,4 +6,3 @@ if ( ! function_exists('IsNullOrEmptyString'))
 		return (!isset($variable) || trim($variable)==='');
 	}
 }
-
