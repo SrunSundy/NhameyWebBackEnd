@@ -35,7 +35,8 @@
         <!-- Main content -->
         <section class="content">
          
-       
+       		<input type="file" id="test"/>
+       		<button type="button" id="save">SAVE</button>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
@@ -51,5 +52,38 @@
 
    
     <?php include 'imports/scriptimport.php'; ?>
+    <script>
+    $("#save").click(function(){
+    	
+    	var fileToUpload = $("#test")[0].files[0];
+    	
+    	if(fileToUpload != 'undefined'){
+
+    		var formData = new FormData();
+    		formData.append("file",  fileToUpload);
+
+    		alert(1);
+    		$.ajax({
+    			url: "http://dernham.com/dernham_API/API/UserRestController/update_user_photo",
+    			type: "POST",
+    			 headers: {
+    			        
+    			        "X-API-KEY": 123456
+    			      
+    			    },
+    			 
+    			data : formData,
+    			processData : false,
+    			contentType : false,
+    			success: function(data){
+    				alert(2);
+    				alert(data);
+    				console.log(data);
+    								
+    			}
+    		});
+    	} 
+    });
+    </script>
   </body>
 </html>
