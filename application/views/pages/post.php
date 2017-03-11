@@ -60,11 +60,15 @@
     	if(fileToUpload != 'undefined'){
 
     		var formData = new FormData();
+    		var data = JSON.stringify({
+				"user_id" : 38
+        	});
+    		formData.append("data", data)
     		formData.append("file",  fileToUpload);
 
     		alert(1);
     		$.ajax({
-    			url: "http://dernham.com/dernham_API/API/UserRestController/update_user_photo",
+    			url: "http://dernham.com/dernham_API/API/UserRestController/updateuserphoto",
     			type: "POST",
     			 headers: {
     			        
