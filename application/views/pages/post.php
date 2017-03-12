@@ -35,7 +35,7 @@
         <!-- Main content -->
         <section class="content">
          
-       		<input type="file" id="test"/>
+       		<input type="file" id="test" multiple/>
        		<button type="button" id="save">SAVE</button>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -55,8 +55,9 @@
     <script>
     $("#save").click(function(){
     	
-    	var fileToUpload = $("#test")[0].files[0];
-    	
+    	var fileToUpload = $("#test")[0].files;
+
+    	console.log(fileToUpload);
     	if(fileToUpload != 'undefined'){
 
     		var formData = new FormData();
@@ -64,11 +65,15 @@
 				"user_id" : 38
         	});
     		formData.append("data", data)
-    		formData.append("file",  fileToUpload);
+    	//	formData.append("file",  fileToUpload);
+    		for (var i = 0; i < fileToUpload.length; i++) {
+    			var file = fileToUpload[i];
+    			formData.append("file[]", file, file.name);				
+    		}
 
     		alert(1);
     		$.ajax({
-    			url: "http://dernham.com/dernham_API/API/UserRestController/updateuserphoto",
+    			url: "http://dernham.com/dernham_API/API/UploadRestController/uploadpostimagetotemp",
     			type: "POST",
     			 headers: {
     			        
