@@ -141,7 +141,10 @@ class UploadRestController extends CI_Controller{
 				$imgsize = 960;
 				list($width, $height) = getimagesize( $_FILES["file"]["tmp_name"]);
 				if($width < 960){
-					$imgsize = $width;
+					if($width > $height)
+						$imgsize = $width;
+					else
+						$imgsize = $height;
 				}	 			
 				$big_nocrop = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , $imgsize , 80);
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
@@ -275,7 +278,11 @@ class UploadRestController extends CI_Controller{
 				$big_nocrop = 960;
 				list($width, $height) = getimagesize($_FILES["file"]["tmp_name"]);
 				if($width < 960){
-					$big_nocrop = $width;
+					
+					if($width > $height)
+						$big_nocrop = $width;
+					else
+						$big_nocrop = $height;
 				}
 				$big_nocrop_source = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , $big_nocrop , 80);
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
