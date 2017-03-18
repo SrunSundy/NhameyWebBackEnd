@@ -53,11 +53,149 @@
    
     <?php include 'imports/scriptimport.php'; ?>
     <script>
+    function uploadBase64(file , callback) {
+
+        
+             
+   			   var reader = new FileReader();
+	      	   reader.readAsDataURL(file);
+	      	   reader.onload = function () {
+	      	     	
+	      	    	callback(reader.result);
+	      	   };
+	      	   reader.onerror = function (error) {
+	      	     console.log('Error: ', error);
+	      	   };
+   						 
+   		   }
+    	  
+    
+
+    function previewFiles(files, callback) {
+
+    	  var image_arr = [];
+    	  function readAndPreview(file) {
+
+    	    // Make sure `file.name` matches our extensions criteria
+    	    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+    	      var reader = new FileReader();
+
+    	      reader.onload = function () {
+    	    	  	image_arr.push(reader.result);
+
+    	    	  	if(image_arr.length >= files.length){
+    	    	  		callback(image_arr);
+        	    	}
+	      	      	
+	      	  		
+	      	   };
+    	      reader.readAsDataURL(file);
+    	    }
+
+    	  }
+
+    	  if (files) {
+    	    [].forEach.call(files, readAndPreview);
+    	  }
+
+    	}
+
+   
+	
     $("#save").click(function(){
     	
     	var fileToUpload = $("#test")[0].files;
 
-    	console.log(fileToUpload);
+    	previewFiles(fileToUpload, function(files){
+        	console.log(files);
+    		 $.ajax({
+      			url: "http://localhost/dernham_API/API/UploadEncodeRestController/uploadpostimagetotemp",
+      			type: "POST",
+      			 headers: {
+      			        
+      			        "X-API-KEY": 123456
+      			      
+      			    },
+      			 
+      			data : JSON.stringify({ 
+          			"request_data" : {
+      					"image_data" : files
+      	    	     }
+  	
+              	}),
+      			processData : false,
+      			contentType : false,
+      			success: function(data){
+      				alert(2);
+      				alert(data);
+      				console.log(data);
+      								
+      			}
+      		}); 
+        });
+    	/* uploadBase64(fileToUpload, function(file){
+    		 $.ajax({
+     			url: "http://localhost/dernham_API/API/UploadEncodeRestController/uploadpostimagetotemp",
+     			type: "POST",
+     			 headers: {
+     			        
+     			        "X-API-KEY": 123456
+     			      
+     			    },
+     			 
+     			data : JSON.stringify({ 
+         			"request_data" : {
+     					"image_data" : file
+     	    	     }
+ 	
+             	}),
+     			processData : false,
+     			contentType : false,
+     			success: function(data){
+     				alert(2);
+     				alert(data);
+     				console.log(data);
+     								
+     			}
+     		}); 
+    		 
+        }); */
+		/* var image_arr = [];
+		uploadBase64(fileToUpload, function(file){
+			image_arr.push(file);
+
+			if(fileToUpload.length >= image_arr.length){
+				alert(1);
+				console.log(image_arr);
+			}
+			
+    		
+    		 $.ajax({
+    			url: "http://localhost/dernham_API/API/UploadEncodeRestController/uploadpostimagetotemp",
+    			type: "POST",
+    			 headers: {
+    			        
+    			        "X-API-KEY": 123456
+    			      
+    			    },
+    			 
+    			data : JSON.stringify({ 
+        			"request_data" : {
+    					"image_data" : file
+    	    	     }
+	
+            	}),
+    			processData : false,
+    			contentType : false,
+    			success: function(data){
+    				alert(2);
+    				alert(data);
+    				console.log(data);
+    								
+    			}
+    		});  
+		}); */
+    	/* console.log(fileToUpload);
     	if(fileToUpload != 'undefined'){
 
     		var formData = new FormData();
@@ -95,8 +233,8 @@
     				console.log(data);
     								
     			}
-    		});
-    	} 
+    		}); */
+    	//} 
     });
     </script>
   </body>
