@@ -71,12 +71,10 @@
     	  
     
 
-    function previewFiles(files, callback) {
+    function uploadMultiFiles(files, callback) {
 
     	  var image_arr = [];
     	  function readAndPreview(file) {
-
-    	    // Make sure `file.name` matches our extensions criteria
     	    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
     	      var reader = new FileReader();
 
@@ -98,7 +96,7 @@
     	    [].forEach.call(files, readAndPreview);
     	  }
 
-    	}
+    }
 
    
 	
@@ -106,7 +104,7 @@
     	
     	var fileToUpload = $("#test")[0].files;
 
-    	previewFiles(fileToUpload, function(files){
+    	/* previewFiles(fileToUpload, function(files){
         	console.log(files);
     		 $.ajax({
       			url: "http://localhost/dernham_API/API/UploadEncodeRestController/uploadpostimagetotemp",
@@ -132,10 +130,10 @@
       								
       			}
       		}); 
-        });
-    	/* uploadBase64(fileToUpload, function(file){
+        }); */
+    	uploadBase64(fileToUpload[0], function(file){
     		 $.ajax({
-     			url: "http://localhost/dernham_API/API/UploadEncodeRestController/uploadpostimagetotemp",
+     			url: "http://localhost/dernham_API/API/UploadEncodeRestController/uploaduserphoto",
      			type: "POST",
      			 headers: {
      			        
@@ -159,7 +157,7 @@
      			}
      		}); 
     		 
-        }); */
+        }); 
 		/* var image_arr = [];
 		uploadBase64(fileToUpload, function(file){
 			image_arr.push(file);
