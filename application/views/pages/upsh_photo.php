@@ -123,7 +123,7 @@
 	 		position: absolute;
 	 		top:10px;
 	 		right: 10px;
-	 		z-index: 999;
+	 		z-index: 1;
 	 	}
 	 	
 	 	
@@ -481,7 +481,7 @@
 					 </div> 	 	
 	       	 		 
 	       	 	 </div>
-	       	 	 <div class="loading-image" align="center" id="loading-image">
+	       	 	 <div class="loading-image" style="z-index: 10" align="center" id="loading-image">
 					<img class="data-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
 				 </div>		       	 	
 	       	 </div>
@@ -956,7 +956,7 @@
 		console.log("TOTAL:"+ image_length);
 		
 		if( box_img < image_length  ){
-			doResize();
+		//	doResize();
 		}
 	}
 
