@@ -785,8 +785,9 @@
 	
 	function formatDollar( price ){
 
+		if(!price) return "";
 		if(price%1 != 0){
-			return "$"+price.toFixed(2);
+			return "$"+parseFloat(price).toFixed(2);
 		}else{
 			return "$"+parseInt(price);
 		}
