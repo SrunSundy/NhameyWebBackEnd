@@ -36,14 +36,12 @@ class ShopFacilityModel extends CI_Model{
 	function getShopFacilityByShopId( $shopid ){
 		
 		$sql = "SELECT 
-					m.shop_facility_map_id,
 					m.sh_facility_id,
 					f.sh_facility_icon,
 					f.sh_facility_name
 				FROM nham_shop_facility_map m
 				LEFT JOIN nham_shop_facility f ON m.sh_facility_id = f.sh_facility_id
-				WHERE shop_id = ? and f.sh_facility_status = 1
-				ORDER BY m.shop_facility_map_id";
+				WHERE shop_id = ? and f.sh_facility_status = 1 ";
 		$query = $this->db->query($sql, $shopid);
 		$response = $query->result();
 		return $response;

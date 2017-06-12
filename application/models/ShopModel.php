@@ -801,10 +801,10 @@ class ShopModel extends CI_Model{
 		$shop_id = (int)$shopdata["shop_id"];
 		
 		if(count($shopdata["removeditem"]) > 0){
-			for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
+		//	for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
 				$this->load->model("ServeCateMapShopModel");
-				$this->ServeCateMapShopModel->deleteServeCategoryMapShop($shopdata["removeditem"][$i]);
-			}
+				$this->ServeCateMapShopModel->deleteServeCategoryMapShop($shopdata["removeditem"], $shop_id);
+		//	}
 		}
 		
 		if(count($shopdata["addeditem"]) > 0){
@@ -863,10 +863,10 @@ class ShopModel extends CI_Model{
 		$shop_id = (int)$shopdata["shop_id"];
 		
 		if(count($shopdata["removeditem"]) > 0){
-			for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
+			//for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
 				$this->load->model("FacilityMapShopModel");
-				$this->FacilityMapShopModel->deleteFacilityMapShop($shopdata["removeditem"][$i]);
-			}
+				$this->FacilityMapShopModel->deleteFacilityMapShop($shopdata["removeditem"] , $shop_id);
+			//}
 		}
 		
 		if(count($shopdata["addeditem"]) > 0){

@@ -1473,7 +1473,7 @@
 
 			 var textlng = $("<p></p>").append(data[i].serve_category_name.replace(/\s+/g, '')).textWidth()+55;
 			 var box = "<div class='selected-category-box pull-left' style='min-width:"+textlng+"px'>";
-			 box += "<input type='hidden' value='"+data[i].serve_cate_map_shop_id+"' />";
+			 box += "<input type='hidden' value='"+data[i].serve_category_id+"' />";
 			 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].serve_category_icon+"' />";
 			 box += "<p class='text-serve-category-selected'>";
 			 box += "<span class='serve_cate'>"+data[i].serve_category_name+"</span>";
@@ -1497,7 +1497,7 @@
 
 				 var textlng = $("<p></p>").append(data[i].sh_facility_name.replace(/\s+/g, '')).textWidth()+55;
 				 box += "<div class='selected-category-box pull-left' style='width:"+textlng+"px'>";
-				 box += "<input type='hidden' value='"+data[i].shop_facility_map_id+"' />";
+				 box += "<input type='hidden' value='"+data[i].sh_facility_id+"' />";
 				 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].sh_facility_icon+"' />";
 				 box += "<p class='text-serve-category-selected'>";
 				 box += "<span>"+data[i].sh_facility_name+"</span>";
@@ -1839,6 +1839,7 @@
 					top.swal("Update Error!", data.message, "error");
 				}
 				$(obj).siblings(".update-loading").hide();
+				servecatearrdelete = [];
 					
 			}
 		}); 
@@ -1898,6 +1899,7 @@
 					top.swal("Update Error!", data.message, "error");
 				}
 				$(obj).siblings(".update-loading").hide();
+				facilityarrdelete = [];
 					
 			}
 		}); 
