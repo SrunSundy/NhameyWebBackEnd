@@ -151,7 +151,8 @@
 			return $("#base_url").val()+"uploadimages/logo/small/"+image;
 		}
 
-		function trimString( string, startindex , endindex ){			
+		function trimString( string, startindex , endindex ){	
+			if(!string) return string;
 			return string.substring(startindex , endindex);
 		}
 
