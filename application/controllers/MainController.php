@@ -68,7 +68,9 @@
 			$data["shop_id"] = $shopid;
 			$this->load->view('pages/upsh_product', $data);
 		}
-		
+		public function listProduct(){
+			$this->load->view('pages/listproduct');
+		}
 		public function updateshop_location($shopid = null){
 			
 			$shopid  = urlencode($shopid);
@@ -119,7 +121,9 @@
 		public function listshopcountry(){
 			$this->load->view('pages/listshopcountry');
 		}
-		
+		public function sendmessage(){
+			$this->load->view('pages/sendmessage');
+		}
 		public function listshopcity(){
 			$this->load->view('pages/listshopcity');
 		}
@@ -139,7 +143,12 @@
 		public function listuser(){
 			$this->load->view('pages/listuser');
 		}
-		
+		public function listplayer(){
+			$this->load->view('pages/listplayer');
+		}
+		public function listplayerPost(){
+			$this->load->view('pages/listPlayerPost');
+		}
 		public function login(){
 			$this->load->view('login');
 		}
