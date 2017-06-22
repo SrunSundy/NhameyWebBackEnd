@@ -62,7 +62,15 @@ class ProductRestController extends CI_Controller{
 		$data=$this->ShopModel->getSomeShopInfo($id);
 		return $data;
 	}
+	public function listProduct(){
 	
+		$setting = json_decode($this->input->raw_input_stream,true);
+		$setting = $setting["display-setting"];
+	
+		$response = $this->ProductModel->listProduct($setting);
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+	}
 	public function listProductByShopId(){
 		
 		$request = json_decode($this->input->raw_input_stream,true);
@@ -126,6 +134,23 @@ class ProductRestController extends CI_Controller{
 		}
 		echo json_encode($response);
 	
+	}
+	public function toggleProduct(){
+				
+		
+		$request = json_decode($this->input->raw_input_stream,true);
+		$request = $request["resq_data"];	
+	    if(!$request){
+			$response["is_updated"] = false;
+			$response["message"] = "No Data";
+			$json = json_encode($response, JSON_PRETTY_PRINT);
+			echo $json;
+			return;
+		}
+		
+		$response = $this->ProductModel->toggleProduct($request);
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;  
 	}
 }
 ?>
