@@ -65,7 +65,11 @@
     <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamaddress.js"></script>
      <script src="<?php echo base_url(); ?>assets/nhamdis/js/nhamloading.js"></script>
     
-    
+    <script>
+	var t = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+	var _base_url = "<?php echo base_url(); ?>MainController/"+t;
+	$("li a[href='"+_base_url+"']").parents("li").addClass("active");
+	</script>
     
     
     
