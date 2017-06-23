@@ -31,9 +31,9 @@
  	}
  	
  	ul.small-user li{
+ 		position:absolute;
  		width: 40px;
  		height: 40px;
- 		margin-left:-20px;		
  	}
  	
  	ul.small-user li img{
@@ -41,6 +41,18 @@
  		height: 20px;
  	}
  	
+ 	
+ 	
+ 	ul.small-user li:hover{
+ 		
+ 		width: 55px;
+ 		height: 55px;
+ 	}
+ 	
+ 	ul.small-user li:hover img{
+ 		width: 30px;
+ 		height: 30px;
+ 	}
  	
  	
  </style>	
@@ -252,7 +264,7 @@
 	                         <div class="box-body no-padding" style="margin-top:-22px">
 		                      <ul class="users-list small-user clearfix">
 		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">		                         
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">	                         	                         
 		                        </li>
 		                        <li>
 		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
@@ -385,6 +397,13 @@
     <?php include 'imports/scriptimport.php'; ?>
     <script src="<?php echo base_url(); ?>assets/plugins/Chart.bundle.min.js"></script>
     <script>
+
+	var li_small_u_parent = $("ul.small-user li").parent().prop('className');
+
+	var le = $("."+li_small_u_parent.split(" ")[1]).length;
+	console.log(le);
+	var li_small_u =  $("ul.small-user li").length;
+	console.log(li_small_u);
     var user_data = {
 				"l1": [500,650,720,690,800,550,465,375,489,687,752,930], /*Total Users*/
 				"l2": [90,50,250,300,185,145,176,190,260,210,245,152],	 /*Total Active Users*/
