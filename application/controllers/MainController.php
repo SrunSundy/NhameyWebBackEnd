@@ -1,6 +1,28 @@
 <?php
 	class MainController extends  CI_Controller{
 		
+		function __construct()
+		{
+			parent::__construct();
+			$this->load->library('session');
+		
+			$sess_id = $this->session->userdata('admin_id');
+			
+			if(empty($sess_id)){
+				
+				$url = $_SERVER['REQUEST_URI'];
+				
+				$last= explode('/',$url);
+				$last_part = end($last);
+				if(strcmp($last_part, "login") ){
+					redirect('/MainController/login', 'refresh');
+					die();
+				}
+			}
+			
+			
+		}
+		
 		
 		public function index(){
 			
@@ -150,6 +172,7 @@
 			$this->load->view('pages/listPlayerPost');
 		}
 		public function login(){
+			
 			$this->load->view('login');
 		}
 		

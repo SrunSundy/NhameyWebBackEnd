@@ -39,36 +39,49 @@ class UserRestController extends  CI_Controller{
 		echo json_encode($response);
 	}
 	public function login(){
-		$req_data = $this->input->post('req_data');
+		$req_data_r= json_decode($this->input->raw_input_stream,true);
+		$req_data = $req_data_r['req_data'];
+		
 		$email = $req_data['email'];
 		$password=$req_data['password'];
-		$type=$req_data['type'];
-	
-			
+		//$type=$req_data['type'];
+		/* echo json_encode($req_data);
+		 return; */
+		
 		if ($this->UserModel->resolve_user_login($email, $password)) {
-	
+			
 			$user_id = $this->UserModel->get_user_id_from_email($email);
 			$user    = $this->UserModel->get_user($user_id);
-		
-				// set session user datas
-				$_SESSION['admin_id']      = (int)$user->admin_id;
-				$_SESSION['admin_email']     = (string)$user->admin_email;
-				$_SESSION['logged_in']    = (bool)true;
-				$_SESSION['admin_status'] = (bool)$user->admin_status;
-				$_SESSION['admin_type'] = (bool)$user->admin_type;
-				$_SESSION['sess_id'] =  session_id();	
-				$ip = $this->getIp();
-				$sess_id = $_SESSION['sess_id'];
-				$this->UserModel->setSession($_SESSION['admin_id'], $ip, $sess_id);
-				$this->UserModel->setLoggedin($_SESSION['admin_id']);
-				$response['status']=true;
-				echo json_encode($response);
+			
+			// set session user datas
+			$_SESSION['admin_id']      = (int)$user->admin_id;
+			$_SESSION['admin_email']     = (string)$user->admin_email;
+			$_SESSION['logged_in']    = (bool)true;
+			$_SESSION['admin_status'] = (bool)$user->admin_status;
+			$_SESSION['admin_type'] = (bool)$user->admin_type;
+			$_SESSION['sess_id'] =  session_id();
+			$ip = $this->getIp();
+			$sess_id = $_SESSION['sess_id'];
+			$this->UserModel->setSession($_SESSION['admin_id'], $ip, $sess_id);
+			$this->UserModel->setLoggedin($_SESSION['admin_id']);
+			$response['status']=true;
+			echo json_encode($response);
 		}else{
 			$response['status']=false;
 			echo json_encode($response);
 		}
 		
 	}
+	
+	public function logout(){
+		//$req_data_r= json_decode($this->input->raw_input_stream,true);
+		//$req_data = $req_data_r['req_data'];
+		
+		$this->session->sess_destroy();
+		$this->session->unset_userdata(array());
+		
+	}
+	
 	private function getIp(){
 		if( isset( $_SERVER['REMOTE_ADDR'] )){
 			$ip = $_SERVER['REMOTE_ADDR'];
