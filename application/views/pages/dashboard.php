@@ -13,14 +13,15 @@
  	}
  	
  	ul.top-user li{
- 		width: 80px;
- 		hight: 80px;
+ 		width: 82px;
+ 		hight: 82px;
  		padding: 0;
  	}
  	
  	ul.top-user li img{
- 		width: 65px;
- 		height: 65px;
+ 		width: 75px;
+ 		height: 75px;
+ 		border
  	}
  	
  	
@@ -69,7 +70,7 @@
  		width: 120px;
  		hight: 120px;
  		padding: 0;
- 		margin-left: 8px
+ 		margin-top: 5px;
  	}
  	
  	ul.top-post li img{
@@ -109,6 +110,7 @@
         <section class="content-header">
           <h1>
             Dashboard
+           
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -291,36 +293,12 @@
 		                          <a class="users-list-name" href="#">John</a>
 		                         
 		                        </li>
-		                        <li>
+		                       <!--<li>
 		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">
 		                          <a class="users-list-name" href="#">Alexander</a>
 		                          
-		                        </li>
-		                      <!--    <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Sarah</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nora</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nadia</a>
-		                          
-		                        </li>
-		                         <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nora</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nadia</a>
-		                          
-		                        </li>-->
+		                        </li>--> 
+		                     
 		                      </ul><!-- /.users-list -->
 		                    </div><!-- /.box-body -->
                     
@@ -586,34 +564,7 @@
 		                          <a class="users-list-name" href="#">Nadia</a>
 		                          
 		                        </li>
-		                         <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Sarah</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nora</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nadia</a>
-		                          
-		                        </li>
-		                         <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nora</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nadia</a>
-		                          
-		                        </li>
-		                         <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Nadia</a>
+		                         
 		                          
 		                        </li>
 		                      </ul><!-- /.users-list -->

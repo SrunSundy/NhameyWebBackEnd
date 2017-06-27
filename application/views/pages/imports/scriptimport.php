@@ -70,6 +70,20 @@
 	var _base_url = "<?php echo base_url(); ?>MainController/"+t;
 	$("li a[href='"+_base_url+"']").parents("li").addClass("active");
 	</script>
+	<script>
+
+	$("#log-out-user").on("click", function(){
+		var base_u = "<?php echo base_url(); ?>";
+		$.ajax({
+			 type: "POST",
+			 url: base_u + "API/UserRestController/logout",	
+			 success : function(data){
+				location.href = ""
+			 }
+			
+	  }); 
+	});
+	</script>
     
     
     
