@@ -143,7 +143,6 @@
 			//$query = $this->db->query($strsql , $params);
 			$hash =$this->db->query($strsql , $params)->row('admin_password');
 			//$hash = $this->db->get()->row('admin_password');
-		
 			return $this->verify_password_hash($password, $hash);
 		
 		}
