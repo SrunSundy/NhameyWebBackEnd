@@ -29,12 +29,15 @@
 	
   
   <div class="thumbnail" style="background-color:#eb1514 !important;"><img src="http://dernham.com/plugin/100x100.png"/></div>
-
+  <div style="height: 30px;">
+  	<span style="padding: 0;color: red;display:none;" id="log_err">Username or Password is incorrect!</span>
+  </div>
   <form class="login-form">
+  	
     <input type="text" placeholder="username" id="username" />
     <input type="password" placeholder="password" id="pwd"/>
     <!--<button type="button" onclick="login()" style="background-color:#eb1514 !important;">login</button>-->
-    <button type="button" onclick="login()" class=" btn btn_loading"  style="background-color:#eb1514 !important;" data-loading-text="<span style='color: gray;font-weight:bold'><i class='fa fa-circle-o-notch fa-spin' style='margin-right: 7px;'></i> login...</span>">login</button>
+    <button type="button" onclick="login()" class=" btn btn_loading"  style="background-color:#eb1514 !important;font-weight:bold;" data-loading-text="<span style='color: #f9f9f9;font-weight:bold'><i class='fa fa-circle-o-notch fa-spin' style='margin-right: 7px;'></i> login...</span>">login</button>
 						  
     <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
   </form>
@@ -66,13 +69,17 @@
 			 success: function(data){
 				 var data = JSON.parse(data);
 				 if(data.status){					 
-					location.href = $("#base_url").val()+"MainController/dashboard";
+					 location.href = $("#base_url").val()+"MainController/dashboard";
+				 }else{
+					 btn_loading.button('reset'); 
+					 $("#log_err").show();
 				 }
-				 btn_loading.button('reset');  				
+				  				
 	  	 	 }
-	  }); 
+	  });  
   }
 
+  
   $("#username , #pwd").keypress(function(e) {
 	    if(e.which == 13) {
 	    	login();
