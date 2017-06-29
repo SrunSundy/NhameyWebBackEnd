@@ -78,7 +78,7 @@
 			 type: "POST",
 			 url: base_u + "API/UserRestController/logout",	
 			 success : function(data){
-				location.href = ""
+				location.href = base_u+"/MainController/login";
 			 }
 			
 	  }); 
