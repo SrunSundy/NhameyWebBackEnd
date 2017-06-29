@@ -492,6 +492,7 @@ class ShopModel extends CI_Model{
 		
 	}
 	
+	
 	public function totalShopImg($shopid){
 		
 		$sql = "SELECT count(*) as shop_img_cnt FROM nham_shop_image where shop_id = ?";
