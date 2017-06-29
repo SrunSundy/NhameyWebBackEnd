@@ -97,7 +97,37 @@
     	  }
 
     }
+    function data(){
 
+		var filesToUpload = $("#test")[0].files;
+		
+		if(filesToUpload != 'undefined'){
+
+			//var formData = new FormData();
+			var formData = new FormData();
+			for (var i = 0; i < filesToUpload.length; i++) {
+				var file = filesToUpload[i];
+				formData.append("file[]", file, file.name);				
+			}		
+			$.ajax({
+				url: "http://dernham.com/dernham_API/API/UploadRestController/uploadpostimagetotemp",
+				type: "POST",
+				 headers: {
+   			        
+   			        "X-API-KEY": 123456
+   			      
+   			    },
+				data : formData,
+				processData : false,
+				contentType : false,
+				success: function(data){					
+					data = JSON.parse(data);		
+					console.log(data);			
+				}
+			});
+		} 
+  }
+ 
    
 	
     $("#save").click(function(){

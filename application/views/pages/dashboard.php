@@ -167,7 +167,7 @@
               <div class="small-box bg-red">
                 <div class="inner">
                   <h3>65</h3>
-                  <p>Total Cuisine</p>
+                  <p>Total Product</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
@@ -182,10 +182,169 @@
           <div class="row">
             <!-- Left col -->
             <section class="col-lg-12 connectedSortable">
-            
+              
+              <div class="row">
+              	
+	              	
+	              	 	<div class="user-objective col-md-8">
+	              	 		<div class="row">
+	              			<div class="col-lg-4 col-xs-6">
+				              <!-- small box -->
+				              <div class="small-box bg-primary" >
+				                <div class="inner">
+				                  <h3>44</h3>
+				                  <p>Reported Post</p>
+				                </div>
+				                <div class="icon">
+				                  <i class="ion ion-stats-bars"></i>
+				                </div>
+				                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+				              </div>
+				            </div><!-- ./col -->
+				            <div class="col-lg-4 col-xs-6">
+				              <!-- small box -->
+				              <div class="small-box bg-primary">
+				                <div class="inner">
+				                  <h3>65</h3>
+				                  <p>User's Feedback</p>
+				                </div>
+				                <div class="icon">
+				                  <i class="ion ion-pie-graph"></i>
+				                </div>
+				                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+				              </div>
+				            </div><!-- ./col -->
+				            <div class="col-lg-4 col-xs-6">
+				              <!-- small box -->
+				              <div class="small-box bg-primary">
+				                <div class="inner">
+				                  <h3>65</h3>
+				                  <p>Today's User Registration</p>
+				                </div>
+				                <div class="icon">
+				                  <i class="ion ion-pie-graph"></i>
+				                </div>
+				                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+				              </div>
+				            </div><!-- ./col -->
+				            
+				            <div class="col-lg-4 col-xs-6">
+				              <!-- small box -->
+				              <div class="small-box bg-primary">
+				                <div class="inner">
+				                  <h3>44</h3>
+				                  <p>Today's Place Registration</p>
+				                </div>
+				                <div class="icon">
+				                  <i class="ion ion-stats-bars"></i>
+				                </div>
+				                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+				              </div>
+				            </div><!-- ./col -->
+				            <div class="col-lg-4 col-xs-6">
+				              <!-- small box -->
+				              <div class="small-box bg-primary">
+				                <div class="inner">
+				                  <h3>65</h3>
+				                  <p>TEST</p>
+				                </div>
+				                <div class="icon">
+				                  <i class="ion ion-pie-graph"></i>
+				                </div>
+				                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+				              </div>
+				            </div><!-- ./col -->
+				            <div class="col-lg-4 col-xs-6">
+				              <!-- small box -->
+				              <div class="small-box bg-primary">
+				                <div class="inner">
+				                  <h3>65</h3>
+				                  <p>TEST</p>
+				                </div>
+				                <div class="icon">
+				                  <i class="ion ion-pie-graph"></i>
+				                </div>
+				                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+				              </div>
+				            </div><!-- ./col -->
+				            </div>
+		                </div>
+		            
+		                <div class="admin-box col-md-4">
+		              	
+		              	 <h3 class="box-title des-title" >Super Admin (4)</h3>
+		              	 <div style="width:100%;height: 2px; background: #ccc;margin-bottom:12px;"></div>
+		              	 <div class="progress-group" style="padding-bottom: 15px;">
+		                      	<div class="box-body no-padding">
+			                      <ul class="users-list top-user clearfix">
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">Alexander Pierce</a>
+			                        
+			                        </li>
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">Norman</a>
+			                        
+			                        </li>
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">Jane</a>
+			                         
+			                        </li>
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">John</a>
+			                         
+			                        </li>
+			                       
+			                     
+			                      </ul><!-- /.users-list -->
+			                    </div><!-- /.box-body -->
+	                    
+		                      </div><!-- /.progress-group -->
+		                      
+		                  <h3 class="box-title des-title" >Admin (4)</h3>
+		              	 <div style="width:100%;height: 2px; background: #ccc;margin-bottom:12px;"></div>
+		              	 <div class="progress-group" style="padding-bottom: 15px;">
+		                      	<div class="box-body no-padding">
+			                      <ul class="users-list top-user clearfix">
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">Alexander Pierce</a>
+			                        
+			                        </li>
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">Norman</a>
+			                        
+			                        </li>
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">Jane</a>
+			                         
+			                        </li>
+			                        <li>
+			                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">
+			                          <a class="users-list-name" href="#">John</a>
+			                         
+			                        </li>
+			                      
+			                     
+			                      </ul><!-- /.users-list -->
+			                    </div><!-- /.box-body -->
+	                    
+	                      </div><!-- /.progress-group -->
+	              		</div>
+	              	 
+	            
+              </div>
               <!-- Place statistic col -->
           	  <div class="row">
 	            <div class="col-md-12">
+	            	
+	              	             	             
+	            
 	              <div class="box">
 	                <div class="box-header with-border">
 	                  <h3 class="box-title des-title" >Place Statistic</h3>
@@ -202,23 +361,6 @@
 	                      </p>
 	                      <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
 	                      
-	                       <select class="pull-right" style="width: 120px;height: 30px;padding-left:10px;margin-left:15px;">
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      		<option>2010</option>
-	                      	
-	                      	</select>
 	                        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
 			                    <div class="btn-group" data-toggle="btn-toggle" >
 			                      <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
@@ -232,7 +374,7 @@
 	                        <canvas id="user_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
 	                       
-	                       <div class="col-sm-3 col-xs-6">
+	                       <div class="col-sm-4 col-xs-6">
 		                      <div class="description-block border-right">
 		                        <span class="description-percentage text-green"> IN 2010</span>
 		                        <h5 class="description-header">$35,210.43</h5>
@@ -240,27 +382,27 @@
 		                      </div><!-- /.description-block -->
 		                    </div><!-- /.col -->
 		                    
-		                    <div class="col-sm-3 col-xs-6">
+		                    <div class="col-sm-4 col-xs-6">
 		                      <div class="description-block border-right">
 		                        <span class="description-percentage text-green"> IN 2010</span>
 		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL DISABLE</span>
+		                        <span class="description-text">TOTAL DISBILITY</span>
 		                      </div><!-- /.description-block -->
 		                    </div><!-- /.col -->
 		                    
-		                    <div class="col-sm-3 col-xs-6">
+		                   <!-- <div class="col-sm-3 col-xs-6">
 		                      <div class="description-block border-right">
 		                        <span class="description-percentage text-green"> IN 2010</span>
 		                        <h5 class="description-header">$35,210.43</h5>
 		                        <span class="description-text">TOTAL BOOSTERS</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
+		                      </div>
+		                    </div>-->
 		                    
-		                    <div class="col-sm-3 col-xs-6">
+		                    <div class="col-sm-4 col-xs-6">
 		                      <div class="description-block border-right">
 		                        <span class="description-percentage text-green"> IN 2010</span>
 		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL ADVERTISERS</span>
+		                        <span class="description-text">TOTAL UNAUTHORIZATION</span>
 		                      </div><!-- /.description-block -->
 		                    </div><!-- /.col -->
 	                      
@@ -412,7 +554,7 @@
 		                    
 	                      </div><!-- /.progress-group -->
 	                      
-	                      <div class="progress-group">
+	                      <!--<div class="progress-group">
 	                        <span class="progress-text">Advertising Places</span>
 	                        <span class="progress-number"><b>310</b>/400</span>
 	                        <div class="progress sm">
@@ -444,12 +586,12 @@
 		                        <li>
 		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
 		                        </li>
-		                      </ul><!-- /.users-list -->
-		                    </div><!-- /.box-body -->
+		                      </ul>
+		                    </div>
 		                    
-	                      </div><!-- /.progress-group -->
+	                      </div> -->
 	                      
-	                      <div class="progress-group">
+	                      <!--<div class="progress-group">
 	                        <span class="progress-text">Boosting Places</span>
 	                        <span class="progress-number"><b>310</b>/400</span>
 	                        <div class="progress sm">
@@ -481,10 +623,10 @@
 		                        <li>
 		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
 		                        </li>
-		                      </ul><!-- /.users-list -->
-		                    </div><!-- /.box-body -->
+		                      </ul>
+		                    </div>
 		                    
-	                      </div><!-- /.progress-group -->
+	                      </div> -->
 	                     
 	                    </div><!-- /.col -->
 	                  </div><!-- /.row -->
@@ -566,7 +708,7 @@
 		                        </li>
 		                         
 		                          
-		                        </li>
+		                        
 		                      </ul><!-- /.users-list -->
 		                    </div><!-- /.box-body -->
                     
@@ -1023,6 +1165,354 @@
 	                    </div><!-- /.col -->
 	                    <div class="col-md-4">
 	                      <p class="text-left">
+	                        <strong>Product's report</strong>
+	                      </p>
+	                      
+	                      <div class="progress-group">
+	                        <span class="progress-text">New Users (last 1 month)</span>
+	                        <span class="progress-number"><b>160</b>/200</span>
+	                        <div class="progress sm">
+	                          <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+	                        </div>
+	                         <div class="box-body no-padding" style="margin-top:-22px">
+		                      <ul class="users-list small-user clearfix">
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">	                         	                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                      </ul><!-- /.users-list -->
+		                    </div><!-- /.box-body -->
+                    
+	                      </div><!-- /.progress-group -->
+	                      
+	                       
+	                      <div class="progress-group">
+	                        <span class="progress-text">Shop Owners</span>
+	                        <span class="progress-number"><b>160</b>/200</span>
+	                        <div class="progress sm">
+	                          <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+	                        </div>
+	                         <div class="box-body no-padding" style="margin-top:-22px">
+		                      <ul class="users-list small-user clearfix">
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">	                         	                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                      </ul><!-- /.users-list -->
+		                    </div><!-- /.box-body -->
+                    
+	                      </div><!-- /.progress-group -->
+	                      
+	                      <div class="progress-group">
+	                        <span class="progress-text">Reported Users</span>
+	                        <span class="progress-number"><b>310</b>/400</span>
+	                        <div class="progress sm">
+	                          <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+	                        </div>
+	                        <div class="box-body no-padding" style="margin-top:-22px">
+		                      <ul class="users-list small-user clearfix">
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                      </ul><!-- /.users-list -->
+		                    </div><!-- /.box-body -->
+		                    
+	                      </div><!-- /.progress-group -->
+	                      
+	                       <div class="progress-group">
+	                        <span class="progress-text">Unauthorized Users</span>
+	                        <span class="progress-number"><b>480</b>/800</span>
+	                        <div class="progress sm">
+	                          <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+	                        </div>
+	                        <div class="box-body no-padding" style="margin-top:-22px">
+		                      <ul class="users-list small-user clearfix">
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                      </ul><!-- /.users-list -->
+		                    </div><!-- /.box-body -->
+		                    
+	                      </div><!-- /.progress-group -->
+	                      
+	                      <div class="progress-group">
+	                        <span class="progress-text">Disabled Users</span>
+	                        <span class="progress-number"><b>480</b>/800</span>
+	                        <div class="progress sm">
+	                          <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+	                        </div>
+	                        <div class="box-body no-padding" style="margin-top:-22px">
+		                      <ul class="users-list small-user clearfix">
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
+		                        </li>
+		                      </ul><!-- /.users-list -->
+		                    </div><!-- /.box-body -->
+		                    
+	                      </div><!-- /.progress-group -->
+	                     
+	                    </div><!-- /.col -->
+	                  
+	                  
+	                  </div><!-- /.row -->
+	                </div><!-- ./box-body -->
+	              
+	              </div><!-- /.box -->
+	            </div><!-- /.col -->
+	          </div><!-- /.row -->
+           	  <!-- end post statistic col -->
+           	  
+           	  <!-- Product statistic col -->
+          	  <div class="row">
+	            <div class="col-md-12">
+	              <div class="box">
+	                <div class="box-header with-border">
+	                  <h3 class="box-title des-title" >Product Statistic</h3>
+	                  <div class="box-tools pull-right">
+	                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>	                   
+	                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+	                  </div>
+	                </div><!-- /.box-header -->
+	                <div class="box-body">
+	                  <div class="row">
+	                  
+	                    <div class="col-md-12">
+	                    	<div class="progress-group" style="padding-bottom: 8px;">
+	                        <span class="progress-text">Top Product</span>
+	                      	<div class="box-body no-padding">
+		                      <ul class="users-list top-user clearfix">
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Alexander Pierce</a>
+		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Norman</a>
+		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Jane</a>
+		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">John</a>
+		                         
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Alexander</a>
+		                          
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Sarah</a>
+		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Nora</a>
+		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Nadia</a>
+		                          
+		                        </li>
+		                         <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Nora</a>
+		                        
+		                        </li>
+		                        <li>
+		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">
+		                          <a class="users-list-name" href="#">Nadia</a>
+		                          
+		                        </li>
+		                         		                          		                        
+		                      </ul><!-- /.users-list -->
+		                    </div><!-- /.box-body -->
+                    
+	                      </div><!-- /.progress-group -->
+	                    </div>
+	                    
+	                    <div class="col-md-8">
+	                      <p class="text-left">
+	                        <strong>Monthly's Report</strong>
+	                      </p>
+	                      <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
+	                      
+	                       <select class="pull-right" style="width: 120px;height: 30px;padding-left:10px;margin-left:15px;">
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      		<option>2010</option>
+	                      	
+	                      	</select>
+	                        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
+			                    <div class="btn-group" data-toggle="btn-toggle" >
+			                      <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
+			                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>
+			                    </div>
+		                    </div>
+	                      	
+	                      </div>
+	                      <div class="chart">
+	                        <!-- Sales Chart Canvas -->
+	                        <canvas id="Product_chart" style="height: 300px;"></canvas>
+	                      </div><!-- /.chart-responsive -->
+	                      
+	                       
+	                       <div class="col-sm-3 col-xs-6">
+		                      <div class="description-block border-right">
+		                        <span class="description-percentage text-green"> IN 2010</span>
+		                        <h5 class="description-header">$35,210.43</h5>
+		                        <span class="description-text">TOTAL USERS</span>
+		                      </div><!-- /.description-block -->
+		                    </div><!-- /.col -->
+		                    
+		                    <div class="col-sm-3 col-xs-6">
+		                      <div class="description-block border-right">
+		                        <span class="description-percentage text-green"> IN 2010</span>
+		                        <h5 class="description-header">$35,210.43</h5>
+		                        <span class="description-text">TOTAL DISABLE</span>
+		                      </div><!-- /.description-block -->
+		                    </div><!-- /.col -->
+		                    
+		                    <div class="col-sm-3 col-xs-6">
+		                      <div class="description-block border-right">
+		                        <span class="description-percentage text-green"> IN 2010</span>
+		                        <h5 class="description-header">$35,210.43</h5>
+		                        <span class="description-text">TOTAL ACTIVE</span>
+		                      </div><!-- /.description-block -->
+		                    </div><!-- /.col -->
+		                    
+		                    <div class="col-sm-3 col-xs-6">
+		                      <div class="description-block border-right">
+		                        <span class="description-percentage text-green"> IN 2010</span>
+		                        <h5 class="description-header">$35,210.43</h5>
+		                        <span class="description-text">TOTAL UNAUTHORIZED</span>
+		                      </div><!-- /.description-block -->
+		                    </div><!-- /.col -->
+	                      
+	                    </div><!-- /.col -->
+	                    <div class="col-md-4">
+	                      <p class="text-left">
 	                        <strong>User's report</strong>
 	                      </p>
 	                      
@@ -1221,7 +1711,7 @@
 	              </div><!-- /.box -->
 	            </div><!-- /.col -->
 	          </div><!-- /.row -->
-           	  <!-- end user statistic col -->
+           	  <!-- end Product statistic col -->
            	  
             </section><!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
@@ -1275,6 +1765,7 @@
     fn_createLineBarChart("user_chart",null,user_data);
     fn_createLineBarChart("place_chart",null,user_data);
     fn_createLineBarChart("post_chart",null,user_data);
+    fn_createLineBarChart("Product_chart",null,user_data);
     function fn_createLineBarChart(chart_id, chart_date, chart_data){
     	
     	if(chart_data == null){
