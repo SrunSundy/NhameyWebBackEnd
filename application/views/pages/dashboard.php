@@ -94,6 +94,7 @@
  </style>	
  </head>
   <body class="hold-transition skin-red-light sidebar-mini">
+    <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
     <div class="wrapper">
 
       <header class="main-header">
@@ -127,7 +128,7 @@
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3><span id="ttl_place">0</span></h3>
                   <p>Total Places</p>
                 </div>
                 <div class="icon">
@@ -140,7 +141,7 @@
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <h3><span id="ttl_user">0</span></h3>
                   <p>Total Users</p>
                 </div>
                 <div class="icon">
@@ -153,7 +154,7 @@
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3><span id="ttl_post">0</span></h3>
                   <p>Total Posts</p>
                 </div>
                 <div class="icon">
@@ -166,7 +167,7 @@
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>65</h3>
+                  <h3><span id="ttl_product">0</span></h3>
                   <p>Total Product</p>
                 </div>
                 <div class="icon">
@@ -272,64 +273,23 @@
 		            
 		                <div class="admin-box col-md-4">
 		              	
-		              	 <h3 class="box-title des-title" >Super Admin (4)</h3>
+		              	 <h3 class="box-title des-title" >Super Admin (<span id="num_sup_admin">0</span>)</h3>
 		              	 <div style="width:100%;height: 2px; background: #ccc;margin-bottom:12px;"></div>
-		              	 <div class="progress-group" style="padding-bottom: 15px;">
+		              	 <div class="progress-group" style="padding-bottom: 15px;height: 100px;">
 		                      	<div class="box-body no-padding">
-			                      <ul class="users-list top-user clearfix">
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">Alexander Pierce</a>
-			                        
-			                        </li>
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">Norman</a>
-			                        
-			                        </li>
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">Jane</a>
-			                         
-			                        </li>
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">John</a>
-			                         
-			                        </li>
-			                       
+			                      <ul class="users-list top-user clearfix" id="sup_admin_result">		                       		                       
 			                     
 			                      </ul><!-- /.users-list -->
 			                    </div><!-- /.box-body -->
 	                    
 		                      </div><!-- /.progress-group -->
 		                      
-		                  <h3 class="box-title des-title" >Admin (4)</h3>
+		                  <h3 class="box-title des-title" >Admin (<span id="num_admin" >0</span>)</h3>
 		              	 <div style="width:100%;height: 2px; background: #ccc;margin-bottom:12px;"></div>
-		              	 <div class="progress-group" style="padding-bottom: 15px;">
+		              	 <div class="progress-group" style="padding-bottom: 15px;height: 100px;">
 		                      	<div class="box-body no-padding">
-			                      <ul class="users-list top-user clearfix">
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">Alexander Pierce</a>
+			                      <ul class="users-list top-user clearfix" id="admin_result">
 			                        
-			                        </li>
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">Norman</a>
-			                        
-			                        </li>
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">Jane</a>
-			                         
-			                        </li>
-			                        <li>
-			                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">
-			                          <a class="users-list-name" href="#">John</a>
-			                         
-			                        </li>
-			                      
 			                     
 			                      </ul><!-- /.users-list -->
 			                    </div><!-- /.box-body -->
@@ -413,34 +373,9 @@
 	                      </p>
 	                      <div class="progress-group" style="padding-bottom: 15px;">
 	                        <span class="progress-text">Top Places</span>
-	                      	<div class="box-body no-padding">
-		                      <ul class="users-list top-user clearfix">
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Alexander Pierce</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Norman</a>
-		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Jane</a>
-		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">John</a>
-		                         
-		                        </li>
-		                       <!--<li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">
-		                          <a class="users-list-name" href="#">Alexander</a>
-		                          
-		                        </li>--> 
-		                     
+	                      	<div class="box-body no-padding" style="min-height: 90px;">
+		                      <ul class="users-list top-user clearfix" id="place_result">
+		                        	                        
 		                      </ul><!-- /.users-list -->
 		                    </div><!-- /.box-body -->
                     
@@ -1738,34 +1673,90 @@
    
     <?php include 'imports/scriptimport.php'; ?>
     <script src="<?php echo base_url(); ?>assets/plugins/Chart.bundle.min.js"></script>
+    <script id="display-sup_admin" type="text/x-jQuery-tmpl">
+		  <li>
+			  <img src="{{= setPhoto(admin_photo) }}" alt="{{= admin_name }}">
+			  <a class="users-list-name" href="#">{{= admin_name }}</a>
+		  </li>
+   	</script>   
+   	 <script id="display_admin" type="text/x-jQuery-tmpl">
+		  <li>
+			  <img src="{{= setPhoto(admin_photo) }}" alt="{{= admin_name }}">
+			  <a class="users-list-name" href="#">{{= admin_name }}</a>
+		  </li>
+   	</script> 
+   	<script id="display_top_shop" type="text/x-jQuery-tmpl">
+		 <li>
+		      <img src="{{= setPlacePhoto(shop_logo) }}" style="border-radius:5px;border:2px solid #ccc" alt="{{= shop_name_en }}">
+		      <a class="users-list-name" href="#">{{= shop_name_en }}</a>
+		 </li>
+   	</script> 
+   
+   	 
     <script>
 
-	/* var li_small_u_parent = $("ul.small-user li").parent().prop('className');
-
-	var le = $("."+li_small_u_parent.split(" ")[1]);
-	for(var i=0; i<le.length; i++){
-		
-		var child = $(le).eq(i).children();
-		var gap = 0;
-		for(var c=0; c<child.length; c++){
-			
-			child.eq(c).css({
-				"left" : gap+"px"
-			});	
-			gap += 20;
-		}
-	} */
 	
-    var user_data = {
-				"l1": [500,650,720,690,800,550,465,375,489,687,752,930], /*Total Users*/
-				"l2": [90,50,250,300,185,145,176,190,260,210,245,152],	 /*Total Active Users*/
-				"l3": [250,256,165,212,65,141,421,117,251,410,365,59],   /*Total Unauthorized Users*/
-				"l4": [50,26,105,152,125,101,121,107,151,110,65,159]     /*Total Disabled Users*/
-    	   	};
-    fn_createLineBarChart("user_chart",null,user_data);
-    fn_createLineBarChart("place_chart",null,user_data);
-    fn_createLineBarChart("post_chart",null,user_data);
-    fn_createLineBarChart("Product_chart",null,user_data);
+	var _show_month;
+	var _month_dis;
+    $(document).ready(function(){
+    	    
+    	  /*   var user_data = {
+    			"l1": [500,650,720,690,800,550,465,375,489,687,752,930], //Total Users
+    			"l2": [250,256,165,212,65,141,421,117,251,410,365,59],   //Total Unauthorized Users
+    			"l3": [50,26,105,152,125,101,121,107,151,110,65,159]     //Total Disabled Users
+    	    }; */
+			_show_month = 12;
+    	    for(i=0 ; i<_show_month; i++){
+				_month_dis.push(fn_getMonth(i));
+        	}
+    	    fn_createLineBarChart("user_chart",null);
+    	    fn_createLineBarChart("place_chart",null);
+    	    fn_createLineBarChart("post_chart",null);
+    	    fn_createLineBarChart("Product_chart",null);
+    	    
+    	    initializeDashboard();
+    });
+	
+	function initializeDashboard(){
+				
+	  $.ajax({
+			 type: "GET",
+			 url: $("#base_url").val()+"API/DashboardRestController/getinitializeddata", 
+			 contentType : "application/json",
+			 /* data : JSON.stringify({
+				"req_data" : {
+					"email" : $("#username").val(),
+					"password": $("#pwd").val()
+				 }
+			 }),		 */	
+			 success: function(data){
+				 //var data = JSON.parse(data);
+				 $("#ttl_place").html(data.total_place);
+				 $("#ttl_post").html(data.total_post);
+				 $("#ttl_product").html(data.total_product);
+				 $("#ttl_user").html(data.total_user);
+
+				 $("#num_sup_admin").html(data.total_sup_admin);
+				 $("#display-sup_admin").tmpl(data.sup_admin_rec).appendTo("#sup_admin_result");
+				 $("#num_admin").html(data.total_admin);
+				 $("#display_admin").tmpl(data.admin_rec).appendTo("#admin_result");
+				 $("#display_top_shop").tmpl(data.pop_shop).appendTo("#place_result");
+				 console.log(data);
+
+				 console.log(fn_getMonth(2));
+				  				
+	  	 	 }
+	  });  		  
+	}
+
+	function setPhoto(img_name){
+		return $("#base_url").val()+"assets/dist/img/user1-128x128.jpg";
+	}
+
+	function setPlacePhoto(img_name){
+		return $("#base_url").val()+"uploadimages/logo/small/"+img_name;
+	}
+    
     function fn_createLineBarChart(chart_id, chart_date, chart_data){
     	
     	if(chart_data == null){
@@ -1773,21 +1764,19 @@
     		chart_data = {
     			"l1" : [],
     			"l2" : [],
-    			"l3" : [],
-    			"l4" : [],
+    			"l3" : []   			
     		};
     		for(var i=0; i<12; i++){
     			chart_data.l1.push(0);
     			chart_data.l2.push(0);
     			chart_data.l3.push(0);
-    			chart_data.l4.push(0);
-    			chart_data.l5.push(0);
+    
     		}
     	}
-    	if(chart_date ==  null){
+    	/* if(chart_date ==  null){
     		chart_date = ["January","Febuary","March","April","May","June","July","August","September","October","November","December"];
         }
-    	
+    	 */
     /* 	var par = "#w_"+chart_id;
     	$(par).children().remove();
     	$(par).append("<canvas style='width:890px; height:231px;' id='"+chart_id+"'></canvas>"); */
@@ -1840,21 +1829,6 @@
 					 pointHoverRadius: 5,
 					 pointHitRadius: 4,
 					data: chart_data.l2
-				},{
-	   				 label: "ss",
-					 lineTension: 0,
-					 type:"line",    
-					 backgroundColor: "rgba(252, 50, 50,0.3)",
-					 borderColor: "#fd5858",
-					 borderWidth: 2,
-					 pointBorderColor: "#fd5858",
-					 pointBackgroundColor: "white",
-					 pointHoverBorderWidth: 2,
-					 pointBorderWidth: 2,
-					 pointRadius: 4,
-					 pointHoverRadius: 5,
-					 pointHitRadius: 4,
-					 data: chart_data.l4
 				},{
     				 label: "dfd",				 
     				 type:"bar",
@@ -2006,6 +1980,42 @@
     		return val;
     	}
     	return parseFloat(val).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").split(".")[0];
+    }
+
+    function fn_getMonthOfYear(date){
+
+    	var monthofyear = ["Jan", "Feb", "Mar", 
+			"Apr", "May", "Jun", "Jul", "Aug", "Sep", 
+			"Oct", "Nov", "Dec"];
+    	var m = new Date(date).getMonth();
+    	return monthofyear[m];
+    }
+
+    function fn_getMonth( num_month , format){
+    	
+    	var today = new Date();
+    	today.setDate(1);
+    	today.setMonth(today.getMonth()-num_month);
+
+    	var dd =today.getDate();
+    	var mm=today.getMonth()+1;
+    	var yyyy=today.getFullYear();
+    	if(dd<10)	
+    		dd='0'+dd;	
+    	if(mm<10 && format == "yyyymmdd" || format == "yyyy-mm-dd")
+    	    mm='0'+mm;
+    	if(format == "yyyymmdd")
+    		return yyyy+""+mm+""+dd;
+    	else if(format == "yyyy-mm-dd"){
+    		return yyyy+"-"+mm+"-"+dd;
+    	}
+    	else {
+    		/*var m_names = new Array("Jan", "Feb", "Mar", 
+    				"Apr", "May", "Jun", "Jul", "Aug", "Sep", 
+    				"Oct", "Nov", "Dec");*/
+    		return mm+"-"+yyyy + "("+fn_getMonthOfYear(yyyy+"/"+mm+"/"+dd)+")";
+    	}
+    		
     }
     </script>
   </body>
