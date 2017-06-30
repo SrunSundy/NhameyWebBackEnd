@@ -150,6 +150,21 @@ class DashboardModel extends  CI_Model{
 		
 	}
 	
+	public function countDisabledShopByMonth($req){
+		
+		$month = $req["created_month"];
+		$year = $req["created_year"];
+		
+		$sql = " SELECT count(*) as cnt  FROM nham_shop WHERE
+		 		 MONTH(shop_last_update) = ?
+				 AND YEAR(shop_last_update) = ? 
+				 AND shop_status = 0 ";
+		
+		$params = array($month, $year);
+		$query = $this->db->query($sql, $params);
+		return $query->row();
+	}
+	
 	public function getPopularShop($req){
 		
 		$row = (int)$req["row"];

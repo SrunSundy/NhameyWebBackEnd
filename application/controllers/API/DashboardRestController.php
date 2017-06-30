@@ -13,6 +13,8 @@ class DashboardRestController extends CI_Controller{
 	
 	public function getinitializeddata(){
 		
+		
+		
 		$response["total_place"] = $this->DashboardModel->countTotalShop()->total_record;
 		$response["total_user"] = $this->DashboardModel->countTotalUser()->total_record;
 		$response["total_post"] = $this->DashboardModel->countTotalPost()->total_record;
@@ -39,14 +41,17 @@ class DashboardRestController extends CI_Controller{
 			$req["created_year"] = $year;
 			
 			$name = $year."-".$month;
-			$response["shop_monthly"]["all_shop"][$i][$name] =  $this->DashboardModel->countShopByMonth($req)->cnt;
+			
+			$response["shop_monthly"]["all_shop"][$i] =  $this->DashboardModel->countShopByMonth($req)->cnt;
 			
 			$req_u["created_month"] = $month;
 			$req_u["created_year"] = $year;
 			$req_u["shop_status"] = 2;
+			$response["shop_monthly"]["u_shop"][$i]=  $this->DashboardModel->countShopByMonth($req_u)->cnt;
 			
-			$name_u = $year."-".$month;
-			$response["shop_monthly"]["u_shop"][$i][$name_u] =  $this->DashboardModel->countShopByMonth($req_u)->cnt;
+			$req_d["created_month"] = $month;
+			$req_d["created_year"] = $year;
+			$response["shop_monthly"]["d_shop"][$i] =  $this->DashboardModel->countDisabledShopByMonth($req_d)->cnt;
 			
 		}
 				
@@ -55,19 +60,19 @@ class DashboardRestController extends CI_Controller{
 		$response["pop_shop"] = $this->DashboardModel->getPopularShop($req_pop_sh);
 		
 		$req_last_one_month_sh_cnt["duration"] = 30;
-		$response["thirty_day_shop_cnt"] = $this->DashboardModel->countShopByDuration($req_last_one_month_sh_cnt);
+		$response["thirty_day_shop_cnt"] = $this->DashboardModel->countShopByDuration($req_last_one_month_sh_cnt)->sh_cnt;
 		$req_last_one_month_sh["row"] = 4;
 		$req_last_one_month_sh["duration"] = 30;
 		$response["thirty_day_shop"] = $this->DashboardModel->getShopByDuration($req_last_one_month_sh);
 		
 		$req_disabled_shop_cnt["shop_status"] = 0;
-		$response["shop_disability_cnt"] = $this->DashboardModel->countShopByStatus($req_disabled_shop_cnt);
+		$response["shop_disability_cnt"] = $this->DashboardModel->countShopByStatus($req_disabled_shop_cnt)->sh_cnt;
 		$req_disabled_shop["shop_status"] = 0;
 		$req_disabled_shop["row"] = 10;
 		$response["shop_disability"] = $this->DashboardModel->getShopByStatus($req_disabled_shop);
 		
 		$req_unauthorized_shop_cnt["shop_status"] = 2;
-		$response["shop_unauth_cnt"] = $this->DashboardModel->countShopByStatus($req_unauthorized_shop_cnt);
+		$response["shop_unauth_cnt"] = $this->DashboardModel->countShopByStatus($req_unauthorized_shop_cnt)->sh_cnt;
 		$req_unauthorized_shop["shop_status"] = 2;
 		$req_unauthorized_shop["row"] = 10;
 		$response["shop_unauth"] = $this->DashboardModel->getShopByStatus($req_unauthorized_shop);
