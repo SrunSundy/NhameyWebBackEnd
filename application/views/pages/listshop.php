@@ -111,6 +111,21 @@
   		
   		
   	}
+  	
+  	div.status-style{
+  		position: relative;
+  	}
+  	
+  	div.appeal-status{
+  		width:20px;
+  		height: 20px;
+  		background: #4CAF50;
+  		border-radius: 5px; 
+  		position:absolute;
+  		top:-7px;
+  		left:-7px;
+  		border-radius:5px;
+  	}
   </style>
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/css/nhamslider.css">
   </head>
@@ -406,15 +421,14 @@
 	                    <tr>
 	                      <th style="width:7%">Logo</th>
 	                      <th style="width:15%">Name</th>
-	               
-	                      <th style="width:15%">created_date</th>
-	                      <th style="width:15%">address</th>
+	                      <th style="width:10%">created_date</th>
+	                      <th style="width:17%">address</th>
 	                      <th style="width:5%">view</th>                                         
 	                      <th style="width:5%">photo</th>
 	                      <th style="width:13%">progress</th>
 	                      <th style="width:10%">creator</th>
-	                      <th style="width:5%">status</th>
-	                      <th style="width:10%">action</th>
+	                      <th style="width:13%">status</th>
+	                      <th style="width:7%">action</th>
 	                    </tr>
                    	   </thead>
                    	   <tbody id="display-shop-result">
@@ -474,10 +488,19 @@
 			</td>
 			<td>{{= admin_name }}</td>
  			<td>
-				<label class="switch">
+				<!--<label class="switch">
   					<input class="toggleshop" id="{{= generateIdWithShopId('toggleshop',shop_id)}}" type="checkbox" {{= checkShopStatus(shop_status)}}>
   					<div class="slider"></div>
-				</label>
+				</label>-->
+				<div class="status-style">
+					<div class="appeal-status" id="{{= generateIdWithShopId('toggleshop',shop_id)}}" style="background: {{= backgroundStatus(shop_status) }}"></div>
+					<select class="form-control shopstatus"  >
+						<option value="0" {{= checkStatus(0 , shop_status) }}> Disabled </option>
+						<option value="1" {{= checkStatus(1 , shop_status) }}> Active </option>
+						<option value="2" {{= checkStatus(2 , shop_status) }}> Unauthorized </option>
+					</select>
+					
+				</div>
 			</td>
 			<td align="center">				
 				<i class="shop-edit fa fa-pencil-square" aria-hidden="true"></i>
