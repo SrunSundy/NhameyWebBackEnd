@@ -42,16 +42,16 @@ class DashboardRestController extends CI_Controller{
 			
 			$name = $year."-".$month;
 			
-			$response["shop_monthly"]["all_shop"][$i] =  $this->DashboardModel->countShopByMonth($req)->cnt;
+			$response["shop_monthly"]["all"][$i] =  $this->DashboardModel->countShopByMonth($req)->cnt;
 			
 			$req_u["created_month"] = $month;
 			$req_u["created_year"] = $year;
 			$req_u["shop_status"] = 2;
-			$response["shop_monthly"]["u_shop"][$i]=  $this->DashboardModel->countShopByMonth($req_u)->cnt;
+			$response["shop_monthly"]["l1"][$i]=  $this->DashboardModel->countShopByMonth($req_u)->cnt; //l1 unauthorized shop
 			
 			$req_d["created_month"] = $month;
 			$req_d["created_year"] = $year;
-			$response["shop_monthly"]["d_shop"][$i] =  $this->DashboardModel->countDisabledShopByMonth($req_d)->cnt;
+			$response["shop_monthly"]["l2"][$i] =  $this->DashboardModel->countDisabledShopByMonth($req_d)->cnt;//l2 disabled shop
 			
 		}
 				
