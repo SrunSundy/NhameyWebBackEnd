@@ -138,7 +138,7 @@ class ShopModel extends CI_Model{
 		$status = $request["shop_status"];
 		$shopid = $request["shop_id"];
 		
-		if($status != 0 && $status != 1){
+		if($status != 0 && $status != 1 && $status !=2){
 			$response["is_updated"] = false;
 			$response["message"] = "shop_status is invalid!";
 			return  $response;

@@ -329,9 +329,9 @@
 		                    </div>
 	                      	
 	                      </div>
-	                      <div class="chart">
+	                      <div class="chart" id="w_place_chart">
 	                        <!-- Sales Chart Canvas -->
-	                        <canvas id="user_chart" style="height: 310px;"></canvas>
+	                        <canvas id="place_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
 	                       
 	                       <div class="col-sm-4 col-xs-6">
@@ -681,9 +681,9 @@
 		                    </div>
 	                      	
 	                      </div>
-	                      <div class="chart">
+	                      <div class="chart" id="w_user_chart">
 	                        <!-- Sales Chart Canvas -->
-	                        <canvas id="place_chart" style="height: 300px;"></canvas>
+	                        <canvas id="user_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
 	                      
 	                       
@@ -1059,9 +1059,9 @@
 		                    </div>
 	                      	
 	                      </div>
-	                      <div class="chart">
+	                      <div class="chart" id="w_post_chart">
 	                        <!-- Sales Chart Canvas -->
-	                        <canvas id="post_chart" style="height: 300px;"></canvas>
+	                        <canvas id="post_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
 	                      
 	                       
@@ -1407,9 +1407,9 @@
 		                    </div>
 	                      	
 	                      </div>
-	                      <div class="chart">
+	                      <div class="chart" id="w_Product_chart">
 	                        <!-- Sales Chart Canvas -->
-	                        <canvas id="Product_chart" style="height: 300px;"></canvas>
+	                        <canvas id="Product_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
 	                      
 	                       
@@ -1697,7 +1697,7 @@
 
 	
 	var _show_month;
-	var _month_dis;
+	var _month_dis = [];
     $(document).ready(function(){
     	    
     	  /*   var user_data = {
@@ -1709,11 +1709,11 @@
     	    for(i=0 ; i<_show_month; i++){
 				_month_dis.push(fn_getMonth(i));
         	}
-    	    fn_createLineBarChart("user_chart",null);
-    	    fn_createLineBarChart("place_chart",null);
-    	    fn_createLineBarChart("post_chart",null);
-    	    fn_createLineBarChart("Product_chart",null);
-    	    
+    	    fn_createLineBarChart("user_chart",_month_dis);
+    	    fn_createLineBarChart("place_chart",_month_dis);
+    	    fn_createLineBarChart("post_chart",_month_dis);
+    	    fn_createLineBarChart("Product_chart",_month_dis);
+    	   
     	    initializeDashboard();
     });
 	
@@ -1741,9 +1741,9 @@
 				 $("#num_admin").html(data.total_admin);
 				 $("#display_admin").tmpl(data.admin_rec).appendTo("#admin_result");
 				 $("#display_top_shop").tmpl(data.pop_shop).appendTo("#place_result");
-				 console.log(data);
-
-				 console.log(fn_getMonth(2));
+				 
+				 fn_createLineBarChart("place_chart", _month_dis , data.shop_monthly);
+			
 				  				
 	  	 	 }
 	  });  		  
@@ -1777,18 +1777,21 @@
     		chart_date = ["January","Febuary","March","April","May","June","July","August","September","October","November","December"];
         }
     	 */
-    /* 	var par = "#w_"+chart_id;
+    	 console.log(chart_data.all);
+    	 console.log(chart_data.u_shop);
+    	 console.log(chart_data.d_shop);
+     	var par = "#w_"+chart_id;
     	$(par).children().remove();
-    	$(par).append("<canvas style='width:890px; height:231px;' id='"+chart_id+"'></canvas>"); */
+    	$(par).append("<canvas style=' height:310px;' id='"+chart_id+"'></canvas>"); 
     	
     	var limit_tick = 10;
     	var max_limitvalue = 200;
-    	var all_data = chart_data.l1.concat(chart_data.l2);
-    	var max_data = Math.max.apply(Math,all_data);
+    	//var all_data = chart_data.l1.concat(chart_data.l2);
+    	/* //var max_data = Math.max.apply(Math,all_data);
     	if(max_data<20){
     		limit_tick = 0;
     		max_limitvalue = 0;
-    	}/*else if(max_data > 5000 && max_data <= 10000){
+    	} *//*else if(max_data > 5000 && max_data <= 10000){
     		limit_tick = 10;
     		max_limitvalue = 10000;
     	}*/
@@ -1812,7 +1815,7 @@
     				 pointRadius: 4,
     				 pointHoverRadius: 5,
     				 pointHitRadius: 4,
-    				data: chart_data.l3
+    				data: chart_data.l2
     			},{
 	   				 label: "ff",
 					 lineTension: 0,
@@ -1828,14 +1831,14 @@
 					 pointRadius: 4,
 					 pointHoverRadius: 5,
 					 pointHitRadius: 4,
-					data: chart_data.l2
+					data: chart_data.l1
 				},{
-    				 label: "dfd",				 
+    				 label: "d",				 
     				 type:"bar",
     				 backgroundColor: "#3891d8",
     				 borderColor: "#3891d8",
     				 borderWidth: 1,
-    				 data: chart_data.l1
+    				 data: chart_data.all
     			}
     			]
     		},options: {
@@ -1871,9 +1874,9 @@
     									var cur_val = (data / max_val)*100;
     									var dis_data = "";
     									if(data < 1000){
-    										dis_data = data+"dfg";
+    										dis_data = data+"d";
     									}else{
-    										dis_data = data+'ghf';
+    										dis_data = data+'d';
     									}	
     									
     									if(cur_val > 95.8){
@@ -1935,7 +1938,7 @@
     							}else{
     								dis_label = label;
     							}	
-    							return fn_numFormat(dis_label) + "sdf";
+    							return fn_numFormat(dis_label) + "d";
     						},
     						maxTicksLimit: 10
     						
@@ -2002,7 +2005,7 @@
     	var yyyy=today.getFullYear();
     	if(dd<10)	
     		dd='0'+dd;	
-    	if(mm<10 && format == "yyyymmdd" || format == "yyyy-mm-dd")
+    	if(mm<10 )
     	    mm='0'+mm;
     	if(format == "yyyymmdd")
     		return yyyy+""+mm+""+dd;
@@ -2013,7 +2016,7 @@
     		/*var m_names = new Array("Jan", "Feb", "Mar", 
     				"Apr", "May", "Jun", "Jul", "Aug", "Sep", 
     				"Oct", "Nov", "Dec");*/
-    		return mm+"-"+yyyy + "("+fn_getMonthOfYear(yyyy+"/"+mm+"/"+dd)+")";
+    		return mm+"/"+yyyy + "("+fn_getMonthOfYear(yyyy+"/"+mm+"/"+dd)+")";
     	}
     		
     }

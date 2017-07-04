@@ -82,7 +82,8 @@
 		<input id="time_to_close" type="hidden" value="<?php echo $time_to_close ?>" />
 		<input id="time_to_open" type="hidden" value="<?php echo $time_to_open ?>" />
 		
-		<div class="enable-shop-description " style="<?php if($shop_status == "0" || $shop_status == 0) echo "display:none"?>">
+		<div class="enable-shop-description " style="<?php if($shop_status == "0" || $shop_status == 0 
+				|| $shop_status == "2" || $shop_status == 2) echo "display:none"?>">
 			<div class="shop-status-wrapper">
 				<div id="shop-opening-box" class="shop-opening-box pull-right" style="<?php if($is_shop_open == "0" || $is_shop_open == 0) echo "display:none"?>">
 					<p class="shop-toggle-time opening-time" title="shop working time">
@@ -106,13 +107,23 @@
 			
 		</div>
 		
-		<div class="disable-shop-description pull-right" style="<?php if($shop_status == "1" || $shop_status == 1) echo "display:none"?>">
+		<div class="disable-shop-description pull-right" style="<?php if($shop_status == "1" || $shop_status == 1 || 
+				$shop_status == "2" || $shop_status == 2) echo "display:none"?>">
 			<p class="disable-shop-text right-div" title="client is not able to view this shop!"><i class="fa fa-ban" aria-hidden="true"></i>Disabled</p>
 			<label class="switch left-div">
   				<input class="toggleshop" type="checkbox" id="toggleshop" >
   				<div class="slider"></div>
 			</label>
 			
+		</div>
+		
+		<div class="disable-shop-description pull-right" style="<?php if($shop_status == "0" || $shop_status == 0 || 
+				$shop_status == "1" || $shop_status == 1) echo "display:none"?>">
+			<p class="disable-shop-text right-div" style="color: #FFC107 !important;" title="client is not able to view this shop!"><i class="fa fa-ban" aria-hidden="true"></i>Unauthorized</p>
+			<label class="switch left-div">
+  				<input class="toggleshop" type="checkbox" id="toggleshop_u" >
+  				<div class="slider"></div>
+			</label>
 		</div>
 		
 	</div>
