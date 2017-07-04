@@ -112,13 +112,19 @@ if(shop_status == "1"){
 
 /*============== update shop status ===============*/
 
-$("#toggleshop, #toggleshop-small").on("click", function(){
+$("#toggleshop, #toggleshop-small, #toggleshop_u,#toggleshop_u_small").on("click", function(){
+	
 	updateShopStatus(1 , $("#shop_id").val() , function(){
 		
 		$("#toggleshop").parents(".disable-shop-description").hide();
 		$("#toggleshop").parents(".disable-shop-description").siblings(".enable-shop-description").show();
 		$("#toggleshop-small").parents(".disable-shop-description").hide();
 		$("#toggleshop-small").parents(".disable-shop-description").siblings(".enable-shop-description").show();
+		
+		$("#toggleshop_u").parents(".disable-shop-description").hide();
+		$("#toggleshop_u").parents(".disable-shop-description").siblings(".enable-shop-description").show();
+		$("#toggleshop_u_small").parents(".disable-shop-description").hide();
+		$("#toggleshop_u_small").parents(".disable-shop-description").siblings(".enable-shop-description").show();
 	});
 	
 });

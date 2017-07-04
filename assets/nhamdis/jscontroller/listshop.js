@@ -92,7 +92,7 @@
 
 	    function updateShopStatus( status , shopid , callback){
 
-		   	progressbar.start();   	
+		 //  	progressbar.start();   	
 	    	$.ajax({
 				type : "POST",
 				url : $("#base_url").val()+"API/ShopRestController/toggleShop",
@@ -112,7 +112,7 @@
 					}else{
 						swal("Update Error!", data.message, "error");
 					}
-					progressbar.stop();
+				//	progressbar.stop();
 				}
 	    	});
 		}
@@ -137,15 +137,6 @@
 				return "color:#F44336";
 			} 
 		}
-
-		function checkShopStatus(status){
-
-			if(status == "1"){
-				return "checked";
-			}else{
-				return "";
-			}
-		}
 		
 		function addSrcLogoimg( image ){
 			return $("#base_url").val()+"uploadimages/logo/small/"+image;
@@ -156,7 +147,7 @@
 			return string.substring(startindex , endindex);
 		}
 
-		$(document).on("click", ".toggleshop", function(){
+		/*$(document).on("click", ".toggleshop", function(){
 
 			var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
 			
@@ -166,23 +157,7 @@
 					$("#toggleshop"+shopid).prop('checked', true);
 					swal("Shop is updated!", "This shop will be visible for clients", "success"); 
 				});
-				/* $(this).prop('checked', false);				
-				
-				swal({
-					  title: "Are you sure?",
-					  text: "This shop will be seen by the clients",
-					  type: "warning",
-					  showCancelButton: true,
-					  confirmButtonColor: "#DD6B55",
-					  confirmButtonText: "Yes, delete it!",
-					  closeOnConfirm: false
-				},
-				function(isConfirm){
-					if (isConfirm) {	 */											
-						
-				/* 	}
-					
-				}); */
+			
 			}else{
 				$(this).prop('checked', true);
 								
@@ -207,6 +182,41 @@
 			    });
 			}
 			
+			
+		});*/
+		
+		function checkStatus( status , compare ){
+			
+			if(status == compare){
+				return "selected";
+			}else{
+				return "";
+			}
+		}
+		
+		function backgroundStatus( status ){
+			if(status == "1" || status == 1){
+				return "#4CAF50";
+			}else if (status == "2" || status == 2){
+				return "#FFEB3B";
+			}else{
+				return "#F44336";
+			}
+		}
+		
+		$(document).on("change", ".shopstatus" ,function(){
+			var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
+			var first_status_val = $(this).val();
+			var my_obj = this;
+			$(this).prop("disabled", "disabled");
+			
+			updateShopStatus( first_status_val ,shopid , function(){
+				$(my_obj).removeAttr("disabled");
+				$("#toggleshop"+shopid).css({
+					"background" : backgroundStatus(first_status_val)
+				});
+				//swal("Shop is updated!", "This shop will be visible for clients", "success"); 
+			});
 			
 		});
 
