@@ -31,6 +31,12 @@ class DashboardModel extends  CI_Model{
 		return $query->row();
 	}
 	
+	public function countReportedPost(){
+		$sql = "SELECT count(*) as cnt FROM nham_report_post WHERE status = 1";
+		$query = $this->db->query($sql);
+		return $query->row();
+	}
+	
 	public function getAdmin( $req ){
 		
 		$row = (int)$req["row"];	
@@ -108,7 +114,8 @@ class DashboardModel extends  CI_Model{
 		
 		$sql = " SELECT 
 					shop_id,
-					shop_logo
+					shop_logo,
+					shop_name_en
 				FROM nham_shop
 				WHERE 
 				shop_created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() 
@@ -150,7 +157,7 @@ class DashboardModel extends  CI_Model{
 		
 	}
 	
-	public function countDisabledShopByMonth($req){
+	/* public function countDisabledShopByMonth($req){
 		
 		$month = $req["created_month"];
 		$year = $req["created_year"];
@@ -163,7 +170,7 @@ class DashboardModel extends  CI_Model{
 		$params = array($month, $year);
 		$query = $this->db->query($sql, $params);
 		return $query->row();
-	}
+	} */
 	
 	public function getPopularShop($req){
 		

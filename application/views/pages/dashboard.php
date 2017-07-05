@@ -31,6 +31,7 @@
  	
  	ul.small-user{
  		margin-right: 10px;
+ 		min-height: 40px;
  	}
  	
  	ul.small-user li{
@@ -193,7 +194,7 @@
 				              <!-- small box -->
 				              <div class="small-box bg-primary" >
 				                <div class="inner">
-				                  <h3>44</h3>
+				                  <h3><span id="reported_post">0</span></h3>
 				                  <p>Reported Post</p>
 				                </div>
 				                <div class="icon">
@@ -233,7 +234,7 @@
 				              <!-- small box -->
 				              <div class="small-box bg-primary">
 				                <div class="inner">
-				                  <h3>44</h3>
+				                  <h3><span id="today_place_register">0</span></h3>
 				                  <p>Today's Place Registration</p>
 				                </div>
 				                <div class="icon">
@@ -323,8 +324,8 @@
 	                      
 	                        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
 			                    <div class="btn-group" data-toggle="btn-toggle" >
-			                      <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
-			                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>
+			                      <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-bar-chart" aria-hidden="true"></i></button>
+			                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-table" aria-hidden="true" style="font-size:13px"></i></button>
 			                    </div>
 		                    </div>
 	                      	
@@ -365,7 +366,7 @@
 		                        <span class="description-text">TOTAL UNAUTHORIZATION</span>
 		                      </div><!-- /.description-block -->
 		                    </div><!-- /.col -->
-	                      
+	                        <div style="clear:both;"></div>
 	                    </div><!-- /.col -->
 	                    <div class="col-md-4">
 	                      <p class="text-left">
@@ -382,108 +383,39 @@
 	                      </div><!-- /.progress-group -->
 	                      <div class="progress-group">
 	                        <span class="progress-text">New Places (last 1 month)</span>
-	                        <span class="progress-number"><b>160</b>/200</span>
+	                        <span class="progress-number"><b><span id="new_place">0</span></b>/<span class="total_place">0</span></span>
 	                        <div class="progress sm">
-	                          <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+	                          <div class="progress-bar progress-bar-green" id="new_place_percentage" style="width: 0%"></div>
 	                        </div>
 	                         <div class="box-body no-padding" style="margin-top:-22px">
-		                      <ul class="users-list small-user clearfix">
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">	                         	                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
-		                        </li>
+		                      <ul class="users-list small-user clearfix" id="pic_new_place">
+		                       
 		                      </ul><!-- /.users-list -->
 		                    </div><!-- /.box-body -->
                     
 	                      </div><!-- /.progress-group -->
 	                      <div class="progress-group">
 	                        <span class="progress-text">Unauthorized Places</span>
-	                        <span class="progress-number"><b>310</b>/400</span>
+	                        <span class="progress-number"><b><span id="u_place">0</span></b>/<span class="total_place">0</span></span>
 	                        <div class="progress sm">
-	                          <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+	                          <div class="progress-bar progress-bar-yellow" id="u_place_percentage" style="width: 0%"></div>
 	                        </div>
-	                        <div class="box-body no-padding" style="margin-top:-22px">
-		                      <ul class="users-list small-user clearfix">
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
-		                        </li>
+	                        <div class="box-body no-padding" style="margin-top:-22px" >
+		                      <ul class="users-list small-user clearfix"id="u_place_pic">
+		                       
 		                      </ul><!-- /.users-list -->
 		                    </div><!-- /.box-body -->
 		                    
 	                      </div><!-- /.progress-group -->
 	                      <div class="progress-group">
 	                        <span class="progress-text">Disabled PLaces</span>
-	                        <span class="progress-number"><b>480</b>/800</span>
+	                        <span class="progress-number"><b><span id="disabled_place">0</span></b>/<span class="total_place">0</span></span>
 	                        <div class="progress sm">
-	                          <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+	                          <div class="progress-bar progress-bar-red" id="disabled_place_percentage" style="width: 0%"></div>
 	                        </div>
-	                        <div class="box-body no-padding" style="margin-top:-22px">
-		                      <ul class="users-list small-user clearfix">
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user1-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user8-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user7-128x128.jpg" alt="User Image">		                       
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user6-128x128.jpg" alt="User Image">		                        
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" alt="User Image">		                       
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user5-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user4-128x128.jpg" alt="User Image">		                         
-		                        </li>
-		                        <li>
-		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
-		                        </li>
+	                        <div class="box-body no-padding"  style="margin-top:-22px">
+		                      <ul class="users-list small-user clearfix" id="disabled_place_pic">
+		                        
 		                      </ul><!-- /.users-list -->
 		                    </div><!-- /.box-body -->
 		                    
@@ -1691,6 +1623,11 @@
 		      <a class="users-list-name" href="#">{{= shop_name_en }}</a>
 		 </li>
    	</script> 
+   	<script id="display_shop_img"  type="text/x-jQuery-tmpl">
+	    <li>
+	    	  <img src="{{= setPlacePhoto(shop_logo)}}" alt="{{= shop_name_en }}" title="{{= shop_name_en }}" >	                         	                         
+	  	</li>
+   	</script>
    
    	 
     <script>
@@ -1706,7 +1643,7 @@
     			"l3": [50,26,105,152,125,101,121,107,151,110,65,159]     //Total Disabled Users
     	    }; */
 			_show_month = 12;
-    	    for(i=0 ; i<_show_month; i++){
+    	    for(i=_show_month-1 ; i>=0; i--){
 				_month_dis.push(fn_getMonth(i));
         	}
     	    fn_createLineBarChart("user_chart",_month_dis);
@@ -1736,6 +1673,9 @@
 				 $("#ttl_product").html(data.total_product);
 				 $("#ttl_user").html(data.total_user);
 
+				 $("#today_place_register").html(data.today_place_register);
+				 $("#reported_post").html(data.reported_post);
+
 				 $("#num_sup_admin").html(data.total_sup_admin);
 				 $("#display-sup_admin").tmpl(data.sup_admin_rec).appendTo("#sup_admin_result");
 				 $("#num_admin").html(data.total_admin);
@@ -1743,6 +1683,26 @@
 				 $("#display_top_shop").tmpl(data.pop_shop).appendTo("#place_result");
 				 
 				 fn_createLineBarChart("place_chart", _month_dis , data.shop_monthly);
+				 $(".total_place").html(data.total_place);
+				 $("#new_place").html(data.thirty_day_shop_cnt);
+				 var new_place_percentage =  (parseInt(data.thirty_day_shop_cnt)*100)/ parseInt(data.total_place);
+				 console.log(new_place_percentage);
+				 $("#new_place_percentage").css({
+					"width" : new_place_percentage +"%"
+				 });
+				 $("#u_place").html(data.shop_unauth_cnt);
+				 var u_place_percentage = (parseInt(data.shop_unauth_cnt)*100)/parseInt(data.total_place) ;
+				 $("#u_place_percentage").css({
+					"width" : u_place_percentage +"%"
+				 });
+				 $("#disabled_place").html(data.shop_disability_cnt);
+				 var disabled_place_percentage = (parseInt(data.shop_disability_cnt)*100)/parseInt(data.total_place) ;
+				 $("#disabled_place_percentage").css({
+					"width" : disabled_place_percentage +"%"
+				 });
+				 $("#display_shop_img").tmpl(data.thirty_day_shop).appendTo("#pic_new_place");
+				 $("#display_shop_img").tmpl(data.shop_unauth).appendTo("#u_place_pic");
+				 $("#display_shop_img").tmpl(data.shop_disability).appendTo("#disabled_place_pic");
 			
 				  				
 	  	 	 }
@@ -1804,27 +1764,27 @@
     				 label: "ff",
     				 lineTension: 0,
     				 type:"line",    				
-    				 backgroundColor: "#f7cd4e",
-    				 borderColor: "#f7cd4e",
+    				 backgroundColor: "#F44336",
+    				 borderColor: "#F44336",
     				 fill: false,
     				 borderWidth: 2,
-    				 pointBorderColor: "#f7cd4e",
+    				 pointBorderColor: "#F44336",
     				 pointBackgroundColor: "white",
     				 pointHoverBorderWidth: 2,
     				 pointBorderWidth: 2,
     				 pointRadius: 4,
     				 pointHoverRadius: 5,
     				 pointHitRadius: 4,
-    				data: chart_data.l2
+    				data: chart_data.l0
     			},{
 	   				 label: "ff",
 					 lineTension: 0,
 					 type:"line",    				
-					 backgroundColor: "#00a65a",
-					 borderColor: "#00a65a",
+					 backgroundColor: "#4CAF50",
+					 borderColor: "#4CAF50",
 					 fill: false,
 					 borderWidth: 2,
-					 pointBorderColor: "#00a65a",
+					 pointBorderColor: "#4CAF50",
 					 pointBackgroundColor: "white",
 					 pointHoverBorderWidth: 2,
 					 pointBorderWidth: 2,
@@ -1832,6 +1792,22 @@
 					 pointHoverRadius: 5,
 					 pointHitRadius: 4,
 					data: chart_data.l1
+				},{
+	   				 label: "ff",
+					 lineTension: 0,
+					 type:"line",    				
+					 backgroundColor: "#f7cd4e",
+					 borderColor: "#f7cd4e",
+					 fill: false,
+					 borderWidth: 2,
+					 pointBorderColor: "#f7cd4e",
+					 pointBackgroundColor: "white",
+					 pointHoverBorderWidth: 2,
+					 pointBorderWidth: 2,
+					 pointRadius: 4,
+					 pointHoverRadius: 5,
+					 pointHitRadius: 4,
+					data: chart_data.l2
 				},{
     				 label: "d",				 
     				 type:"bar",
@@ -1874,9 +1850,9 @@
     									var cur_val = (data / max_val)*100;
     									var dis_data = "";
     									if(data < 1000){
-    										dis_data = data+"d";
+    										dis_data = data+"";
     									}else{
-    										dis_data = data+'d';
+    										dis_data = data+'';
     									}	
     									
     									if(cur_val > 95.8){
@@ -1904,7 +1880,7 @@
     				mode: 'label',
     				callbacks: {
                         label: function(tooltipItems, data) {
-                        	return  data.datasets[tooltipItems.datasetIndex].label +" : "+ fn_numFormat(tooltipItems.yLabel) + "媛�";
+                        	return  data.datasets[tooltipItems.datasetIndex].label +" : "+ fn_numFormat(tooltipItems.yLabel) + "";
                         }
                     }               
     			},
@@ -1929,16 +1905,20 @@
     					ticks: {
     						beginAtZero: true,
     						callback: function(label, index, labels) {
-    		
+
+    							var dis_label = "";
+    							if(label >= 1000){
+									dis_label = fn_numFormat(label /1000) + "K";
+        						}else{
+            						if(label < 1){
+										dis_label = label.toFixed(1);
+                					}else{
+                						dis_label = fn_numFormat(label);
+                    				}
+									
+            					}
     							
-    							var dis_label;
-    							var c_label = label +"";
-    							if( c_label.includes(".") ){								
-    								dis_label = label.toFixed(1);
-    							}else{
-    								dis_label = label;
-    							}	
-    							return fn_numFormat(dis_label) + "d";
+    							return dis_label;
     						},
     						maxTicksLimit: 10
     						
