@@ -43,9 +43,7 @@ class DashboardRestController extends CI_Controller{
 			
 			$req["created_month"] = $month;
 			$req["created_year"] = $year;
-			
-			$name = $year."-".$month;
-			
+				
 			$response["shop_monthly"]["all"][$j] =  $this->DashboardModel->countShopByMonth($req)->cnt;
 			
 			$req_u["created_month"] = $month;
@@ -93,6 +91,108 @@ class DashboardRestController extends CI_Controller{
 		header('Content-Type: application/json');
 		$json = json_encode($response, JSON_PRETTY_PRINT);
 		echo $json;
+	}
+	
+	public function getuserstatistic(){
+	    
+	    $t_user["row"] = 10;
+	    $t_user["page"] = 1;
+	    $response["top_user_rec"] = $this->DashboardModel->getTopUser($t_user);
+	    
+	    $j = 0;
+	    for ($i = 11; $i >= 0; $i--) {
+	        $year = date("Y", strtotime( date( 'Y-m-01' )." -$i months"));
+	        $month = date("m", strtotime( date( 'Y-m-01' )." -$i months"));
+	        
+	        $req["created_month"] = $month;
+	        $req["created_year"] = $year;
+	        	    
+	        $response["user_monthly"]["all"][$j] =  $this->DashboardModel->getUserByMonth($req)->cnt;
+	        
+	        $req_u["created_month"] = $month;
+	        $req_u["created_year"] = $year;
+	        $req_u["user_status"] = 2;
+	        $response["user_monthly"]["l2"][$j]=  $this->DashboardModel->getUserByMonth($req_u)->cnt; //l2 unauthorized 
+	        
+	        $req_a["created_month"] = $month;
+	        $req_a["created_year"] = $year;
+	        $req_a["user_status"] = 1;
+	        $response["user_monthly"]["l1"][$j]=  $this->DashboardModel->getUserByMonth($req_a)->cnt; //l1 Active 
+	        
+	        $req_d["created_month"] = $month;
+	        $req_d["created_year"] = $year;
+	        $req_d["user_status"] = 0;
+	        $response["user_monthly"]["l0"][$j] =  $this->DashboardModel->getUserByMonth($req_d)->cnt;//l0 disabled 
+	        
+	        $j++;
+	    }
+	    
+	    $req_last_one_month_u_cnt["duration"] = 30;
+	    $response["thirty_day_shop_cnt"] = $this->DashboardModel->countUserByDuration($req_last_one_month_u_cnt)->u_cnt;
+	    $req_last_one_month["row"] = 10;
+	    $req_last_one_month["duration"] = 30;
+	    $response["thirty_day_shop"] = $this->DashboardModel->getUserByDuration($req_last_one_month);
+	    
+	    $req_disabled_user_cnt["user_status"] = 0;
+	    $response["user_disability_cnt"] = $this->DashboardModel->countUserByStatus($req_disabled_user_cnt)->u_cnt;
+	    $req_disabled_user["user_status"] = 0;
+	    $req_disabled_user["row"] = 10;
+	    $response["user_disability"] = $this->DashboardModel->getUserByStatus($req_disabled_user);
+	    
+	    $req_unauthorized_user_cnt["user_status"] = 2;
+	    $response["user_unauth_cnt"] = $this->DashboardModel->countUserByStatus($req_unauthorized_user_cnt)->u_cnt;
+	    $req_unauthorized_user["user_status"] = 2;
+	    $req_unauthorized_user["row"] = 10;
+	    $response["user_unauth"] = $this->DashboardModel->getUserByStatus($req_unauthorized_user);
+	    
+	    header('Content-Type: application/json');
+	    $json = json_encode($response, JSON_PRETTY_PRINT);
+	    echo $json;
+	}
+	
+	public function getpoststatistic(){
+	    
+	    $p_user["row"] = 10;
+	    $p_user["page"] = 1;
+	    $response["top_post_rec"] = $this->DashboardModel->getTopPost($p_user);
+	    
+	    $j = 0;
+	    for ($i = 11; $i >= 0; $i--) {
+	        $year = date("Y", strtotime( date( 'Y-m-01' )." -$i months"));
+	        $month = date("m", strtotime( date( 'Y-m-01' )." -$i months"));
+	        
+	        $req["created_month"] = $month;
+	        $req["created_year"] = $year;
+	        
+	        $response["post_monthly"]["all"][$j] =  $this->DashboardModel->getPostByMonth($req)->cnt;
+	        
+	        $req_u["created_month"] = $month;
+	        $req_u["created_year"] = $year;
+	        $req_u["post_status"] = 2;
+	        $response["post_monthly"]["l2"][$j]=  $this->DashboardModel->getPostByMonth($req_u)->cnt; //l2 unauthorized 
+	        
+	        $req_a["created_month"] = $month;
+	        $req_a["created_year"] = $year;
+	        $req_a["post_status"] = 1;
+	        $response["post_monthly"]["l1"][$j]=  $this->DashboardModel->getPostByMonth($req_a)->cnt; //l1 Active 
+	        
+	        $req_d["created_month"] = $month;
+	        $req_d["created_year"] = $year;
+	        $req_d["post_status"] = 0;
+	        $response["post_monthly"]["l0"][$j] =  $this->DashboardModel->getPostByMonth($req_d)->cnt;//l0 disabled 
+	        
+	        $j++;
+	    }
+	    
+	    $req_last_one_month_p_cnt["duration"] = 30;
+	    $response["thirty_day_post_cnt"] = $this->DashboardModel->countPostByDuration($req_last_one_month_p_cnt)->p_cnt;
+	    $req_last_one_month["row"] = 10;
+	    $req_last_one_month["duration"] = 30;
+	    $response["thirty_day_post"] = $this->DashboardModel->getPostByDuration($req_last_one_month);
+	    
+	    header('Content-Type: application/json');
+	    $json = json_encode($response, JSON_PRETTY_PRINT);
+	    echo $json;
 	}
 	
 	

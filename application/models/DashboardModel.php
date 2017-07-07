@@ -119,6 +119,7 @@ class DashboardModel extends  CI_Model{
 				FROM nham_shop
 				WHERE 
 				shop_created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() 
+                ORDER BY shop_created_date DESC
 				LIMIT ? OFFSET ? ";
 		$limit = $row;
 		$offset = ($row*$page)-$row;
@@ -193,6 +194,226 @@ class DashboardModel extends  CI_Model{
 		return $query->result();
 		
 	}
+	
+	
+	//****************** USER SECTION ******************************//
+	public function getTopUser($req){
+	    
+	    $row = (int)$req["row"];
+	    if(!isset($req["page"])) $req["page"] = 1;
+	    $page = (int)$req["page"];
+	    
+	    $sql = " SELECT 
+                	u.user_id,
+                	u.user_fullname,
+                    u.user_photo,
+                	count(f.follower_id) as f_cnt,
+                	(SELECT count(user_id) FROM nham_user_post WHERE user_id = u.user_id) as p_cnt
+                FROM nham_user u
+                LEFT JOIN nham_user_follow f
+                ON u.user_id = f.follower_id
+                GROUP BY u.user_id
+                ORDER BY f_cnt desc,p_cnt desc
+                LIMIT ? OFFSET ? ";
+	    
+	    $limit = $row;
+	    $offset = ($row*$page)-$row;
+	    
+	    $params = array($limit, $offset);
+	    $query = $this->db->query($sql, $params);
+	    return $query->result();
+	}
+	
+	public function getUserByMonth($req){
+	    
+	    $month = $req["created_month"];
+	    $year = $req["created_year"];
+	    
+	    $sql = " SELECT count(*) as cnt 
+                FROM nham_user WHERE 
+                MONTH(created_date) = ?
+                AND YEAR(created_date) = ? ";
+	    
+	    $params = array($month, $year);
+	    if(isset($req["user_status"])){
+	        $sql .= " AND user_status = ? ";
+	        array_push($params, $req["user_status"]);
+	    }
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	}
+	
+	public function getUserByDuration($req){
+	    
+	    $row = (int)$req["row"];
+	    if(!isset($req["page"])) $req["page"] = 1;
+	    $page = (int)$req["page"];
+	    
+	    $sql = " SELECT 
+                	user_id,
+                	user_fullname,
+                	user_photo
+                FROM nham_user
+                WHERE created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE()
+                ORDER BY created_date DESC
+                LIMIT ? OFFSET ? ";
+	    $limit = $row;
+	    $offset = ($row*$page)-$row;
+	    
+	    $params = array($req["duration"] ,$limit, $offset);
+	    $query = $this->db->query($sql, $params);
+	    return $query->result();
+	}
+	
+	public function countUserByDuration($req){
+	    
+	    $sql = " SELECT count(*) as u_cnt FROM nham_user WHERE  created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() ";
+	    
+	    $params = array($req["duration"]);
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	    
+	}
+	
+	public function getUserByStatus($req){
+	    
+	    
+	    $row = (int)$req["row"];
+	    if(!isset($req["page"])) $req["page"] = 1;
+	    $page = (int)$req["page"];
+	    
+	    $sql = "SELECT
+                	user_id,
+                	user_photo
+                FROM nham_user
+                WHERE
+                user_status = ?
+                LIMIT ? OFFSET ? ";
+	    $limit = $row;
+	    $offset = ($row*$page)-$row;
+	    
+	    $params = array($req["user_status"] ,$limit, $offset);
+	    $query = $this->db->query($sql, $params);
+	    return $query->result();
+	    
+	}
+	
+	public function countUserByStatus($req){
+	    
+	    $sql = " SELECT count(*) as u_cnt FROM nham_user WHERE user_status = ? ";
+	    
+	    $params = array($req["user_status"]);
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	    
+	}
+	
+	//******************** POST SECTION ***********************//
 
+	public function getTopPost($req){
+	  
+	    $row = (int)$req["row"];
+	    if(!isset($req["page"])) $req["page"] = 1;
+	    $page = (int)$req["page"];
+	    
+	    $sql = "SELECT
+                	p.post_id,
+                	p.post_caption,
+                	p.post_created_date,
+                	p_image.post_image_src,
+                	count(p.post_id) as post_image,
+                  (SELECT count(f.follower_id)  FROM nham_user_follow f WHERE f.follower_id = p.post_id ) as f_cnt,
+                	(SELECT count(p_like.post_id) FROM nham_user_like p_like WHERE p_like.post_id = p.post_id) as cnt_like
+                FROM nham_user_post p
+                LEFT JOIN nham_user_post_image p_image
+                ON p.post_id = p_image.post_id
+                GROUP BY p_image.post_id
+                ORDER BY cnt_like DESC, f_cnt DESC
+                LIMIT ? OFFSET ? ";
+	    
+	    $limit = $row;
+	    $offset = ($row*$page)-$row;
+	    
+	    $params = array($limit, $offset);
+	    $query = $this->db->query($sql, $params);
+	    return $query->result();
+	}
+	
+	public function getPostByMonth($req){
+	    $month = $req["created_month"];
+	    $year = $req["created_year"];
+	    
+	    $sql = "SELECT count(*) as cnt
+                FROM nham_user_post WHERE
+                MONTH(post_created_date) = ?
+                AND YEAR(post_created_date) = ? ";
+	    
+	    $params = array($month, $year);
+	    if(isset($req["post_status"])){
+	        $sql .= " AND post_status = ? ";
+	        array_push($params, $req["post_status"]);
+	    }
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	}
+	
+	public function getPostByDuration($req){
+	    
+	    $row = (int)$req["row"];
+	    if(!isset($req["page"])) $req["page"] = 1;
+	    $page = (int)$req["page"];
+	    
+	    $sql = "  SELECT
+                      p.post_id,
+                      p.post_caption,
+                			i.post_image_src
+                FROM nham_user_post p
+                LEFT JOIN nham_user_post_image i
+                ON p.post_id = i.post_id
+                WHERE p.post_created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE()
+                GROUP BY i.post_id
+                ORDER BY p.post_created_date DESC
+                LIMIT ? OFFSET ? ";
+	    $limit = $row;
+	    $offset = ($row*$page)-$row;
+	    
+	    $params = array($req["duration"] ,$limit, $offset);
+	    $query = $this->db->query($sql, $params);
+	    return $query->result();
+	}
+	
+	public function countPostByDuration($req){
+	    
+	    $sql = " SELECT count(*) as p_cnt FROM nham_user_post WHERE  post_created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() ";
+	    
+	    $params = array($req["duration"]);
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	    
+	}
+	
+	public function getPostByStatus($req){
+	    
+	    
+	    $row = (int)$req["row"];
+	    if(!isset($req["page"])) $req["page"] = 1;
+	    $page = (int)$req["page"];
+	    
+	    $sql = "SELECT
+                	user_id,
+                	user_photo
+                FROM nham_user
+                WHERE
+                user_status = ?
+                LIMIT ? OFFSET ? ";
+	    $limit = $row;
+	    $offset = ($row*$page)-$row;
+	    
+	    $params = array($req["user_status"] ,$limit, $offset);
+	    $query = $this->db->query($sql, $params);
+	    return $query->result();
+	    
+	}
 }
 
+?>
