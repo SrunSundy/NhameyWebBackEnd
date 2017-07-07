@@ -695,7 +695,7 @@
 	                      </div><!-- /.progress-group -->
 	                      
 	                       
-	                      <div class="progress-group">
+	                     <!-- <div class="progress-group">
 	                        <span class="progress-text">Shop Owners</span>
 	                        <span class="progress-number"><b>160</b>/200</span>
 	                        <div class="progress sm">
@@ -727,12 +727,12 @@
 		                        <li>
 		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
 		                        </li>
-		                      </ul><!-- /.users-list -->
-		                    </div><!-- /.box-body -->
+		                      </ul>
+		                    </div>
                     
-	                      </div><!-- /.progress-group -->
+	                      </div> -->
 	                      
-	                      <div class="progress-group">
+	                     <!-- <div class="progress-group">
 	                        <span class="progress-text">Reported Users</span>
 	                        <span class="progress-number"><b>310</b>/400</span>
 	                        <div class="progress sm">
@@ -764,10 +764,10 @@
 		                        <li>
 		                          <img src="<?php echo base_url(); ?>assets/dist/img/user3-128x128.jpg" alt="User Image">		                       
 		                        </li>
-		                      </ul><!-- /.users-list -->
-		                    </div><!-- /.box-body -->
+		                      </ul>
+		                    </div>
 		                    
-	                      </div><!-- /.progress-group -->
+	                      </div> --> 
 	                      
 	                       <div class="progress-group">
 	                        <span class="progress-text">Unauthorized Users</span>
