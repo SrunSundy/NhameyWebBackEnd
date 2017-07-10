@@ -32,6 +32,7 @@ class DashboardRestController extends CI_Controller{
 		
 		$req_today_sh_cnt["duration"] = 1;
 		$response["today_place_register"] = $this->DashboardModel->countShopByDuration($req_today_sh_cnt)->sh_cnt;
+		$response["post_reporter"] = $this->DashboardModel->countPostReporter()->cnt;
 		$response["reported_post"] = $this->DashboardModel->countReportedPost()->cnt;
 		
 		/*places's statistic*/
@@ -87,6 +88,9 @@ class DashboardRestController extends CI_Controller{
 		$response["shop_unauth"] = $this->DashboardModel->getShopByStatus($req_unauthorized_shop);
 		/*end places's statistic*/
 		
+		/* user's statistic */
+		
+		/*end user's statistic*/
 		
 		header('Content-Type: application/json');
 		$json = json_encode($response, JSON_PRETTY_PRINT);
@@ -95,6 +99,7 @@ class DashboardRestController extends CI_Controller{
 	
 	public function getuserstatistic(){
 	    
+	    $response["total_user"] = $this->DashboardModel->countTotalUser()->total_record;
 	    $t_user["row"] = 10;
 	    $t_user["page"] = 1;
 	    $response["top_user_rec"] = $this->DashboardModel->getTopUser($t_user);
@@ -152,6 +157,7 @@ class DashboardRestController extends CI_Controller{
 	
 	public function getpoststatistic(){
 	    
+	    $response["total_post"] = $this->DashboardModel->countTotalPost()->total_record;
 	    $p_user["row"] = 10;
 	    $p_user["page"] = 1;
 	    $response["top_post_rec"] = $this->DashboardModel->getTopPost($p_user);
@@ -186,9 +192,49 @@ class DashboardRestController extends CI_Controller{
 	    
 	    $req_last_one_month_p_cnt["duration"] = 30;
 	    $response["thirty_day_post_cnt"] = $this->DashboardModel->countPostByDuration($req_last_one_month_p_cnt)->p_cnt;
-	    $req_last_one_month["row"] = 10;
-	    $req_last_one_month["duration"] = 30;
-	    $response["thirty_day_post"] = $this->DashboardModel->getPostByDuration($req_last_one_month);
+	    $response["reported_post"] = $this->DashboardModel->countReportedPost()->cnt;
+	    
+	    $req_d["status"] = 0;
+	    $response["post_disability"] = $this->DashboardModel->countPostByStatus($req_d)->cnt;
+	    
+	    header('Content-Type: application/json');
+	    $json = json_encode($response, JSON_PRETTY_PRINT);
+	    echo $json;
+	}
+	
+	public function getproductstatistic(){
+	    
+	    $pro["row"] = 10;
+	    $pro["page"] = 1;
+	    $response["top_pro_rec"] = $this->DashboardModel->getTopProduct($pro);
+	    
+	    $j = 0;
+	    for ($i = 11; $i >= 0; $i--) {
+	        $year = date("Y", strtotime( date( 'Y-m-01' )." -$i months"));
+	        $month = date("m", strtotime( date( 'Y-m-01' )." -$i months"));
+	        
+	        $req["created_month"] = $month;
+	        $req["created_year"] = $year;
+	        
+	        $response["pro_monthly"]["all"][$j] =  $this->DashboardModel->countProductByMonth($req)->cnt;
+	        
+	        $req_u["created_month"] = $month;
+	        $req_u["created_year"] = $year;
+	        $req_u["pro_status"] = 2;
+	        $response["pro_monthly"]["l2"][$j]=  $this->DashboardModel->countProductByMonth($req_u)->cnt; //l2 unauthorized
+	        
+	        $req_a["created_month"] = $month;
+	        $req_a["created_year"] = $year;
+	        $req_a["pro_status"] = 1;
+	        $response["pro_monthly"]["l1"][$j]=  $this->DashboardModel->countProductByMonth($req_a)->cnt; //l1 Active
+	        
+	        $req_d["created_month"] = $month;
+	        $req_d["created_year"] = $year;
+	        $req_d["pro_status"] = 0;
+	        $response["pro_monthly"]["l0"][$j] =  $this->DashboardModel->countProductByMonth($req_d)->cnt;//l0 disabled
+	        
+	        $j++;
+	    }
 	    
 	    header('Content-Type: application/json');
 	    $json = json_encode($response, JSON_PRETTY_PRINT);

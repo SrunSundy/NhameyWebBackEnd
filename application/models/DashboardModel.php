@@ -31,7 +31,7 @@ class DashboardModel extends  CI_Model{
 		return $query->row();
 	}
 	
-	public function countReportedPost(){
+	public function countPostReporter(){
 		$sql = "SELECT count(*) as cnt FROM nham_report_post WHERE status = 1";
 		$query = $this->db->query($sql);
 		return $query->row();
@@ -47,7 +47,7 @@ class DashboardModel extends  CI_Model{
 					a.admin_name,
 					a.admin_photo
 				FROM nham_admin a
-				WHERE  admin_type = ? 			
+				WHERE  admin_status = 1 AND admin_type = ? 			
 				ORDER BY a.admin_created_date
 				LIMIT ?
 				OFFSET ? ";
@@ -64,7 +64,7 @@ class DashboardModel extends  CI_Model{
 		
 		$sql = "SELECT count(*) as total_record
 				FROM nham_admin 
-				WHERE admin_type = ? ";
+				WHERE admin_status = 1 AND admin_type = ? ";
 		
 		$params = array($req["admin_type"]);
 		$query = $this->db->query($sql, $params);
@@ -184,6 +184,7 @@ class DashboardModel extends  CI_Model{
 					shop_name_en,
 					shop_logo
 				FROM nham_shop 
+                WHERE shop_status = 1
 				ORDER BY shop_dis_order , shop_view_count DESC
 				LIMIT ? OFFSET ?";
 		$limit = $row;
@@ -212,6 +213,7 @@ class DashboardModel extends  CI_Model{
                 FROM nham_user u
                 LEFT JOIN nham_user_follow f
                 ON u.user_id = f.follower_id
+                WHERE u.user_status = 1
                 GROUP BY u.user_id
                 ORDER BY f_cnt desc,p_cnt desc
                 LIMIT ? OFFSET ? ";
@@ -318,15 +320,19 @@ class DashboardModel extends  CI_Model{
 	    
 	    $sql = "SELECT
                 	p.post_id,
-                	p.post_caption,
-                	p.post_created_date,
                 	p_image.post_image_src,
                 	count(p.post_id) as post_image,
-                  (SELECT count(f.follower_id)  FROM nham_user_follow f WHERE f.follower_id = p.post_id ) as f_cnt,
+					u.user_id,
+					u.user_fullname,
+					u.user_photo,
+                    (SELECT count(f.follower_id)  FROM nham_user_follow f WHERE f.follower_id = p.post_id ) as f_cnt,
                 	(SELECT count(p_like.post_id) FROM nham_user_like p_like WHERE p_like.post_id = p.post_id) as cnt_like
                 FROM nham_user_post p
-                LEFT JOIN nham_user_post_image p_image
+								LEFT JOIN nham_user u
+								ON p.user_id = u.user_id
+                LEFT JOIN nham_user_post_image p_image								
                 ON p.post_id = p_image.post_id
+                WHERE p.post_status = 1
                 GROUP BY p_image.post_id
                 ORDER BY cnt_like DESC, f_cnt DESC
                 LIMIT ? OFFSET ? ";
@@ -357,7 +363,7 @@ class DashboardModel extends  CI_Model{
 	    return $query->row();
 	}
 	
-	public function getPostByDuration($req){
+/* 	public function getPostByDuration($req){
 	    
 	    $row = (int)$req["row"];
 	    if(!isset($req["page"])) $req["page"] = 1;
@@ -380,7 +386,7 @@ class DashboardModel extends  CI_Model{
 	    $params = array($req["duration"] ,$limit, $offset);
 	    $query = $this->db->query($sql, $params);
 	    return $query->result();
-	}
+	} */
 	
 	public function countPostByDuration($req){
 	    
@@ -392,7 +398,7 @@ class DashboardModel extends  CI_Model{
 	    
 	}
 	
-	public function getPostByStatus($req){
+	/* public function getPostByStatus($req){
 	    
 	    
 	    $row = (int)$req["row"];
@@ -413,6 +419,77 @@ class DashboardModel extends  CI_Model{
 	    $query = $this->db->query($sql, $params);
 	    return $query->result();
 	    
+	} */
+	
+	public function countPostByStatus($req){
+	    
+	    $sql = "SELECT count(*) as cnt
+                FROM nham_user_post p
+                WHERE  p.post_status = ? ";
+	    $params = array($req["status"]);
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	    
+	}
+	
+	public function countReportedPost(){
+	    
+	    $sql = "SELECT count(*) as cnt
+                FROM nham_user_post p
+                WHERE p.post_status = 1 
+                AND p.post_id IN (
+                	SELECT DISTINCT(r.post_id) FROM nham_report_post r
+                	WHERE r.status = 1
+                )";
+	    $query = $this->db->query($sql);
+	    return $query->row();
+	}
+	
+	//******************** PRODUCT SECTION ***********************//
+	
+	public function getTopProduct($req){
+	    
+	    $row = (int)$req["row"];
+	    if(!isset($req["page"])) $req["page"] = 1;
+	    $page = (int)$req["page"];
+	    $sql = "SELECT 
+                	p.pro_id,
+                	p.pro_image,
+                	s.shop_id,
+                	s.shop_name_en,
+                	s.shop_logo
+                FROM nham_product p
+                LEFT JOIN nham_shop s
+                ON p.shop_id = s.shop_id
+                WHERE p.pro_status = 1
+                AND p.pro_local_popularity = 1
+                ORDER BY p.pro_dis_order
+                LIMIT ? OFFSET ? ";
+	    $limit = $row;
+	    $offset = ($row*$page)-$row;
+	    
+	    $params = array($limit, $offset);
+	    $query = $this->db->query($sql, $params);
+	    return $query->result();
+	}
+	
+	public function countProductByMonth($req){
+	    
+	    $month = $req["created_month"];
+	    $year = $req["created_year"];
+	    
+	    $sql = " SELECT count(*) as cnt
+                FROM nham_product WHERE
+                MONTH(pro_created_date) = ?
+                AND YEAR(pro_created_date) = ? ";
+	    
+	    $params = array($month, $year);
+	    if(isset($req["pro_status"])){
+	        $sql .= " AND pro_status = ? ";
+	        array_push($params, $req["pro_status"]);
+	    }
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
 	}
 }
 
