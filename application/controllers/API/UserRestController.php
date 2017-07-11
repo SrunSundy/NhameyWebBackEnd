@@ -44,6 +44,7 @@ class UserRestController extends  CI_Controller{
 		
 		$email = $req_data['email'];
 		$password=$req_data['password'];
+		$u_timezone= $req_data['timezone'];
 		//$type=$req_data['type'];
 		/* echo json_encode($req_data);
 		 return; */
@@ -60,6 +61,7 @@ class UserRestController extends  CI_Controller{
 			$_SESSION['admin_status'] = (bool)$user->admin_status;
 			$_SESSION['admin_type'] = (bool)$user->admin_type;
 			$_SESSION['sess_id'] =  session_id();
+			$_SESSION['timezone'] = $u_timezone;
 			$ip = $this->getIp();
 			$sess_id = $_SESSION['sess_id'];
 			$this->UserModel->setSession($_SESSION['admin_id'], $ip, $sess_id);
