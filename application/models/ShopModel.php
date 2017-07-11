@@ -6,6 +6,7 @@ class ShopModel extends CI_Model{
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->library('session');
 	}
 	
 	public function getshopByNameCombo($shopname , $limit){
@@ -248,6 +249,8 @@ class ShopModel extends CI_Model{
 				$item->is_shop_open = $is_open;
 				$item->time_to_close = $time_to_close;
 				$item->time_to_open = $time_to_open;
+				
+			
 			}
 			
 		}
@@ -422,6 +425,7 @@ class ShopModel extends CI_Model{
 				FROM nham_shop sh
 				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id 
 				WHERE REPLACE(CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name),' ','') LIKE REPLACE(?,' ','')
+                ORDER BY sh.shop_id
 				LIMIT ? OFFSET ?";
 		
 		$query = $this->db->query($sql , array("%".$whole_search."%" ,$limit,$offset));
@@ -462,6 +466,22 @@ class ShopModel extends CI_Model{
 				$item->time_to_close = $time_to_close;
 				$item->time_to_open = $time_to_open;
 				$item->shop_img_total = $this->totalShopImg((int)$item->shop_id);
+				
+				$user_sess_timezone = $this->session->timezone;
+				if(!$user_sess_timezone)$user_sess_timezone= "Asia/Phnom_Penh";
+				
+				$tz_date_s = new DateTime($item->shop_opening_time, new DateTimeZone($item->shop_time_zone));
+				$tz_date_s->setTimezone(new DateTimeZone($user_sess_timezone));
+				$tz_date_e = new DateTime($item->shop_close_time, new DateTimeZone($item->shop_time_zone));
+				$tz_date_e->setTimezone(new DateTimeZone($user_sess_timezone));
+				
+				$item->shop_opening_time = $tz_date_s->format('H:i:s');
+				$item->shop_close_time = $tz_date_e->format('H:i:s');
+				
+				$sh_c_date = new DateTime($item->shop_created_date, new DateTimeZone(date_default_timezone_get()));
+				$sh_c_date->setTimezone(new DateTimeZone($user_sess_timezone));
+				
+				$item->shop_created_date = $sh_c_date->format('Y-m-d H:i:s');
 			}
 			
 		}
@@ -563,13 +583,15 @@ class ShopModel extends CI_Model{
 		      shop_logo, shop_cover, shop_serve_type, shop_short_description, shop_description,
 		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, shop_has_wifi,
 		      shop_has_aircon, shop_has_reservation, shop_has_bikepark, shop_has_tax, shop_map_address, shop_social_media,
-		      shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "; */
+		      shop_remark, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "; */
 			
 			$shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
 		      shop_logo, shop_cover, shop_serve_type, shop_short_description, shop_description,
 		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, 
-		      shop_capacity ,shop_lat_point, shop_lng_point, shop_social_media,shop_remark,shop_time_zone, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-
+		      shop_capacity ,shop_lat_point, shop_lng_point, shop_created_date, shop_last_update , shop_social_media,shop_remark,shop_time_zone, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+            
+			$current_time = new DateTime();
+			$current_time = $current_time->format('Y-m-d H:i:s');
 			$shopparams = array( (int)$datashop["branch_id"], 1, (int)$datashop["country_id"],
 					(int)$datashop["city_id"], (int)$datashop["district_id"], (int)$datashop["commune_id"],
 					$datashop["shop_name_en"], $datashop["shop_name_kh"], $datashop["shop_logo"],
@@ -577,7 +599,7 @@ class ShopModel extends CI_Model{
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
 					$datashop["shop_close_time"], $datashop["shop_capacity"], $datashop["shop_lat_point"], $datashop["shop_lng_point"], 
-					$shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
+			        $current_time, $current_time, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();

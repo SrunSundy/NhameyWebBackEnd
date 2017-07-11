@@ -54,29 +54,36 @@
 	  if(validateInputNull("username") || validateInputNull("pwd")){
 		 return;
 	  }
+	 
 	  var btn_loading = $(".btn_loading");
 	    btn_loading.button('loading');
-	  $.ajax({
-			 type: "POST",
-			 url: $("#base_url").val()+"API/UserRestController/login", 
-			 contentType : "application/json",
-			 data : JSON.stringify({
-				"req_data" : {
-					"email" : $("#username").val(),
-					"password": $("#pwd").val()
-				 }
-			 }),			
-			 success: function(data){
-				 var data = JSON.parse(data);
-				 if(data.status){					 
-					 location.href = $("#base_url").val()+"MainController/dashboard";
-				 }else{
-					 btn_loading.button('reset'); 
-					 $("#log_err").show();
-				 }
-				  				
-	  	 	 }
-	  });  
+
+	    $.getJSON('//ipapi.co/json/', function(data) {
+			  var user_time_zone = data.timezone;
+			  $.ajax({
+					 type: "POST",
+					 url: $("#base_url").val()+"API/UserRestController/login", 
+					 contentType : "application/json",
+					 data : JSON.stringify({
+						"req_data" : {
+							"email" : $("#username").val(),
+							"password": $("#pwd").val(),
+							"timezone" : user_time_zone
+						 }
+					 }),			
+					 success: function(data){
+						 var data = JSON.parse(data);
+						 if(data.status){					 
+							 location.href = $("#base_url").val()+"MainController/dashboard";
+						 }else{
+							 btn_loading.button('reset'); 
+							 $("#log_err").show();
+						 }
+						  				
+			  	 	 }
+			  });  
+		  });
+	 
   }
 
   

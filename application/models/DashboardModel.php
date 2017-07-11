@@ -111,6 +111,8 @@ class DashboardModel extends  CI_Model{
 		$row = (int)$req["row"];
 		if(!isset($req["page"])) $req["page"] = 1;
 		$page = (int)$req["page"];
+		$current_time = new DateTime();
+		$current_time = $current_time->format('Y-m-d H:i:s');
 		
 		$sql = " SELECT 
 					shop_id,
@@ -118,7 +120,7 @@ class DashboardModel extends  CI_Model{
 					shop_name_en
 				FROM nham_shop
 				WHERE 
-				shop_created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() 
+				shop_created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."' 
                 ORDER BY shop_created_date DESC
 				LIMIT ? OFFSET ? ";
 		$limit = $row;
@@ -130,8 +132,11 @@ class DashboardModel extends  CI_Model{
 	}
 	
 	public function countShopByDuration($req){
-		
-		$sql = " SELECT count(*) as sh_cnt FROM nham_shop WHERE  shop_created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() ";
+	    
+	    $current_time = new DateTime();
+	    $current_time = $current_time->format('Y-m-d H:i:s');
+	    
+		$sql = " SELECT count(*) as sh_cnt FROM nham_shop WHERE  shop_created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."'  ";
 		
 		$params = array($req["duration"]);
 		$query = $this->db->query($sql, $params);
@@ -251,12 +256,15 @@ class DashboardModel extends  CI_Model{
 	    if(!isset($req["page"])) $req["page"] = 1;
 	    $page = (int)$req["page"];
 	    
+	    $current_time = new DateTime();
+	    $current_time = $current_time->format('Y-m-d H:i:s');
+	    
 	    $sql = " SELECT 
                 	user_id,
                 	user_fullname,
                 	user_photo
                 FROM nham_user
-                WHERE created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE()
+                WHERE created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."' 
                 ORDER BY created_date DESC
                 LIMIT ? OFFSET ? ";
 	    $limit = $row;
@@ -269,7 +277,10 @@ class DashboardModel extends  CI_Model{
 	
 	public function countUserByDuration($req){
 	    
-	    $sql = " SELECT count(*) as u_cnt FROM nham_user WHERE  created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() ";
+	    $current_time = new DateTime();
+	    $current_time = $current_time->format('Y-m-d H:i:s');
+	    
+	    $sql = " SELECT count(*) as u_cnt FROM nham_user WHERE  created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."'  ";
 	    
 	    $params = array($req["duration"]);
 	    $query = $this->db->query($sql, $params);
@@ -389,8 +400,10 @@ class DashboardModel extends  CI_Model{
 	} */
 	
 	public function countPostByDuration($req){
+	    $current_time = new DateTime();
+	    $current_time = $current_time->format('Y-m-d H:i:s');
 	    
-	    $sql = " SELECT count(*) as p_cnt FROM nham_user_post WHERE  post_created_date BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() ";
+	    $sql = " SELECT count(*) as p_cnt FROM nham_user_post WHERE  post_created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."'  ";
 	    
 	    $params = array($req["duration"]);
 	    $query = $this->db->query($sql, $params);
@@ -455,6 +468,8 @@ class DashboardModel extends  CI_Model{
 	    $sql = "SELECT 
                 	p.pro_id,
                 	p.pro_image,
+                    p.pro_name_en,
+                    p.pro_name_kh,
                 	s.shop_id,
                 	s.shop_name_en,
                 	s.shop_logo
@@ -491,6 +506,20 @@ class DashboardModel extends  CI_Model{
 	    $query = $this->db->query($sql, $params);
 	    return $query->row();
 	}
+	
+	public function countProductByDuration($req){
+	    
+	    $current_time = new DateTime();
+	    $current_time = $current_time->format('Y-m-d H:i:s');
+	    
+	    $sql = " SELECT count(*) as p_cnt FROM nham_product WHERE  pro_created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."'  ";
+	    
+	    $params = array($req["duration"]);
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	    
+	}
+	
 }
 
 ?>
