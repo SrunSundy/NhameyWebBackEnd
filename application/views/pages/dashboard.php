@@ -789,17 +789,17 @@
 	                      
 	                      <div class="progress-group">
 	                        <span class="progress-text">New Products (last 1 month)</span>
-	                        <span class="progress-number"><b><span>0</span></b>/<span>0</span></span>
+	                        <span class="progress-number"><b><span id="new_product">0</span></b>/<span class="total_product" >0</span></span>
 	                        <div class="progress sm">
-	                          <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+	                          <div class="progress-bar progress-bar-green" id="new_pro_percentage" style="width: 0%"></div>
 	                        </div>	                                           
 	                      </div><!-- /.progress-group -->
 	                                             
 	                      <div class="progress-group">
 	                        <span class="progress-text">Disabled Products</span>
-	                        <span class="progress-number"><b><span>0</span></b>/<span>0</span></span>
+	                        <span class="progress-number"><b><span id="dis_product">0</span></b>/<span class="total_product">0</span></span>
 	                        <div class="progress sm">
-	                          <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+	                          <div class="progress-bar progress-bar-red" id="dis_pro_percentage" style="width: 0%"></div>
 	                        </div>	                                            
 	                      </div><!-- /.progress-group -->
 	                      	                      
@@ -1005,8 +1005,7 @@
 	 								 });
 
 									 $("#new_post_cnt").html(data.thirty_day_post_cnt);
-									 var n_post_percentage =  (parseInt(data.thirty_day_post_cnt)*100)/ parseInt(data.total_post);
-									 console.log(n_post_percentage);
+									 var n_post_percentage =  (parseInt(data.thirty_day_post_cnt)*100)/ parseInt(data.total_post);		
 									 $("#new_post_per").css({
 										 "width" : n_post_percentage+"%"
 	 								 });
@@ -1025,7 +1024,19 @@
       								$(".loading_4").hide();  	
       								$("#display_top_product").tmpl(data.top_pro_rec).appendTo("#top_product_result");  
       								fn_createLineBarChart("Product_chart",_month_dis, data.pro_monthly); 	
-      								console.log(data);	
+
+      								$(".total_product").html(data.total_product);
+      								 $("#new_product").html(data.thirty_day_pro_cnt);
+									 var n_pro_percentage =  (parseInt(data.thirty_day_pro_cnt)*100)/ parseInt(data.total_product);		
+									 $("#new_pro_percentage").css({
+										 "width" : n_pro_percentage+"%"
+	 								 });
+
+									 $("#dis_product").html(data.post_disability);
+									 var d_pro_percentage =  (parseInt(data.post_disability)*100)/ parseInt(data.post_disability);		
+									 $("#dis_pro_percentage").css({
+										 "width" : d_pro_percentage+"%"
+	 								 });
  								 	
       					  	 	 }
       					    });  	

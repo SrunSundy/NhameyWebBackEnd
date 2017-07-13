@@ -208,6 +208,7 @@ class DashboardRestController extends CI_Controller{
 	    $pro["row"] = 10;
 	    $pro["page"] = 1;
 	    $response["top_pro_rec"] = $this->DashboardModel->getTopProduct($pro);
+	    $response["total_product"] = $this->DashboardModel->countTotalProduct()->total_record;
 	    
 	    $j = 0;
 	    for ($i = 11; $i >= 0; $i--) {
@@ -237,19 +238,12 @@ class DashboardRestController extends CI_Controller{
 	        $j++;
 	    }
 	    
+	    $req_last_one_month_p_cnt["duration"] = 30;
+	    $response["thirty_day_pro_cnt"] = $this->DashboardModel->countProductByDuration($req_last_one_month_p_cnt)->p_cnt;
+	    $req_d["status"] = 0;
+	    $response["post_disability"] = $this->DashboardModel->countProByStatus($req_d)->cnt; 
 	    
 	    
-// 	    $date = new DateTime('2017-07-10 18:51:53', new DateTimeZone('Asia/Phnom_Penh'));
-// 	   $response["TIME_1"] =  $date->format('Y-m-d H:i:sP');
-	    
-// 	    $date->setTimezone(new DateTimeZone('Asia/Seoul'));
-// 	    $response["TIME_2"] = $date->format('Y-m-d H:i:sP');
-	    
-// 	    $utc = new DateTime('2017-07-11 05:50:46', new DateTimeZone('America/Los_Angeles'));
-// 	    $response["SERVER_TIME"]= $utc->setTimezone(new DateTimeZone('Asia/Seoul'));
-// 	    $response["CURRENTTIME"] = new DateTime();
-	    
-	  
 	    header('Content-Type: application/json');
 	    $json = json_encode($response, JSON_PRETTY_PRINT);
 	    echo $json;

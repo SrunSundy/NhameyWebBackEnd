@@ -520,6 +520,17 @@ class DashboardModel extends  CI_Model{
 	    
 	}
 	
+	public function countProByStatus($req){
+	    
+	    $sql = "SELECT count(*) as cnt
+                FROM nham_product p
+                WHERE  p.pro_status = ? ";
+	    $params = array($req["status"]);
+	    $query = $this->db->query($sql, $params);
+	    return $query->row();
+	    
+	}
+	
 }
 
 ?>
