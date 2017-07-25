@@ -506,9 +506,11 @@
  
 <script>
 var base_url="<?php echo base_url();?>";
+var dis_img_path = "<?php echo DIS_IMAGE_PATH ?>";
 var logoimagename = "";
 var servecategory = "";
 var popular=0;
+
 //start upload logo 
 var arrnewfileimagename = [];
 $("#saveproduct").on("click",function(){
@@ -1062,7 +1064,7 @@ $("#servecategoryname").on("focus keyup",function(){
 				
 					 dis += '<div  class="nham-dropdown-multi-result">';
 					 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
-					 dis += ' <img class="pull-left icon" src="'+base_url+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+					 dis += ' <img class="pull-left icon" src="'+dis_img_path+'/uploadimages/real/icon/'+data[i].serve_category_icon+'"/>';
 					 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
 					 
 				 }			
@@ -1420,7 +1422,7 @@ $("#logo-save-btn").on("click", function(){
 	$("#logo-upload-remove-fake").show();
 	$("#logo-upload-remove").show();
 	var myimg  ='<img  class="upload-shop-img"'; 
-		myimg +='src="'+base_url+'uploadimages/product/small/'+logoimagename+'" alt="your image" />';
+		myimg +='src="'+dis_img_path+'/uploadimages/real/product/small/'+logoimagename+'" alt="your image" />';
     $('#logo-display-wrapper').html(myimg);
     var txt  = '<div class="photo-upload-info-2" >';
 		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
@@ -1552,7 +1554,7 @@ function upoloadLogoToServer(){
 					//$("#cover-description-box").show();
 					logoimagename = data.filename;
 					var uploadedimg ='<img  class="photo-upload-output" ' 
-						+'src="'+base_url+'uploadimages/product/big/'+logoimagename+'"  '
+						+'src="'+dis_img_path+'/uploadimages/real/product/big/'+logoimagename+'"  '
 						+'alt="your image" />';
 					$('#display-logo-upload').html(uploadedimg);
 					
