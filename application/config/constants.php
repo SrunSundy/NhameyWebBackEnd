@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/*
+  Project's global variables declartion
+*/
+define('UPLOAD_FILE_PATH', $_SERVER['DOCUMENT_ROOT'].'/dernham_API');
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace
