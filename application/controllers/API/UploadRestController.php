@@ -85,10 +85,10 @@ class UploadRestController extends CI_Controller{
 			$img_w = (int)$cropdata->img_w;
 			
 			$new_name = "logo_".$this->generateRandomString(20).".jpg";
-			$target_small_dir = "./uploadimages/logo/small/";
-			$target_medium_dir = "./uploadimages/logo/medium/";
-			$target_big_dir = "./uploadimages/logo/big/";
-			$target_big_nocrop_dir = "./uploadimages/logo/big-nocrop/";
+			$target_small_dir =  UPLOAD_FILE_PATH."/uploadimages/real/place/logo/small/";
+			$target_medium_dir = UPLOAD_FILE_PATH."./uploadimages/real/place/logo/medium/";
+			$target_big_dir = UPLOAD_FILE_PATH."./uploadimages/real/place/logo/big/";
+			$target_big_nocrop_dir = UPLOAD_FILE_PATH."./uploadimages/real/place/logo/big-nocrop/";
 			
 				
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
@@ -230,10 +230,10 @@ class UploadRestController extends CI_Controller{
 			$img_w = (int)$cropdata->img_w;
 			
 			$new_name = "cover_".$this->generateRandomString(20).".jpg";
-			$target_small_dir = "./uploadimages/cover/small/";
-			$target_medium_dir = "./uploadimages/cover/medium/";
-			$target_big_dir = "./uploadimages/cover/big/";
-			$target_big_nocrop_dir = "./uploadimages/cover/big-nocrop/";
+			$target_small_dir = UPLOAD_FILE_PATH."/uploadimages/real/place/cover/small/";
+			$target_medium_dir =  UPLOAD_FILE_PATH."/uploadimages/real/place/cover/medium/";
+			$target_big_dir =  UPLOAD_FILE_PATH."/uploadimages/real/place/cover/big/";
+			$target_big_nocrop_dir =  UPLOAD_FILE_PATH."/uploadimages/real/place/cover/big-nocrop/";
 				
 		
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
@@ -376,9 +376,9 @@ class UploadRestController extends CI_Controller{
 		{
 			
 			/* $target_extreme_small_dir = "./uploadimages/shopimages/extreme_small/"; */
-			$target_small_dir = "./uploadimages/shopimages/small/";
-			$target_medium_dir = "./uploadimages/shopimages/medium/";
-			$target_big_dir = "./uploadimages/shopimages/big/";
+		    $target_small_dir = UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/small/";
+		    $target_medium_dir = UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/medium/";
+		    $target_big_dir = UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/big/";
 			
 	
 			$reportwrapper = array();
@@ -502,7 +502,7 @@ class UploadRestController extends CI_Controller{
 		if ( ! empty($_FILES))
 		{		
 			$new_name = "icon_".$this->generateRandomString(20).".jpg";
-			$target_dir = "./uploadimages/icon/";
+			$target_dir = UPLOAD_FILE_PATH ."/uploadimages/real/icon/";
 			$target_file = $target_dir.$new_name;		
 			
 			$checkdirectory = $this->checkDirectory($target_dir);
@@ -553,13 +553,13 @@ class UploadRestController extends CI_Controller{
 			$img_w = (int)$cropdata->img_w;
 				
 			$new_name = "logo_".$this->generateRandomString(20).".jpg";
-			$target_extreme_small_dir = "./uploadimages/product/extreme-small/";
-			$target_small_dir = "./uploadimages/product/small/";
-			$target_medium_dir = "./uploadimages/product/medium/";
-			$target_big_dir = "./uploadimages/product/big/";
-			$target_big_nocrop_dir = "./uploadimages/product/big-nocrop/";
+		//	$target_extreme_small_dir = UPLOAD_FILE_PATH."/uploadimages/product/extreme-small/";
+			$target_small_dir = UPLOAD_FILE_PATH ."/uploadimages/real/product/small/";
+			$target_medium_dir = UPLOAD_FILE_PATH ."/uploadimages/real/product/medium/";
+			$target_big_dir = UPLOAD_FILE_PATH ."/uploadimages/real/product/big/";
+			$target_big_nocrop_dir = UPLOAD_FILE_PATH ."/uploadimages/real/product/big-nocrop/";
 				
-			$checkdirectory_extreme_small = $this->checkDirectory($target_extreme_small_dir);
+		//	$checkdirectory_extreme_small = $this->checkDirectory($target_extreme_small_dir);
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
 			$checkdirectory_medium = $this->checkDirectory($target_medium_dir);
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
@@ -573,7 +573,7 @@ class UploadRestController extends CI_Controller{
 		
 			$permission = array();
 			array_push($permission ,
-					$checkdirectory_extreme_small,
+		//			$checkdirectory_extreme_small,
 					$checkdirectory_small,
 					$checkdirectory_medium,
 					$checkdirectory_big,
@@ -609,10 +609,10 @@ class UploadRestController extends CI_Controller{
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 520, 80);
 				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
-				$extreme_small = $this->resizeImageFixpixelAndCrop($target_extreme_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
+			//	$extreme_small = $this->resizeImageFixpixelAndCrop($target_extreme_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 50, 80);
 		
 				$errorupload = false;
-				array_push($isuploadimg,$big_nocrop, $big, $medium, $small, $extreme_small);
+				array_push($isuploadimg,$big_nocrop, $big, $medium, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){
 					if(!$isuploadimg[$i]){
 						$errorupload = true;
@@ -663,11 +663,11 @@ class UploadRestController extends CI_Controller{
 			
 		}
 		
-		$extreme_small = "./uploadimages/product/extreme-small/";
-		$small = "./uploadimages/product/small/";
-		$medium = "./uploadimages/product/medium/";
-		$big = "./uploadimages/product/big/";
-		$big_nocrop = "./uploadimages/product/big-nocrop/";
+		//$extreme_small = "./uploadimages/product/extreme-small/";
+		$small = UPLOAD_FILE_PATH ."/uploadimages/real/product/small/";
+		$medium = UPLOAD_FILE_PATH ."/uploadimages/real/product/medium/";
+		$big = UPLOAD_FILE_PATH ."/uploadimages/real/product/big/";
+		$big_nocrop = UPLOAD_FILE_PATH ."/uploadimages/real/product/big-nocrop/";
 		
 		if(file_exists($big_nocrop.$productimage)){
 			unlink($big_nocrop.$productimage);
@@ -701,13 +701,13 @@ class UploadRestController extends CI_Controller{
 			$report['small_image_message'] ="File not found";
 		}
 		
-		if(file_exists($extreme_small.$productimage)){
+		/* if(file_exists($extreme_small.$productimage)){
 			unlink($extreme_small.$productimage);
 			$report['extreme_small_image_message'] ="File is removed";
 		
 		}else{
 			$report['extreme_small_image_message'] ="File not found";
-		}
+		} */
 		
 		array_push($data , $report);
 		$json = json_encode($data);
@@ -715,7 +715,7 @@ class UploadRestController extends CI_Controller{
 	}
 	public function removeIcon(){
 		$iconname = $this->input->post('iconname');		
-		$targetfile = "./uploadimages/icon/".$iconname;
+		$targetfile = UPLOAD_FILE_PATH."/uploadimages/real/icon/".$iconname;
 		
 		$response = array();
 		if(file_exists($targetfile)){
@@ -740,14 +740,13 @@ class UploadRestController extends CI_Controller{
 		$srcbig = "";
 		$srcmedium = "";
 		$srcsmall = "";
-		$srcextremesmall = "";
 		$srcbignocrop = "";
 		
 		if($removetype == "1"){
-			$srcbig = "./uploadimages/logo/big/";
-			$srcbignocrop = "./uploadimages/logo/big-nocrop/";
-			$srcmedium = "./uploadimages/logo/medium/";
-			$srcsmall = "./uploadimages/logo/small/";
+		    $srcbig = UPLOAD_FILE_PATH ."/uploadimages/real/place/logo/big/";
+		    $srcbignocrop = UPLOAD_FILE_PATH ."/uploadimages/real/place/logo/big-nocrop/";
+		    $srcmedium = UPLOAD_FILE_PATH ."/uploadimages/real/place/logo/medium/";
+		    $srcsmall = UPLOAD_FILE_PATH ."/uploadimages/real/place/logo/small/";
 			
 			if(file_exists($srcbignocrop.$imagename)){
 				unlink($srcbignocrop.$imagename);
@@ -757,10 +756,10 @@ class UploadRestController extends CI_Controller{
 				$report['big_nocrop_image_message'] ="File not found";
 			}
 		}else if($removetype == "2"){
-			$srcbig = "./uploadimages/cover/big/";
-			$srcbignocrop = "./uploadimages/cover/big-nocrop/";
-			$srcmedium = "./uploadimages/cover/medium/";
-			$srcsmall = "./uploadimages/cover/small/";
+		    $srcbig = UPLOAD_FILE_PATH ."/uploadimages/real/place/cover/big/";
+		    $srcbignocrop = UPLOAD_FILE_PATH ."/uploadimages/real/place/cover/big-nocrop/";
+		    $srcmedium = UPLOAD_FILE_PATH ."/uploadimages/real/place/cover/medium/";
+		    $srcsmall = UPLOAD_FILE_PATH ."/uploadimages/real/place/cover/small/";
 			
 			if(file_exists($srcbignocrop.$imagename)){
 				unlink($srcbignocrop.$imagename);
@@ -770,18 +769,9 @@ class UploadRestController extends CI_Controller{
 				$report['big_nocrop_image_message'] ="File not found";
 			}
 		}else if($removetype == "3"){
-			$srcbig = "./uploadimages/shopimages/big/";
-			$srcmedium = "./uploadimages/shopimages/medium/";
-			$srcsmall = "./uploadimages/shopimages/small/";
-			$srcextremesmall = "./uploadimages/shopimages/extreme-small/";
-			
-			if(file_exists($srcextremesmall.$imagename)){
-				unlink($srcextremesmall.$imagename);
-				$report['extreme_small_image_message'] ="File is removed";
-			
-			}else{
-				$report['extreme_small_image_message'] ="File not found";
-			}
+			$srcbig = UPLOAD_FILE_PATH ."/uploadimages/real/place/image-detail/big/";
+			$srcmedium = UPLOAD_FILE_PATH ."/uploadimages/real/place/image-detail/medium/";
+			$srcsmall = UPLOAD_FILE_PATH ."/uploadimages/real/place/image-detail/small/";	
 			
 		}
 		
@@ -817,26 +807,26 @@ class UploadRestController extends CI_Controller{
 		$num_image = count($removedata);
 		$data = array();
 		for($i=0; $i < $num_image; $i++){
-			if(file_exists("./uploadimages/shopimages/big/".$removedata[$i]["filename"])){
-				unlink("./uploadimages/shopimages/big/".$removedata[$i]["filename"]);
+		    if(file_exists(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/big/".$removedata[$i]["filename"])){
+		        unlink(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/big/".$removedata[$i]["filename"]);
 				$data[$removedata[$i]["filename"]]= "File is removed";
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';
 			}
-			if(file_exists("./uploadimages/shopimages/small/".$removedata[$i]["filename"])){
-				unlink("./uploadimages/shopimages/small/".$removedata[$i]["filename"]);
+			if(file_exists(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/small/".$removedata[$i]["filename"])){
+			    unlink(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/small/".$removedata[$i]["filename"]);
 				$data[$removedata[$i]["filename"]]= "File is removed";
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';
 			}
-			if(file_exists("./uploadimages/shopimages/medium/".$removedata[$i]["filename"])){
-				unlink("./uploadimages/shopimages/medium/".$removedata[$i]["filename"]);
+			if(file_exists(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/medium/".$removedata[$i]["filename"])){
+			    unlink(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/medium/".$removedata[$i]["filename"]);
 				$data[$removedata[$i]["filename"]]= "File is removed";
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';
 			}
-			if(file_exists("./uploadimages/shopimages/extreme-small/".$removedata[$i]["filename"])){
-				unlink("./uploadimages/shopimages/extreme-small/".$removedata[$i]["filename"]);
+			if(file_exists(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/extreme-small/".$removedata[$i]["filename"])){
+			    unlink(UPLOAD_FILE_PATH."/uploadimages/real/place/image-detail/extreme-small/".$removedata[$i]["filename"]);
 				$data[$removedata[$i]["filename"]]= "File is removed";
 			}else{
 				$data[$removedata[$i]["filename"]] = 'File not found';
@@ -857,7 +847,7 @@ class UploadRestController extends CI_Controller{
 		return $randomString."_".time();
 	}
 	
-	function resizeImage($targetfolder, $sourcefolder , $resizepixelpercent, $quality){
+	/*NO IN API AND NOT USE AT ALL*/function resizeImage($targetfolder, $sourcefolder , $resizepixelpercent, $quality){
 		
 		$source_img =$sourcefolder;
 		$info = getimagesize($source_img);
@@ -887,7 +877,7 @@ class UploadRestController extends CI_Controller{
 		
 	}
 	
-	function resizeImageAndCrop($targetfolder, $sourcefolder ,$cropdata , $resizepixelpercent, $quality){
+	/*NO IN API*/function resizeImageAndCrop($targetfolder, $sourcefolder ,$cropdata , $resizepixelpercent, $quality){
 	
 		$img_x = (int)$cropdata->img_x;
 		$img_y = (int)$cropdata->img_y;
@@ -956,7 +946,7 @@ class UploadRestController extends CI_Controller{
 		
 	}
 	
-	function resizeImageFixpixelAndCrop($targetfolder , $sourcefolder, $cropdata , $size , $quality){
+	/*NO IN API*/function resizeImageFixpixelAndCrop($targetfolder , $sourcefolder, $cropdata , $size , $quality){
 	
 		$img_x = (int)$cropdata->img_x;
 		$img_y = (int)$cropdata->img_y;
@@ -1133,7 +1123,7 @@ class UploadRestController extends CI_Controller{
 	
 	}
 	
-	function allowImageMinimumDimensionCrop($minwidth ,$minheight , $cropdata){
+	/*NO IN API*/function allowImageMinimumDimensionCrop($minwidth ,$minheight , $cropdata){
 		
 		$response = array();
 		$img_w = (int)$cropdata->img_w;
