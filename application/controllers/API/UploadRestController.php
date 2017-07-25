@@ -86,9 +86,9 @@ class UploadRestController extends CI_Controller{
 			
 			$new_name = "logo_".$this->generateRandomString(20).".jpg";
 			$target_small_dir =  UPLOAD_FILE_PATH."/uploadimages/real/place/logo/small/";
-			$target_medium_dir = UPLOAD_FILE_PATH."./uploadimages/real/place/logo/medium/";
-			$target_big_dir = UPLOAD_FILE_PATH."./uploadimages/real/place/logo/big/";
-			$target_big_nocrop_dir = UPLOAD_FILE_PATH."./uploadimages/real/place/logo/big-nocrop/";
+			$target_medium_dir = UPLOAD_FILE_PATH."/uploadimages/real/place/logo/medium/";
+			$target_big_dir = UPLOAD_FILE_PATH."/uploadimages/real/place/logo/big/";
+			$target_big_nocrop_dir = UPLOAD_FILE_PATH."/uploadimages/real/place/logo/big-nocrop/";
 			
 				
 			$checkdirectory_small = $this->checkDirectory($target_small_dir);
