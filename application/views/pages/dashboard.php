@@ -96,6 +96,7 @@
  </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+    <input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>" />
     <div class="wrapper">
 
       <header class="main-header">
@@ -1372,7 +1373,7 @@
 	}
 
 	function setPlacePhoto(img_name){
-		return $("#base_url").val()+"uploadimages/logo/small/"+img_name;
+		return $("#dis_img_path").val()+"/uploadimages/real/place/logo/small/"+img_name;
 	}
 
     function fn_getMonth( num_month , format){

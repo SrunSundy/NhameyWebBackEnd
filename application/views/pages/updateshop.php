@@ -70,6 +70,7 @@
     
     <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
     <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+    <input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>" />
     <input type="hidden" id="data_complete" value="<?php echo $data_complete ?>" />
     
     <div class="wrapper">	
@@ -637,7 +638,7 @@
 							var checkcls = $("#display-result-servecategory").siblings("input").val();
 							 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
 							 box += "<input type='hidden' value='"+data.serve_category_id+"' />";
-							 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+servecategory+"' />";
+							 box += "<img class='pull-left icon-after-select' src='"+$("#dis_img_path").val()+"/uploadimages/real/icon/"+servecategory+"' />";
 							 box += "<p class='text-serve-category-selected'>";
 							 box += "<span>"+$("#servecategorynamepopup").val()+"</span>";
 					 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";
@@ -871,7 +872,7 @@
 							var checkcls = $("#display-result-shopfacility").siblings("input").val();
 							 var box = "<div class='selected-category-box "+checkcls+" pull-left' style='width:"+txtwidth+"px'>";
 							 box += "<input type='hidden' value='"+data.sh_facility_id+"' />";
-							 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+shopfacilityicon+"' />";
+							 box += "<img class='pull-left icon-after-select' src='"+$("#dis_img_path").val()+"/uploadimages/real/icon/"+shopfacilityicon+"' />";
 							 box += "<p class='text-serve-category-selected'>";
 							 box += "<span>"+$("#shopfacilitynamepopup").val()+"</span>";
 					 		 box += "<i class='fa fa-times close-item' style='margin-left:10px;'  aria-hidden='true'></i></p></div>";

@@ -110,7 +110,7 @@
 				formData.append("file[]", file, file.name);				
 			}		
 			$.ajax({
-				url: "http://dernham.com/dernham_API/API/UploadRestController/uploadpostimagetotemp",
+				url: "http://localhost/dernham_API/API/UploadRestController/uploadpostimagetotemp",
 				type: "POST",
 				 headers: {
    			        
@@ -127,11 +127,29 @@
 			});
 		} 
   }
+
+    function move(){
+    	
+    	$.ajax({
+			url: "http://localhost/dernham_API/API/UploadRestController/remove",
+			type: "POST",
+			 headers: {
+			        
+			        "X-API-KEY": 123456
+			      
+			    },
+			success: function(data){					
+				data = JSON.parse(data);		
+				console.log(data);			
+			}
+		});
+    }
  
    
 	
     $("#save").click(function(){
-    	
+    	data();
+    	return;
     	var fileToUpload = $("#test")[0].files;
 
     	/* previewFiles(fileToUpload, function(files){

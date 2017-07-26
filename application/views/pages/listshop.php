@@ -132,6 +132,7 @@
   <body class="hold-transition skin-red-light sidebar-mini">
   	
   	<input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+  	<input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>" />
   
     <div class="wrapper">
 

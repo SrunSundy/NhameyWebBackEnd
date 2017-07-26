@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>shop list | Dernham</title>
+    <title>PLayer Post list | Dernham</title>
  	
  	<?php include 'imports/cssimport.php' ?>
  	
@@ -117,6 +117,7 @@
   <body class="hold-transition skin-red-light sidebar-mini">
   	
   	<input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+  	<input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>"/>
   
     <div class="wrapper">
 
@@ -441,11 +442,10 @@
    <script id="display-shop-table" type="text/x-jQuery-tmpl">
 		<tr>					
 			<td>
-				<input type="hidden" value="{{= user_id}}"/>
+				<input type="hidden" value="{{= post_id}}"/>
 				<div class="img-logo-wrapper" >
 				   <img class="table-shop-img" src="http://dernham.com/user_profile/{{= user_photo}}" />
 				   <span class="active-shop" style="position:absolute;top:0;right0;">
-					    <i class="fa fa-circle shop-display-status" id="{{= user_id }}" aria-hidden="true"></i>
 				   </span>
 				</div>				
 			</td>

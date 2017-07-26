@@ -16,6 +16,7 @@
   
     <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
     <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+    <input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>"/>
     <div class="shop-event-wrapper" >	
 		
      	<div  class="tab-wrapper">	       	 				
@@ -1135,7 +1136,7 @@
 				 if(diffarr[i] == undefined ) continue; 
 				 dis += '<div  class=" nham-dropdown-multi-result">';
 				 dis += ' <input type="hidden" value="'+diffarr[i].serve_category_id+'" />';
-				 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+diffarr[i].serve_category_icon+'"/>';
+				 dis += ' <img class="pull-left icon" src="'+$("#dis_img_path").val()+'/uploadimages/real/icon/'+diffarr[i].serve_category_icon+'"/>';
 				 dis += ' <p><span class="title">'+diffarr[i].serve_category_name+'</span></p></div>';
 			 }		
 			 			 			
@@ -1144,7 +1145,7 @@
 					if(servecatearr[j] == data[i].serve_category_id){
 						dis += '<div  class="chosen-record nham-dropdown-multi-result-disable">';
 						dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
-						dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+						dis += ' <img class="pull-left icon" src="'+$("#dis_img_path").val()+'/uploadimages/real/icon/'+data[i].serve_category_icon+'"/>';
 						dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p>';	
 						dis += ' <i class="fa fa-check chosen-icon" aria-hidden="true"></i>';
 						dis += '</div>';
@@ -1266,7 +1267,7 @@
 				 if(diffarr[i] == undefined ) continue; 
 				 dis += '<div  class="nham-dropdown-multi-result">';
 				 dis += ' <input type="hidden" value="'+diffarr[i].sh_facility_id+'" />';
-				 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+diffarr[i].sh_facility_icon+'"/>';
+				 dis += ' <img class="pull-left icon" src="'+$("#dis_img_path").val()+'/uploadimages/real/icon/'+diffarr[i].sh_facility_icon+'"/>';
 				 dis += ' <p><span class="title">'+diffarr[i].sh_facility_name+'</span></p></div>';
 			 }		
 			 			 			
@@ -1275,7 +1276,7 @@
 					if(facilityarr[j] == data[i].sh_facility_id){				
 						 dis += '<div  class="chosen-record nham-dropdown-multi-result-disable">';
 						 dis += ' <input type="hidden" value="'+data[i].sh_facility_id+'" />';
-						 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].sh_facility_icon+'"/>';
+						 dis += ' <img class="pull-left icon" src="'+$("#dis_img_path").val()+'/uploadimages/real/icon/'+data[i].sh_facility_icon+'"/>';
 						 dis += ' <p><span class="title">'+data[i].sh_facility_name+'</span></p>';
 						 dis += ' <i class="fa fa-check chosen-icon" aria-hidden="true"></i>';
 						 dis += '</div>';
@@ -1474,7 +1475,7 @@
 			 var textlng = $("<p></p>").append(data[i].serve_category_name.replace(/\s+/g, '')).textWidth()+55;
 			 var box = "<div class='selected-category-box pull-left' style='min-width:"+textlng+"px'>";
 			 box += "<input type='hidden' value='"+data[i].serve_category_id+"' />";
-			 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].serve_category_icon+"' />";
+			 box += "<img class='pull-left icon-after-select' src='"+$("#dis_img_path").val()+"/uploadimages/real/icon/"+data[i].serve_category_icon+"' />";
 			 box += "<p class='text-serve-category-selected'>";
 			 box += "<span class='serve_cate'>"+data[i].serve_category_name+"</span>";
 	 		 box += "<i class='fa fa-times close-default-item' style='margin-left:10px;cursor:pointer;display:none;'  aria-hidden='true'></i></p></div>";
@@ -1498,7 +1499,7 @@
 				 var textlng = $("<p></p>").append(data[i].sh_facility_name.replace(/\s+/g, '')).textWidth()+55;
 				 box += "<div class='selected-category-box pull-left' style='width:"+textlng+"px'>";
 				 box += "<input type='hidden' value='"+data[i].sh_facility_id+"' />";
-				 box += "<img class='pull-left icon-after-select' src='"+$("#base_url").val()+"uploadimages/icon/"+data[i].sh_facility_icon+"' />";
+				 box += "<img class='pull-left icon-after-select' src='"+$("#dis_img_path").val()+"/uploadimages/real/icon/"+data[i].sh_facility_icon+"' />";
 				 box += "<p class='text-serve-category-selected'>";
 				 box += "<span>"+data[i].sh_facility_name+"</span>";
 		 		 box += "<i class='fa fa-times close-default-facility-item' style='margin-left:10px;cursor:pointer;display:none;'  aria-hidden='true'></i></p></div>";		 				 		
