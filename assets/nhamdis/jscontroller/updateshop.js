@@ -219,8 +219,8 @@ $("#logo-save-btn").on("click", function(){
 	}
 
 	updateShopField(logoimage,$("#logo-description").val() , 1 ,"shop_logo", function(){
-		$("#logo-image-display").attr("src",$("#base_url").val()+"uploadimages/logo/medium/"+logoimage);
-		$("#small-logo-img").attr("src",$("#base_url").val()+"uploadimages/logo/medium/"+logoimage);
+		$("#logo-image-display").attr("src",$("#dis_img_path").val()+"/uploadimages/real/place/logo/medium/"+logoimage);
+		$("#small-logo-img").attr("src",$("#dis_img_path").val()+"/uploadimages/real/place/logo/medium/"+logoimage);
 		var txt  = '<div class="photo-upload-info-2" >';
 			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
 			txt	+= '</div>';
@@ -345,7 +345,7 @@ function upoloadLogoToServer(){
 					logoimage = data.filename;
 					
 					var uploadedimg ='<img  class="photo-upload-output" ' 
-						+'src="'+$("#base_url").val()+'uploadimages/logo/big/'+logoimage+'"'
+						+'src="'+$("#dis_img_path").val()+'/uploadimages/real/place/logo/big/'+logoimage+'"'
 						+'alt="your image" />';
 					$('#display-logo-upload').html(uploadedimg);
 					
@@ -435,7 +435,7 @@ $("#cover-save-btn").on("click", function(){
 		$(".img-cover-box").css("height", "auto");
 	}
 	updateShopField(coverimage, $("#cover-description").val() , 2 ,"shop_cover", function(){
-		$("#cover-image-display").attr("src",$("#base_url").val()+"uploadimages/cover/big/"+coverimage);
+		$("#cover-image-display").attr("src",$("#dis_img_path").val()+"/uploadimages/real/place/cover/big/"+coverimage);
 		resizeOnWindow();
 		var txt  = '<div class="photo-upload-info-2" >';
 			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
@@ -570,7 +570,7 @@ function upoloadCoverToServer(){
 					$("#cover-description-box").show();
 					coverimage = data.filename;
 					var uploadedimg ='<img  class="photo-upload-output" ' 
-						+'src="'+$("#base_url").val()+'uploadimages/cover/big/'+coverimage+'"  '
+						+'src="'+$("#dis_img_path").val()+'/uploadimages/real/place/cover/big/'+coverimage+'"  '
 						+'alt="your image" />';
 					$('#display-cover-upload').html(uploadedimg);
 					
