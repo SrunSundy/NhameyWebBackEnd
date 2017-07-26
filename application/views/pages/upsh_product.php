@@ -364,6 +364,7 @@
     
     <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
     <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+    <input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH?>"/>
     <div class="shop-event-wrapper">			   	       	 						       	 					
 	     <div  class="tab-wrapper">	       	 				
 	       	 <div class="tab-header col-lg-12">
@@ -798,7 +799,7 @@
 	}
 
 	function getSourceImage(src){	
-		return $("#base_url").val()+"uploadimages/product/small"+src;
+		return $("#dis_img_path").val()+"/uploadimages/real/product/small"+src;
 	}
 	
 	function imgError(image) {

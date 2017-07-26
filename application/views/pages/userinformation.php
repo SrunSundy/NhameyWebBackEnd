@@ -44,6 +44,7 @@
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+    <input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>" />
     <input type="hidden" id="shop_id" value="1"/>
     
     <div class="wrapper">	
@@ -240,7 +241,7 @@
 			
 				 dis += '<div  class="nham-dropdown-multi-result">';
 				 dis += ' <input type="hidden" value="'+data[i].serve_category_id+'" />';
-				 dis += ' <img class="pull-left icon" src="'+$("#base_url").val()+'uploadimages/icon/'+data[i].serve_category_icon+'"/>';
+				 dis += ' <img class="pull-left icon" src="'+$("#dis_img_path").val()+'/uploadimages/real/icon/'+data[i].serve_category_icon+'"/>';
 				 dis += ' <p><span class="title">'+data[i].serve_category_name+'</span></p></div>';
 				 
 			 }			

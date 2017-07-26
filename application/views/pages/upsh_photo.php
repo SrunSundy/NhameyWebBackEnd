@@ -361,6 +361,7 @@
   
     <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
     <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />  
+    <input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>"/>
     <div class="shop-event-wrapper">			     	 						       	 						       	 					
 	    <div  class="tab-wrapper">	       	 				
 	       	 <div class="tab-header col-lg-12">
@@ -596,7 +597,7 @@
 		"end_date_srch": ""
 	
    	}; 
-    var folder = "shopimages/small/";
+    var folder = "real/place/image-detail/small/";
 	var total_detail_page = 1;
 	var total_cover_page = 1;
 	var total_logo_page = 1;
@@ -637,15 +638,15 @@
 
 		switch(image_type){
 			case "1": 
-				folder = "logo/medium/";
+				folder = "real/place/logo/medium/";
 				break;
 			
 			case "2": 
-				folder ="cover/small/";
+				folder ="real/place/cover/small/";
 				break;
 			
 			case "3": 
-				folder ="shopimages/small/";
+				folder ="real/place/image-detail/small/";
 				break;			
 		}
 
@@ -961,7 +962,7 @@
 	}
 
 	function getSourceImage(src){	
-		return $("#base_url").val()+"uploadimages/"+folder+src;
+		return $("#dis_img_path").val()+"/uploadimages/"+folder+src;
 	}
 
 	function getSourceLoadingImg(){
