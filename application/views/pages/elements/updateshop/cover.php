@@ -58,7 +58,7 @@
 </style>
 <div class="img-cover-box">
 	<input type="hidden" value="<?php echo $shop_cover ?>" id="cover-image-display-hidden"/>
-	<img src="<?php echo base_url(); ?>uploadimages/cover/big/<?php echo $shop_cover ?>"
+	<img src="<?php echo DIS_IMAGE_PATH ?>/uploadimages/real/place/cover/big/<?php echo $shop_cover ?>"
 		class="img-cover" id="cover-image-display" />
 
 </div>
@@ -134,7 +134,7 @@
 	<div class="small-logo-wrapper">
 		<div class="space-logo-box">
 			<div class="small-logo-box">
-				<img id="small-logo-img" src="<?php echo base_url(); ?>uploadimages/logo/medium/<?php echo $shop_logo ?>"
+				<img id="small-logo-img" src="<?php echo DIS_IMAGE_PATH ?>/uploadimages/real/place/logo/medium/<?php echo $shop_logo ?>"
 					class="small-logo-img"  /> <i class="fa fa-camera" id="edit-logo-small-pop-up"
 					aria-hidden="true"></i>
 			</div>
