@@ -324,7 +324,7 @@
 	                        <strong>Monthly's Report</strong>
 	                        <img class="loading_1"  src="<?php echo base_url() ?>/assets/nhamdis/img/dot-spinner.gif" style="width: 48px;position: absolute;top: -13px;"/>
 	                      </p>
-	                      <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
+	                      <!-- <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
 	                      
 	                        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
 			                    <div class="btn-group" data-toggle="btn-toggle" >
@@ -333,35 +333,13 @@
 			                    </div>
 		                    </div>
 	                      	
-	                      </div>
+	                      </div> -->
 	                      <div class="chart" id="w_place_chart">
 	                        <!-- Sales Chart Canvas -->
 	                        <canvas id="place_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
 	                       
-	                       <div class="col-sm-4 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL PLACES</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-4 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL DISBILITY</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    		               
-		                    <div class="col-sm-4 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL UNAUTHORIZATION</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
+	                       
 	                        <div style="clear:both;"></div>
 	                    </div><!-- /.col -->
 	                    <div class="col-md-4">
@@ -463,7 +441,7 @@
 	                        <strong>Monthly's Report</strong>
 	                        <img class="loading_2"  src="<?php echo base_url() ?>/assets/nhamdis/img/dot-spinner.gif" style="width: 48px;position: absolute;top: -13px;"/>
 	                      </p>
-	                      <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
+	                      <!-- <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
 	                      
 	                        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
 			                    <div class="btn-group" data-toggle="btn-toggle" >
@@ -472,44 +450,12 @@
 			                    </div>
 		                    </div>
 	                      	
-	                      </div>
+	                      </div>-->
 	                      <div class="chart" id="w_user_chart">
 	                        <!-- Sales Chart Canvas -->
 	                        <canvas id="user_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
-	                      
-	                       
-	                       <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL USERS</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL DISABLE</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL ACTIVE</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL UNAUTHORIZED</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
+	                                                                 
 	                      
 	                    </div><!-- /.col -->
 	                    <div class="col-md-4">
@@ -609,7 +555,7 @@
 	                        <strong>Monthly's Report</strong>
 	                        <img class="loading_3"  src="<?php echo base_url() ?>/assets/nhamdis/img/dot-spinner.gif" style="width: 48px;position: absolute;top: -13px;"/>
 	                      </p>
-	                      <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
+	                      <!-- <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
 	                      
 	                 
 	                        <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
@@ -619,44 +565,11 @@
 			                    </div>
 		                    </div>
 	                      	
-	                      </div>
+	                      </div>-->
 	                      <div class="chart" id="w_post_chart">
 	                        <!-- Sales Chart Canvas -->
 	                        <canvas id="post_chart" style="height: 310px;"></canvas>
-	                      </div><!-- /.chart-responsive -->
-	                      
-	                       
-	                       <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL USERS</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL DISABLE</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL ACTIVE</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL UNAUTHORIZED</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
+	                      </div><!-- /.chart-responsive -->	                                             	                      
 	                      
 	                    </div><!-- /.col -->
 	                    <div class="col-md-4">
@@ -733,7 +646,7 @@
 	                        <strong>Monthly's Report</strong>
 	                        <img class="loading_4"  src="<?php echo base_url() ?>/assets/nhamdis/img/dot-spinner.gif" style="width: 48px;position: absolute;top: -13px;"/>
 	                      </p>
-	                      <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
+	                      <!-- <div class="data-chart-setting" style="padding-bottom: 7px;float: right; margin-right: 13px;">
 	                      
 	                       <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
 			                    <div class="btn-group" data-toggle="btn-toggle" >
@@ -742,45 +655,12 @@
 			                    </div>
 		                    </div>
 	                      	
-	                      </div>
+	                      </div>-->
 	                      <div class="chart" id="w_Product_chart">
 	                        <!-- Sales Chart Canvas -->
 	                        <canvas id="Product_chart" style="height: 310px;"></canvas>
 	                      </div><!-- /.chart-responsive -->
-	                      
-	                       
-	                       <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL USERS</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL DISABLE</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL ACTIVE</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-		                    
-		                    <div class="col-sm-3 col-xs-6">
-		                      <div class="description-block border-right">
-		                        <span class="description-percentage text-green"> IN 2010</span>
-		                        <h5 class="description-header">$35,210.43</h5>
-		                        <span class="description-text">TOTAL UNAUTHORIZED</span>
-		                      </div><!-- /.description-block -->
-		                    </div><!-- /.col -->
-	                      
+	                                         	              	                      
 	                    </div><!-- /.col -->
 	                    <div class="col-md-4">
 	                      <p class="text-left">
@@ -843,28 +723,31 @@
     <script src="<?php echo base_url(); ?>assets/plugins/Chart.bundle.min.js"></script>
     <script id="display-sup_admin" type="text/x-jQuery-tmpl">
 		  <li>
-			  <img src="{{= setPhoto(admin_photo) }}" alt="{{= admin_name }}">
-			  <a class="users-list-name" href="#">{{= admin_name }}</a>
+              
+           
+             <img src="{{= setPhoto(admin_photo) }}" alt="{{= admin_name }}" onerror="this.src = '{{= setDefault() }}';">
+       
+			 <a class="users-list-name" href="#">{{= admin_name }}</a>
 		  </li>
    	</script>   
    	 <script id="display_person" type="text/x-jQuery-tmpl">
 		  <li>
-			  <img src="{{= setPhoto(admin_photo) }}" alt="{{= admin_name }}">
+			  <img src="{{= setPhoto(admin_photo) }}" alt="{{= admin_name }}" onerror="this.src = '{{= setDefault() }}';">
 			  <a class="users-list-name" href="#">{{= admin_name }}</a>
 		  </li>
    	</script> 
    	
    	<script id="display_user" type="text/x-jQuery-tmpl">
 		  <li>
-			  <img src="{{= setPhoto(user_photo) }}" alt="{{= user_fullname }}">
+			  <img src="{{= setUserPhoto(user_photo , 0) }}" alt="{{= user_fullname }}" onerror="this.src = '{{= setDefault() }}';">
 			  <a class="users-list-name" href="#">{{= user_fullname }}</a>
 
 		  </li>
    	</script>
    	 
    	<script id="display_user_img" type="text/x-jQuery-tmpl">
-        <li>
-	    	  <img src="{{= setPhoto(user_photo)}}" alt="{{= user_fullname }}" title="{{= user_fullname }}" >	                         	                         
+        <li>           
+	    	 <img src="{{= setUserPhoto(user_photo , 1)}}" alt="{{= user_fullname }}" title="{{= user_fullname }}" onerror="this.src = '{{= setDefault() }}';">                                   	                         
 	  	</li>
    	</script>
    	
@@ -1369,7 +1252,21 @@
     }
 
     function setPhoto(img_name){
-		return $("#base_url").val()+"assets/dist/img/user1-128x128.jpg";
+		return "<?php echo DIS_IMAGE_PATH?>"+"/uploadimages/real/admin/"+img_name;
+	}
+
+	function setUserPhoto(img_name , type){
+
+		if(type == 0){
+			return "<?php echo DIS_IMAGE_PATH?>"+"/uploadimages/real/user/small/admin/"+img_name;
+		}else{
+			return "<?php echo DIS_IMAGE_PATH?>"+"/uploadimages/real/user/medium/admin/"+img_name;
+		}
+		
+	}
+
+	function setDefault(){
+		return "<?php echo DIS_IMAGE_PATH?>"+"/uploadimages/real/admin/default.png";
 	}
 
 	function setPlacePhoto(img_name){

@@ -17,18 +17,18 @@
 			<!-- User Account: style can be found in dropdown.less -->
 			<li class="dropdown user user-menu"><a href="#"
 				class="dropdown-toggle" data-toggle="dropdown"> <img
-					src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" class="user-image"
-					alt="User Image"> <span class="hidden-xs">Alexander Pierce</span>
+					src="<?php echo DIS_IMAGE_PATH ?>/uploadimages/real/admin/<?php echo $this->session->userdata("admin_photo");?>" class="user-image"
+					alt="User Image"> <span class="hidden-xs"><?php echo $this->session->userdata("admin_name");?></span>
 			</a>
 				<ul class="dropdown-menu">
 					<!-- User image -->
-					<li class="user-header"><img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg"
+					<li class="user-header"><img src="<?php echo DIS_IMAGE_PATH ?>/uploadimages/real/admin/<?php echo $this->session->userdata("admin_photo");?>"
 						class="img-circle" alt="User Image">
 						<p>
-							Alexander Pierce - Web Developer <small>Member since Nov. 2012</small>
+							<?php echo $this->session->userdata("admin_name");?> <small>Member since <?php echo $this->session->userdata("admin_created_date");?></small>
 						</p></li>
 					<!-- Menu Body -->
-					<li class="user-body">
+					<!--<li class="user-body">
 						<div class="col-xs-4 text-center">
 							<a href="#">Followers</a>
 						</div>
@@ -38,7 +38,7 @@
 						<div class="col-xs-4 text-center">
 							<a href="#">Friends</a>
 						</div>
-					</li>
+					</li> -->
 					<!-- Menu Footer-->
 					<li class="user-footer">
 						<div class="pull-left">
@@ -51,7 +51,7 @@
 				</ul></li>
 			<!-- Control Sidebar Toggle Button -->
 			<!-- <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a> -->
-			</li>
+			
 		</ul>
 	</div>
 </nav>

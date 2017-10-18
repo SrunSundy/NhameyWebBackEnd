@@ -4,11 +4,11 @@
 	<!-- Sidebar user panel -->
 	<div class="user-panel" style="height: 80px;">
 		<div class="pull-left image">
-			<img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg"
+			<img src="<?php echo DIS_IMAGE_PATH ?>/uploadimages/real/admin/<?php echo $this->session->userdata("admin_photo");?>"
 				class="img-circle" alt="User Image">
 		</div>
 		<div class="pull-left info">
-			<p>Alexander Pierce</p>
+			<p><?php echo $this->session->userdata("admin_name");?></p>
 			<a href="javascript:;"><i class="fa fa-circle text-success"></i> Online</a>
 		</div>
 	</div>
