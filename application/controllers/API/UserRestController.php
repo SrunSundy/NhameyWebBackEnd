@@ -60,6 +60,14 @@ class UserRestController extends  CI_Controller{
 			$_SESSION['logged_in']    = (bool)true;
 			$_SESSION['admin_status'] = (bool)$user->admin_status;
 			$_SESSION['admin_type'] = (bool)$user->admin_type;
+			$_SESSION['admin_name'] =  $user->admin_name;
+			
+			$adminPhoto = "default.png";
+			if(file_exists(UPLOAD_FILE_PATH."/uploadimages/real/admin/".$user->admin_photo)){
+			    $adminPhoto = $user->admin_photo;
+			}
+			$_SESSION['admin_photo'] = $adminPhoto;
+			$_SESSION['admin_created_date'] =  $user->admin_created_date;
 			$_SESSION['sess_id'] =  session_id();
 			$_SESSION['timezone'] = $u_timezone;
 			$ip = $this->getIp();
