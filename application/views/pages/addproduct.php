@@ -193,7 +193,15 @@
 			                			<div class="form-group">
 			                			    <div class="form-group">
 							                      <label>Product Price</label>
-							                      <input type="text" id="price" class="form-control" placeholder="Product Price ">
+							                      
+							                      <div >
+							                      	  <select >
+							                      		<option value="0">USD- US Dollar</option>
+							                      		<option value="0">KHR- Cambodian Riel</option>
+    							                      </select>
+    							                      <input type="text" id="price" placeholder="Product Price ">
+							                      </div>
+						                     
 							                      <input type="text" id="promote_price" class="form-control top-gap" placeholder="Product Promote Price">
 		                     				</div>
 			                    	    </div>
