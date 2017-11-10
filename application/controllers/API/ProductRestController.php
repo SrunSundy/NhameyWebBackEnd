@@ -24,6 +24,9 @@ class ProductRestController extends CI_Controller{
         $pro_name_kh = $this->input->post('product_khname');
         $taste_id  = $this->input->post('tast_id');
         
+        $pro_price_currency = $this->input->post('currency_price');
+        $pro_pp_currency = $this->input->post('currency_promoted_price');
+        
         $pro_serve_type=$this->input->post('pro_servertype');
         $pro_price=$this->input->post('price');
         $pro_promote_price=$this->input->post('promote_price');
@@ -47,7 +50,7 @@ class ProductRestController extends CI_Controller{
         $datapro=array("shop_id"=>$shop_id,"shop_name_en"=>$shop_name_en,"shop_name_kh"=>$shop_name_kh,
             "pro_name_en"=>$pro_name_en,"pro_name_kh"=>$pro_name_kh,"country_id"=>$country_id,"city_id"=>$city_id,"district_id"=>$district_id,
             "commune_id"=>$commune_id,"taste_id"=>$taste_id,"pro_lat_point"=>$pro_lat_point,"pro_lng_point"=>$pro_lng_point,
-            "pro_serve_type"=>$pro_serve_type,"pro_price"=>$pro_price,"pro_promote_price"=>$pro_promote_price,
+            "pro_serve_type"=>$pro_serve_type,"pro_price_currency"=>$pro_price_currency,"pro_price"=>$pro_price,"pro_pp_currency"=>$pro_pp_currency,"pro_promote_price"=>$pro_promote_price,
             "pro_image"=>$pro_image,"pro_short_description"=>$pro_short_description,"pro_description"=>$pro_description,"pro_remark"=>$pro_remark,
             "pro_made_duration"=>$pro_made_duration,"pro_local_popularity"=>$pro_local_popularity,"admin_id"=>1);
         $pro_servertype = $this->input->post('serve_categories');

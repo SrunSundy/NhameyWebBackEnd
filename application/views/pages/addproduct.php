@@ -10,7 +10,17 @@
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-upload.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-validation.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-openmodal.css" />
-
+	<style>
+	   .select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {           
+            padding: 0 !important;      
+            padding-top : 5px !important;          
+        }
+        .select2-container--default .select2-selection--single {
+            border-radius: 0 !important;
+            height: 33px;
+            border-color: #cecece !important;
+        }
+	</style>
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
     <div class="wrapper">
@@ -194,15 +204,41 @@
 			                			    <div class="form-group">
 							                      <label>Product Price</label>
 							                      
-							                      <div >
-							                      	  <select >
-							                      		<option value="0">USD- US Dollar</option>
-							                      		<option value="0">KHR- Cambodian Riel</option>
-    							                      </select>
-    							                      <input type="text" id="price" placeholder="Product Price ">
+							                      
+							                      
+							                      <div class="top-gap">
+							                      	  <div style="width:20%;float:left">
+    							                      	  <select id="currency_price" class="currency_picker" style="width: 100%;" >
+    							                      		<option value="0" title="http://www.sevenbros.com/images/fus_46.jpg">USD</option>
+    							                      		<option value="1" title="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_Cambodia.svg/255px-Flag_of_Cambodia.svg.png">KHR</option>
+    							                      	  </select>
+							                      	  </div>
+							                      	  
+							                          <div style="width: 80%;float:left;padding-left:6px;">
+							                      	  	<input type="text" id="price"  placeholder="Product Price " class=" form-control currency_input" style="width:100%;height: 33px; padding-left: 8px; border: 1px solid #cecece;" >
+							                      	  </div>		
+							                      	  <div style="clear:both;"></div>				                      	  	 
+							                      	  												 							                      	 
 							                      </div>
-						                     
-							                      <input type="text" id="promote_price" class="form-control top-gap" placeholder="Product Promote Price">
+							                      
+							                      <div class="top-gap">
+							                      	  <div style="width:20%;float:left">
+    							                      	  <select id="currency_promoted_price" class="currency_picker" style="width: 100%;" >
+    							                      		<option value="0" title="http://www.sevenbros.com/images/fus_46.jpg">USD</option>
+    							                      		<option value="1" title="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_Cambodia.svg/255px-Flag_of_Cambodia.svg.png">KHR</option>
+    							                      	  </select>
+							                      	  </div>
+							                      	  
+							                          <div style="width: 80%;float:left;padding-left:6px;">
+							                      	  	 <input type="text" id="promote_price" class="form-control currency_input " placeholder="Product Promote Price" style="width:100%;height: 33px; padding-left: 8px; border: 1px solid #cecece;">
+							                      	  </div>						                      	  	 
+							                      	  <div style="clear:both;"></div>													 							                      	 
+							                      </div>
+							                      							                      
+							                      
+						                      
+    							                      
+							                     
 		                     				</div>
 			                    	    </div>
                   			        </div>			                    	
@@ -519,6 +555,28 @@ var logoimagename = "";
 var servecategory = "";
 var popular=0;
 
+function formatData (data) {
+
+	console.log(data);
+	if (!data.id) { return data.text; }
+	  var $result= $(
+	    '<span><img src="'+data.title+'" style="width: 20px;height:20px;border-radius:100%;margin-right:7px;    margin-top: -3px;"> ' + data.text + '</span>'
+	  );
+	  return $result;
+	};
+$(".currency_picker").select2({
+	 minimumResultsForSearch: -1,
+	  templateResult: formatData,
+	  templateSelection: formatData
+
+	});
+$(".currency_input").on("keyup",  function(){
+	
+	var str = $(this).val().replace(/[^0-9]/gi,"");			
+    $(this).val(str);	
+  
+});
+
 //start upload logo 
 var arrnewfileimagename = [];
 $("#saveproduct").on("click",function(){
@@ -539,7 +597,9 @@ $("#saveproduct").on("click",function(){
 					"tast_id" : $("#selectedtast").val(),
 					"pro_servertype" : $("#pro_servertype").val(),
 					"serve_categories" : getServeCategories(),
+					"currency_price" : $("#currency_price").val(),
 					"price" : $("#price").val(),
+					"currency_promoted_price" : $("#currency_promoted_price").val(),
 					"promote_price" : $("#promote_price").val(),
 					"productshortdes" : $("#productshortdes").val(),
 					"productdes" : $("#productdes").val(),
