@@ -86,21 +86,21 @@
 		$response = array();
 		
 		$status = $request["user_status"];
-		$shopid = $request["user_id"];
+		$post_id = $request["user_id"];
 		
 		if($status != 0 && $status != 1){
 			$response["is_updated"] = false;
 			$response["message"] = "User_status is invalid!";
 			return  $response;
 		}
-		if(!$shopid){
+		if(!$post_id){
 			$response["is_updated"] = false;
-			$response["message"] = "user_id is invalid!";
+			$response["message"] = "post_id is invalid!";
 			return  $response;
 		}
 		$this->db->trans_start();
-		$sql = "UPDATE nham_user_post SET post_status = ? WHERE user_id = ?";
-		$this->db->query($sql, array((int)$status, (int)$shopid));
+		$sql = "UPDATE nham_user_post SET post_status = ? WHERE post_id = ?";
+		$this->db->query($sql, array((int)$status, (int)$post_id));
 		$this->db->trans_complete();
 		
 		if ($this->db->trans_status() === FALSE)

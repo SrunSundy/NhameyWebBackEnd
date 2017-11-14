@@ -266,7 +266,7 @@ class ProductModel extends CI_Model{
 			return  $response;
 		}
 		$this->db->trans_start();
-		$sql = "UPDATE nham_shop SET shop_status = ? WHERE shop_id = ?";
+		$sql = "UPDATE nham_product SET pro_status = ? WHERE pro_id = ?";
 		$this->db->query($sql, array((int)$status, (int)$shopid));
 		$this->db->trans_complete();
 		

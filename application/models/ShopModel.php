@@ -249,8 +249,6 @@ class ShopModel extends CI_Model{
 				$item->is_shop_open = $is_open;
 				$item->time_to_close = $time_to_close;
 				$item->time_to_open = $time_to_open;
-				
-			
 			}
 			
 		}

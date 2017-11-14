@@ -38,7 +38,7 @@
 						+(case when COALESCE(TRIM(user_phone),'') = '' then 0 else 1  end)
 						+(case when COALESCE(TRIM(user_quote),'') = '' then 0 else 1  end)
 						+4
-	  				)/5) as data_complete
+	  				)/6) as data_complete
 		
 				FROM nham_user
 				WHERE REPLACE(CONCAT_WS(user_fullname,user_email,user_phone),' ','') LIKE REPLACE(?,' ','')

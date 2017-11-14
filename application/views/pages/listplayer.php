@@ -444,7 +444,7 @@
 			<td>
 				<input type="hidden" value="{{= user_id}}"/>
 				<div class="img-logo-wrapper" >
-				   <img class="table-shop-img" src="http://dernham.com/user_profile/{{= user_photo}}" />
+				   <img class="table-shop-img" src=" {{= addSrcLogoimg(user_photo) }}" />
 				   <span class="active-shop" style="position:absolute;top:0;right0;">
 					    <i class="fa fa-circle shop-display-status" id="{{= user_id }}" aria-hidden="true"></i>
 				   </span>

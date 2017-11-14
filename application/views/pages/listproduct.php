@@ -164,7 +164,7 @@
                   			<div class="row">
                   				<div class="col-lg-12">
                   					<div class="row">
-                  						<p class="list-shop-total">Total Number of Shop : 500000</p>
+                  						<p class="list-shop-total">Total Number of Product : 500000</p>
                   					</div>
                   				</div>
                   				
@@ -209,7 +209,7 @@
                   					<div class="row">
                   						<button type="button" class="btn btn-default pull-right header-shop-btn" >
 		                  					<i class="fa fa-plus-circle" aria-hidden="true"></i>
-		                  					Add shop 
+		                  					Add Product 
 		                  				</button>
 		                  				
 		                  				<button type="button" class="btn btn-default pull-right header-shop-btn" id="advance-search-btn-down">
@@ -446,12 +446,11 @@
    <script id="display-shop-table" type="text/x-jQuery-tmpl">
 			<tr>					
 			<td>
-				<input type="hidden" value="{{= shop_id}}"/>
                 <input type="hidden" value="{{= pro_id}}"/>
 				<div class="img-logo-wrapper" >
 				   <img class="table-shop-img" src="{{= addSrcLogoimg(pro_image) }}" />
 				   <span class="active-shop" style="position:absolute;top:0;right0;">
-					    <i class="fa fa-circle shop-display-status" id="{{= pro_id }}"  aria-hidden="true"></i>
+		
 				   </span>
 				</div>				
 			</td>
