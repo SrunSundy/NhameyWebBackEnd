@@ -148,7 +148,7 @@
 		}
 		
 		function addSrcLogoimg( image ){
-			return $("#dis_img_path").val()+"/uploadimages/real/place/logo/small/"+image;
+			return $("#dis_img_path").val()+"/uploadimages/real/user/small/"+image;
 		}
 
 		function trimString( string, startindex , endindex ){			
