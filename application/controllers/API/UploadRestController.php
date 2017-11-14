@@ -552,7 +552,7 @@ class UploadRestController extends CI_Controller{
 			$cropdata = json_decode($cropdata);
 			$img_w = (int)$cropdata->img_w;
 				
-			$new_name = "logo_".$this->generateRandomString(20).".jpg";
+			$new_name = "product_".$this->generateRandomString(20).".jpg";
 		//	$target_extreme_small_dir = UPLOAD_FILE_PATH."/uploadimages/product/extreme-small/";
 			$target_small_dir = UPLOAD_FILE_PATH ."/uploadimages/real/product/small/";
 			$target_medium_dir = UPLOAD_FILE_PATH ."/uploadimages/real/product/medium/";
@@ -942,6 +942,13 @@ class UploadRestController extends CI_Controller{
 		$white = imagecolorallocate($image_p,  255, 255, 255);
 		imagefilledrectangle($image_p, 0, 0, $width, $height, $white);
 		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+	/*	imagejpeg($image_p, $destination_img, $quality);
+		$bucket='storedernham';
+		if($this->s3->putObjectFile($destination_img, $bucket , substr($targetfolder,2), S3::ACL_PUBLIC_READ) ){
+			//unlink($destination_img);
+			return true;
+		}
+		return false;*/
 		return imagejpeg($image_p, $destination_img, $quality);	
 		
 	}
@@ -982,8 +989,14 @@ class UploadRestController extends CI_Controller{
 		$white = imagecolorallocate($image_p,  255, 255, 255);
 		imagefilledrectangle($image_p, 0, 0, $img_w, $img_h, $white);
 		imagecopyresampled($image_p, $image, 0, 0, $img_x, $img_y, $new_width, $new_height, $img_w, $img_h);
-		return imagejpeg($image_p, $destination_img, $quality);
-	
+	   /* imagejpeg($image_p, $destination_img, $quality);
+		$bucket='storedernham';
+		if($this->s3->putObjectFile($destination_img, $bucket , substr($targetfolder,2), S3::ACL_PUBLIC_READ) ){
+			unlink($destination_img);
+			return true;
+		}
+		return false;*/
+	return imagejpeg($image_p, $destination_img, $quality);
 	}
 	
 	function resizeImageFixpixelAndScaleCenter($targetfolder , $sourcefolder , $size , $quality){
@@ -1037,14 +1050,20 @@ class UploadRestController extends CI_Controller{
 			$white = imagecolorallocate($image_p,  255, 255, 255);
 			imagefilledrectangle($image_p, 0, 0, $width, $height, $white);
 				imagecopyresampled($image_p, $image, 0, 0, $img_x, $img_y, $new_width, $new_height, $img_w, $img_h);
-				return imagejpeg($image_p, $destination_img, $quality);	
+	//	$bucket='storedernham';
+	//	if($this->s3->putObjectFile($destination_img, $bucket , substr($targetfolder,2), S3::ACL_PUBLIC_READ) ){
+		//unlink($destination_img);
+	//	return true;
+	//	}
+	//	return false;
+	return imagejpeg($image_p, $destination_img, $quality);	
 	}
 	
 	
 	
 	function checkDirectory( $path ){
 		
-		$response = array();
+		/*$response = array();
 		if(!file_exists($path)){
 			$response['message'] = "The uploaded path does not appear to be valid!";
 			$response['is_allow'] = false;
@@ -1052,8 +1071,23 @@ class UploadRestController extends CI_Controller{
 			$response['message'] = "";
 			$response['is_allow'] = true;
 		}
-		return $response;
+		return $response;*/
 		
+		$filename= $path;
+		$file_headers = @get_headers($filename);
+		
+		if($file_headers[0] == 'HTTP/1.0 404 Not Found'){
+		    $response['message'] = "The uploaded path does not appear to be valid!";
+		    $response['is_allow'] = false;
+		} else if ($file_headers[0] == 'HTTP/1.0 302 Found' && $file_headers[7] == 'HTTP/1.0 404 Not Found'){
+		    
+		    $response['message'] = "The uploaded path does not appear to be valid!";
+		    $response['is_allow'] = false;
+		} else {
+		    $response['message'] = "";
+		    $response['is_allow'] = true;
+		}
+		return $response;
 	}
 	
 	function allowImageType( $imagetypearr , $file ){
