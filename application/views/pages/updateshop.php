@@ -381,6 +381,44 @@
 	 </div><!-- /.modal --><!-- Modal -->
 	 <button type="button" id="shopfacilitybtnpop" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#shopFacilityModal">Open Modal</button>
 	  <!--  end shop facility modal -->
+	  
+	  
+	 <!-- update shop image-->
+	   <div class="modal fade" id="shopAddImageModal" role="dialog" >
+	     <div class="modal-dialog" style="width:80%">
+	         <div class="modal-content" >
+	             <div class="modal-header">
+	                <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title pop-title"><span>Shop Image (Detail)</span></h4>
+	             </div>
+	             <div class="modal-body">
+	                <div class="col-lg-12">
+			            	
+		            	  <div class="form-group">
+		                      <label class="control-label">Shop images detail</label>
+		                        <div class="uploaddetailwrapper" style="width: 100%; height: auto;position:relative;">
+								    <input id="input-44" name="input44[]" type="file" multiple class="file-loading" accept="image/*">
+									<div id="errorBlock" class="help-block"></div>
+									<div id="coveruploadimage" class="coveruploadimage" style="display:none;width: 100%;height:100%;background:#fff;z-index:200;position:absolute;top:0;opacity:0.5;">
+									</div>
+									<div id="coveruploadimagewithload"   class="coveruploadimagewithload" style="display:none;width: 100%;height:100%;z-index:200;position:absolute;top:0;">
+										<i class="fa fa-times disable-cover" id="delete-cover-upload" aria-hidden="true" title="close" ></i>
+										<img class="loading-inside-box nham-center-element" src="<?php echo base_url() ?>/assets/nhamdis/img/ring.svg" />
+									</div>
+								</div>
+		                    </div>			            	
+			            	
+			         </div>
+	             </div>
+	             <div class="modal-footer">
+	                 <button type="button" id="belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+	               	<button type="button" id="shopfacilitysave" class="btn nham-btn btn-danger">Save</button>
+	             </div>
+	         </div><!-- /.modal-content -->
+	     </div><!-- /.modal-dialog -->
+	 </div><!-- /.modal --><!-- Modal -->
+	 <button type="button" id="shopAddImageModalBtn" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#shopAddImageModal">Open Modal</button>
+	  <!--end update shop image-->
    
    
     <?php include 'imports/scriptimport.php'; ?>
@@ -399,6 +437,16 @@
     <script src="<?php echo base_url(); ?>assets/nhamdis/jscontroller/updateshop.js"></script>
     
     <script>
+
+    $("#input-44").fileinput({
+        uploadUrl: '/file-upload-batch/2',
+        maxFilePreviewSize: 10240,
+        browseClass: "btn btn-danger",
+        allowedFileExtensions: ["jpg", "png", "gif"],
+        showUpload: false,
+    });
+
+    
     alarmInfo();
     loadNotCompletedInfo();
 	function alarmInfo(){
@@ -1042,6 +1090,8 @@
 	    });
 	});
 	
+
+
 	
    
     </script>

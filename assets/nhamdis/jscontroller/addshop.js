@@ -876,10 +876,20 @@ $("#input-44").fileinput({
     maxFilePreviewSize: 10240,
     browseClass: "btn btn-danger",
     allowedFileExtensions: ["jpg", "png", "gif"],
-    showUpload: false,
-});
+    showUpload: false
+    
+}).on('filesorted', function(e, params) {
+    alert(111);
+}).on('fileuploaded', function(e, params) {
+	alert(222);
+});;
 $("#input-44").on("change", function(){
 	
+	uploadShopImageDetailToServer();
+});
+
+$(document).on("dragover", ".file-drop-zone", function(event) {
+	alert();
 	uploadShopImageDetailToServer();
 });
 

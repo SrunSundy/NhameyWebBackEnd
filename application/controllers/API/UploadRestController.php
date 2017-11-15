@@ -288,7 +288,7 @@ class UploadRestController extends CI_Controller{
 				$big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
 				/* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
 				$medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 520, 80);
-				$small = $this->resizeImageFixpixelAndScaleCenter($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , 180, 80);
+				$small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 180, 80);
 				$errorupload = false;
 				array_push($isuploadimg,$big_nocrop_source, $big, $medium, $small);
 				for($i=0 ; $i<count($isuploadimg); $i++){

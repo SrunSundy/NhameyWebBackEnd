@@ -370,7 +370,7 @@
 	       	 		<div class="row">
 	       	 			<p class="tab-intro-text pull-left"><i class="fa fa-picture-o" aria-hidden="true"></i><span>Photo</span></p>
 	       	 			
-	       	 			<button type="button" class="btn add-more-img btn-default pull-right">
+	       	 			<button type="button" class="btn add-more-img btn-default pull-right" id="addImage">
 	       	 				<i class="fa fa-plus-circle" aria-hidden="true"></i>Add image
 	       	 			</button>
 	       	 			
@@ -410,7 +410,7 @@
 	       	 		</div>
 	       	 	</div>
 	       	 	
-	       	 	<div class="col-lg-5 col-sm-5">
+	       	 	<!-- <div class="col-lg-5 col-sm-5">
 	       	 		<div class="row">
 	       	 			<div class="form-group" style="margin:0 0 7px 0">		                   
 			                 <div class="input-group">
@@ -419,10 +419,10 @@
 				                  <div class="input-group-addon btn" id="search-img-btn">
 				                      <i class="fa fa-search" aria-hidden="true"></i>
 				                  </div>
-			                 </div><!-- /.input group -->
-			            </div><!-- /.form group -->
+			                 </div>
+			            </div>
 	       	 		</div>
-	       	 	</div>
+	       	 	</div>-->
 	       	 	
 	       	 	<div style="clear:both;"></div>
 	       	 	
@@ -490,6 +490,26 @@
 	       	 			
     </div><!-- ./wrapper -->
 
+	<!-- update shop image-->
+	   <div class="modal fade" id="shopAddImageModal" role="dialog">
+	     <div class="modal-dialog">
+	         <div class="modal-content">
+	             <div class="modal-header">
+	                <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title pop-title"><i class="fa fa-th-large" aria-hidden="true"></i>Shop Image (Detail)</h4>
+	             </div>
+	             <div class="modal-body">
+	                
+	             </div>
+	             <div class="modal-footer">
+	                 <button type="button" id="belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+	               	<button type="button" id="shopfacilitysave" class="btn nham-btn btn-danger">Save</button>
+	             </div>
+	         </div><!-- /.modal-content -->
+	     </div><!-- /.modal-dialog -->
+	 </div><!-- /.modal --><!-- Modal -->
+	 <button type="button" id="shopAddImageModalBtn" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#shopAddImageModal">Open Modal</button>
+	  <!--end update shop image-->
    
     <?php include 'imports/scriptimport.php'; ?>
    <script id="image_data_result" type="text/x-jQuery-tmpl">
@@ -618,6 +638,10 @@
     	top.resizeIframe();
     });
 
+    $("#addImage").on("click", function(){
+    	window.parent.$("#shopAddImageModalBtn").click();
+    });
+
     $("ul.ul-menu li.item-small,ul.ul-menu li.item").on("click", function(){
 
     	
@@ -639,14 +663,17 @@
 		switch(image_type){
 			case "1": 
 				folder = "real/place/logo/medium/";
+				$("#addImage").hide();
 				break;
 			
 			case "2": 
 				folder ="real/place/cover/small/";
+				$("#addImage").hide();
 				break;
 			
 			case "3": 
 				folder ="real/place/image-detail/small/";
+				$("#addImage").show();
 				break;			
 		}
 
@@ -863,18 +890,14 @@
     	});	
     }
 
-    $('#createddate').daterangepicker({      
+   /* $('#createddate').daterangepicker({      
         timePicker: false,
         buttonClasses: ['btn btn-default'],
         applyClass: 'btn-small btn-danger',
         cancelClass: 'btn-small',
         format: 'YYYY/MM/DD'
        
-        
-   		}/* , function(start, end) {
-		   start_date_srch = start.format('YYYY-MM-DD');
-		   end_date_srch = end.format('YYYY-MM-DD');
-   } */);
+     );*/
 
     $("#search-img-btn").on("click", function(){
         

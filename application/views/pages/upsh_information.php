@@ -855,6 +855,9 @@
     </div>
     
     
+     
+    
+    
 
     <?php include 'imports/scriptimport.php'; ?>
     
@@ -1534,8 +1537,11 @@
 				if(shopdata.shop_capacity <= 0 || shopdata.shop_capacity =="0" ){
 					$("#shop-capacity-num").hide();
 				}
-											
-				$("#shop-serve-type").html(defaultNull(shopdata.shop_serve_type.toUpperCase()));			
+
+				if(shopdata.shop_serve_type){
+					$("#shop-serve-type").html(defaultNull(shopdata.shop_serve_type.toUpperCase()));	
+				}							
+						
 				$("#shop-short-description").html(defaultNull(shopdata.shop_short_description));		
 				$("#shop-description").html(defaultNull(shopdata.shop_description));
 				$("#shop-remark").html(defaultNull(shopdata.shop_remark));
@@ -1553,13 +1559,16 @@
 				else
 					$("#shop-phone").html("<span class='no-information'>NO INFORMATION!<span>");
 
-				social_media = shopdata.shop_social_media;
-				console.log(social_media);
-				$("#shop-email").html(defaultNull(shopdata.shop_email));
-				$("#shop-facebook").html(getSocialLink(shopdata.shop_social_media.facebook, shopdata.shop_name_en, 'facebook'));
-				$("#shop-twitter").html(getSocialLink(shopdata.shop_social_media.twitter, shopdata.shop_name_en, 'twitter'));
-				$("#shop-googleplus").html(getSocialLink(shopdata.shop_social_media.googleplus, shopdata.shop_name_en, 'google_plus'));
-				$("#shop-instagram").html(getSocialLink(shopdata.shop_social_media.instagram, shopdata.shop_name_en, 'instagram'));
+				if(shopdata.shop_social_media){
+					social_media = shopdata.shop_social_media;
+					
+					$("#shop-email").html(defaultNull(shopdata.shop_email));
+					$("#shop-facebook").html(getSocialLink(shopdata.shop_social_media.facebook, shopdata.shop_name_en, 'facebook'));
+					$("#shop-twitter").html(getSocialLink(shopdata.shop_social_media.twitter, shopdata.shop_name_en, 'twitter'));
+					$("#shop-googleplus").html(getSocialLink(shopdata.shop_social_media.googleplus, shopdata.shop_name_en, 'google_plus'));
+					$("#shop-instagram").html(getSocialLink(shopdata.shop_social_media.instagram, shopdata.shop_name_en, 'instagram'));
+				}
+			
 					    	 		     	 		    	 		    
 				for(var i=0; i<data.default_data.shop_facilities.length; i++){
 					facilityarr.push(data.default_data.shop_facilities[i].sh_facility_id);
