@@ -876,21 +876,31 @@ $("#input-44").fileinput({
     maxFilePreviewSize: 10240,
     browseClass: "btn btn-danger",
     allowedFileExtensions: ["jpg", "png", "gif"],
-    showUpload: false
+    showUpload: true
     
-}).on('filesorted', function(e, params) {
-    alert(111);
-}).on('fileuploaded', function(e, params) {
-	alert(222);
-});;
+});
+
+$(document).on("click" ,".fileinput-upload-button",function(e){
+	
+	var inputFile = $("#input-44");
+	var filesToUpload = inputFile[0].files;
+	
+	console.log(filesToUpload);
+});
+
 $("#input-44").on("change", function(){
 	
+	//console.log($(".file-drop-zone").find(".file-preview-frame").length);
 	uploadShopImageDetailToServer();
 });
 
-$(document).on("dragover", ".file-drop-zone", function(event) {
-	alert();
-	uploadShopImageDetailToServer();
+$(".file-drop-zone").on("drop", function(e) {
+	
+	console.log(e.originalEvent.dataTransfer.files);
+	//$("#input-44").prop("files", e.originalEvent.dataTransfer.files);
+	$(".fileinput-upload-button").click();
+	//uploadShopImageDetailToServer();
+	//console.log(11111222222);
 });
 
 function getImageNameAndDetail(){
@@ -899,7 +909,7 @@ function getImageNameAndDetail(){
 	
 	var imglng = $(".file-preview-frame").length;
 	for(var i=0; i<imglng ; i++){		
-		if($(".file-preview-frame").eq(i).find("div.file-input-err-message").length <= 0){
+		if($(".file-preview-frame").eq(i).find("div.file-input-err-message").length <= 0 && $(".file-preview-frame").eq(i).find("input.img-new-name").val()){
 			arrshopimagedetail.push({
 				"sh_img_name" : $(".file-preview-frame").eq(i).find("input.img-new-name").val(),
 				"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
@@ -961,9 +971,13 @@ function removeShopImageDetailFromServer(imagetoremove){
 	});
 }
 function uploadShopImageDetailToServer(){
+	
+    
+	console.log(222222222223333333);
 	var inputFile = $("#input-44");
 	var filesToUpload = inputFile[0].files;
 	
+	console.log(filesToUpload);
 	if (filesToUpload.length > 0) {
 		$("#coveruploadimage").show();
 		$("#coveruploadimagewithload").show();
