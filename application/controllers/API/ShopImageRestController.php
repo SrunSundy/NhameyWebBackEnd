@@ -168,6 +168,30 @@ class ShopImageRestController extends CI_Controller{
 		
 	}
 	
+	public function insertshopimage(){
+	    
+	    $request = json_decode($this->input->raw_input_stream,true);
+	    if(!isset($request["request_data"])){
+	        $response["response_code"] = "400";
+	        $response["response_msg"] = "bad request";
+	        $json = json_encode($response, JSON_PRETTY_PRINT);
+	        echo $json;
+	        die;
+	    }
+	    $response = array();
+	    $request = $request["request_data"];
+	    
+	    $status = $this->ShopImageModel->insertShopImage($request);
+	    if($status){
+	        $response["is_inserted"] = $status;
+	        $response["message"] = "Insert successfully!";
+	    }else{
+	        $response["is_inserted"] = $status;
+	        $response["message"] = "fail to add";
+	    }
+	    echo json_encode($response);
+	}
+	
 	
 	
 }
