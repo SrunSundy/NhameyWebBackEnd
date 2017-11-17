@@ -723,14 +723,14 @@
 			 };
 
 		 
-		alert("FUKKKKKKKKKKKKKKKKKKKKK");
-		 /*$.ajax({
+		//alert("FUKKKKKKKKKKKKKKKKKKKKK");
+		 $.ajax({
 			 type: "POST",
 			 url: $("#base_url").val()+"API/ShopImageRestController/insertshopimage", 
 			 contentType : "application/json",
 			 data : JSON.stringify(req),
 			 success: function(data){
-				 data = JSON.parse(data);
+				 /*data = JSON.parse(data);
 				
 				 if(data.is_inserted){
 					 swal({
@@ -749,10 +749,11 @@
 					     type: "error",
 					    			     
 					 });
-				 }
+				 }*/
+				 alert(1111);
 				
 	     	 }
-	     });  */
+	     });  
 		 
 	
 	});
