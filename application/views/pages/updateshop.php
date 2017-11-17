@@ -412,7 +412,7 @@
 	             </div>
 	             <div class="modal-footer">
 	                 <button type="button" id="belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
-	               	<button type="button" id="shopfacilitysave" class="btn nham-btn btn-danger">Save</button>
+	               	<button type="button" id="saveImage" class="btn nham-btn btn-danger">Save</button>
 	             </div>
 	         </div><!-- /.modal-content -->
 	     </div><!-- /.modal-dialog -->
@@ -438,6 +438,9 @@
     
     <script>
 
+    //update photo detail
+    
+    var arrnewfileimagename = [];
     $("#input-44").fileinput({
         uploadUrl: '/file-upload-batch/2',
         maxFilePreviewSize: 10240,
@@ -446,7 +449,202 @@
         showUpload: false,
     });
 
-    
+    $(document).on("click" ,".fileinput-upload-button",function(e){
+    	
+    	var inputFile = $("#input-44");
+    	var filesToUpload = inputFile[0].files;
+    });
+
+    $("#input-44").on("change", function(){
+    	
+    	//console.log($(".file-drop-zone").find(".file-preview-frame").length);
+    	uploadShopImageDetailToServer();
+    });
+
+    $(".file-drop-zone").on("drop", function(e) {	
+    	console.log(e.originalEvent.dataTransfer.files);
+    	$("#input-44").prop("files", e.originalEvent.dataTransfer.files);
+    });
+
+    function getImageNameAndDetail(){
+
+    	var arrshopimagedetail = [];
+    	
+    	var imglng = $(".file-preview-frame").length;
+    	for(var i=0; i<imglng ; i++){		
+    		if($(".file-preview-frame").eq(i).find("div.file-input-err-message").length <= 0 && $(".file-preview-frame").eq(i).find("input.img-new-name").val()){
+    			arrshopimagedetail.push({
+    				"sh_img_name" : $(".file-preview-frame").eq(i).find("input.img-new-name").val(),
+    				"sh_img_remark" : $(".file-preview-frame").eq(i).find("textarea").val()
+    			});		
+    		}	
+    	} 	
+    	return arrshopimagedetail;
+    	
+    }
+    $(document).on("mousedown","button.kv-file-remove",function(){
+    	var imagename = $(this).parents(".file-thumbnail-footer").find("input.img-new-name").val();
+    	
+    	removeShopImageDetailFromServer(imagename).success(function (data) {	
+    		
+    	});
+    	for(var i=0; i<arrnewfileimagename.length; i++){ 
+    		if(imagename == arrnewfileimagename[i].filename){
+    			arrnewfileimagename.splice(i , 1);
+    		}
+    	}
+    	
+    });
+
+    $(document).on("mousedown", "button.fileinput-remove-button, .fileinput-remove", function(){
+    	
+    	removeShopImageDetailFromServerMulti(arrnewfileimagename).success(function(data){
+    		arrnewfileimagename = [];
+    		
+    	});
+    });
+
+    $(document).on("click", "#delete-cover-upload", function(){
+    	arrnewfileimagename = [];
+    	$(this).parent().hide();
+    	$(this).parent().siblings("#coveruploadimage").hide();
+    	$("button.fileinput-remove-button").click();
+    });
+
+    function removeShopImageDetailFromServerMulti(imagestoremove){
+    	return $.ajax({
+    		url  : $("#base_url").val()+"API/UploadRestController/removeShopMultipleImage",
+    		type : "POST",
+    		data : {
+    			"removeimagedata": imagestoremove		
+    		}
+    	});
+    }
+
+    function removeShopImageDetailFromServer(imagetoremove){
+    	return $.ajax({
+    		url : $("#base_url").val()+"API/UploadRestController/removeShopSingleImage",
+    		type: "POST",
+    		data : {
+    			"removeimagedata":{
+    				"image_type" : "3",
+    				"imagename" : imagetoremove
+    			}			
+    		}
+    	});
+    }
+    function uploadShopImageDetailToServer(){
+    	
+    	var inputFile = $("#input-44");
+    	var filesToUpload = inputFile[0].files;
+    	
+    	console.log(filesToUpload);
+    	if (filesToUpload.length > 0) {
+    		$("#coveruploadimage").show();
+    		$("#coveruploadimagewithload").show();
+    		var formData = new FormData();
+    		for (var i = 0; i < filesToUpload.length; i++) {
+    			var file = filesToUpload[i];
+    			formData.append("file[]", file, file.name);				
+    		}
+    		$.ajax({
+    			url: $("#base_url").val()+"API/UploadRestController/shopImageDetailUpload",
+    			type: 'POST',
+    			data: formData,
+    			processData: false,
+    			contentType: false,
+    			success: function(data) {
+    				data = JSON.parse(data);
+    			   
+    			    if(data.is_upload){
+    			    	 var filelen = data.fileupload.length;			 
+    					 for(var i=0 ;i< filelen; i++){
+    						   
+    					    arrnewfileimagename.push({
+    					    	"isupload" : data.fileupload[i].is_upload,
+    					    	"filename" : data.fileupload[i].filename
+    					    });
+    					    	
+    						if(data.fileupload[i].is_upload == true){
+    	  
+    						}else{
+    							alert(data.fileupload[i].filename+" :: "+data.fileupload[i].message);
+    						}	
+    					
+    					  }						
+    					  setTimeout(function(){ 			    	
+    					    setNewimgName();
+    			    	  }, 1000);	
+    			    }else{
+    			    	swal({
+    						 title: "Upload Error!",
+    					     text: data.message,
+    					     html: true,
+    					     type: "error",
+    					    			     
+    					 });
+    			    }
+    			   						
+    			}
+    		});
+    	}	
+    }
+
+    function setNewimgName(){
+    	 for(var i=0 ;i< arrnewfileimagename.length; i++){
+    		 if(arrnewfileimagename[i].isupload){
+    			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);
+    		 }else{
+    			 $(".file-preview-frame").eq(i).removeClass("relative-div");
+    			 $(".file-preview-frame").eq(i).find(".opacity-on-file").remove();
+    			 $(".file-preview-frame").eq(i).find(".file-input-err-message").remove();
+    			 
+    			 $(".file-preview-frame").eq(i).addClass("relative-div");
+    			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);			 
+    			 var opacityDiv = '<div class="opacity-on-file" style="width:100%;height:100%;position:absolute;top:0;left:0;background:#fff;opacity:0.6;z-index:90;"></div>';
+    			 var messageDiv = '<div class="file-input-err-message" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:100;" align="center">';
+    				 messageDiv +='  <h4 style="color:#EF5350;font-weight:bold;">ERROR</h4>';
+    				 messageDiv +='  <i style="font-size:40px; color:#EF5350;cursor:pointer;" class="fa fa-trash closeimgdetail" ></i>';
+    				 messageDiv +='</div>';
+    			 $(".file-preview-frame").eq(i).append(opacityDiv);
+    			 $(".file-preview-frame").eq(i).append(messageDiv);
+    			
+    		 }
+    		 
+    	 }	
+    	 setTimeout(function(){checkIfSetimgNameFail();} , 300);
+    }
+
+    $(document).on("click",".closeimgdetail",function(){
+    	
+    	$(this).parent().siblings(".file-thumbnail-footer").find(".file-actions").find(".kv-file-remove").click();
+    	var imagename = $(this).parent().siblings(".file-thumbnail-footer").find("input.img-new-name").val().trim();
+    	for(var i=0; i<arrnewfileimagename.length; i++){ 
+    		
+    		if(imagename == arrnewfileimagename[i].filename.trim()){
+    			arrnewfileimagename.splice(i , 1);
+    		}
+    	}
+    });
+    function checkIfSetimgNameFail(){
+    	var lngcheck = 0;
+    	var imglng = $(".file-preview-frame").length;
+    	for(var i=0; i<imglng ; i++){
+    		var newnameimg = $(".file-preview-frame").eq(i).find("input.img-new-name").val();
+    		if(newnameimg != "") lngcheck++;
+    	} 
+    	//alert(lngcheck);
+    	//alert("arrnew"+arrnewfileimagename.length);
+    	if(arrnewfileimagename.length > lngcheck) {
+    		setNewimgName();
+    	}else{
+    		$("#coveruploadimage").hide();
+    		$("#coveruploadimagewithload").hide();	
+    	}
+    }
+        
+
+    //update photo detail
     alarmInfo();
     loadNotCompletedInfo();
 	function alarmInfo(){
@@ -515,6 +713,52 @@
 		$("#updateShopframe").attr("src","<?php echo base_url(); ?>MainController/"+tabid+"/"+$("#shop_id").val());
 	});
 
+	$("#saveImage").on("click",function(){
+
+		var req =  {
+				"request_data":{
+					"shop_id" : $("#shop_id").val(),
+					"shop_image_detail": getImageNameAndDetail()
+				 }			
+			 };
+
+		 
+		alert("FUKKKKKKKKKKKKKKKKKKKKK");
+		 /*$.ajax({
+			 type: "POST",
+			 url: $("#base_url").val()+"API/ShopImageRestController/insertshopimage", 
+			 contentType : "application/json",
+			 data : JSON.stringify(req),
+			 success: function(data){
+				 data = JSON.parse(data);
+				
+				 if(data.is_inserted){
+					 swal({
+						 title: "SUCCESS",
+					     text: "Image has been added!",
+					     html: true,
+					     type: "success",
+					    			     
+					 });
+					 
+				 }else{
+					 swal({
+						 title: "ERROR",
+					     text: "Fail to add new image!",
+					     html: true,
+					     type: "error",
+					    			     
+					 });
+				 }
+				
+	     	 }
+	     });  */
+		 
+	
+	});
+
+	
+		
 	
 	/*========== serve category ============*/
 	
