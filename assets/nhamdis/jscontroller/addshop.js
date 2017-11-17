@@ -875,9 +875,7 @@ $("#input-44").fileinput({
     uploadUrl: '/file-upload-batch/2',
     maxFilePreviewSize: 10240,
     browseClass: "btn btn-danger",
-    allowedFileExtensions: ["jpg", "png", "gif"],
-    showUpload: true
-    
+    allowedFileExtensions: ["jpg", "png", "gif"]
 });
 
 $(document).on("click" ,".fileinput-upload-button",function(e){
@@ -894,13 +892,9 @@ $("#input-44").on("change", function(){
 	uploadShopImageDetailToServer();
 });
 
-$(".file-drop-zone").on("drop", function(e) {
-	
+$(".file-drop-zone").on("drop", function(e) {	
 	console.log(e.originalEvent.dataTransfer.files);
-	//$("#input-44").prop("files", e.originalEvent.dataTransfer.files);
-	$(".fileinput-upload-button").click();
-	//uploadShopImageDetailToServer();
-	//console.log(11111222222);
+	$("#input-44").prop("files", e.originalEvent.dataTransfer.files);
 });
 
 function getImageNameAndDetail(){
