@@ -411,7 +411,7 @@
 			         </div>
 	             </div>
 	             <div class="modal-footer">
-	                 <button type="button" id="belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+	                 <button type="button" id="imageUploadClose" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
 	               	<button type="button" id="saveImage" class="btn nham-btn btn-danger">Save</button>
 	             </div>
 	         </div><!-- /.modal-content -->
@@ -547,6 +547,7 @@
     			var file = filesToUpload[i];
     			formData.append("file[]", file, file.name);				
     		}
+    		$("#saveImage").prop("disabled", true);
     		$.ajax({
     			url: $("#base_url").val()+"API/UploadRestController/shopImageDetailUpload",
     			type: 'POST',
@@ -584,6 +585,7 @@
     					    			     
     					 });
     			    }
+    			    $("#saveImage").prop("disabled", false);
     			   						
     			}
     		});
@@ -723,23 +725,24 @@
 			 };
 
 		 
-		//alert("FUKKKKKKKKKKKKKKKKKKKKK");
 		 $.ajax({
 			 type: "POST",
 			 url: $("#base_url").val()+"API/ShopImageRestController/insertshopimage", 
 			 contentType : "application/json",
 			 data : JSON.stringify(req),
 			 success: function(data){
-				 /*data = JSON.parse(data);
+				 data = JSON.parse(data);
 				
 				 if(data.is_inserted){
-					 swal({
+					/* swal({
 						 title: "SUCCESS",
 					     text: "Image has been added!",
 					     html: true,
 					     type: "success",
 					    			     
-					 });
+					 });*/
+					 document.getElementById('updateShopframe').contentWindow.callForUpdate();
+					 $("#imageUploadClose").click();
 					 
 				 }else{
 					 swal({
@@ -749,8 +752,7 @@
 					     type: "error",
 					    			     
 					 });
-				 }*/
-				 alert(1111);
+				 }
 				
 	     	 }
 	     });  

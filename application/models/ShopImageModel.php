@@ -205,6 +205,32 @@ class ShopImageModel extends CI_Model{
 	}
 	
 	
+	public function insertShopImage( $request ){
+	    
+	    $shopimg = array();
+	    $display_img_order = 1;
+	    
+	    $status = 0;
+	    	    
+	    if(isset($request["shop_image_detail"]) && count($request["shop_image_detail"]) > 0){
+	        $display_img_order++;
+	        for($i=0; $i< count($request["shop_image_detail"]); $i++){
+	            $shopitem["sh_img_name"] = $request["shop_image_detail"][$i]["sh_img_name"];
+	            $shopitem["sh_img_remark"] = $request["shop_image_detail"][$i]["sh_img_remark"];
+	            $shopitem["sh_img_type"] = 3;
+	            $shopitem["shop_id"] = $request["shop_id"];
+	            $shopitem["sh_img_dis_order"] = $display_img_order;
+	            array_push($shopimg , $shopitem);
+	        }
+	    }
+	    
+	    if(count($shopimg) > 0){
+	        $status = $this->db->insert_batch('nham_shop_image', $shopimg);
+	    }
+	    
+	    return $status;
+	}
+	
 	
 }
 ?>

@@ -924,6 +924,13 @@
 		window.parent.$("#updateShopframe").show();
 		top.resizeIframe();
     }, true);
+
+    function callForUpdate(){
+    	request["page"] = 1;
+    	 loadShopImage(function(){
+    			top.resizeIframe();
+    	 }, true);
+    }
     
 	function loadShopImage( callback, isEmpty ){
 		is_loading = true;
