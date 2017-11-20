@@ -57,7 +57,7 @@ class ShopImageModel extends CI_Model{
 			array_push($params, $request["start_date_srch"], $request["end_date_srch"]);
 		}
 		
-		$sql .=" ORDER BY sh_img_dis_order LIMIT ? OFFSET ?";
+		$sql .=" ORDER BY sh_img_id DESC LIMIT ? OFFSET ?";
 		array_push($params, $limit,$offset);
 
 		$query = $this->db->query($sql , $params);

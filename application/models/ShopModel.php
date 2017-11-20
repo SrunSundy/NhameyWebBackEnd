@@ -597,7 +597,7 @@ class ShopModel extends CI_Model{
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
 					$datashop["shop_close_time"], $datashop["shop_capacity"], $datashop["shop_lat_point"], $datashop["shop_lng_point"], 
-			        $current_time, $current_time, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], 1);
+			    $current_time, $current_time, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], $_SESSION['admin_id']);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();
