@@ -1026,7 +1026,11 @@ function uploadShopImageDetailToServer(){
 function setNewimgName(){
 	 for(var i=0 ;i< arrnewfileimagename.length; i++){
 		 if(arrnewfileimagename[i].isupload){
-			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);
+			 if(arrnewfileimagename[i].filename){
+    			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);
+             }else{
+            	 $(".file-preview-frame").eq(i).find("input.img-new-name").val("noname");
+             }
 		 }else{
 			 $(".file-preview-frame").eq(i).removeClass("relative-div");
 			 $(".file-preview-frame").eq(i).find(".opacity-on-file").remove();
