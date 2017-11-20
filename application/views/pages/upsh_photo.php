@@ -991,7 +991,8 @@
 		}
 	}
 
-	function getSourceImage(src){	
+	function getSourceImage(src){
+		console.log($("#dis_img_path").val()+"/uploadimages/"+folder+src);	
 		return $("#dis_img_path").val()+"/uploadimages/"+folder+src;
 	}
 

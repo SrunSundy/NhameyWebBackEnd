@@ -585,7 +585,7 @@
     					    			     
     					 });
     			    }
-    			    $("#saveImage").prop("disabled", false);
+    			    
     			   						
     			}
     		});
@@ -595,7 +595,12 @@
     function setNewimgName(){
     	 for(var i=0 ;i< arrnewfileimagename.length; i++){
     		 if(arrnewfileimagename[i].isupload){
-    			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);
+        		 if(arrnewfileimagename[i].filename){
+        			 $(".file-preview-frame").eq(i).find("input.img-new-name").val(arrnewfileimagename[i].filename);
+                 }else{
+                	 $(".file-preview-frame").eq(i).find("input.img-new-name").val("noname");
+                 }
+    			
     		 }else{
     			 $(".file-preview-frame").eq(i).removeClass("relative-div");
     			 $(".file-preview-frame").eq(i).find(".opacity-on-file").remove();
@@ -614,6 +619,7 @@
     		 }
     		 
     	 }	
+    	 console.log("Setting new image name!!!!!");
     	 setTimeout(function(){checkIfSetimgNameFail();} , 300);
     }
 
@@ -629,19 +635,22 @@
     	}
     });
     function checkIfSetimgNameFail(){
+
+        console.log("Checking fail is working!!!!!!");
     	var lngcheck = 0;
     	var imglng = $(".file-preview-frame").length;
     	for(var i=0; i<imglng ; i++){
     		var newnameimg = $(".file-preview-frame").eq(i).find("input.img-new-name").val();
     		if(newnameimg != "") lngcheck++;
     	} 
-    	//alert(lngcheck);
-    	//alert("arrnew"+arrnewfileimagename.length);
+    	console.log(lngcheck);
+    	console.log("arrnew"+arrnewfileimagename.length);
     	if(arrnewfileimagename.length > lngcheck) {
     		setNewimgName();
     	}else{
     		$("#coveruploadimage").hide();
     		$("#coveruploadimagewithload").hide();	
+    		$("#saveImage").prop("disabled", false);
     	}
     }
         
@@ -724,7 +733,7 @@
 				 }			
 			 };
 
-		 
+		// $("#delete-cover-upload").click();
 		 $.ajax({
 			 type: "POST",
 			 url: $("#base_url").val()+"API/ShopImageRestController/insertshopimage", 
@@ -741,8 +750,16 @@
 					     type: "success",
 					    			     
 					 });*/
+					 arrnewfileimagename = [];
 					 document.getElementById('updateShopframe').contentWindow.callForUpdate();
+					// $(".file-preview-thumbnails").children().remove();
 					 $("#imageUploadClose").click();
+					 $("#input-44").val(null);
+					 $("button.fileinput-remove-button").click();
+					 
+					 //console.log( $("#input-44")[0].files);
+					 //$(".file-preview-thumbnails").children().remove();
+					// $("button.fileinput-remove-button").click();
 					 
 				 }else{
 					 swal({
