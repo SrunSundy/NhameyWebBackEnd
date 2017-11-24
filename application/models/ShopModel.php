@@ -1130,6 +1130,56 @@ class ShopModel extends CI_Model{
 		
 	}
 	
+	function getShopOverviewInfo($request){
+	    
+	    $current_time = new DateTime();
+	    $current_time = $current_time->format('Y-m-d H:i:s');
+	   
+	    $param = array();
+	  
+	    if(isset($request["days"]) && $request["days"] != null){
+	        
+	        $period = (int)$request["days"];
+	       
+	        $sql = "SELECT
+            		 sh.shop_id,
+            		 (SELECT count(sl.user_id)
+            				FROM nham_shop_like sl
+            				WHERE sl.shop_id = sh.shop_id
+            				AND sl.created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."' )  as shop_follower_cnt,
+            		 (SELECT count(si.sh_img_id)
+            			  FROM nham_shop_image si
+            				WHERE si.shop_id = sh.shop_id
+            				AND si.sh_img_created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."' )  as shop_image_cnt,
+            		 (SELECT count(up.shop_id)
+            				FROM nham_user_post up
+            				WHERE up.shop_id = sh.shop_id
+            				AND up.post_created_date BETWEEN '".$current_time."' - INTERVAL ? DAY AND '".$current_time."' ) as check_in_cnt
+            FROM nham_shop sh
+            LEFT JOIN nham_user_post up ON up.shop_id = sh.shop_id
+            WHERE sh.shop_id= ? ";
+	        array_push($param , $period, $period, $period, $request["shop_id"]);
+	    }else{
+	        
+	        $sql = " SELECT
+                     sh.shop_id,
+                	 (SELECT count(sl.user_id) FROM nham_shop_like sl WHERE sl.shop_id = sh.shop_id ) as shop_follower_cnt,
+                	 (SELECT count(si.sh_img_id) FROM nham_shop_image si WHERE si.shop_id = sh.shop_id) as shop_image_cnt,
+                     count(up.shop_id) as check_in_cnt
+                FROM nham_shop sh
+                LEFT JOIN nham_user_post up ON up.shop_id = sh.shop_id
+                WHERE sh.shop_id= ?
+                GROUP BY sh.shop_id ";
+	        array_push($param, $request["shop_id"]);
+	    }
+	   
+	    $query = $this->db->query($sql, $param );
+	   // $data = $query->result();
+	    $data = $query->row();
+	    return $data;
+	    
+	}
+	
 	function getSomeShopInfo($id){
 		$sql = "SELECT shop_name_en,shop_name_kh,country_id,city_id,district_id,commune_id,shop_lat_point,shop_lng_point from nham_shop
     			WHERE shop_id=?";
