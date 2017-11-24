@@ -32,6 +32,10 @@
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
    
+    <input type="hidden" id="shop_id" value="<?php echo $shop_id ?>"/>
+    <input type="hidden" id="base_url" value="<?php echo base_url() ?>" />
+    <input type="hidden" id="dis_img_path" value="<?php echo DIS_IMAGE_PATH ?>"/>
+    
     <div class="shop-event-wrapper" >	
 		<div  class="tab-wrapper">	       	 				
 	       	 <div class="tab-header col-lg-12">
@@ -44,20 +48,20 @@
 			       	 	<div class="box-item  col-sm-4 " style="border: 0">
 			       	 		<p>
     			       	 		<i class="fa fa-users" aria-hidden="true" style="font-size: 48px;color: #d4d4d4; margin-right: 22px;"></i>
-    			       	 		<span style="color:#3a3a3a">10 Followers</span>
+    			       	 		<span style="color:#3a3a3a"><span id="follower_cnt">0 Follower</span></span>
 			       	 		<p>
 			       	 	</div>
 			       	 	<div class="box-item  col-sm-4 ">
 			       	 		<p>
     			       	 		<i class="fa fa-cloud-upload" aria-hidden="true" style="font-size: 48px;color: #d4d4d4; margin-right: 22px;"></i>
-    			       	 		<span style="color:#3a3a3a">10 Posted images</span>
+    			       	 		<span style="color:#3a3a3a"><span id="image_cnt" >0 Posted image</span></span>
 			       	 		<p>
 			       	 	
 			       	 	</div>
 			       	 	<div class="box-item  col-sm-4 ">
 			       	 		<p>
     			       	 		<i class="fa fa-map-marker" aria-hidden="true" style="font-size: 48px;color: #d4d4d4; margin-right: 22px;"></i>
-    			       	 		<span style="color:#3a3a3a">10 People check in</span>
+    			       	 		<span style="color:#3a3a3a"><span id="check_in_cnt">0 People check-in</span></span>
 			       	 		<p>
 			       	 	</div>
 			       	 	
@@ -68,7 +72,7 @@
             	       	</div>
             	       	
             	       	<div class="col-lg-12"  style="margin-top: 5px;margin-bottom: 15px;">
-            	       	 	<select class="form-control" style="width: 200px;">
+            	       	 	<select class="form-control" style="width: 200px;" id="chart-type">
             	       	 		<option value="1">A Week</option>
             	       	 		<option value="2">A Month</option>
             	       	 	</select>
@@ -79,20 +83,20 @@
             	       			<div class="box-recent" style="border: 0">
         			       	 		<p>
             			       	 		<i class="fa fa-users" aria-hidden="true" style="font-size: 25px;color: #d4d4d4; margin-right: 16px;"></i>
-            			       	 		<span style="color:#3a3a3a">10 Followers</span>
+            			       	 		<span style="color:#3a3a3a" id="p_follower">0 Follower</span>
         			       	 		<p>
         			       	 	</div>
         			       	 	<div class="box-recent">
         			       	 		<p>
             			       	 		<i class="fa fa-cloud-upload" aria-hidden="true" style="font-size: 25px;color: #d4d4d4; margin-right: 16px;"></i>
-            			       	 		<span style="color:#3a3a3a">10 Posted images</span>
+            			       	 		<span style="color:#3a3a3a" id="p_image">0 Posted image</span>
         			       	 		<p>
         			       	 	
         			       	 	</div>
         			       	 	<div class="box-recent">
         			       	 		<p>
             			       	 		<i class="fa fa-map-marker" aria-hidden="true" style="font-size: 25px;color: #d4d4d4; margin-right: 22px; margin-left: 7px;"></i>
-            			       	 		<span style="color:#3a3a3a">10 People check in</span>
+            			       	 		<span style="color:#3a3a3a" id="p_check_in">0 People check-in</span>
         			       	 		<p>
         			       	 	</div>         	       			
             	       		
@@ -121,11 +125,21 @@
    
     $(window).load(function(){
 
-    	fn_createChartByMonth();
+    	defaultDataRequest();
+    	statisticByType(7);
+    	fn_createChartByWeek();
     	window.parent.$(".iframe_hover").hide();
 		window.parent.$("#updateShopframe").show();
 		top.resizeIframe();
    });
+
+    $("#chart-type").on("change", function(){
+		if($(this).val() == "2"){
+			fn_createChartByMonth()
+		}else{
+			fn_createChartByWeek();
+		}
+    });
         
 	function updateShopField(value , param){
 		$.ajax({
@@ -145,6 +159,69 @@
 			}
 		});
 	}
+
+function defaultDataRequest(){
+	$.ajax({
+		type : "POST",
+		url : $("#base_url").val()+"/API/ShopRestController/shopoverviewinfo",
+		data : JSON.stringify({
+			"resq_data" : {
+				"shop_id" : $("#shop_id").val()
+			}					
+		}),
+		success : function(data){
+			data = JSON.parse(data);
+
+			var followCnt = "" , imageCnt = "" , checkInCnt = "";
+			if(data.shop_follower_cnt && parseInt(data.shop_follower_cnt) > 1) followCnt = data.shop_follower_cnt+" Followers";
+			else followCnt = data.shop_follower_cnt+" Follower";
+
+			if(data.shop_image_cnt && parseInt(data.shop_image_cnt) > 1) imageCnt = data.shop_image_cnt+" Posted images";
+			else imageCnt = data.shop_image_cnt+" Posted image";
+
+			if(data.check_in_cnt && parseInt(data.check_in_cnt) > 1) checkInCnt = data.check_in_cnt+ " People check-ins";
+			else checkInCnt = data.check_in_cnt+ " People check-in";
+			
+		    $("#follower_cnt").html(followCnt);
+		    $("#image_cnt").html(imageCnt);
+		    $("#check_in_cnt").html(checkInCnt);
+				
+		}
+	});
+}
+
+function statisticByType( day ){
+	$.ajax({
+		type : "POST",
+		url : $("#base_url").val()+"/API/ShopRestController/shopoverviewinfo",
+		data : JSON.stringify({
+			"resq_data" : {
+				"shop_id" : $("#shop_id").val(),
+				"days" : day
+			}					
+		}),
+		success : function(data){
+			data = JSON.parse(data);
+
+			console.log(data);
+
+			var followCnt = "" , imageCnt = "" , checkInCnt = "";
+			if(data.shop_follower_cnt && parseInt(data.shop_follower_cnt) > 1) followCnt = data.shop_follower_cnt+" Followers";
+			else followCnt = data.shop_follower_cnt+" Follower";
+
+			if(data.shop_image_cnt && parseInt(data.shop_image_cnt) > 1) imageCnt = data.shop_image_cnt+" Posted images";
+			else imageCnt = data.shop_image_cnt+" Posted image";
+
+			if(data.check_in_cnt && parseInt(data.check_in_cnt) > 1) checkInCnt = data.check_in_cnt+ " People check-ins";
+			else checkInCnt = data.check_in_cnt+ " People check-in";
+
+			$("#p_follower").html(followCnt);
+			$("#p_image").html(imageCnt);
+			$("#p_check_in").html(checkInCnt);
+				
+		}
+	});
+}
 
 function fn_createChartByWeek(){
 

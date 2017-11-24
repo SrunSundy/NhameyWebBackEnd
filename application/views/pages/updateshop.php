@@ -219,7 +219,7 @@
 	       	 			<div class="col-lg-12 shop-edit-form-wrapper" style="padding-bottom:50px;position:relative;">
 	       	 				<div class="row" >	       	 						       	 						       	 					
 	       	 					<iframe style="width:100%;height:auto;display:none;" id="updateShopframe" 
-          							  scrolling="no" frameborder="0" marginheight="0" marginwidth="0" src="<?php echo base_url(); ?>MainController/updateshop_overview">
+          							  scrolling="no" frameborder="0" marginheight="0" marginwidth="0" src="<?php echo base_url(); ?>MainController/updateshop_overview/<?php echo $shop_id ?>">
 								 
 								</iframe>	
 								<div class="iframe_hover">
