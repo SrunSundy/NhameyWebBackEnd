@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'dernham.com',
-	'username' => 'dernhamc_2016',
-	'password' => 'yV^;4fFw5Q~}',
-	'database' => 'dernhamc_dernham',
+	'hostname' => '35.187.255.123',
+	'username' => 'realtime',
+	'password' => '01021992',
+	'database' => 'dernham',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
