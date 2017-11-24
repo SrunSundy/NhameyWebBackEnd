@@ -36,6 +36,25 @@ class ShopRestController extends CI_Controller{
 		
 	}
 	
+	public function shopoverviewinfo(){
+	    
+	    $request = json_decode($this->input->raw_input_stream,true);
+	    $request = $request["resq_data"];
+	    
+	    if($request["shop_id"] == null || !isset($request["shop_id"])){
+	              
+	        $response["response_code"] = "0000";
+	        $response["response_msg"] = "Invalid shop_id";
+	        $json = json_encode($response, JSON_PRETTY_PRINT);
+	        echo $json;
+	        die();
+	    }
+	    
+	    $response = $this->ShopModel->getShopOverviewInfo($request);
+	    $json = json_encode($response, JSON_PRETTY_PRINT);
+	    echo $json;
+	}
+	
 	public function getDefaultUpdateLocation(){
 	
 		$request = json_decode($this->input->raw_input_stream,true);

@@ -14,11 +14,21 @@ class TestS3 extends  CI_Controller{
 	
 
 	public function index(){
-		$config['upload_path']='NhameyWebBackEnd/';
-		$this->load->library('s3');
-		var_dump($this->s3->listBuckets());
-		$bucket="dernham";
-		$tmp= "/Thefashion_20160519140857-836489.JPG";
+			$this->load->library('s3');
+  
+			// Create a Bucket
+			//var_dump($this->s3->putBucket('storedernham', S3::ACL_PUBLIC_READ));
+  
+			// List Buckets
+		//var_dump($this->s3->listBuckets());
+	//$config['upload_path']='admin/';
+		//$this->load->library('s3');
+	//	var_dump($this->s3->listBuckets());
+		// $srcbig = ."/uploadimages/";
+		// echo $srcbig ;
+	
+		$bucket="storedernham";
+		$tmp= "./uploadimages/real/place/cover/small/Capture1.PNG";
 		$actual_image_name= time()."Thefashion_20160519140857-836489.JPG";
 		
 		if($this->s3->putObjectFile($tmp, $bucket , $actual_image_name, S3::ACL_PUBLIC_READ) )

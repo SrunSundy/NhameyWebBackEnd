@@ -65,8 +65,11 @@
 			$this->load->view('pages/userinformation');
 		}
 		
-		public function updateshop_overview(){
-			$this->load->view('pages/upsh_overview');
+		public function updateshop_overview($shopid = null){
+		    
+		    $shopid  = urlencode($shopid);
+		    $data["shop_id"] = $shopid;
+			$this->load->view('pages/upsh_overview', $data);
 		}
 		
 		public function updateshop_information($shopid = null){
