@@ -55,6 +55,7 @@ class ShopRestController extends CI_Controller{
 	    echo $json;
 	}
 	
+	
 	public function getDefaultUpdateLocation(){
 	
 		$request = json_decode($this->input->raw_input_stream,true);

@@ -25,7 +25,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url(); ?>MainController/addshop"><i class="fa fa-circle-o"></i> Add Shop</a></li>
-                <li><a href="<?php echo base_url(); ?>MainController/listshop"><i class="fa fa-circle-o"></i> List Shop</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/listshop"><i class="fa fa-circle-o"></i> Shop List</a></li>
           
               </ul>
         </li>
@@ -38,7 +38,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url(); ?>MainController/addproduct"><i class="fa fa-circle-o"></i> Add Product</a></li>
-                <li><a href="<?php echo base_url(); ?>MainController/listproduct"><i class="fa fa-circle-o"></i> List Product</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/listproduct"><i class="fa fa-circle-o"></i> Product List</a></li>
                        
               </ul>
         </li>
@@ -47,8 +47,8 @@
                 <i class="fa fa-users" aria-hidden="true"></i> <span>User Management</span><i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url(); ?>MainController/listplayer"><i class="fa fa-circle-o"></i>List User</a></li>
-                <li><a href="<?php echo base_url(); ?>MainController/listplayerPost"><i class="fa fa-circle-o"></i>List User Post</a></li>       
+                <li><a href="<?php echo base_url(); ?>MainController/listplayer"><i class="fa fa-circle-o"></i>User List</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/listplayerPost"><i class="fa fa-circle-o"></i>Post List</a></li>       
               </ul>
         </li>
 		<li class="treeview">
@@ -56,18 +56,22 @@
 				<i class="fa fa-user-plus" aria-hidden="true"></i> <span>Admin Management</span><i class="fa fa-angle-left pull-right"></i>
 			</a>
 			<ul class="treeview-menu">
-                <li><a href="<?php echo base_url(); ?>MainController/adduser"><i class="fa fa-circle-o"></i> Add user</a></li>
-                 <li><a href="<?php echo base_url(); ?>MainController/listuser"><i class="fa fa-circle-o"></i> List user</a></li>
+                <li><a href="<?php echo base_url(); ?>MainController/adduser"><i class="fa fa-circle-o"></i> Add Admin</a></li>
+                 <li><a href="<?php echo base_url(); ?>MainController/listuser"><i class="fa fa-circle-o"></i> Admin List</a></li>
              </ul>
 		</li>
+		<li class="treeview">		
+			<a href="<?php echo base_url(); ?>MainController/sendmessage"><i class="fa fa-bullhorn"></i>Notify User</a>			
+		</li>
 		<li class="treeview">
-			<a href="javascript:;"> 
-				<i class="fa fa-bullhorn" aria-hidden="true"></i> <span>Notification</span><i class="fa fa-angle-left pull-right"></i>
+			<a href="<?php echo base_url(); ?>MainController/event"> 
+				<i class="fa fa-calendar" aria-hidden="true"></i> <span>Event Management</span>
 			</a>
-			<ul class="treeview-menu">
-                <li><a href="<?php echo base_url(); ?>MainController/sendmessage"><i class="fa fa-circle-o"></i>Send Message</a></li>
-           
-             </ul>
+		</li>
+		<li class="treeview">
+			<a href="<?php echo base_url(); ?>MainController/sendmessage"> 
+				<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Advert Management</span>
+			</a>		
 		</li>
 		<!-- <li><a href="post"> <i class="fa fa-pencil-square" aria-hidden="true"></i> <span>Post Management</span></a></li>
 		<li><a href="comment"> <i class="fa fa-comments" aria-hidden="true"></i> <span>Comment Management</span></a></li> -->

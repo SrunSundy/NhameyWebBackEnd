@@ -135,9 +135,11 @@
 
     $("#chart-type").on("change", function(){
 		if($(this).val() == "2"){
-			fn_createChartByMonth()
+			fn_createChartByMonth();
+			statisticByType(30);
 		}else{
 			fn_createChartByWeek();
+			statisticByType(7);
 		}
     });
         

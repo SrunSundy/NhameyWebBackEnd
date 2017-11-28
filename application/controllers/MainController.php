@@ -41,6 +41,10 @@
 			$this->load->view('pages/comment');
 		}
 		
+		public function event(){
+		    $this->load->view('pages/event');
+		}
+		
 		public function post(){
 			$this->load->view('pages/post');
 		}
