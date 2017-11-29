@@ -121,7 +121,27 @@
   		left:-7px;
   		border-radius:5px;
   	}
+  	
+  	@media screen and (min-width: 768px) {
+        .modal-dialog {
+          width: 800px; /* New width for default modal */
+        }
+        .modal-sm {
+          width: 350px; /* New width for small modal */
+        }
+    }
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 950px; /* New width for large modal */
+        }
+    }
+  	
   </style>
+  
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-upload.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-validation.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-openmodal.css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/css/nhamslider.css">
   </head>
   <body class="hold-transition skin-red-light sidebar-mini">
@@ -170,7 +190,7 @@
                   			<div class="row">
                   				<div class="col-lg-12">
                   					<div class="row">
-                  						<button type="button" class="btn btn-default pull-right header-shop-btn" >
+                  						<button type="button" class="btn btn-default pull-right header-shop-btn" id="btnAddEvent">
 		                  					<i class="fa fa-plus-circle" aria-hidden="true"></i>
 		                  					Add Event 
 		                  				</button>
@@ -270,9 +290,84 @@
       <!-- Control Sidebar -->
       
     </div><!-- ./wrapper -->
-
+    
+    
+ <!--add event popup --> 
+	 <div class="modal fade" id="shopFacilityModal" role="dialog">
+	     <div class="modal-dialog" >
+	         <div class="modal-content">
+	             <div class="modal-header">
+	                <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title pop-title" style="font-weight:bold;"><i class="fa fa-th-large" aria-hidden="true" style="padding-right: 10px;"></i>Add Event</h4>
+	             </div>
+	             <div class="modal-body">
+	              
+             		<div class="col-lg-6">
+             			<div class="row">
+                 			<div class="form-group">
+    		                     <label>Shop Name</label>
+    		                     <input id="shopremark" class="form-control" type="text" disabled/>
+    		                 </div>
+    		                 
+    		                
+			                  <div  class="form-group">
+								<label>Cover</label>
+								<div class="col-lg-12 photo-browsing-wrapper" align="center">
+									<div class="row">
+										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
+					                    	<div class="photo-display-wrapper" style="width:67%;min-height:180px;" id="cover-display-wrapper">
+					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
+					                    	</div> 
+											
+											<!-- fake on -->
+											<div class="photo-open-modal" id="cover-open-modal"></div>
+											<div class="photo-upload-remove-fake" id="cover-upload-remove-fake"></div>
+											<div class="photo-upload-remove" id="cover-upload-remove">
+												<i id="cover-upload-remove-icon" class="fa fa-trash" aria-hidden="true"></i>	
+											</div>
+											<div class="photo-remove-loading" id="cover-remove-loading" align="center">
+												<img class="loading-inside-box" 
+													src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg"  />	
+											</div>
+											<!-- end fake on -->														                    	  		                    	  		                    	  
+										</div>
+										<textarea rows="" placeholder="have your word about this..." id="cover_description"  class="nham_description"  cols=""></textarea>
+									</div>
+								</div>						
+							</div>
+             			</div>
+                		 
+                	</div>
+                	
+                	<div class="col-lg-6">
+                		<div class="row" style="padding-left: 10px">
+                			 <div class="form-group">
+			                     <label>Event's Description</label>
+			                     <textarea id="shopremark" class="form-control" rows="3" placeholder="describe what the event is all about" style="resize:none;height: 272px;"></textarea>
+			                  </div>
+			                  
+                		</div>
+                	</div>
+                	<div style="clear:both;"></div>
+	             		
+	                	
+	                	
+	                	
+	             </div>
+	             <div class="modal-footer">
+	                 <button type="button" id="belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+	               	<button type="button" id="shopfacilitysave" class="btn nham-btn btn-danger">Save</button>
+	             </div>
+	         </div><!-- /.modal-content -->
+	     </div><!-- /.modal-dialog -->
+	 </div><!-- /.modal --><!-- Modal -->
+	 <button type="button" id="btnShowPopUp" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#shopFacilityModal">Open Modal</button>
+	  <!--  end add event popup -->
    
     <?php include 'imports/scriptimport.php'; ?>
+  
  
   </body>
  <script id="display-eve-table" type="text/x-jQuery-tmpl">
@@ -309,8 +404,8 @@
 
             <td>					
 				<div class="status-style">   
-                    <div class="appeal-status" id="{{= generateIdWithShopId('toggleEve',shop_id)}}" style="background: {{= backgroundStatus(status) }}"></div>
-                    <select class="form-control shopstatus"  >
+                    <div class="appeal-status" id="{{= generateIdWithShopId('toggleEve',evt_id)}}" style="background: {{= backgroundStatus(status) }}"></div>
+                    <select class="form-control evtstatus"  >
 						<option value="0" {{= checkStatus(0 , status) }}> Disabled </option>
 						<option value="1" {{= checkStatus(1 , status) }}> Active </option>
 					</select>
@@ -330,12 +425,79 @@
 
 var pageNum = 1;
 var totalPage = 1;
+var srchKey = "";
 
 $(document).ready(function(){
 	
 	
 	listEvent();
 });
+
+$("#btn-whole-search").on("click", function(){
+
+	srchKey = $("#whole-search").val();
+	listEvent();
+});
+
+$('#whole-search').keypress(function (e) {
+    
+	if (e.which == 13) {
+		$("#btn-whole-search").click();
+	    return false;    //<---- Add this line
+	}
+});
+
+$("#btnAddEvent").on("click", function(){
+	$('#btnShowPopUp').click();
+});
+
+$(document).on("change", ".evtstatus" ,function(){
+	var evtid = $(this).parents("tr").children("td").eq(0).find("input").val();
+	var first_status_val = $(this).val();
+	var my_obj = this;
+	$(this).prop("disabled", "disabled");
+	
+	toggleEvent( first_status_val ,evtid , function(data){
+
+		console.log(data);
+		$(my_obj).removeAttr("disabled");	
+		if(data.response_code == "200"){
+			$("#toggleEve"+evtid).css({
+				"background" : backgroundStatus(first_status_val)
+			});
+		}else{
+			var goback = (first_status_val == 0) ? 1 : 0;
+			$(my_obj).val(goback);
+			swal("Update Error!", data.message, "error");
+		}
+		
+	
+		//swal("Shop is updated!", "This shop will be visible for clients", "success"); 
+	});
+	
+});
+
+function toggleEvent(status , evtId, callback){
+
+	$.ajax({
+		type : "POST",
+		url : $("#base_url").val()+"API/EventRestController/toggleevent",
+		contentType : "application/json",
+		data :  JSON.stringify({
+			"request_data" : {
+				"evt_id" : evtId,
+				"status" : status
+			}					
+		}),
+		success : function(data){
+			data = JSON.parse(data);
+			if( typeof callback === "function"){
+				callback(data);
+			}
+			
+		}
+	});
+}
 
 function listEvent(){
 
@@ -347,13 +509,15 @@ function listEvent(){
 		data : JSON.stringify({
     		"request_data" : {
 				"page" : pageNum,
-				"row" : 10
+				"row" : 10,
+				"srch_key" : srchKey
         	}
 	    }),
 		success : function(data){
 
 			data = JSON.parse(data);
 			console.log(data.response_data);
+			$("#display-eve-result").children().remove();
 			$("#display-eve-table").tmpl(data.response_data).appendTo("#display-eve-result");
 			$("#total-record").html(data.total_record);
 			totalPage = data.total_page;	 

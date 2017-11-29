@@ -13,6 +13,8 @@ class EventModel extends CI_Model{
         $row = (int)$request["row"];
         $page = (int)$request["page"];
         
+        $whole_search = $request["srch_key"];
+        
         $offset = ($row*$page)-$row;
         
         $params = array();
@@ -31,9 +33,12 @@ class EventModel extends CI_Model{
                    
                 FROM nham_event eve
                 LEFT JOIN nham_shop s ON eve.shop_id = s.shop_id
-                LEFT JOIN nham_admin a ON eve.creator_id = a.admin_id ";
+                LEFT JOIN nham_admin a ON eve.creator_id = a.admin_id 
+                WHERE eve.evt_cntt LIKE ? OR s.shop_name_en LIKE ? OR s.shop_name_kh LIKE ? OR a.admin_name LIKE ? ";
+                
         
-        $query_record = $this->db->query($sql);
+        array_push($params, "%".$whole_search."%" ,"%".$whole_search."%", "%".$whole_search."%" ,"%".$whole_search."%");      
+        $query_record = $this->db->query($sql, $params);
         $total_record = count($query_record->result());
         $total_page = $total_record / $row;
         if( ($total_record % $row) > 0){
@@ -49,6 +54,13 @@ class EventModel extends CI_Model{
         $response["total_record"] = $total_record;
         $response["response_data"] = $query->result();
         return $response;
+	    
+	}
+	
+	public function toggleEventStatus($request){
+	    
+	    $sql = " UPDATE nham_event SET status = ? WHERE evt_id = ? ";
+	    return $this->db->query($sql, array((int)$request["status"], (int)$request["evt_id"]));
 	    
 	}
 }

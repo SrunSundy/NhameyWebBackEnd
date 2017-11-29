@@ -30,6 +30,34 @@ class EventRestController extends CI_Controller{
 	    echo $json;
 	}
 	
+	public function toggleevent(){
+	    
+	    $request = json_decode($this->input->raw_input_stream,true);
+	    
+	    if(!isset($request["request_data"])){
+	        $response["response_code"] = "000";
+	        $response["response_msg"] = "bad request";
+	        
+	        echo json_encode($response,  JSON_PRETTY_PRINT);
+	        die();
+	    }
+	    
+	    $request = $request["request_data"];
+	    
+	    $response = array();
+	    if($this->EventModel->toggleEventStatus($request)){
+	        $response["response_code"] = "200";
+	        $response["response_msg"] = "update successfully!";
+	    }else{
+	        $response["response_code"] = "000";
+	        $response["response_msg"] = "update failed!";
+	    }
+	    $json = json_encode($response, JSON_PRETTY_PRINT);
+	    echo $json;
+	    
+	    
+	}
+	
 	
 }
 
