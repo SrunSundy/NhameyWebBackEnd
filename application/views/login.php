@@ -58,8 +58,8 @@
 	  var btn_loading = $(".btn_loading");
 	    btn_loading.button('loading');
 
-	    $.getJSON('//ipapi.co/json/', function(data) {
-			  var user_time_zone = data.timezone;
+	  //  $.getJSON('//ipapi.co/json/', function(data) {
+			  var user_time_zone = "Asia/Phnom_Penh";//data.timezone;
 			  $.ajax({
 					 type: "POST",
 					 url: $("#base_url").val()+"API/UserRestController/login", 
@@ -82,7 +82,7 @@
 						  				
 			  	 	 }
 			  });  
-		  });
+		//  });
 	 
   }
 

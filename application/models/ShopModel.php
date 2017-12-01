@@ -13,7 +13,7 @@ class ShopModel extends CI_Model{
 
 		
 
-		$sql = "SELECT shop_id,shop_name_en,shop_remark FROM nham_shop
+		$sql = "SELECT shop_id,shop_logo,shop_name_en,shop_remark,shop_address FROM nham_shop
 
 				WHERE shop_name_en LIKE ? AND shop_status=1 
 
