@@ -377,8 +377,8 @@
 	             <div class="modal-body">
 	               
 	     
-	                    <div class="col-lg-7"></div>
-	      				<div class="input-group col-lg-5">
+	                    <div class="col-lg-6"></div>
+	      				<div class="input-group col-lg-6">
 	                       <input type="text" name="table_search" id="whole-search" class="form-control input-sm pull-right" placeholder="Search shop name,type ,address...">
 	                       <div class="input-group-btn">
 	                         <button id="btn-whole-search" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
