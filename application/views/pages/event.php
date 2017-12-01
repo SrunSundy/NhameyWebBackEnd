@@ -397,6 +397,47 @@
                            	   </thead>
                           </table>
                         </div><!-- /.box-body -->
+                         <div class="box-body table-responsive no-padding" style="max-height:500px;overflow-y: scroll;" >
+                          <table class="table table-hover" >
+        	                  <tbody id="display-shop-result">
+                   	   			 <tr>
+                   	   			 	<td style="width:20%">sdf</td>
+                   	   			 	<td style="width:30%">sdf</td>
+                   	   			 	<td style="width:40%">sdf</td>
+                   	   			 </tr>
+                   	   			 <tr>
+                   	   			 	<td style="width:20%">sdf</td>
+                   	   			 	<td style="width:30%">sdf</td>
+                   	   			 	<td style="width:40%">sdf</td>
+                   	   			 </tr>
+                   	   			 <tr>
+                   	   			 	<td style="width:20%">sdf</td>
+                   	   			 	<td style="width:30%">sdf</td>
+                   	   			 	<td style="width:40%">sdf</td>
+                   	   			 </tr>
+                   	   			 <tr>
+                   	   			 	<td style="width:20%">sdf</td>
+                   	   			 	<td style="width:30%">sdf</td>
+                   	   			 	<td style="width:40%">sdf</td>
+                   	   			 </tr>
+                   	   			 <tr>
+                   	   			 	<td style="width:20%">sdf</td>
+                   	   			 	<td style="width:30%">sdf</td>
+                   	   			 	<td style="width:40%">sdf</td>
+                   	   			 </tr>
+                   	   			 <tr>
+                   	   			 	<td style="width:20%">sdf</td>
+                   	   			 	<td style="width:30%">sdf</td>
+                   	   			 	<td style="width:40%">sdf</td>
+                   	   			 </tr>
+                   	   			 <tr>
+                   	   			 	<td style="width:20%">sdf</td>
+                   	   			 	<td style="width:30%">sdf</td>
+                   	   			 	<td style="width:40%">sdf</td>
+                   	   			 </tr>
+                   	  		  </tbody>
+                          </table>
+                        </div><!-- /.box-body -->
                  
     				
     				         	
