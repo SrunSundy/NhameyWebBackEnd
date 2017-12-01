@@ -374,7 +374,7 @@
 	                <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	                <h4 class="modal-title pop-title" style="font-weight:bold;"><i class="fa fa-th-large" aria-hidden="true" style="padding-right: 10px;"></i>Shop List</h4>
 	             </div>
-	             <div class="modal-body">
+	             <div class="modal-body" style="height: 600px;">
 	               
 	     
 	                    <div class="col-lg-6"></div>
@@ -397,7 +397,7 @@
                            	   </thead>
                           </table>
                         </div><!-- /.box-body -->
-                         <div class="box-body table-responsive no-padding" style="max-height:500px;overflow-y: scroll;" >
+                         <div class="box-body table-responsive no-padding" style="max-height:530px;overflow-y: scroll;" >
                           <table class="table table-hover" >
         	                  <tbody id="display-shop-result">
                    	   			 <tr>
