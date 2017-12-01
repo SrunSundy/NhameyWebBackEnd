@@ -375,31 +375,30 @@
 	                <h4 class="modal-title pop-title" style="font-weight:bold;"><i class="fa fa-th-large" aria-hidden="true" style="padding-right: 10px;"></i>Shop List</h4>
 	             </div>
 	             <div class="modal-body">
-	              
-	               <div class="col-lg-6">
 	               
-	               </div>
-	               <div class="col-lg-6">
-	               		<div class="input-group ">
+	     
+	                    <div class="col-lg-7"></div>
+	      				<div class="input-group col-lg-5">
 	                       <input type="text" name="table_search" id="whole-search" class="form-control input-sm pull-right" placeholder="Search shop name,type ,address...">
 	                       <div class="input-group-btn">
 	                         <button id="btn-whole-search" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
 	                       </div>
 	                     </div>
-	               </div>
-    				 <!-- table and pagination -->
-                   <div class="box-body table-responsive no-padding" style="margin-top:-10px;" >
-                      <table class="table table-hover" >
-    	                  <thead>
-    	                    <tr>
-    	                      <th style="width:20%">Logo</th>
-    	                      <th style="width:30%">Name</th>
-    	                      <th style="width:50%">Address</th>
-    	                      
-    	                    </tr>
-                       	   </thead>
-                      </table>
-                    </div><!-- /.box-body -->
+    	                <!-- table and pagination -->
+                       <div class="box-body table-responsive no-padding" style="" >
+                          <table class="table table-hover" >
+        	                  <thead>
+        	                    <tr>
+        	                      <th style="width:20%">Logo</th>
+        	                      <th style="width:30%">Name</th>
+        	                      <th style="width:50%">Address</th>
+        	                      
+        	                    </tr>
+                           	   </thead>
+                          </table>
+                        </div><!-- /.box-body -->
+                 
+    				
     				         	
 	             </div>
 	         </div><!-- /.modal-content -->
