@@ -123,15 +123,15 @@
   	}
   	
   	@media screen and (min-width: 768px) {
-        .modal-dialog {
+        #shopFacilityModal .modal-dialog {
           width: 800px; /* New width for default modal */
         }
-        .modal-sm {
+        #shopFacilityModal .modal-sm {
           width: 350px; /* New width for small modal */
         }
     }
     @media screen and (min-width: 992px) {
-        .modal-lg {
+        #shopFacilityModal .modal-lg {
           width: 950px; /* New width for large modal */
         }
     }
@@ -306,19 +306,18 @@
              			<div class="row">
                  			<div class="form-group">
     		                     <label>Shop Name</label>
-    		                     <input id="shopremark" class="form-control" type="text" disabled/>
+    		                     <input id="shop-name" class="form-control" type="text" />
     		                 </div>
     		                 
     		                
 			                  <div  class="form-group">
-								<label>Cover</label>
+								<label>Event's Image</label>
 								<div class="col-lg-12 photo-browsing-wrapper" align="center">
 									<div class="row">
 										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
 					                    	<div class="photo-display-wrapper" style="width:67%;min-height:180px;" id="cover-display-wrapper">
 					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
-					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>
-					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add  image </p>
 					                    	</div> 
 											
 											<!-- fake on -->
@@ -365,6 +364,49 @@
 	 </div><!-- /.modal --><!-- Modal -->
 	 <button type="button" id="btnShowPopUp" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#shopFacilityModal">Open Modal</button>
 	  <!--  end add event popup -->
+	  
+	  
+	<!-- list of shop -->
+	<div class="modal fade" id="listShopModal" role="dialog">
+	     <div class="modal-dialog"  >
+	         <div class="modal-content">
+	             <div class="modal-header">
+	                <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title pop-title" style="font-weight:bold;"><i class="fa fa-th-large" aria-hidden="true" style="padding-right: 10px;"></i>Shop List</h4>
+	             </div>
+	             <div class="modal-body">
+	              
+	               <div class="col-lg-6">
+	               
+	               </div>
+	               <div class="col-lg-6">
+	               		<div class="input-group ">
+	                       <input type="text" name="table_search" id="whole-search" class="form-control input-sm pull-right" placeholder="Search shop name,type ,address...">
+	                       <div class="input-group-btn">
+	                         <button id="btn-whole-search" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+	                       </div>
+	                     </div>
+	               </div>
+    				 <!-- table and pagination -->
+                   <div class="box-body table-responsive no-padding" style="margin-top:-10px;" >
+                      <table class="table table-hover" >
+    	                  <thead>
+    	                    <tr>
+    	                      <th style="width:20%">Logo</th>
+    	                      <th style="width:30%">Name</th>
+    	                      <th style="width:50%">Address</th>
+    	                      
+    	                    </tr>
+                       	   </thead>
+                      </table>
+                    </div><!-- /.box-body -->
+    				         	
+	             </div>
+	         </div><!-- /.modal-content -->
+	     </div><!-- /.modal-dialog -->
+	 </div><!-- /.modal --><!-- Modal -->
+	 <button type="button" id="btnListShop" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#listShopModal">Open Modal</button>	
+	<!--end list of shop -->
    
     <?php include 'imports/scriptimport.php'; ?>
   
@@ -449,6 +491,10 @@ $('#whole-search').keypress(function (e) {
 
 $("#btnAddEvent").on("click", function(){
 	$('#btnShowPopUp').click();
+});
+
+$("#shop-name").on("click", function(){
+	$('#btnListShop').click();
 });
 
 $(document).on("change", ".evtstatus" ,function(){
