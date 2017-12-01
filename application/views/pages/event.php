@@ -399,42 +399,9 @@
                         </div><!-- /.box-body -->
                          <div class="box-body table-responsive no-padding" style="height:500px;overflow-y: auto;" >
                           <table class="table table-hover" >
-        	                  <tbody id="display-shop-result">
-                   	   			 <tr>
-                   	   			 	<td style="width:20%">sdf</td>
-                   	   			 	<td style="width:30%">sdf</td>
-                   	   			 	<td style="width:40%">sdf</td>
-                   	   			 </tr>
-                   	   			 <tr>
-                   	   			 	<td style="width:20%">sdf</td>
-                   	   			 	<td style="width:30%">sdf</td>
-                   	   			 	<td style="width:40%">sdf</td>
-                   	   			 </tr>
-                   	   			 <tr>
-                   	   			 	<td style="width:20%">sdf</td>
-                   	   			 	<td style="width:30%">sdf</td>
-                   	   			 	<td style="width:40%">sdf</td>
-                   	   			 </tr>
-                   	   			 <tr>
-                   	   			 	<td style="width:20%">sdf</td>
-                   	   			 	<td style="width:30%">sdf</td>
-                   	   			 	<td style="width:40%">sdf</td>
-                   	   			 </tr>
-                   	   			 <tr>
-                   	   			 	<td style="width:20%">sdf</td>
-                   	   			 	<td style="width:30%">sdf</td>
-                   	   			 	<td style="width:40%">sdf</td>
-                   	   			 </tr>
-                   	   			 <tr>
-                   	   			 	<td style="width:20%">sdf</td>
-                   	   			 	<td style="width:30%">sdf</td>
-                   	   			 	<td style="width:40%">sdf</td>
-                   	   			 </tr>
-                   	   			 <tr>
-                   	   			 	<td style="width:20%">sdf</td>
-                   	   			 	<td style="width:30%">sdf</td>
-                   	   			 	<td style="width:40%">sdf</td>
-                   	   			 </tr>
+        	                  <tbody id="display-listshop-result">
+                   	   			 
+                   	   			
                    	  		  </tbody>
                           </table>
                         </div><!-- /.box-body -->
@@ -503,6 +470,18 @@
 		</tr>
 					           	
    	</script>
+   	
+   	<script id="display-listshop-table" type="text/x-jQuery-tmpl">
+         <tr>
+             <td style="width:20%">
+				<img src="https://dernham.com/dernham_API/uploadimages/real/place/logo/small/{{= shop_logo }}"   style="width:30px;height:30px;border-radius: 100%;"/>
+			</td>
+            <td style="width:30%">
+                <span>{{= shop_name_en }}</span>
+            </td>
+            <td style="width:40%">{{= shop_address }}</td>
+         </tr>
+   	</script>
 <script>
 
 var pageNum = 1;
@@ -534,6 +513,7 @@ $("#btnAddEvent").on("click", function(){
 });
 
 $("#shop-name").on("click", function(){
+	listShop();
 	$('#btnListShop').click();
 });
 
@@ -641,6 +621,23 @@ function listEvent(){
 			
 		}
 	});
+}
+
+function listShop(){
+	$.ajax({
+		 type: "GET",
+		 url: $("#base_url").val()+"API/ShopRestController/getShopByNameCombo", 
+		 data : {			 
+			"srchname" : "",
+			"limit" : 10		 	
+		 },
+		 success: function(data){
+			 data = JSON.parse(data);
+			console.log(data);
+			$("#display-listshop-result").children().remove();
+			$("#display-listshop-table").tmpl(data.response_data).appendTo("#display-listshop-result");
+  	 	 }
+  });
 }
 
 function subText(str, cutvalue){
