@@ -397,7 +397,7 @@
                            	   </thead>
                           </table>
                         </div><!-- /.box-body -->
-                         <div class="box-body table-responsive no-padding" style="max-height:530px;overflow-y: scroll;" >
+                         <div class="box-body table-responsive no-padding" style="height:500px;overflow-y: auto;" >
                           <table class="table table-hover" >
         	                  <tbody id="display-shop-result">
                    	   			 <tr>
