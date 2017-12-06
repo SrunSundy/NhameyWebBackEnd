@@ -306,7 +306,9 @@
              			<div class="row">
                  			<div class="form-group">
     		                     <label>Shop Name</label>
-    		                     <input id="shop-name" class="form-control" type="text" />
+    		                     <div id="shop_name_to_put" style="width: 100%;height: 28px;border:1px solid gray">
+    		                     	
+    		                     </div>
     		                 </div>
     		                 
     		                
@@ -397,7 +399,7 @@
                            	   </thead>
                           </table>
                         </div><!-- /.box-body -->
-                         <div class="box-body table-responsive no-padding" style="height:500px;overflow-y: auto;" >
+                         <div class="box-body table-responsive no-padding" id="shop-content" style="height:500px;overflow-y: auto;" >
                           <table class="table table-hover" >
         	                  <tbody id="display-listshop-result">
                    	   			 
@@ -472,8 +474,10 @@
    	</script>
    	
    	<script id="display-listshop-table" type="text/x-jQuery-tmpl">
-         <tr>
-             <td style="width:20%">
+         <tr style="cursor:pointer" class="shop_item">
+             <td style="width:20%" class="store_data">
+                <input id="shop_id" type="hidden" value="{{= shop_id }}"/>
+                <input id="shop_name" type="hidden" value="{{= shop_name_en }}"/>
 				<img src="https://dernham.com/dernham_API/uploadimages/real/place/logo/small/{{= shop_logo }}"   style="width:30px;height:30px;border-radius: 100%;"/>
 			</td>
             <td style="width:30%">
@@ -492,6 +496,10 @@ var srchKey = "";
 var pageShNum = 1;
 var totalShPage = 1
 var srchShKey = "";
+
+var shopIdIn = "";
+var shopNameIn = "";
+var shopLogoIn = "";
 
 $(document).ready(function(){
 	
@@ -539,6 +547,17 @@ $('#shop_search').keypress(function (e) {
 	}
 });
 
+$(document).on("click","tr.shop_item", function(){
+
+	var item = $(this).find("td.store_data");
+	shopIdIn = item.find("input#shop_id").val();
+	shopNameIn = item.find("input#shop_name").val();
+	shopLogoIn = item.find("img").attr("src");
+
+
+	console.log(shopIdIn+" "+ shopNameIn+ " "+shopLogoIn);
+});
+
 
 $(document).on("change", ".evtstatus" ,function(){
 	var evtid = $(this).parents("tr").children("td").eq(0).find("input").val();
@@ -563,7 +582,21 @@ $(document).on("change", ".evtstatus" ,function(){
 	
 		//swal("Shop is updated!", "This shop will be visible for clients", "success"); 
 	});
+
+
 	
+	
+});
+
+$(document).ready(function() {
+    $("#shop-content").endlessScroll({
+        callback: function() {
+
+        	srchShKey = $("#shop_search").val();
+        	listShop(true);
+        }
+        	
+    });
 });
 
 function toggleEvent(status , evtId, callback){
@@ -650,10 +683,10 @@ function listShop(scroll){
 
 	$.ajax({
 		 type: "GET",
-		 url: $("#base_url").val()+"API/ShopRestController/getShopByNameCombo", 
+		 url: $("#base_url").val()+"API/ShopRestController/getShopByChoice", 
 		 data : {			 
-			"srchname" : srchShKey,
-			"limit" : 10,
+			"srch_key" : srchShKey,
+			"row" : 10,
 			"page" : pageShNum	 	
 		 },
 		 success: function(data){
@@ -664,7 +697,7 @@ function listShop(scroll){
 				$("#display-listshop-result").children().remove();			
 			}
 			
-			$("#display-listshop-table").tmpl(data).appendTo("#display-listshop-result");
+			$("#display-listshop-table").tmpl(data.response_data).appendTo("#display-listshop-result");
 			
 
 			pageShNum++
@@ -702,6 +735,91 @@ function backgroundStatus( status ){
 		return "#F44336";
 	}
 }
+
+
+
+(function($){
+
+	  $.fn.endlessScroll = function(options) {
+
+	    var defaults = {
+	      bottomPixels: 50,
+	      fireOnce: true,
+	      fireDelay: 150,
+	      loader: "<br />Loading...<br />",
+	      data: "",
+	      insertAfter: "div:last",
+	      resetCounter: function() { return false; },
+	      callback: function() { return true; },
+	      ceaseFire: function() { return false; }
+	    };
+
+	    var options = $.extend({}, defaults, options);
+
+	    var firing       = true;
+	    var fired        = false;
+	    var fireSequence = 0;
+
+	    if (options.ceaseFire.apply(this) === true) {
+	      firing = false;
+	    }
+
+	    if (firing === true) {
+	      $(this).scroll(function() {
+	        if (options.ceaseFire.apply(this) === true) {
+	          firing = false;
+	          return; // Scroll will still get called, but nothing will happen
+	        }
+
+	        if (this == document || this == window) {
+	          var is_scrollable = $(document).height() - $(window).height() <= $(window).scrollTop() + options.bottomPixels;
+	        } else {
+	          // calculates the actual height of the scrolling container
+	          var inner_wrap = $(".endless_scroll_inner_wrap", this);
+	          if (inner_wrap.length == 0) {
+	            inner_wrap = $(this).wrapInner("<div class=\"endless_scroll_inner_wrap\" />").find(".endless_scroll_inner_wrap");
+	          }
+	          var is_scrollable = inner_wrap.length > 0 &&
+	            (inner_wrap.height() - $(this).height() <= $(this).scrollTop() + options.bottomPixels);
+	        }
+
+	        if (is_scrollable && (options.fireOnce == false || (options.fireOnce == true && fired != true))) {
+	          if (options.resetCounter.apply(this) === true) fireSequence = 0;
+
+	          fired = true;
+	          fireSequence++;
+
+	          $(options.insertAfter).after("<div id=\"endless_scroll_loader\">" + options.loader + "</div>");
+
+	          data = typeof options.data == 'function' ? options.data.apply(this, [fireSequence]) : options.data;
+
+	          if (data !== false) {
+	            $(options.insertAfter).after("<div id=\"endless_scroll_data\">" + data + "</div>");
+	            $("div#endless_scroll_data").hide().fadeIn();
+	            $("div#endless_scroll_data").removeAttr("id");
+
+	            options.callback.apply(this, [fireSequence]);
+
+	            if (options.fireDelay !== false || options.fireDelay !== 0) {
+	              $("body").after("<div id=\"endless_scroll_marker\"></div>");
+	              // slight delay for preventing event firing twice
+	              $("div#endless_scroll_marker").fadeTo(options.fireDelay, 1, function() {
+	                $(this).remove();
+	                fired = false;
+	              });
+	            }
+	            else {
+	              fired = false;
+	            }
+	          }
+
+	          $("div#endless_scroll_loader").remove();
+	        }
+	      });
+	    }
+	  };
+
+	})(jQuery);
 
 </script>
 </html>
