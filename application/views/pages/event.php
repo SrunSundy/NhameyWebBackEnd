@@ -491,6 +491,7 @@ var srchKey = "";
 
 var pageShNum = 1;
 var totalShPage = 1
+var srchShKey = "";
 
 $(document).ready(function(){
 	
@@ -518,17 +519,26 @@ $("#btnAddEvent").on("click", function(){
 
 $("#shop-name").on("click", function(){
 	pageShNum = 1;
-	listShop();
+	listShop(false);
 	$('#btnListShop').click();
 });
 
 
 $("#btn_shop_srch").on("click", function(){
 
-	var txtShop = $("#shop_search").val();
+	srchShKey = $("#shop_search").val();
 	pageShNum = 1;
-	listShop(txtShop);
+	listShop(false);
 });
+
+$('#shop_search').keypress(function (e) {
+    
+	if (e.which == 13) {
+		$("#btn_shop_srch").click();
+	    return false;    //<---- Add this line
+	}
+});
+
 
 $(document).on("change", ".evtstatus" ,function(){
 	var evtid = $(this).parents("tr").children("td").eq(0).find("input").val();
@@ -636,14 +646,13 @@ function listEvent(){
 	});
 }
 
-function listShop(srch){
+function listShop(scroll){
 
-	if(srch) srch = "";
 	$.ajax({
 		 type: "GET",
 		 url: $("#base_url").val()+"API/ShopRestController/getShopByNameCombo", 
 		 data : {			 
-			"srchname" : srch,
+			"srchname" : srchShKey,
 			"limit" : 10,
 			"page" : pageShNum	 	
 		 },
@@ -651,9 +660,12 @@ function listShop(srch){
 			 data = JSON.parse(data);
 			console.log(data);
 
-			if(pageShNum <= 1) $("#display-listshop-result").children().remove();
+			if(!scroll){
+				$("#display-listshop-result").children().remove();			
+			}
 			
 			$("#display-listshop-table").tmpl(data).appendTo("#display-listshop-result");
+			
 
 			pageShNum++
   	 	 }
