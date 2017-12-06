@@ -379,9 +379,9 @@
 	     
 	                    <div class="col-lg-6"></div>
 	      				<div class="input-group col-lg-6">
-	                       <input type="text" name="table_search" id="whole-search" class="form-control input-sm pull-right" placeholder="Search shop name,type ,address...">
+	                       <input type="text" name="table_search" id="shop_search" class="form-control input-sm pull-right" placeholder="Search shop name,type ,address...">
 	                       <div class="input-group-btn">
-	                         <button id="btn-whole-search" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+	                         <button id="btn_shop_srch" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
 	                       </div>
 	                     </div>
     	                <!-- table and pagination -->
@@ -488,6 +488,10 @@ var pageNum = 1;
 var totalPage = 1;
 var srchKey = "";
 
+
+var pageShNum = 1;
+var totalShPage = 1
+
 $(document).ready(function(){
 	
 	
@@ -513,8 +517,17 @@ $("#btnAddEvent").on("click", function(){
 });
 
 $("#shop-name").on("click", function(){
+	pageShNum = 1;
 	listShop();
 	$('#btnListShop').click();
+});
+
+
+$("#btn_shop_srch").on("click", function(){
+
+	var txtShop = $("#shop_search").val();
+	pageShNum = 1;
+	listShop(txtShop);
 });
 
 $(document).on("change", ".evtstatus" ,function(){
@@ -623,19 +636,26 @@ function listEvent(){
 	});
 }
 
-function listShop(){
+function listShop(srch){
+
+	if(srch) srch = "";
 	$.ajax({
 		 type: "GET",
 		 url: $("#base_url").val()+"API/ShopRestController/getShopByNameCombo", 
 		 data : {			 
-			"srchname" : "",
-			"limit" : 10		 	
+			"srchname" : srch,
+			"limit" : 10,
+			"page" : pageShNum	 	
 		 },
 		 success: function(data){
 			 data = JSON.parse(data);
 			console.log(data);
-			$("#display-listshop-result").children().remove();
-			$("#display-listshop-table").tmpl(data.response_data).appendTo("#display-listshop-result");
+
+			if(pageShNum <= 1) $("#display-listshop-result").children().remove();
+			
+			$("#display-listshop-table").tmpl(data).appendTo("#display-listshop-result");
+
+			pageShNum++
   	 	 }
   });
 }
