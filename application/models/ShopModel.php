@@ -9,23 +9,25 @@ class ShopModel extends CI_Model{
 		$this->load->library('session');
 	}
 	
-	public function getshopByNameCombo($shopname , $limit){
+	public function getshopByNameCombo($shopname , $limit, $page){
 
 		
-
+        if($page == null) $page = 1;
+        $offset = ($limit*$page)-$limit;
+        
 		$sql = "SELECT shop_id,shop_logo,shop_name_en,shop_remark,shop_address FROM nham_shop
 
 				WHERE shop_name_en LIKE ? AND shop_status=1 
 
 				ORDER BY shop_id DESC 
 
-				limit ?";
+				limit ? offset ? ";
 
 		$shopname = "%".$shopname."%";
 
 		$limit = (int)$limit;
 
-		$query = $this->db->query($sql, array($shopname, $limit) );
+		$query = $this->db->query($sql, array($shopname, $limit, $offset) );
 
 		$data = $query->result();
 
