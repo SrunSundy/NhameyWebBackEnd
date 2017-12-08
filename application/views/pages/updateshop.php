@@ -111,7 +111,7 @@
 											</li>
 											<li class="item-small">
 												<input type="hidden" value="updateshop_information" />
-												<a href="javascript:;">Inforamtion</a>
+												<a href="javascript:;">Information</a>
 											</li>
 											<li class="item-small">
 												<input type="hidden" value="updateshop_photo" />

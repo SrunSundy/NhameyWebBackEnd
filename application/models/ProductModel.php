@@ -135,7 +135,19 @@ class ProductModel extends CI_Model{
 		return  $response;
 	
 	}
+	public function getCountProduct(){
+		
+		$sql = "SELECT COUNT(CASE WHEN pro_status=1 THEN 1 ELSE NULL END ) as active_product,
+				COUNT(CASE WHEN pro_status=0 THEN 1 ELSE NULL END ) as disactive_product,
+				COUNT(pro_id ) as total_product
+				FROM nham_product";
+		$query = $this->db->query($sql);
+		$product_data = $query->row();
 	
+		$response["product_data"] = $product_data;
+		
+		return $response;
+	}
 	public function listProductByShopId ($request){
 		
 		$status = (int)$request["pro_status"];
@@ -281,6 +293,255 @@ class ProductModel extends CI_Model{
 		return  $response;
 		
 	}
+	public function getDefaultUpdateInfo( $request ){
+		
+		$sql = " SELECT     
+					sh.shop_id,
+					sh.shop_name_en,
+					pro_id,
+					pro_name_en,
+					pro_name_kh,
+					pro_price,
+					pro_made_duration,
+					pro_serve_type,
+					COALESCE(TRIM(pro_promote_price),'') as pro_promote_price,
+					pro_local_popularity,
+					COALESCE(TRIM(pro_view_count),'0') as pro_view_count,
+					pro_short_description,
+					pro_description,
+					pro_remark,
+					pro_status
+
+				FROM nham_product pr
+				LEFT JOIN nham_shop sh on sh.shop_id = pr.shop_id
+				WHERE pro_id  = ?";
+		$query = $this->db->query($sql , array($request["product_id"]));
+		
+		$product_data = $query->row();
+	//	$this->load->model("TagModel");
+		//$tags = $this->TagModel->getTageByProId($request["product_id"]);
+		
+		$this->load->model("ServeCategoryModel");
+		$shop_servecate = $this->ServeCategoryModel->getServeCategoryByProId($request["product_id"]);
+		
+	//	$shop_data->shop_social_media = json_decode($shop_data->shop_social_media);
+		$response["default_data"]["product_data"] = $product_data;
+	//	$response["default_data"]["tags"] = $tags;
+		$response["default_data"]["shop_servecate"] = $shop_servecate;
+		
+		return $response;
+		
+	}
+	public function getDefaultProduct( $product_id ){
+		
+		$sql = " SELECT     
+					pro_id,
+					pro_name_en,
+					pro_name_kh,
+					pro_price,
+					pro_made_duration,
+					pro_serve_type,
+					COALESCE(TRIM(pro_promote_price),'') as pro_promote_price,
+					pro_local_popularity,
+					COALESCE(TRIM(pro_view_count),'0') as pro_view_count,
+					pro_short_description,
+					pro_description,
+					pro_remark,
+					pro_image,
+					pro_status
+
+				FROM nham_product
+				WHERE pro_id  = ?";
+		$query = $this->db->query($sql , array($product_id));
+		$response = $query->result();
+		return $response;
+		
+	}
+	public function updateProductPrice($shopdata){
+		
+		$response = array();
+		
+		if(!isset($shopdata["nomalprice"])){
+			$response["is_updated"] = false;
+			$response["message"] = "nomalprice is invalid";
+			return $response;
+		}
+		if(!isset($shopdata["promoteprice"])){
+			$response["is_updated"] = false;
+			$response["message"] = "promoteprice is invalid";
+			return $response;
+		}
+		if(!isset($shopdata["product_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "product_id is invalid";
+			return $response;
+		}
+		$nomalprice = $shopdata["nomalprice"];
+		$promoteprice = $shopdata["promoteprice"];
+		$product_id = $shopdata["product_id"];
+		
+		if($this->IsNullOrEmptyString($nomalprice)){
+			$response["is_updated"] = false;
+			$response["message"] = "nomalprice is invalid";
+			return $response;
+		}
+		
+		if($this->IsNullOrEmptyString($promoteprice)){
+			$response["is_updated"] = false;
+			$response["message"] = "promoteprice is invalid";
+			return $response;
+		}
+		
+		if($this->IsNullOrEmptyString($product_id)){
+			$response["is_updated"] = false;
+			$response["message"] = "SHOP_ID is invalid";
+			return $response;
+		}
+		
+		$updatedata = array($promoteprice, $nomalprice , (int)$product_id);
+		$sql = "UPDATE nham_product SET pro_promote_price = ?, pro_price = ? WHERE pro_id = ?";
+		$query = $this->db->query($sql , $updatedata);
+		
+		if($this->db->affected_rows() >0){
+			$response["is_updated"] = true;
+			$response["message"] = "update successfully!";
+		}else{
+			$response["is_updated"] = false;
+			$response["message"] = "update error!";
+		}
+		return $response;
+		
+	}
+		
+	public function updateProductServeCateogry( $shopdata ){
+		
+		$this->db->trans_begin();
+		$response = array();
+		
+		
+		if(!isset($shopdata["product_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "product_id is invalid";
+			return $response;
+		}
+		
+		$product_id = (int)$shopdata["product_id"];
+		
+		if(count($shopdata["removeditem"]) > 0){
+		//	for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
+				$this->load->model("ServeCateMapProModel");
+				$this->ServeCateMapProModel->deleteServeCategoryMapProduct($shopdata["removeditem"], $product_id);
+		//	}
+		}
+		
+		if(count($shopdata["addeditem"]) > 0){
+			$servecategories = array();
+			$shopdata["addeditem"] = array_unique($shopdata["addeditem"]);
+			for($i=0; $i< count($shopdata["addeditem"]); $i++){
+				
+				$cateitem["serve_category_id"] = $shopdata["addeditem"][$i];
+				$cateitem["pro_id"] = $product_id;
+				array_push($servecategories , $cateitem);
+			}
+
+			try
+			{
+				$this->db->insert_batch('nham_serve_cate_map_pro', $servecategories);
+			}
+			catch( Exception $e )
+			{
+				$response["is_updated"] = false;
+				$response["message"] = "Database Error!";
+				return $response;
+				// on error
+			}
+			
+		}
+		
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			$response["is_updated"] = false;
+			$response["message"] = "Transaction rollback!";
+		}
+		else
+		{
+			$this->db->trans_commit();
+			$response["is_updated"] = true;
+			$response["message"] = "success";
+		}
+		
+		return $response;
+		
+	}
+			
+	public function updateProductTage( $shopdata ){
+		
+		$this->db->trans_begin();
+		$response = array();
+		
+		
+		if(!isset($shopdata["product_id"])){
+			$response["is_updated"] = false;
+			$response["message"] = "product_id is invalid";
+			return $response;
+		}
+		
+		$product_id = (int)$shopdata["product_id"];
+		
+		if(count($shopdata["removeditem"]) > 0){
+		//	for($i=0 ; $i<count($shopdata["removeditem"]); $i++){
+				$this->load->model("TagModel");
+				$this->TagModel->deleteTageById($shopdata["removeditem"], $product_id);
+		//	}
+		}
+		
+		if(count($shopdata["addeditem"]) > 0){
+			$tags = array();
+			$shopdata["addeditem"] = array_unique($shopdata["addeditem"]);
+			for($i=0; $i< count($shopdata["addeditem"]); $i++){
+				
+				$cateitem["tag_id"] = $shopdata["addeditem"][$i];
+				$cateitem["pro_id"] = $product_id;
+				array_push($tags , $cateitem);
+			}
+
+			try
+			{
+				$this->db->insert_batch('nham_product_tag_map', $tags);
+			}
+			catch( Exception $e )
+			{
+				$response["is_updated"] = false;
+				$response["message"] = "Database Error!";
+				return $response;
+				// on error
+			}
+			
+		}
+		
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			$response["is_updated"] = false;
+			$response["message"] = "Transaction rollback!";
+		}
+		else
+		{
+			$this->db->trans_commit();
+			$response["is_updated"] = true;
+			$response["message"] = "success";
+		}
+		
+		return $response;
+		
+	}
+	function IsNullOrEmptyString($variable){
+		return (!isset($variable) || trim($variable)==='');
+	}
+	
 }
 
 ?>

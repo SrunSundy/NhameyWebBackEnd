@@ -164,7 +164,7 @@
                   			<div class="row">
                   				<div class="col-lg-12">
                   					<div class="row">
-                  						<p class="list-shop-total">Total Number of Product : 500000</p>
+                  						<p class="list-shop-total">Total Number of Product : <span id="total_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span></p>
                   					</div>
                   				</div>
                   				
@@ -174,7 +174,7 @@
                   							<div class="row">
                   								<p class="text-show-style" title="Total of disable shop">
                   									<i class="fa fa-building" style="color:#ccc;" aria-hidden="true"></i>
-                  									Disable: 500000
+                  									Disable: <span id="disable_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span>
                   								</p>      
                   							</div>
                   						</div>
@@ -183,17 +183,17 @@
                   							<div class="row">
                   								<p class="text-show-style" title="Total of active shop">
                   									<i class="fa fa-building"  style="color:#dd4b39;" aria-hidden="true"></i>
-                  									Enable : 500000
+                  									Enable : <span id="enable_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span>
                   								</p>      
                   							</div>
                   						</div>
                   						
                   						<div class="col-lg-3">
                   							<div class="row">
-                  								<p class="text-show-style" title="Total photo of the shop">
+                  								<!--<p class="text-show-style" title="Total photo of the shop">
                   									<i class="fa fa-picture-o" style="color:#00BCD4" aria-hidden="true"></i>
                   									Photo : 500000
-                  								</p>      
+                  								</p>     --> 
                   							</div>
                   						</div>
                   						          						
@@ -415,6 +415,7 @@
 	                      <th style="width:13%">progress</th>
 	                      <th style="width:10%">creator</th>
 	                      <th style="width:5%">status</th>
+	                      <th style="width:7%">Ation</th>
 	                      
 	                    </tr>
                    	   </thead>
@@ -479,7 +480,10 @@
   					<input class="toggleshop" id="{{= generateIdWithShopId('toggleshop',pro_id)}}" type="checkbox" {{= checkShopStatus(pro_status)}}>
   					<div class="slider"></div>
 				</label>
-			</td>						
+			</td>
+            <td align="center">				
+				<i class="shop-edit fa fa-pencil-square" aria-hidden="true"></i>
+			</td>			
 		</tr>
 					           	
    	</script>

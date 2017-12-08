@@ -46,6 +46,19 @@ class ServeCategoryModel extends CI_Model{
 		return $response;
 	}
 	
+	function getServeCategoryByProId( $proid ){
+		
+		$sql = "SELECT 
+					p.serve_category_id,
+					c.serve_category_icon,
+					c.serve_category_name
+				FROM nham_serve_cate_map_pro p
+				LEFT JOIN nham_serve_category c ON c.serve_category_id =p.serve_category_id
+				WHERE p.pro_id = ? and c.serve_category_status = 1 ";
+		$query = $this->db->query($sql, $proid);
+		$response = $query->result();
+		return $response;
+	}
 	function insertServeCategory( $servecatearr ){
 		
 		$this->db->trans_start();

@@ -72,38 +72,51 @@
 		return  $response;
 		
 	}
-		public function togglePlayer( $request ){
-		
-		$response = array();
-		
-		$status = $request["user_status"];
-		$shopid = $request["user_id"];
-		
-		if($status != 0 && $status != 1){
-			$response["is_updated"] = false;
-			$response["message"] = "User_status is invalid!";
-			return  $response;
-		}
-		if(!$shopid){
-			$response["is_updated"] = false;
-			$response["message"] = "user_id is invalid!";
-			return  $response;
-		}
-		$this->db->trans_start();
-		$sql = "UPDATE nham_user SET user_status = ? WHERE user_id = ?";
-		$this->db->query($sql, array((int)$status, (int)$shopid));
-		$this->db->trans_complete();
-		
-		if ($this->db->trans_status() === FALSE)
-		{
-			$response["is_updated"] = false;
-			$response["message"] = "update error!";
-		}else{
-			$response["is_updated"] = true;
-			$response["message"] = "update success!";
-		}
+	public function togglePlayer( $request ){
+	
+	$response = array();
+	
+	$status = $request["user_status"];
+	$shopid = $request["user_id"];
+	
+	if($status != 0 && $status != 1){
+		$response["is_updated"] = false;
+		$response["message"] = "User_status is invalid!";
 		return  $response;
-		
 	}
+	if(!$shopid){
+		$response["is_updated"] = false;
+		$response["message"] = "user_id is invalid!";
+		return  $response;
+	}
+	$this->db->trans_start();
+	$sql = "UPDATE nham_user SET user_status = ? WHERE user_id = ?";
+	$this->db->query($sql, array((int)$status, (int)$shopid));
+	$this->db->trans_complete();
+	
+	if ($this->db->trans_status() === FALSE)
+	{
+		$response["is_updated"] = false;
+		$response["message"] = "update error!";
+	}else{
+		$response["is_updated"] = true;
+		$response["message"] = "update success!";
+	}
+	return  $response;
+	
+   }
+   public function getCountPlayer(){
+		
+		$sql = "SELECT COUNT(CASE WHEN user_status=1 THEN 1 ELSE NULL END ) as active_player,
+				COUNT(CASE WHEN user_status=0 THEN 1 ELSE NULL END ) as disactive_player,
+				COUNT(user_id) as total_player
+				FROM nham_user";
+		$query = $this->db->query($sql);
+		$player_data = $query->row();
+	
+		$response["player_data"] = $player_data;
+		
+		return $response;
+  }
 }
 ?>

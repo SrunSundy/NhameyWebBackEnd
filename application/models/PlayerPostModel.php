@@ -114,5 +114,18 @@
 		return  $response;
 		
 	}
+	public function getCountPlayerPost(){
+		
+		$sql = "SELECT COUNT(CASE WHEN post_status=1 THEN 1 ELSE NULL END ) as active_player_post,
+				COUNT(CASE WHEN post_status=0 THEN 1 ELSE NULL END ) as disactive_player_post,
+				COUNT(post_id) as total_player_post
+				FROM nham_user_post";
+		$query = $this->db->query($sql);
+		$player_post_data = $query->row();
+	
+		$response["player_post_data"] = $player_post_data;
+		
+		return $response;
+   }
 }
 ?>

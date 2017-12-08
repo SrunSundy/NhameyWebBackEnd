@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>shop list | Dernham</title>
+    <title>Shop list | Dernham</title>
  	
  	<?php include 'imports/cssimport.php' ?>
  	
@@ -179,7 +179,7 @@
                   			<div class="row">
                   				<div class="col-lg-12">
                   					<div class="row">
-                  						<p class="list-shop-total">Total Number of Shop : 500000</p>
+                  						<p class="list-shop-total">Total Number of Shop : <span id="total_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span></p>
                   					</div>
                   				</div>
                   				
@@ -189,7 +189,7 @@
                   							<div class="row">
                   								<p class="text-show-style" title="Total of disable shop">
                   									<i class="fa fa-building" style="color:#ccc;" aria-hidden="true"></i>
-                  									Disable: 500000
+                  									Disable:<span id="disable_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"> </span>
                   								</p>      
                   							</div>
                   						</div>
@@ -198,17 +198,17 @@
                   							<div class="row">
                   								<p class="text-show-style" title="Total of active shop">
                   									<i class="fa fa-building"  style="color:#dd4b39;" aria-hidden="true"></i>
-                  									Enable : 500000
+                  									Enable : <span id="enable_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span>
                   								</p>      
                   							</div>
                   						</div>
                   						
                   						<div class="col-lg-3">
                   							<div class="row">
-                  								<p class="text-show-style" title="Total photo of the shop">
-                  									<i class="fa fa-picture-o" style="color:#00BCD4" aria-hidden="true"></i>
-                  									Photo : 500000
-                  								</p>      
+                  								<p class="text-show-style" title="Total unauthorized of the shop">
+                  									<i class="fa fa-building" style="color:#FFFF8D" aria-hidden="true"></i>
+                  									unauthorized : <span id="unauthorized"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span>
+                  								</p>  
                   							</div>
                   						</div>
                   						          						

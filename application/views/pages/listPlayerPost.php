@@ -164,7 +164,7 @@
                   			<div class="row">
                   				<div class="col-lg-12">
                   					<div class="row">
-                  						<p class="list-shop-total">Total Number of Player : 500000</p>
+                  						<p class="list-shop-total">Total Number of Player : <span id="total_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span></p>
                   					</div>
                   				</div>
                   				
@@ -174,7 +174,7 @@
                   							<div class="row">
                   								<p class="text-show-style" title="Total of disable shop">
                   									<i class="fa fa-building" style="color:#ccc;" aria-hidden="true"></i>
-                  									Disable: 500000
+                  									Disable: <span id="disable_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif">
                   								</p>      
                   							</div>
                   						</div>
@@ -183,17 +183,17 @@
                   							<div class="row">
                   								<p class="text-show-style" title="Total of active shop">
                   									<i class="fa fa-building"  style="color:#dd4b39;" aria-hidden="true"></i>
-                  									Enable : 500000
+                  									Enable : <span id="enable_items"><img src="<?php echo base_url(); ?>assets/img/bars.gif"></span>
                   								</p>      
                   							</div>
                   						</div>
                   						
                   						<div class="col-lg-3">
                   							<div class="row">
-                  								<p class="text-show-style" title="Total photo of the shop">
+                  								<!--<p class="text-show-style" title="Total photo of the shop">
                   									<i class="fa fa-picture-o" style="color:#00BCD4" aria-hidden="true"></i>
                   									Photo : 500000
-                  								</p>      
+                  								</p>   -->   
                   							</div>
                   						</div>
                   						          						
@@ -444,7 +444,7 @@
 			<td>
 				<input type="hidden" value="{{= post_id}}"/>
 				<div class="img-logo-wrapper" >
-				   <img class="table-shop-img" src="http://dernham.com/user_profile/{{= user_photo}}" />
+				   <img class="table-shop-img" src="{{= addSrcLogoimg(user_photo) }}" />
 				   <span class="active-shop" style="position:absolute;top:0;right0;">
 				   </span>
 				</div>				
@@ -457,7 +457,7 @@
       
             <td>
 			   <div class="img-logo-wrapper" >
-				   <img class="table-shop-img" src="http://dernham.com/user_postimage/{{= image_src}}" />
+				   <img class="table-shop-img" src="https://storedernham.s3.amazonaws.com/uploadimages/real/post/medium/{{= image_src}}" />
 				   
 		           <span class="" style="position:absolute;top:0;right0; color:red">
 					    {{= amount_post }} 

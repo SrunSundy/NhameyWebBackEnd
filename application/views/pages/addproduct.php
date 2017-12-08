@@ -55,7 +55,7 @@
                 	<div class=" col-sm-12 nham-dropdown-wrapper">
                 	     <div class="row">
                 			<div class="selected-dropdown">
-                    		   <input id="shopname" type="text" class="form-control input-lg nham-dropdown-inputbox "  placeholder="Search branch to insert shop">
+                    		   <input id="shopname" type="text" class="form-control input-lg nham-dropdown-inputbox "  placeholder="Search shop to insert shop">
                     	       <input type="hidden" class="selectedid" id="selectedshop"/>
                     	    </div>
                     		<div class="nham-dropdown-detail"  >
@@ -112,7 +112,7 @@
 			                     <div class=" col-sm-12 nham-dropdown-wrapper">
 			                		<div class="row">
 			                			<div class="selected-dropdown">
-			                    		   <input id="tastname" type="text" class="form-control nham-dropdown-inputbox "  placeholder="Search branch to insert shop">
+			                    		   <input id="tastname" type="text" class="form-control nham-dropdown-inputbox "  placeholder="Search Product Taste">
 			                    	       <input type="hidden" class="selectedid" id="selectedtast"/>
 			                    	    </div>
 			                    		<div class="nham-dropdown-detail"  >

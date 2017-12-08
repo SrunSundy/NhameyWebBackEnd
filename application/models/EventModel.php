@@ -5,6 +5,7 @@ class EventModel extends CI_Model{
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->library('session');
 	}
 	
 	public function listEvent($request){
@@ -26,6 +27,7 @@ class EventModel extends CI_Model{
                      eve.created_date,
                      eve.status,
                      eve.shop_id,
+                     s.shop_logo,
                      s.shop_name_en,
                 	 s.shop_name_kh,
                      eve.creator_id,
@@ -54,6 +56,40 @@ class EventModel extends CI_Model{
         $response["total_record"] = $total_record;
         $response["response_data"] = $query->result();
         return $response;
+	    
+	}
+	
+	public function addEvent($request){
+	    
+	    $params = array();
+	    $sql = "INSERT INTO nham_event(
+                                shop_id, 
+                                evt_cntt, 
+                                evt_img, 
+                                created_date, 
+                                creator_id )
+                        VALUES(?,?,?,?,?) ";
+	    
+	    $current_time = new DateTime();
+	    $current_time = $current_time->format('Y-m-d H:i:s');
+	    array_push($params, $request["shop_id"] , $request["evt_cntt"], $request["evt_img"],$current_time,$_SESSION['admin_id']);
+	    
+	    return  $this->db->query($sql , $params);
+	}
+	
+	public function updateEvent($request){
+	    
+	    $params = array();
+	    $sql = "UPDATE nham_event SET 
+                  shop_id = ?,
+                  evt_cntt = ?,
+                  evt_img = ?,
+                  creator_id = ? WHERE evt_id = ? ";
+	    
+	 
+	    array_push($params, $request["shop_id"] , $request["evt_cntt"], $request["evt_img"],$_SESSION['admin_id'],$request["evt_id"]);
+	    
+	    return  $this->db->query($sql , $params);
 	    
 	}
 	

@@ -9,25 +9,23 @@ class ShopModel extends CI_Model{
 		$this->load->library('session');
 	}
 	
-	public function getshopByNameCombo($shopname , $limit, $page){
+	public function getshopByNameCombo($shopname , $limit){
 
 		
-        if($page == null) $page = 1;
-        $offset = ($limit*$page)-$limit;
-        
+
 		$sql = "SELECT shop_id,shop_logo,shop_name_en,shop_remark,shop_address FROM nham_shop
 
 				WHERE shop_name_en LIKE ? AND shop_status=1 
 
 				ORDER BY shop_id DESC 
 
-				limit ? offset ? ";
+				limit ?";
 
 		$shopname = "%".$shopname."%";
 
 		$limit = (int)$limit;
 
-		$query = $this->db->query($sql, array($shopname, $limit, $offset) );
+		$query = $this->db->query($sql, array($shopname, $limit) );
 
 		$data = $query->result();
 
@@ -35,6 +33,44 @@ class ShopModel extends CI_Model{
 
 		
 
+	}
+	
+	
+	public function listShopChoice( $request ){
+	    
+	    $page = $request["page"];
+	    $limit = $request["row"];
+	    $srch_key = $request["srch_key"];
+	    
+	    if($page == null) $page = 1;
+	    if($limit == null) $limit = 10;
+	    $offset = ($limit*$page)-$limit;
+	    
+	    $sql = "SELECT shop_id,shop_logo,shop_name_en,shop_remark,shop_address FROM nham_shop
+				WHERE (shop_name_en LIKE ? OR shop_serve_type LIKE ? OR shop_address LIKE ?  ) AND shop_status=1
+				ORDER BY shop_id DESC ";
+	    
+	    $srch_key = "%".$srch_key."%";	   
+	  
+	    $query_record = $this->db->query($sql , array($srch_key, $srch_key, $srch_key));
+	    $total_record = count($query_record->result());
+	    $total_page = $total_record / $limit;
+	    if( ($total_record % $limit) > 0){
+	        $total_page += 1;
+	    }
+	    
+	    $response["total_record"] = $total_record;
+	    $response["total_page"] = (int)$total_page;
+	    
+	    
+	    $sql .= " limit ? offset ? ";
+	    $limit = (int)$limit;
+	    $query = $this->db->query($sql, array($srch_key, $srch_key, $srch_key, $limit, $offset) );	    
+	    $data = $query->result();
+	    
+	    $response["response_data"] = $data;
+	    
+	    return $response;
 	}
 	
 	public function getShopNotComplete($shopid){
@@ -316,7 +352,20 @@ class ShopModel extends CI_Model{
 		
 		return $response;
 	}
+	public function getCountshop(){
+		
+		$sql = "SELECT COUNT(CASE WHEN shop_status=1 THEN 1 ELSE NULL END ) as active_shop,
+				COUNT(CASE WHEN shop_status=0 THEN 1 ELSE NULL END ) as disactive_shop,
+				COUNT(CASE WHEN shop_status=2 THEN 1 ELSE NULL END ) as unauthorized_shop,
+				COUNT(shop_id) as total_shop
+				FROM nham_shop";
+		$query = $this->db->query($sql);
+		$shop_data = $query->row();
 	
+		$response["shop_data"] = $shop_data;
+		
+		return $response;
+	}
 	public function listShop($setting){
 		
 		/*============ This doesn't support timezone ==============*/
@@ -1192,6 +1241,16 @@ class ShopModel extends CI_Model{
 	
 	function IsNullOrEmptyString($variable){
 		return (!isset($variable) || trim($variable)==='');
+	}
+	function getAllShop(){
+		
+		$sql = "SELECT shop_id,shop_name_en,shop_remark FROM nham_shop
+				WHERE  shop_status = 1
+				ORDER BY shop_id DESC";
+		$query = $this->db->query($sql);
+		$data = $query->result();
+		return $data;
+		
 	}
 
 }

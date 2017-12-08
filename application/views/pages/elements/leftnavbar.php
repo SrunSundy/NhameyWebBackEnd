@@ -69,7 +69,7 @@
 			</a>
 		</li>
 		<li class="treeview">
-			<a href="<?php echo base_url(); ?>MainController/sendmessage"> 
+			<a href="<?php echo base_url(); ?>MainController/advertisement"> 
 				<i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Advert Management</span>
 			</a>		
 		</li>
