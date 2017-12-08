@@ -66,7 +66,12 @@ class ShopRestController extends CI_Controller{
 		echo $json;
 	
 	}
-	
+	public function getCountshop(){
+
+		$response = $this->ShopModel->getCountshop();
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+	}
 	public function getShopNotComplete($shop_id){
 		
 		$shop_id  = urlencode($shop_id);
@@ -100,10 +105,31 @@ class ShopRestController extends CI_Controller{
 		$limit = $this->input->get('limit');
 		if($limit == null)
 			$limit = 10;
-			$data = $this->ShopModel->getshopByNameCombo($shopname , $limit);		
-			$json = json_encode($data);		
-			echo $json;	
+		if($page == null)
+		    $page = 1;
+		$data = $this->ShopModel->getshopByNameCombo($shopname , $limit);		
+		$json = json_encode($data);		
+		echo $json;	
 			
+	}	
+	
+	public function getShopByChoice(){
+	    
+	    $srch_key = $this->input->get('srch_key');
+	    $limit = $this->input->get('row');
+	    $page = $this->input->get('page');
+	    if($limit == null)
+	        $limit = 10;
+        if($page == null)
+            $page = 1;
+        
+        $request["page"] = $page;
+        $request["row"] = $limit;
+        $request["srch_key"] = $srch_key;
+        $data = $this->ShopModel->listShopChoice($request);
+        $json = json_encode($data);
+        echo $json;
+	            
 	}	
 	
 	public function insertShop(){
@@ -275,6 +301,12 @@ class ShopRestController extends CI_Controller{
 		$response = $this->ShopModel->updateShopWorkingTime($shopdata);
 		echo json_encode($response);
 		
+	}
+	public function getAllshop(){
+		
+		$data = $this->ShopModel->getAllshop();
+		$json = json_encode($data);
+		echo $json;
 	}
 }
 ?>

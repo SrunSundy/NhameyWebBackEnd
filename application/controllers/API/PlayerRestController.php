@@ -25,7 +25,12 @@ class PlayerRestController extends CI_Controller{
 		echo $json;
 	}
 
+    public function getCountPlayer(){
 
+		$response = $this->PlayerModel->getCountPlayer();
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+	}
 
 	
 	public function togglePlayer(){

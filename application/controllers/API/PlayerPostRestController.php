@@ -23,8 +23,7 @@ class PlayerPostRestController extends CI_Controller{
 		$json = json_encode($response, JSON_PRETTY_PRINT);
 		echo $json;
 	}
-
-
+   
 
 	
 	public function togglePlayerPost(){
@@ -45,7 +44,12 @@ class PlayerPostRestController extends CI_Controller{
 		echo $json;  
 	}
 	
+    public function getCountPlayerPost(){
 
+		$response = $this->PlayerPostModel->getCountPlayerPost();
+		$json = json_encode($response, JSON_PRETTY_PRINT);
+		echo $json;
+	}
 	
 
 	

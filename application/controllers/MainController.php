@@ -45,6 +45,10 @@
 		    $this->load->view('pages/event');
 		}
 		
+		public function advertisement(){
+		    $this->load->view('pages/advertisement');
+		}
+		
 		public function post(){
 			$this->load->view('pages/post');
 		}
@@ -83,7 +87,13 @@
 			
 			$this->load->view('pages/upsh_information', $data);
 		}
-		
+		public function updatepro_information($product_id = null){
+			
+			$product_id  = urlencode($product_id);
+			$data["product_id"] = $product_id;
+			
+			$this->load->view('pages/uppro_information', $data);
+		}
 		public function updateshop_photo($shopid = null){
 			
 			$shopid  = urlencode($shopid);
@@ -142,7 +152,42 @@
 			$this->load->view('pages/updateshop', $data);
 			
 		}
+		public function updateproduct($product_id = null){
+			
+			$product_id  = urlencode($product_id);
+			$this->load->model('ProductModel');
+			$response = $this->ProductModel->getDefaultProduct($product_id);
+			if(count($response) <= 0){
+				redirect('/MainController/listproduct', 'refresh');
+			}
+			/* $shopid  = urlencode($shopid);
+			if(!$shopid){
+				$shopid =50;
+				 redirect('/MainController/addshop', 'refresh'); 
+			}
+					
+			$data["shopid"] = $shopid;
+		 	if(isset($tab)) $this->load->view('pages/upsh_'.$tab , $data);
+			else $this->load->view('pages/upsh_overview', $data);  */
+			$data["product_id"] = $product_id;
+			$data["shop_name_en"] = $response[0]->pro_name_en;
+			$data["shop_name_kh"] = $response[0]->pro_name_kh;
+		    $data["shop_logo"] = $response[0]->pro_image;
+		/*	$data["shop_cover"] = $response[0]->shop_cover;
+			$data["shop_status"] = $response[0]->shop_status;
+			$data["is_shop_open"] = $response[0]->is_shop_open;
+			$data["time_to_close"] = $response[0]->time_to_close;
+			$data["time_to_open"] = $response[0]->time_to_open;
+			$data["shop_opening_time"] = $response[0]->shop_opening_time;
+			$data["shop_close_time"] = $response[0]->shop_close_time;
+			$data["data_complete"] = $response[0]->data_complete;
+			$data["number_data_complete"] = $response[0]->number_data_complete;
+			$data["must_data_complete"] = $response[0]->must_data_complete;	
+		*/
+			$this->load->view('pages/updateproduct', $data);
 		
+			
+		}
 		public function addshopaddress(){
 			$this->load->view('pages/addshopaddress');
 		}

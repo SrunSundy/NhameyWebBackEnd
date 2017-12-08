@@ -42,7 +42,14 @@ class ServeCategoryRestController extends CI_Controller{
 		echo $json;
 		
 	}
-	
+	public function getServeCategoryByProId($proid){
+		
+		$proid  = urlencode($proid);
+		$data = $this->ServeCategoryModel->getServeCategoryByProId($proid);
+		$json = json_encode($data);
+		echo $json;
+		
+	}
 	public function insertServeCategory(){
 	
 		$servecategorydata = json_decode($this->input->raw_input_stream,true);

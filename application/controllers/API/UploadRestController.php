@@ -317,6 +317,101 @@ class UploadRestController extends CI_Controller{
 		
 	}
 	
+	public function uploadEventImage(){
+	    $response = array();
+	    if ( ! empty($_FILES))
+	    {
+	        $cropdata = $_POST["json"];
+	        $cropdata = json_decode($cropdata);
+	        $img_w = (int)$cropdata->img_w;
+	        
+	        $new_name = "event_".$this->generateRandomString(20).".jpg";
+	        $target_small_dir = UPLOAD_FILE_PATH."/uploadimages/real/event/small/";
+	        $target_medium_dir =  UPLOAD_FILE_PATH."/uploadimages/real/event/medium/";
+	        $target_big_dir =  UPLOAD_FILE_PATH."/uploadimages/real/event/big/";
+	        $target_big_nocrop_dir =  UPLOAD_FILE_PATH."/uploadimages/real/event/big-nocrop/";
+	        
+	        
+	        $checkdirectory_small = $this->checkDirectory($target_small_dir);
+	        $checkdirectory_medium = $this->checkDirectory($target_medium_dir);
+	        $checkdirectory_big = $this->checkDirectory($target_big_dir);
+	        $checkdirectory_bignocrop = $this->checkDirectory($target_big_nocrop_dir);
+	        $allowfiletype = $this->allowImageType(array("image/JPG","image/jpg","image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
+	        $allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
+	        //$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
+	        //$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
+	        $allowmincrop = $this->allowImageMinimumDimensionCrop(640, 200, $cropdata);
+	        
+	        $permission = array();
+	        array_push($permission ,
+	            $checkdirectory_small,
+	            $checkdirectory_medium,
+	            $checkdirectory_big,
+	            $checkdirectory_bignocrop,
+	            $allowfiletype,
+	            $allowsize,
+	            $allowmincrop
+	            //$allowmindimension,
+	            //$allowmaxdimension
+	            );
+	        $check = $this->checkPermission($permission);
+	        
+	        $message = $check["message"];
+	        $uploadok =  $check["error"];
+	        if ($uploadok) {
+	            $message = " File can not be uploaded.".$message;
+	            $response['is_upload']= false;
+	            $response["message"] = $message;
+	        } else {
+	            
+	            $isuploadimg = array();
+	            //$big = $this->resizeImage($target_big_dir.$new_name,$_FILES["file"]["tmp_name"],0.5,50);
+	            $big_crop = 960;
+	            if($img_w < 960){
+	                $big_crop = $img_w;
+	            }
+	            
+	            $big_nocrop = 960;
+	            list($width, $height) = getimagesize($_FILES["file"]["tmp_name"]);
+	            if($width < 960){
+	                
+	                if($width > $height)
+	                    $big_nocrop = $width;
+	                    else
+	                        $big_nocrop = $height;
+	            }
+	            $big_nocrop_source = $this->resizeImageFixpixel($target_big_nocrop_dir.$new_name , $_FILES["file"]["tmp_name"] , $big_nocrop , 80);
+	            $big = $this->resizeImageFixpixelAndCrop($target_big_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, $big_crop, 80);
+	            /* $small = $this->resizeImage($target_small_dir.$new_name,$_FILES["file"]["tmp_name"],0.2,50); */
+	            $medium = $this->resizeImageFixpixelAndCrop($target_medium_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 520, 80);
+	            $small = $this->resizeImageFixpixelAndCrop($target_small_dir.$new_name, $_FILES["file"]["tmp_name"] , $cropdata, 210, 80);
+	            $errorupload = false;
+	            array_push($isuploadimg,$big_nocrop_source, $big, $medium, $small);
+	            for($i=0 ; $i<count($isuploadimg); $i++){
+	                if(!$isuploadimg[$i]){
+	                    $errorupload = true;
+	                    break;
+	                }
+	            }
+	            if($errorupload){
+	                $message = "There was an error uploading your file.";
+	                $response['is_upload']= false;
+	                $response["message"] = $message;
+	            }else{
+	                $response['is_upload'] = true;
+	                $response['message'] =" File upload successfully!";
+	                $response['filename'] = $new_name;
+	            }
+	            
+	        }
+	    }else{
+	        $response['is_upload']= false;
+	        $response["message"] = "No File!";
+	    }
+	    $json = json_encode($response);
+	    echo $json;
+	}
+	
 	public function shopImageDetailUpload(){
 		
 	/* 	if ( ! empty($_FILES))
@@ -727,6 +822,48 @@ class UploadRestController extends CI_Controller{
 		}
 		$json = json_encode($response);
 		echo $json;
+	}
+	
+	public function removeEvent(){
+	    
+	    
+	    $IMG_NAME = $this->input->post('IMG_NAME');
+	    $targetfile_small = UPLOAD_FILE_PATH."/uploadimages/real/event/small/".$IMG_NAME;
+	    $targetfile_medium = UPLOAD_FILE_PATH."/uploadimages/real/event/medium/".$IMG_NAME;
+	    $targetfile_big = UPLOAD_FILE_PATH."/uploadimages/real/event/big/".$IMG_NAME;
+	    $targetfile_bignocrop = UPLOAD_FILE_PATH."/uploadimages/real/event/big-nocrop/".$IMG_NAME;
+	    
+	    $response = array();
+	    if(file_exists($targetfile_small)){
+	        unlink($targetfile_small);
+	        $response['message'] ="File is removed";
+	   }else{
+	        $response['message'] ="File not found";
+	    }
+	    
+	    if(file_exists($targetfile_medium)){
+	        unlink($targetfile_medium);
+	        $response['message'] ="File is removed";
+	    }else{
+	        $response['message'] ="File not found";
+	    }
+	    
+	    if(file_exists($targetfile_big)){
+	        unlink($targetfile_big);
+	        $response['message'] ="File is removed";
+	    }else{
+	        $response['message'] ="File not found";
+	    }
+	    
+	    if(file_exists($targetfile_bignocrop)){
+	        unlink($targetfile_bignocrop);
+	        $response['message'] ="File is removed";
+	    }else{
+	        $response['message'] ="File not found";
+	    }
+	    
+	    $json = json_encode($response);
+	    echo $json;
 	}
 	
 	public function removeShopSingleImage(){
