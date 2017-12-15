@@ -311,7 +311,8 @@
              				<div class="form-group">
     		                     <label>Type</label>
     		                     	<select id="advert-type" class="form-control">
-                	              		<option></option>
+                	              		<option value="1">1</option>
+										
                 	              	</select>
     		                 </div>
     		                 
@@ -361,14 +362,14 @@
 	                    
 	                    <div class="form-group">
 		                     <label>Sponsor</label>
-		                     <input id="advert-title" class="form-control" />
+		                     <input id="advert-sponsor" class="form-control" />
 		                 </div>
              				 
 	                    
                 		<div class="row" style="padding-left: 10px">
                 			 <div class="form-group">
 			                     <label>Description</label>
-			                     <textarea id="event_cntt" class="form-control" rows="3" placeholder="describe what the event is all about" style="resize:none;height: 272px;"></textarea>
+			                     <textarea id="advert-description" class="form-control" rows="3" placeholder="describe what the event is all about" style="resize:none;height: 272px;"></textarea>
 			                  </div>
 			                  
                 		</div>
@@ -379,7 +380,7 @@
 	             </div>
 	             <div class="modal-footer">
 	                 <button type="button" id="belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
-	               	<button type="button" id="saveEvent" class="btn nham-btn btn-danger">Save</button>
+	               	<button type="button" id="saveDataBtn" class="btn nham-btn btn-danger">Save</button>
 	             </div>
 	         </div><!-- /.modal-content -->
 	     </div><!-- /.modal-dialog -->
@@ -437,7 +438,97 @@
 	 <button type="button" id="btnListShop" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#listShopModal">Open Modal</button>	
 	
 	<!--end list of shop -->
+	 <!-- cover upload modal -->
+	<div class="modal fade" id="coverModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			
+				<div class="nham-modal-header">
+					<button type="button" id="coverformclose" class="close btn-close"
+						data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<p class="nham-modal-title">
+						<i class="fa fa-picture-o" aria-hidden="true"></i><span>Upload Image</span>
+					</p>
+				</div>
+				
+				<div class="nham-modal-body">
+					<div class="photo-browse-box" align="center">
+						<div class="photo-upload-info"  >
+							<p class="text-upload-info">
+							  	<span>Browse Photo </span>
+							 </p>  
+						</div>
+						
+						<!-- fake on -->	
+						<div class="trigger-photo-browse" id="trigger-cover-browse"></div>
+						<!-- end fake on -->
+					</div>			
+					<input type='file' id="uploadcover" style="display:none" accept="image/*"/>
+					<div class="upload-photo-box" id="cover-upload-box">					
+						<div class="photo-upload-wrapper" align="center" id="display-cover-upload" >
+							<div class="photo-upload-info-2" >
+							 	<i class="fa fa-picture-o" aria-hidden="true"></i>
+							</div>					  	        		
+				        </div>
+				         				        			        
+				        <!-- fake on -->			        
+				        <div class="photo-upload-loading" id="cover-upload-loading" align="center">
+				        	<div class="photo-upload-progress-box">
+				        		<div id="cover-upload-progress" 
+				        		 	class="progress-bar progress-bar-danger progress-bar-striped" 
+				        		 	role="progressbar" aria-valuenow="60" 
+				        		 	aria-valuemin="0" 
+				        		 	aria-valuemax="100" style="height:10px;">					                      
+								</div>
+				        	</div>
+				        	
+							<div style="width: 100%;">
+								<p id="cover-upload-percentage" class="photo-upload-percentage">0%</p>
+								<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+							</div>
+				        	
+				        </div>
+				        <div class="photo-fail-remove" id="cover-fail-remove">
+				        	<i class="fa fa-times" id="cover-fail-event" aria-hidden="true"></i>
+				        </div>			      
+				        <!-- end fake on -->
+					</div>
+					<!-- <div class="photo-description-box" id="cover-description-box">
+						<textarea rows="" id="cover_description" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+					</div> -->
+					
+					<div class="photo-btncrop-box" id="cover-btncrop-box">
+						<button type="button" id="cover-crop-btn" class="btn btn-crop">Crop image</button>
+						<button type="button" id="cover-save-btn" class="btn photo-save-btn btn-danger">Save</button>
+					</div>
+				</div>
+				
+				<div class="nham-modal-footer">
+					
+				</div>			
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<button type="button" id="openCoverModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#coverModal">Open Modal</button>		                    	
+	<!-- cover upload modal -->
   </body>
+  
+   <script type="text/javascript">
+	    jQuery.browser = {};
+	    (function () {
+	        jQuery.browser.msie = false;
+	        jQuery.browser.version = 0;
+	        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	            jQuery.browser.msie = true;
+	            jQuery.browser.version = RegExp.$1;
+	        }
+	    })();
+	</script>
+  <script src="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.js"></script>
    <script id="display-table" type="text/x-jQuery-tmpl">
 		<tr>					
 			<td class="evt_img">
@@ -525,6 +616,11 @@
 	var pageShNum = 1;
 	var totalShPage = 1
 	var srchShKey = "";
+
+	var shopIdIn = "";
+	var shopNameIn = "";
+	var shopLogoIn = "";
+
 	
     listAdvert();
 	function listAdvert(){
@@ -654,6 +750,36 @@
 		}
 	});
 
+	$("#saveDataBtn").on("click", function(){
+		saveAdvert();
+	});
+
+	function saveAdvert(){
+
+		$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/AdvertisementRestController/addadvertisement",
+			contentType : "application/json",
+			data :  JSON.stringify({
+				"request_data" : {
+					"type"    : $("#advert-type").val(),
+					"title"   : $("#advert-title").val(),
+					"description" : $("#advert-description").val(),
+					"image"	  : coverimagename,		
+					"shop_id" : shopIdIn,
+					"sponsor_name" : $("#advert-sponsor").val()
+				}					
+			}),
+			success : function(data){
+				$('#shopFacilityModal').modal('hide');
+				pageNum = 1;
+				 listAdvert();
+				
+			}
+		});
+	}
+		
+
 
 	var process = false;
 	function listShop(scroll){
@@ -774,6 +900,231 @@
 
 
 
+	/*===================== upload cover event =============================*/
+	var coverimagename = "";
+	var backuprealcoverimage;
+	var img_x = 0;
+	var img_y = 0;
+	var img_w = 0;
+	var img_h = 0;
+
+	$("#cover-open-modal").on("click", function(){
+		$("#openCoverModel").click();
+	});
+
+	$("#trigger-cover-browse").on("click",function(){
+		
+		$("#uploadcover").click();
+	});
+
+	$("#uploadcover").on("change", function(){	
+		uploadCover(this);
+	});
+
+	$("#cover-fail-event").on("click" , function(){
+		coverimagename = "";
+		$("#uploadcover").val(null);
+		$(this).parent().hide();
+		
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		$('#display-cover-upload').html(txt);
+	});
+
+	$("#coverformclose").on("click", function(){
+		
+		if(coverimagename) {
+			var txt  = '<div class="photo-upload-info-2" >';
+				txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+				txt	+= '</div>';
+			//$("#cover-description").val("");
+			$('#display-cover-upload').html(txt);
+			//$("#cover-description-box").hide();
+			$("#cover-btncrop-box").hide();
+			removeCoverImageFromServer().success(function(data){
+				coverimagename = "";
+				$("#uploadcover").val(null);
+			});				  
+		}
+		
+	});
+
+	$("#cover-crop-btn").on("click", function(){
+		
+		upoloadCoverToServer();
+		$(this).hide();
+		
+	});
+
+	$("#cover-save-btn").on("click", function(){
+		
+		$('#coverModal').modal('hide');
+		$("#cover_description").show();	  
+		$("#cover-upload-remove-fake").show();
+		$("#cover-upload-remove").show();
+		var myimg  ='<img  class="upload-shop-img"'; 
+			myimg +='src="'+$("#dis_img_path").val()+'/uploadimages/real/event/medium/'+coverimagename+'" alt="your image" />';
+	    $('#cover-display-wrapper').html(myimg);
+	    var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		$('#display-cover-upload').html(txt);
+		$("#cover-btncrop-box").hide();
+	   // coverimagename = "";
+		//$("#uploadcover").val(null);
+	});
+
+	$("#cover-upload-remove-icon").on("click", function(){
+		
+		$(this).parent().hide();	
+		 var txt  = '<label class="gray-image-plus">';
+		 	 txt += '<i class="fa fa-plus"></i>';
+		 	 txt += '</label>';
+		 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>';
+		 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
+		$(this).parent().siblings(".photo-display-wrapper").html(txt);
+		$(this).parent().siblings(".photo-remove-loading").show();
+		
+		$("#cover-upload-remove-fake").hide();
+		$("#cover-remove-loading").hide();
+		$("#cover_description").hide();
+		removeCoverImageFromServer().success(function(data){
+			
+			coverimagename = "";		
+			$("#uploadcover").val(null);
+		});	
+	});
+
+	function uploadCover(input) {
+			
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+	 		reader.onload = function (e) { 
+	 			
+	 			if(coverimagename) {
+	 				removeCoverImageFromServer().success(function(data){
+	 					coverimagename = "";
+	 				});				  
+	 			}
+	 			$("#cover-crop-btn").show();
+	 			$("#cover-save-btn").hide();
+	 			//$("#cover-description-box").hide();
+		 		var image = new Image();
+				image.src = e.target.result;			
+				image.onload = function () {
+					var height = this.height;
+					var width = this.width;
+		 			  $("#cover-btncrop-box").show();
+		 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="cropcover" alt="your image" />';
+				      $('#display-cover-upload').html(myimg);
+				      $('#cropcover').Jcrop({
+				    	   aspectRatio: 16 / 10,
+				    	   onSelect: updateCoords,
+				    	   onChange: updateCoords,
+				    	   setSelect: [0,0,110,110],
+				    	   trueSize: [width,height]
+				   	 });			           	
+				  
+				     backuprealcoverimage = $("#uploadcover")[0].files[0];
+				}			
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	function updateCoords(c){
+		img_x = c.x;
+		img_y = c.y;
+		img_w = c.w;
+		img_h = c.h;
+	}
+
+	function getCropImgData(){
+		var crop_img_data = {		
+			"img_x" : img_x,
+			"img_y" : img_y,
+			"img_w" : img_w,
+			"img_h" : img_h						
+		};
+		return crop_img_data;	
+	}
+
+	function removeCoverImageFromServer(){
+
+		return $.ajax({
+			url : $("#base_url").val()+"API/UploadRestController/removeAdvertisement",
+			type: "POST",
+			data : {
+				"IMG_NAME": coverimagename
+			}
+		});	
+	}
+
+	function upoloadCoverToServer(){
+		//var inputFile = $("#uploadcover");
+		$("#cover-upload-progress").css({width:"0%"});
+		$("#cover-upload-percentage").html(0);
+		$("#cover-upload-loading").show();
+		var fileToUpload = backuprealcoverimage;
+		
+		if(fileToUpload != 'undefined'){
+
+			var formData = new FormData();
+			formData.append("file",  fileToUpload);
+			formData.append("json", JSON.stringify(getCropImgData()));
+			
+			$.ajax({
+				url: $("#base_url").val()+"API/UploadRestController/uploadAdvertImage",
+				type: "POST",
+				data : formData,
+				processData : false,
+				contentType : false,
+				success: function(data){
+					
+					data = JSON.parse(data);
+					
+					if(data.is_upload == false){
+						swal({
+							 title: "Upload Error!",
+						     text: data.message,
+						     html: true,
+						     type: "error",
+						    			     
+						 });
+						coverimagename = "";
+						$("#cover-fail-remove").show();
+						//$("#cover-description-box").hide();
+						$("#cover-btncrop-box").hide();
+					}else{
+						$("#cover-save-btn").show();
+						//$("#cover-description-box").show();
+						coverimagename = data.filename;
+						var uploadedimg ='<img  class="photo-upload-output" ' 
+							+'src="'+$("#dis_img_path").val()+'/uploadimages/real/event/big/'+coverimagename+'"  '
+							+'alt="your image" />';
+						$('#display-cover-upload').html(uploadedimg);
+						
+					}
+					$("#cover-upload-loading").hide();				
+				},
+				xhr: function() {
+					var xhr = new XMLHttpRequest();
+					xhr.upload.addEventListener("progress", function(event) {
+						if (event.lengthComputable) {
+							var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+							
+							$("#cover-upload-progress").css({width: percentComplete+"%"});
+							$("#cover-upload-percentage").html(percentComplete+"%");
+						};
+					}, false);
+					return xhr;
+				}
+			});
+		} 
+	}
+
+	/*===================== end upload cover event =========================*/
 
 
 	(function($){
