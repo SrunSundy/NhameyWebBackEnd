@@ -1,5 +1,5 @@
 <?php
-class EventModel extends CI_Model{
+class AdvertisementModel extends CI_Model{
     
     function __construct()
     {
@@ -20,7 +20,7 @@ class EventModel extends CI_Model{
         
         $params = array();
         
-        $sql = "SELECT 
+        $sql = "SELECT a.id,
                 	a.title,
                 	a.description,
                 	a.image,
@@ -33,9 +33,13 @@ class EventModel extends CI_Model{
                     a.type
                 FROM nham_advertisement a
                 LEFT JOIN nham_shop sh ON a.shop_id = sh.shop_id 
-                WHERE a.sponsor_name LIKE ? ";
+                WHERE 1=1 ";
         
-        array_push($params, "%".$whole_search."%" );
+        if(isset($whole_search) && $whole_search != ""){
+            $sql .= " AND a.sponsor_name LIKE ?  ";
+            array_push($params, "%".$whole_search."%" );
+        }
+       
         if(isset($request["type"])){
             $sql .= " AND a.type = ? ";
             array_push($params, $request["type"] );
@@ -48,7 +52,7 @@ class EventModel extends CI_Model{
             $total_page += 1;
         }
         
-        $sql .=" ORDER BY eve.evt_id DESC LIMIT ? OFFSET ? ";
+        $sql .=" ORDER BY a.id DESC LIMIT ? OFFSET ? ";
         
         array_push($params, $row ,$offset);
         $query = $this->db->query($sql , $params);
@@ -57,6 +61,37 @@ class EventModel extends CI_Model{
         $response["total_record"] = $total_record;
         $response["response_data"] = $query->result();
         return $response;
+        
+    }
+    
+    public function addAdvertisement($request){
+        
+        $params = array();
+        $sql = "INSERT INTO nham_advertisement(
+                                title,
+                                description,
+                                image,
+                                type,
+                                shop_id,
+                                sponsor_name,
+                                created_date,
+                                admin_id )
+                        VALUES(?,?,?,?,?,?,?,?) ";
+        
+        $current_time = new DateTime();
+        $current_time = $current_time->format('Y-m-d H:i:s');
+        array_push($params, $request["title"] , $request["description"], $request["image"],
+                    $request["type"] , $request["shop_id"], $request["sponsor_name"],
+                    $current_time,$_SESSION['admin_id']);
+        
+        return  $this->db->query($sql , $params);
+        
+    }
+    
+    public function toggleStatus($request){
+        
+        $sql = " UPDATE nham_advertisement SET status = ? WHERE id = ? ";
+        return $this->db->query($sql, array((int)$request["status"], (int)$request["id"]));
         
     }
     
