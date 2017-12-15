@@ -5,7 +5,7 @@
 	    };	
 	    				
 	    loadShopDataToTable();
-	   
+	    getCountPlayer();
 	    $(document).ready(function(){
 	    	
 	    	$(".category-option").select2({ placeholder: "Select a serve category"});
@@ -25,7 +25,26 @@
 	    	    return false;    //<---- Add this line
 	    	}
 	    });
+		function getCountPlayer(){
 
+	    	$.ajax({
+	    		type : "GET",
+	    		url : $("#base_url").val()+"API/PlayerRestController/getCountPlayer",
+	  
+	    		success : function(data){
+
+	    			data = JSON.parse(data);
+		    		$("#disable_items").html(data.player_data.disactive_player);
+					$("#enable_items").html(data.player_data.active_player);
+					$("#total_items").html(data.player_data.total_player);
+					///$("#unauthorized").html(data.shop_data.unauthorized_shop);
+			
+	    			   			    			
+	    		}
+		
+	    	});
+
+		}
 	    function loadShopDataToTable(){
 
 	    	progressbar.start();

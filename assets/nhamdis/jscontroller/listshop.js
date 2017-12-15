@@ -5,7 +5,7 @@
 	    };	
 	    				
 	    loadShopDataToTable();
-	   
+	    getCountshop();
 	    $(document).ready(function(){
 	    	
 	    	$(".category-option").select2({ placeholder: "Select a serve category"});
@@ -25,7 +25,26 @@
 	    	    return false;    //<---- Add this line
 	    	}
 	    });
+		    function getCountshop(){
 
+	    	$.ajax({
+	    		type : "GET",
+	    		url : $("#base_url").val()+"API/ShopRestController/getCountshop",
+	  
+	    		success : function(data){
+
+	    			data = JSON.parse(data);
+		    		$("#disable_items").html(data.shop_data.disactive_shop);
+					$("#enable_items").html(data.shop_data.active_shop);
+					$("#total_items").html(data.shop_data.total_shop);
+					$("#unauthorized").html(data.shop_data.unauthorized_shop);
+			
+	    			   			    			
+	    		}
+		
+	    	});
+
+		}
 	    function loadShopDataToTable(){
 
 	    	progressbar.start();

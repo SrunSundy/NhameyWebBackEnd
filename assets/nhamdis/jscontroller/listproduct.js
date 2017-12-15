@@ -5,7 +5,7 @@
 	    };	
 	    				
 	    loadShopDataToTable();
-	   
+	    getCountProduct();
 	    $(document).ready(function(){
 	    	
 	    	$(".category-option").select2({ placeholder: "Select a serve category"});
@@ -25,7 +25,26 @@
 	    	    return false;    //<---- Add this line
 	    	}
 	    });
+		function getCountProduct(){
 
+	    	$.ajax({
+	    		type : "GET",
+	    		url : $("#base_url").val()+"API/ProductRestController/getCountProduct",
+	  
+	    		success : function(data){
+
+	    			data = JSON.parse(data);
+		    		$("#disable_items").html(data.product_data.disactive_product);
+					$("#enable_items").html(data.product_data.active_product);
+					$("#total_items").html(data.product_data.total_product);
+					///$("#unauthorized").html(data.shop_data.unauthorized_shop);
+			
+	    			   			    			
+	    		}
+		
+	    	});
+
+		}
 	    function loadShopDataToTable(){
 
 	    	progressbar.start();
@@ -216,7 +235,7 @@
 		$(document).on("click", ".shop-edit", function(){
 
 			var shopid = $(this).parents("tr").children("td").eq(0).find("input").val();
-			location.href= $("#base_url").val()+"MainController/updateshop/"+shopid;	
+			location.href= $("#base_url").val()+"MainController/updateproduct/"+shopid;	
 		});
 		
 		$('#pagi-display').bootpag().on("page", function(event, /* page number here */ num){
