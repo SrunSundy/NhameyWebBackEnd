@@ -27,6 +27,7 @@ class AdvertisementModel extends CI_Model{
                 	a.shop_id,
                     sh.shop_name_en,
                     sh.shop_name_kh,
+                    sh.shop_logo,
                     a.sponsor_name,
                     a.created_date,
                     a.status,
@@ -86,6 +87,21 @@ class AdvertisementModel extends CI_Model{
         
         return  $this->db->query($sql , $params);
         
+    }
+    
+    public function updateAdvert($request){
+        $params = array();
+        $sql = "UPDATE nham_advertisement SET title= ?,
+                       description=? ,
+                       image=? ,
+                       type = ?,
+                       shop_id = ?,
+                       sponsor_name = ?,
+                       admin_id = ? WHERE id = ? ";
+        array_push($params, $request["title"] , $request["description"], $request["image"],
+            $request["type"] , $request["shop_id"], $request["sponsor_name"],$_SESSION['admin_id'], $request["id"]);
+        
+        return  $this->db->query($sql , $params);
     }
     
     public function toggleStatus($request){
