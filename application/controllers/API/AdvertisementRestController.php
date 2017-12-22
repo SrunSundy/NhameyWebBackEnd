@@ -66,6 +66,49 @@ class AdvertisementRestController extends CI_Controller{
         echo $json;
     }
     
+    public function updateadvert(){
+        $request = json_decode($this->input->raw_input_stream,true);
+        
+        if(!isset($request["request_data"])){
+            $response["response_code"] = "000";
+            $response["response_msg"] = "bad request";
+            
+            echo json_encode($response,  JSON_PRETTY_PRINT);
+            die();
+        }
+        
+        $request = $request["request_data"];
+        
+        if(!isset($request["id"])){
+            $response["response_code"] = "000";
+            $response["response_msg"] = "id is required!";
+            
+            echo json_encode($response,  JSON_PRETTY_PRINT);
+            die();
+        }
+        
+     
+        if(!isset($request["image"])){
+            $response["response_code"] = "000";
+            $response["response_msg"] = "evt_img is required!";
+            
+            echo json_encode($response,  JSON_PRETTY_PRINT);
+            die();
+        }
+        
+        
+        $response = array();
+        if($this->AdvertisementModel->updateAdvert($request)){
+            $response["response_code"] = "200";
+            $response["response_msg"] = "update successfully!";
+        }else{
+            $response["response_code"] = "000";
+            $response["response_msg"] = "update failed!";
+        }
+        $json = json_encode($response, JSON_PRETTY_PRINT);
+        echo $json;
+    }
+    
     public function togglestatus(){
         
         $request = json_decode($this->input->raw_input_stream,true);
