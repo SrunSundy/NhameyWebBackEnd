@@ -123,15 +123,15 @@
   	
   	
   	@media screen and (min-width: 768px) {
-       #shopFacilityModal .modal-dialog {
+       #shopFacilityModal .modal-dialog, #updateDataModal .modal-dialog {
           width: 800px; /* New width for default modal */
         }
-       #shopFacilityModal .modal-sm {
+       #shopFacilityModal .modal-sm, #updateDataModal .modal-sm{
           width: 350px; /* New width for small modal */
         }
     }
     @media screen and (min-width: 992px) {
-       #shopFacilityModal .modal-lg {
+       #shopFacilityModal .modal-lg, #updateDataModal .modal-lg{
           width: 950px; /* New width for large modal */
         }
     }
@@ -293,6 +293,98 @@
    
     <?php include 'imports/scriptimport.php'; ?>
     
+	<!-- update event popup -->
+ <div class="modal fade" id="updateDataModal" role="dialog">
+	     <div class="modal-dialog" >
+	         <div class="modal-content">
+	             <div class="modal-header">
+	                <button type="button" id="shopfacilityclose" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title pop-title" style="font-weight:bold;"><i class="fa fa-th-large" aria-hidden="true" style="padding-right: 10px;"></i>Update Advertisement</h4>
+	             </div>
+	             <div class="modal-body">
+	              	
+             		 <div class="col-lg-6">
+             			<div class="row">
+             			
+             				<div class="form-group">
+    		                     <label>Type</label>
+    		                     	<select id="u_advert-type" class="form-control">
+                	              		<option value="1">1</option>
+										
+                	              	</select>
+    		                 </div>
+    		                 
+    		                 <div class="form-group">
+    		                     <label>Title</label>
+    		                     <input id="u_advert-title" class="form-control" />
+    		                 </div>
+             				 
+
+			                  <div  class="form-group">
+								<label>Image</label>
+								<div class="col-lg-12 photo-browsing-wrapper" align="center">
+									<div class="row">
+										<div class="col-lg-12" align="center"  style="position:relative;">												                     		                  		                    	  					                    
+					                    	<div class="photo-display-wrapper" style="width:67%;min-height:180px;" id="u_cover-display-wrapper">
+					                    		<label class="gray-image-plus"><i class="fa fa-plus"></i></label>
+					                    		<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add image </p>
+					                    	</div> 
+											
+											<!-- fake on -->
+											<div class="photo-open-modal" id="u_cover-open-modal"></div>
+											<div class="photo-upload-remove-fake" id="u_cover-upload-remove-fake"></div>
+											<div class="photo-upload-remove" id="u_cover-upload-remove">
+												<i id="u_cover-upload-remove-icon" class="fa fa-trash" aria-hidden="true"></i>	
+											</div>
+											<div class="photo-remove-loading" id="u_cover-remove-loading" align="center">
+												<img class="loading-inside-box" 
+													src="<?php echo base_url() ?>/assets/nhamdis/img/ringsmall.svg"  />	
+											</div>
+											<!-- end fake on -->														                    	  		                    	  		                    	  
+										</div>
+										<!-- <textarea rows="" placeholder="have your word about this..." id="cover_description"  class="nham_description"  cols=""></textarea> -->
+									</div>
+								</div>						
+							</div>
+             			</div>
+                		 
+                	</div>
+                	
+                	<div class="col-lg-6">
+                			
+                		<div class="form-group">
+		                     <label>Shop Name</label>
+		                     <div id="u_shop_name_to_put" style="width: 100%; height: 35px; border: 1px solid #e4e4e4; cursor:pointer">    		
+		                     </div>
+	                    </div>
+	                    
+	                    <div class="form-group">
+		                     <label>Sponsor</label>
+		                     <input id="u_advert-sponsor" class="form-control" />
+		                 </div>
+             				 
+	                    
+                		<div class="row" style="padding-left: 10px">
+                			 <div class="form-group">
+			                     <label>Description</label>
+			                     <textarea id="u_advert-description" class="form-control" rows="3" placeholder="describe what the event is all about" style="resize:none;height: 272px;"></textarea>
+			                  </div>
+			                  
+                		</div>
+                	</div>
+                	<div style="clear:both;"></div>
+	                	
+	                	
+	             </div>
+	             <div class="modal-footer">
+	                 <button type="button" id="u_belowcloseshopfacility" class="btn btn-default pull-left" style="display:none;" data-dismiss="modal">Close</button>
+	               	<button type="button" id="updateAdvert" class="btn nham-btn btn-danger">Update</button>
+	             </div>
+	         </div><!-- /.modal-content -->
+	     </div><!-- /.modal-dialog -->
+	 </div><!-- /.modal --><!-- Modal -->
+	 <button type="button" id="u_btnShowPopUp" style="display:none;" data-toggle="modal" style="display:none;" data-backdrop="static" data-keyboard="false" data-target="#updateDataModal">Open Modal</button>
+ <!-- end update event popup -->   
     <!--add event popup --> 
 	 <div class="modal fade" id="shopFacilityModal" role="dialog">
 	     <div class="modal-dialog" >
@@ -515,6 +607,84 @@
 	</div>
 	<button type="button" id="openCoverModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#coverModal">Open Modal</button>		                    	
 	<!-- cover upload modal -->
+	
+	<!-- event update upload modal -->
+	<div class="modal fade" id="u_coverModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			
+				<div class="nham-modal-header">
+					<button type="button" id="u_coverformclose" class="close btn-close"
+						data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<p class="nham-modal-title">
+						<i class="fa fa-picture-o" aria-hidden="true"></i><span>Upload Image</span>
+					</p>
+				</div>
+				
+				<div class="nham-modal-body">
+					<div class="photo-browse-box" align="center">
+						<div class="photo-upload-info"  >
+							<p class="text-upload-info">
+							  	<span>Browse Photo </span>
+							 </p>  
+						</div>
+						
+						<!-- fake on -->	
+						<div class="trigger-photo-browse" id="u_trigger-cover-browse"></div>
+						<!-- end fake on -->
+					</div>			
+					<input type='file' id="u_uploadcover" style="display:none" accept="image/*"/>
+					<div class="upload-photo-box" id="u_cover-upload-box">					
+						<div class="photo-upload-wrapper" align="center" id="u_display-cover-upload" >
+							<div class="photo-upload-info-2" >
+							 	<i class="fa fa-picture-o" aria-hidden="true"></i>
+							</div>					  	        		
+				        </div>
+				         				        			        
+				        <!-- fake on -->			        
+				        <div class="photo-upload-loading" id="u_cover-upload-loading" align="center">
+				        	<div class="photo-upload-progress-box">
+				        		<div id="u_cover-upload-progress" 
+				        		 	class="progress-bar progress-bar-danger progress-bar-striped" 
+				        		 	role="progressbar" aria-valuenow="60" 
+				        		 	aria-valuemin="0" 
+				        		 	aria-valuemax="100" style="height:10px;">					                      
+								</div>
+				        	</div>
+				        	
+							<div style="width: 100%;">
+								<p id="u_cover-upload-percentage" class="photo-upload-percentage">0%</p>
+								<img src="<?php echo base_url(); ?>assets/nhamdis/img/ring.svg" />
+							</div>
+				        	
+				        </div>
+				        <div class="photo-fail-remove" id="u_cover-fail-remove">
+				        	<i class="fa fa-times" id="u_cover-fail-event" aria-hidden="true"></i>
+				        </div>			      
+				        <!-- end fake on -->
+					</div>
+					<!-- <div class="photo-description-box" id="cover-description-box">
+						<textarea rows="" id="cover_description" placeholder="have your word about this..."   class="photo-description"  cols=""></textarea>
+					</div> -->
+					
+					<div class="photo-btncrop-box" id="u_cover-btncrop-box">
+						<button type="button" id="u_cover-crop-btn" class="btn btn-crop">Crop image</button>
+						<button type="button" id="u_cover-save-btn" class="btn photo-save-btn btn-danger">Save</button>
+					</div>
+				</div>
+				
+				<div class="nham-modal-footer">
+					
+				</div>			
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<button type="button" id="u_openCoverModel" style="display:none;" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#u_coverModal">Open Modal</button>		                    	
+	<!-- event update upload modal -->
   </body>
   
    <script type="text/javascript">
@@ -531,40 +701,41 @@
   <script src="<?php echo base_url(); ?>assets/plugins/Jcrop/jquery.Jcrop.js"></script>
    <script id="display-table" type="text/x-jQuery-tmpl">
 		<tr>					
-			<td class="evt_img">
+			<td class="advert_type">
 				<input id="id" type="hidden" value="{{= id}}"/>
-				<div>
+				<div data-type="{{= type }}" >
                     <p>{{= type }}</p>
                 </div>				
 			</td>
-           	<td>	            
+           	<td class="advert_img">	            
                 <div class="img-logo-wrapper" >
 				   <img class="table-shop-img" src="{{= domainImageSrc('advertisement/medium/'+image) }}" />				
 				</div>
 			</td>
 
-            <td>	            
+            <td class="advert_title">	 
+                <input type="hidden" id="ad_title" value="{{= title }}" />           
                 <div >
-				   {{= title }}		
+                    {{= subText( title, 150) }}	
 				</div>
 			</td>
 
-            <td>	            
+            <td class="advert_description">	
+                <input type="hidden" id="ad_description" value="{{= description }}" />            
                 <div >
-				   {{= description }}		
+                    {{= subText( description, 150) }}		
 				</div>
 			</td>
 
-            <td>            				
+            <td class="advert_shop"> 
+                <input id="shop_logo" type="hidden" value="{{= shop_logo }}" /> 	           				
 				<div data-shop_id="{{= shop_id }}">
                     {{= shop_name_en }} ( {{= shop_name_kh }} )
                 </div>
 			</td>
         
-            <td>	            
-                <div >
-				   {{= sponsor_name }}		
-				</div>
+            <td class="advert_sponsor">	            
+                <div >{{= sponsor_name }}</div>
 			</td>
 
             <td>					
@@ -612,6 +783,7 @@
 	var srchKey = "";
 	var pageNum = 1;
 	var totalPage  = 1;
+	var pageRow = 10;
 
 	var pageShNum = 1;
 	var totalShPage = 1
@@ -621,8 +793,19 @@
 	var shopNameIn = "";
 	var shopLogoIn = "";
 
-	
+	var shopIdUp = "";
+	var shopNameUp = "";
+	var shopLogoUp = "";
+		
+
+	var clickPopUplistShop = 0;
     listAdvert();
+
+    $("#shop-row-num").on("change", function(){
+    	pageRow = $(this).val();
+    	pageNum = 1;
+    	listAdvert();
+    });
 	function listAdvert(){
 		progressbar.start();
 		$.ajax({
@@ -632,7 +815,7 @@
 			data : JSON.stringify({
 	    		"request_data" : {
 					"page" : pageNum,
-					"row" : 10,
+					"row" : pageRow,
 					"srch_key" : srchKey,
 					"type" : 1
 	        	}
@@ -831,7 +1014,7 @@
 
 	$("#shop_name_to_put").on("click", function(){
 
-		//clickPopUplistShop = 1;
+		clickPopUplistShop = 1;
 		pageShNum = 1;
 		listShop(false);
 		$('#btnListShop').click();
@@ -841,7 +1024,7 @@
 
 		var item = $(this).find("td.store_data");
 
-		/*if(clickPopUplistShop == 1){*/
+		if(clickPopUplistShop == 1){
 			shopIdIn = item.find("input#shop_id").val();
 			shopNameIn = item.find("input#shop_name").val();
 			shopLogoIn = item.find("img").attr("src");	
@@ -854,20 +1037,20 @@
 		 		html += "</div>";
 		 		html += "<div style='clear:both;'></div>";
 		 	$("#shop_name_to_put").html(html);
-		/*}else if(clickPopUplistShop == 2){
+		}else if(clickPopUplistShop == 2){
 			shopIdUp = item.find("input#shop_id").val();
 			shopNameUp = item.find("input#shop_name").val();
 			shopLogoUp = item.find("img").attr("src");	
 			
 			var html = "<div style='float:left;margin: 4px 5px 0 5px'>";
-				html += "<img src='"+shopLogoUp+"' style='width:30px;height:30px;border-radius: 100%;'>";
+				html += "<img src='"+shopLogoUp+"' style='width:25px;height:25px;border-radius: 100%;'>";
 		 	    html += "</div>";
 		 		html += "<div style='float:left;margin-left: 10px;'>";
-		 		html += "<p style='margin-top: 8px;'>"+shopNameUp+"</p>";
+		 		html += "<p style='margin-top: 5px;'>"+shopNameUp+"</p>";
 		 		html += "</div>";
 		 		html += "<div style='clear:both;'></div>";
 		 	$("#u_shop_name_to_put").html(html);
-		}*/
+		}
 
 		$('#listShopModal').modal('hide');
 	});
@@ -897,6 +1080,116 @@
 			return "#F44336";
 		}
 	}
+
+	function subText(str, cutvalue){
+	  if(!str) return "";
+	    if(str.length > cutvalue){
+	      return str.substring(0,cutvalue)+"...";  
+	    }else{
+	      return str;
+	    }    
+	}
+
+	/*update advert*/
+	
+	var advert_id_glo;
+	var advert_img_glo;
+	var advert_sh_id_glo;
+	
+	$(document).on("click",".shop-edit", function(){
+
+		var obj = $(this).parents("tr");
+
+		advert_id_glo = obj.find("td.advert_type").find("input#id").val();
+		advert_img_glo = obj.find("td.advert_img img.table-shop-img").attr("src");
+		advert_sh_id_glo = obj.find("td.advert_shop div").attr("data-shop_id");
+
+		var advert_sh_name = obj.find("td.advert_shop div").html();
+		var advert_sh_logo = obj.find("td.advert_shop input#shop_logo").val();
+		var advert_type = obj.find("td.advert_type div").attr("data-type");
+		var advert_title = obj.find("td.advert_title input#ad_title").val();
+		var advert_description = obj.find("td.advert_description input#ad_description").val();
+		var advert_sponsor = obj.find("td.advert_sponsor div").text();
+
+		console.log(advert_id_glo, advert_img_glo, advert_sh_id_glo, advert_type, advert_title, advert_description, advert_sponsor);
+
+		var html = "<div style='float:left;margin: 4px 5px 0 5px'>";
+		html += "<img src='"+domainImageSrc('place/logo/small/'+advert_sh_logo)+"' style='width:25px;height:25px;border-radius: 100%;'>";
+		    html += "</div>";
+			html += "<div style='float:left;margin-left: 10px;'>";
+			html += "<p style='margin-top: 5px;'>"+advert_sh_name+"</p>";
+			html += "</div>";
+			html += "<div style='clear:both;'></div>";
+		
+		$("#u_shop_name_to_put").html(html);
+
+		var myimg  ='<img  class="upload-shop-img"'; 
+		myimg +='src="'+advert_img_glo+'" alt="your image" />';
+		
+		$("#u_cover-display-wrapper").html(myimg);
+		$("#u_advert-type").val(advert_type);
+		$("#u_advert-title").val(advert_title);
+	 	$("#u_advert-sponsor").val(advert_sponsor);
+	 	$("#u_advert-description").val(advert_description);
+
+
+	 	$("#u_btnShowPopUp").click();
+	});
+
+	$("#u_shop_name_to_put").on("click", function(){
+
+		clickPopUplistShop = 2;
+		pageShNum = 1;
+		listShop(false);
+		$('#btnListShop').click();
+	});
+
+	$("#updateAdvert").on("click", function(){
+		updateAdvert();
+	});
+
+	function updateAdvert(){
+
+	    var image = advert_img_glo.substr(advert_img_glo.lastIndexOf('/') + 1);
+	    if(u_coverimagename) image = u_coverimagename;
+	    var shopId = advert_sh_id_glo;
+	    if(shopIdUp) shop_id = shopIdUp;
+		
+	    var type = $("#u_advert-type").val();
+	    var title = $("#u_advert-title").val();
+	    var description = $("#u_advert-description").val();
+	    var sponsor = $("#u_advert-sponsor").val();
+
+		$.ajax({
+			type : "POST",
+			url : $("#base_url").val()+"API/AdvertisementRestController/updateadvert",
+			contentType : "application/json",
+			data :  JSON.stringify({
+				"request_data" : {
+					"id" : 	advert_id_glo,	
+					"title" : title,
+					"description" : description,
+					"image" : image,
+					"type" : type,
+					"shop_id" : shopId,
+					"sponsor_name" : sponsor
+				}					
+			}),
+			success : function(data){
+				shopIdUp = "";
+				u_coverimagename = "";
+				advert_img_glo = "";
+				advert_id_glo = "";
+				$('#updateDataModal').modal('hide');
+				pageNum = 1;
+				listAdvert();
+				
+			}
+		});
+		
+	}
+
+	/*end update advert*/
 
 
 
@@ -964,7 +1257,8 @@
 		$("#cover-upload-remove-fake").show();
 		$("#cover-upload-remove").show();
 		var myimg  ='<img  class="upload-shop-img"'; 
-			myimg +='src="'+$("#dis_img_path").val()+'/uploadimages/real/event/medium/'+coverimagename+'" alt="your image" />';
+			myimg +='src="'+$("#dis_img_path").val()+'/uploadimages/real/advertisement/medium/'+coverimagename+'" alt="your image" />';
+			
 	    $('#cover-display-wrapper').html(myimg);
 	    var txt  = '<div class="photo-upload-info-2" >';
 			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
@@ -1101,7 +1395,7 @@
 						//$("#cover-description-box").show();
 						coverimagename = data.filename;
 						var uploadedimg ='<img  class="photo-upload-output" ' 
-							+'src="'+$("#dis_img_path").val()+'/uploadimages/real/event/big/'+coverimagename+'"  '
+							+'src="'+$("#dis_img_path").val()+'/uploadimages/real/advertisement/big/'+coverimagename+'"  '
 							+'alt="your image" />';
 						$('#display-cover-upload').html(uploadedimg);
 						
@@ -1126,6 +1420,231 @@
 
 	/*===================== end upload cover event =========================*/
 
+/*===================== upload event update =============================*/
+var u_coverimagename = "";
+var u_backuprealcoverimage;
+var u_img_x = 0;
+var u_img_y = 0;
+var u_img_w = 0;
+var u_img_h = 0;
+
+$("#u_cover-open-modal").on("click", function(){
+	$("#u_openCoverModel").click();
+});
+
+$("#u_trigger-cover-browse").on("click",function(){
+	
+	$("#u_uploadcover").click();
+});
+
+$("#u_uploadcover").on("change", function(){	
+	u_uploadCover(this);
+});
+
+$("#u_cover-fail-event").on("click" , function(){
+	u_coverimagename = "";
+	$("#u_uploadcover").val(null);
+	$(this).parent().hide();
+	
+	var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#u_display-cover-upload').html(txt);
+});
+
+$("#u_coverformclose").on("click", function(){
+	
+	if(u_coverimagename) {
+		var txt  = '<div class="photo-upload-info-2" >';
+			txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+			txt	+= '</div>';
+		//$("#cover-description").val("");
+		$('#u_display-cover-upload').html(txt);
+		//$("#cover-description-box").hide();
+		$("#u_cover-btncrop-box").hide();
+		u_removeCoverImageFromServer().success(function(data){
+			u_coverimagename = "";
+			$("#u_uploadcover").val(null);
+		});				  
+	}
+	
+});
+
+$("#u_cover-crop-btn").on("click", function(){
+	
+	u_upoloadCoverToServer();
+	$(this).hide();
+	
+});
+
+$("#u_cover-save-btn").on("click", function(){
+	
+	$('#u_coverModal').modal('hide');
+	$("#u_cover_description").show();	  
+	$("#u_cover-upload-remove-fake").show();
+	$("#u_cover-upload-remove").show();
+	var myimg  ='<img  class="upload-shop-img"'; 
+		myimg +='src="'+$("#dis_img_path").val()+'/uploadimages/real/advertisement/medium/'+u_coverimagename+'" alt="your image" />';
+    $('#u_cover-display-wrapper').html(myimg);
+    var txt  = '<div class="photo-upload-info-2" >';
+		txt	+= '	<i class="fa fa-picture-o" aria-hidden="true"></i>';
+		txt	+= '</div>';
+	$('#u_display-cover-upload').html(txt);
+	$("#u_cover-btncrop-box").hide();
+   // coverimagename = "";
+	//$("#uploadcover").val(null);
+});
+
+$("#u_cover-upload-remove-icon").on("click", function(){
+	
+	$(this).parent().hide();	
+	 var txt  = '<label class="gray-image-plus">';
+	 	 txt += '<i class="fa fa-plus"></i>';
+	 	 txt += '</label>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> 960 x 500 </p>';
+	 	 txt += '<p style="font-weight:bold;color:#9E9E9E;margin-top:-10px;"> Add cover image </p>';
+	$(this).parent().siblings(".photo-display-wrapper").html(txt);
+	$(this).parent().siblings(".photo-remove-loading").show();
+	
+	$("#u_cover-upload-remove-fake").hide();
+	$("#u_cover-remove-loading").hide();
+	$("#u_cover_description").hide();
+	u_removeCoverImageFromServer().success(function(data){
+		
+		u_coverimagename = "";		
+		$("#u_uploadcover").val(null);
+	});	
+});
+
+function u_uploadCover(input) {
+		
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+ 		reader.onload = function (e) { 
+ 			
+ 			if(u_coverimagename) {
+ 				u_removeCoverImageFromServer().success(function(data){
+ 					u_coverimagename = "";
+ 				});				  
+ 			}
+ 			$("#u_cover-crop-btn").show();
+ 			$("#u_cover-save-btn").hide();
+ 			//$("#cover-description-box").hide();
+	 		var image = new Image();
+			image.src = e.target.result;			
+			image.onload = function () {
+				var height = this.height;
+				var width = this.width;
+	 			  $("#u_cover-btncrop-box").show();
+	 			  var myimg ='<img  class="photo-upload-output" src="'+e.target.result+'" id="u_cropcover" alt="your image" />';
+			      $('#u_display-cover-upload').html(myimg);
+			      $('#u_cropcover').Jcrop({
+			    	   aspectRatio: 16 / 10,
+			    	   onSelect: updateCoords,
+			    	   onChange: updateCoords,
+			    	   setSelect: [0,0,110,110],
+			    	   trueSize: [width,height]
+			   	 });			           	
+			  
+			      u_backuprealcoverimage = $("#u_uploadcover")[0].files[0];
+			}			
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+function u_updateCoords(c){
+	img_x = c.x;
+	img_y = c.y;
+	img_w = c.w;
+	img_h = c.h;
+}
+
+function u_getCropImgData(){
+	var crop_img_data = {		
+		"img_x" : img_x,
+		"img_y" : img_y,
+		"img_w" : img_w,
+		"img_h" : img_h						
+	};
+	return crop_img_data;	
+}
+
+function u_removeCoverImageFromServer(){
+
+	return $.ajax({
+		url : $("#u_base_url").val()+"API/UploadRestController/removeAdvertisement",
+		type: "POST",
+		data : {
+			"IMG_NAME": u_coverimagename
+		}
+	});	
+}
+
+function u_upoloadCoverToServer(){
+	//var inputFile = $("#uploadcover");
+	$("#u_cover-upload-progress").css({width:"0%"});
+	$("#u_cover-upload-percentage").html(0);
+	$("#u_cover-upload-loading").show();
+	var fileToUpload = u_backuprealcoverimage;
+	
+	if(fileToUpload != 'undefined'){
+
+		var formData = new FormData();
+		formData.append("file",  fileToUpload);
+		formData.append("json", JSON.stringify(u_getCropImgData()));
+		
+		$.ajax({
+			url: $("#base_url").val()+"API/UploadRestController/uploadAdvertImage",
+			type: "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success: function(data){
+				
+				data = JSON.parse(data);
+				
+				if(data.is_upload == false){
+					swal({
+						 title: "Upload Error!",
+					     text: data.message,
+					     html: true,
+					     type: "error",
+					    			     
+					 });
+					u_coverimagename = "";
+					$("#u_cover-fail-remove").show();
+					//$("#cover-description-box").hide();
+					$("#u_cover-btncrop-box").hide();
+				}else{
+					$("#u_cover-save-btn").show();
+					//$("#cover-description-box").show();
+					u_coverimagename = data.filename;
+					var uploadedimg ='<img  class="photo-upload-output" ' 
+						+'src="'+$("#dis_img_path").val()+'/uploadimages/real/advertisement/big/'+u_coverimagename+'"  '
+						+'alt="your image" />';
+					$('#u_display-cover-upload').html(uploadedimg);
+					
+				}
+				$("#u_cover-upload-loading").hide();				
+			},
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(event) {
+					if (event.lengthComputable) {
+						var percentComplete = Math.round( (event.loaded / event.total) * 100 );
+						
+						$("#u_cover-upload-progress").css({width: percentComplete+"%"});
+						$("#u_cover-upload-percentage").html(percentComplete+"%");
+					};
+				}, false);
+				return xhr;
+			}
+		});
+	} 
+}
+
+/*===================== end upload update event =========================*/
 
 	(function($){
 

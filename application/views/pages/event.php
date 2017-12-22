@@ -739,6 +739,7 @@
 var pageNum = 1;
 var totalPage = 1;
 var srchKey = "";
+var pageRow = 10;
 
 
 var pageShNum = 1;
@@ -762,6 +763,13 @@ $(document).ready(function(){
 $("#btn-whole-search").on("click", function(){
 
 	srchKey = $("#whole-search").val();
+	listEvent();
+});
+
+$("#shop-row-num").on("change", function(){
+
+	pageNum = 1;
+	pageRow = $(this).val();
 	listEvent();
 });
 
@@ -792,6 +800,8 @@ $("#btn_shop_srch").on("click", function(){
 	pageShNum = 1;
 	listShop(false);
 });
+
+
 
 $('#shop_search').keypress(function (e) {
     
@@ -960,7 +970,7 @@ function updateEvent(){
 			u_coverimagename = "";
 			evt_img_glo = "";
 			$('#updateEventModal').modal('hide');
-			pageShNum = 1;
+			pageNum = 1;
 			listEvent();
 			
 		}
@@ -1023,7 +1033,7 @@ function listEvent(){
 		data : JSON.stringify({
     		"request_data" : {
 				"page" : pageNum,
-				"row" : 10,
+				"row" : pageRow,
 				"srch_key" : srchKey
         	}
 	    }),
@@ -1295,7 +1305,7 @@ function u_removeCoverImageFromServer(){
 		url : $("#u_base_url").val()+"API/UploadRestController/removeEvent",
 		type: "POST",
 		data : {
-			"IMG_NAME": coverimagename
+			"IMG_NAME": u_coverimagename
 		}
 	});	
 }
