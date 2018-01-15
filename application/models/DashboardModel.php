@@ -7,6 +7,63 @@ class DashboardModel extends  CI_Model{
 		$this->load->database();
 	}
 	
+	public function countUnreadNotification( $admin ){
+	    $sql = "SELECT count(*) as CNT FROM(
+                	SELECT 
+                		 sum(ar.already_read) read_cnt 
+                	FROM nham_admin_notification an 
+                	INNER JOIN nham_admin_read ar ON an.notification_id = ar.notification_id AND ar.admin_id = ".$admin."
+                	GROUP BY an.object_id,an.report_type) a 
+                WHERE a.read_cnt > 0 ";
+	    $query = $this->db->query($sql);
+	    return $query->row();
+	}
+	
+	public function listNotification( $request ){
+	    
+	    $page = $request["page"];
+	    $limit = $request["row"];
+	    
+	    
+	    if($page == null) $page = 1;
+	    if($limit == null) $limit = 10;
+	    $offset = ($limit*$page)-$limit;
+	    
+	    $sql = " SELECT 
+                   an.object_id,
+                   pm.post_image_src,
+                   count(an.reporter_id) as reporter_cnt,
+                   max(an.created_date) as created_date,
+                   an.report_type,
+                   sum(ar.already_read) read_cnt 
+                FROM nham_admin_notification an 
+                INNER JOIN nham_admin_read ar ON an.notification_id = ar.notification_id AND ar.admin_id = ".$request["admin"]."
+                INNER JOIN nham_user_post p ON an.object_id = p.post_id AND an.report_type = 1
+                INNER JOIN nham_user_post_image pm ON p.post_id = pm.post_id
+                GROUP BY an.object_id,an.report_type
+                ORDER BY max(an.created_date) DESC, max(an.notification_id) DESC ";
+	    
+	    $query_record = $this->db->query($sql);
+	    $total_record = count($query_record->result());
+	    $total_page = $total_record / $limit;
+	    if( ($total_record % $limit) > 0){
+	        $total_page += 1;
+	    }
+	    
+	    $response["total_record"] = $total_record;
+	    $response["total_page"] = (int)$total_page;
+	    
+	    
+	    $sql .= " limit ? offset ? ";
+	    $limit = (int)$limit;
+	    $query = $this->db->query($sql, array($limit, $offset) );
+	    $data = $query->result();
+	    
+	    $response["response_data"] = $data;
+	    
+	    return $response;
+	}
+	
 	public function countTotalShop(){		
 		$sql = "SELECT count(*) as total_record FROM nham_shop sh ";
 		$query = $this->db->query($sql);

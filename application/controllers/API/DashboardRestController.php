@@ -5,11 +5,31 @@ class DashboardRestController extends CI_Controller{
 	{
 		parent::__construct();
 		$this->load->model("DashboardModel");
+		$this->load->library('session');
 		
 	}
 	
 	public function index(){
 		$this->load->view('index');
+	}
+	
+	public function getNotification(){
+	    
+	    
+	    $request["page"] = 1;
+	    $request["row"] = 15;
+	    $request["admin"] = $_SESSION['admin_id'];
+	    
+	    $response["noti_cnt"] = $this->DashboardModel->countUnreadNotification($_SESSION['admin_id'])->CNT;
+	    $data =  $this->DashboardModel->listNotification($request);
+	    
+	    $response["total_record"] = $data["total_record"];
+	    $response["total_page"] = $data["total_page"];
+	    $response["response_data"] = $data["response_data"];
+	    
+	    header('Content-Type: application/json');
+	    $json = json_encode($response, JSON_PRETTY_PRINT);
+	    echo $json;
 	}
 	
 	public function getinitializeddata(){

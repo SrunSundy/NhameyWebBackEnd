@@ -84,6 +84,34 @@
 	  }); 
 	});
 	</script>
+	
+	<script>
+	loadNotification();
+	function loadNotification(){
+		//alert();
+		var base_u = "<?php echo base_url(); ?>";
+		$.ajax({
+			 type: "POST",
+			 url: base_u + "API/DashboardRestController/getNotification",	
+			 success : function(data){
+				console.log(data);
+
+				var cnt = parseInt(data.noti_cnt);
+				if(cnt > 0)
+					$(".header_notificaiton_top").html(data.noti_cnt);
+				$(".header_notificaiton").html(data.noti_cnt);
+
+				$("#list_notification").children().remove();
+				var myData = data.response_data;
+				for(var i=0; i<myData.length; i++){
+
+				}
+			 }
+		 
+			
+	 	}); 
+	}
+	</script>
     
     
     
