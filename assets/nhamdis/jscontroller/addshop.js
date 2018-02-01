@@ -352,6 +352,16 @@ function loadCommuneData( districtid ){
  
 /*=================== phone adding =================*/
 
+
+
+$('#shop_phonenum').keypress(function (e) {
+    
+	if (e.which == 13) {
+		$(".nham-append-data").click();
+	    return false;    //<---- Add this line
+	}
+});
+
 $(".nham-append-data").on("click",function(){
 	var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
 	if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;
@@ -424,6 +434,7 @@ var img_logo_w = 0;
 var img_logo_h = 0;
 
 $("#logo-open-modal").on("click", function(){
+	$("#trigger-logo-browse").click();
 	$("#openLogoModel").click();
 });
 
@@ -433,6 +444,7 @@ $("#trigger-logo-browse").on("click",function(){
 });
 
 $("#uploadlogo").on("change", function(){	
+	
 	uploadLogo(this);
 });
 
@@ -516,6 +528,7 @@ function uploadLogo(input) {
 		var reader = new FileReader();
  		reader.onload = function (e) { 
  			
+ 			
  			if(logoimagename) {
  				removeLogoImageFromServer().success(function(data){
  					logoimagename = "";
@@ -536,7 +549,7 @@ function uploadLogo(input) {
 			    	   aspectRatio: 16 / 16,
 			    	   onSelect: updateLogoCoords,
 			    	   onChange: updateLogoCoords,
-			    	   setSelect: [0,0,110,110],
+			    	   setSelect: [0,0,582,582],
 			    	   trueSize: [width,height]
 			   	 });			           	
 			  
@@ -651,6 +664,7 @@ var img_w = 0;
 var img_h = 0;
 
 $("#cover-open-modal").on("click", function(){
+	$("#trigger-cover-browse").click();
 	$("#openCoverModel").click();
 });
 
@@ -764,7 +778,7 @@ function uploadCover(input) {
 			    	   aspectRatio: 16 / 10,
 			    	   onSelect: updateCoords,
 			    	   onChange: updateCoords,
-			    	   setSelect: [0,0,110,110],
+			    	   setSelect: [0,0,582,110],
 			    	   trueSize: [width,height]
 			   	 });			           	
 			  
@@ -1254,7 +1268,8 @@ function getDataToInsert(){
 					"twitter": $("#shoptwitter").val()
 				},
 				"shop_remark": $("#shopremark").val(),
-				"shop_time_zone" : shoptimezone
+				"shop_time_zone" : shoptimezone,
+				"is_delivery" : $("#nham24delivery").is(':checked') ? '1' : '0'
 			},
 			"serve_categories" : getServeCategories(),
 			"shop_facilities" : getShopFacilities(),
@@ -1269,6 +1284,7 @@ function getDataToInsert(){
 $("#saveshop").on("click",function(){
 	
 	console.log(getDataToInsert());
+	
 	 if(!inputValidation()){
 		 progressbar.start();
 		 $.ajax({

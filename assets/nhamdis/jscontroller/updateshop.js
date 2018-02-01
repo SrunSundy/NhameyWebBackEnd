@@ -380,6 +380,8 @@ var img_h = 0;
 
 
 $("#btn-cover").on("click", function(){
+	alert();
+	$("#trigger-cover-browse").click();
 	$("#openCoverModel").click();
 });
 
