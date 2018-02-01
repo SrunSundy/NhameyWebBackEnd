@@ -13,11 +13,36 @@ class DashboardRestController extends CI_Controller{
 		$this->load->view('index');
 	}
 	
+	public function updateNotification(){
+	   
+	    $request = json_decode($this->input->raw_input_stream,true);
+	    $request = $request["request_data"];
+	    
+	    $post_id= $request["post_id"];
+	    $report_type = $request["report_type"];
+	    
+	    $data =  $this->DashboardModel->updateNotification($post_id , $report_type, $_SESSION['admin_id']);
+	    
+	    $response = array();
+	    if($data){
+	        $response["response_code"] = "200";
+	        $response["response_msg"] = "Success";
+	    }else{
+	        $response["response_code"] = "000";
+	        $response["response_msg"] = "Fail";
+	    }
+	   
+	    $json = json_encode($response, JSON_PRETTY_PRINT);
+	    echo $json;
+	}
+	
 	public function getNotification(){
 	    
+	    $request = json_decode($this->input->raw_input_stream,true);
+	    $request = $request["request_data"];
 	    
-	    $request["page"] = 1;
-	    $request["row"] = 15;
+	    $request["page"] = $request["page"];
+	    $request["row"] = $request["row"];
 	    $request["admin"] = $_SESSION['admin_id'];
 	    
 	    $response["noti_cnt"] = $this->DashboardModel->countUnreadNotification($_SESSION['admin_id'])->CNT;

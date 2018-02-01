@@ -96,7 +96,7 @@ class UploadRestController extends CI_Controller{
 			$checkdirectory_big = $this->checkDirectory($target_big_dir);
 			$checkdirectory_bignocrop = $this->checkDirectory($target_big_nocrop_dir);
 			$allowfiletype = $this->allowImageType(array("image/jpg","image/jpeg", "image/gif", "image/png"), $_FILES['file']['type']);
-			$allowsize = $this->allowImageSize(10240 , 20000000, $_FILES["file"]["size"]);//20MB
+			$allowsize = $this->allowImageSize(1024 , 20000000, $_FILES["file"]["size"]);//20MB
 			//$allowmindimension = $this->allowImageMinimumDimension(500, 300, $_FILES["file"]["tmp_name"]);
 			//$allowmaxdimension = $this->allowImageMaximumDimension(8000, 5000, $_FILES["file"]["tmp_name"]);
 			$allowmincrop = $this->allowImageMinimumDimensionCrop(200, 200, $cropdata);
