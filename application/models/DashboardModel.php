@@ -19,6 +19,15 @@ class DashboardModel extends  CI_Model{
 	    return $query->row();
 	}
 	
+	public function updateNotification($post_id , $report_type, $admin){
+	    
+	    $sql = " UPDATE nham_admin_read SET already_read = 0 
+                    WHERE admin_id = ?  
+                    AND notification_id IN (SELECT notification_id FROM nham_admin_notification WHERE object_id = ".$post_id." AND report_type = ".$report_type." )  ";
+	    $query = $this->db->query($sql, $admin);
+	    return $query;
+	}
+	
 	public function listNotification( $request ){
 	    
 	    $page = $request["page"];
@@ -31,6 +40,7 @@ class DashboardModel extends  CI_Model{
 	    
 	    $sql = " SELECT 
                    an.object_id,
+                   an.notification_id,
                    pm.post_image_src,
                    count(an.reporter_id) as reporter_cnt,
                    max(an.created_date) as created_date,

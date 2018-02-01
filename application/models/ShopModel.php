@@ -311,7 +311,8 @@ class ShopModel extends CI_Model{
 						sh.shop_email,
 						sh.shop_phone,
 						sh.shop_social_media,
-						sh.shop_capacity		
+						sh.shop_capacity,
+                        sh.is_delivery		
 				FROM nham_shop sh
 				LEFT JOIN nham_branch br on sh.branch_id = br.branch_id
 				WHERE shop_id = ?";
@@ -474,7 +475,7 @@ class ShopModel extends CI_Model{
 				FROM nham_shop sh
 				LEFT JOIN nham_admin ad ON sh.admin_id = ad.admin_id 
 				WHERE REPLACE(CONCAT_WS(sh.shop_name_en,sh.shop_name_kh,sh.shop_serve_type,sh.shop_address,ad.admin_name),' ','') LIKE REPLACE(?,' ','')
-                ORDER BY sh.shop_id
+                ORDER BY sh.shop_id DESC
 				LIMIT ? OFFSET ?";
 		
 		$query = $this->db->query($sql , array("%".$whole_search."%" ,$limit,$offset));
@@ -637,7 +638,7 @@ class ShopModel extends CI_Model{
 			$shopsql = "INSERT INTO nham_shop(branch_id, cate_id, country_id, city_id, district_id, commune_id, shop_name_en, shop_name_kh,
 		      shop_logo, shop_cover, shop_serve_type, shop_short_description, shop_description,
 		      shop_address, shop_phone, shop_email, shop_working_day, shop_opening_time, shop_close_time, 
-		      shop_capacity ,shop_lat_point, shop_lng_point, shop_created_date, shop_last_update , shop_social_media,shop_remark,shop_time_zone, admin_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+		      shop_capacity ,shop_lat_point, shop_lng_point, shop_created_date, shop_last_update , shop_social_media,shop_remark,shop_time_zone, is_delivery, admin_id) VALUES (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
             
 			$current_time = new DateTime();
 			$current_time = $current_time->format('Y-m-d H:i:s');
@@ -648,7 +649,7 @@ class ShopModel extends CI_Model{
 				    $datashop["shop_description"], $datashop["shop_address"], $datashop["shop_phone"], 
 					$datashop["shop_email"], $datashop["shop_working_day"], $datashop["shop_opening_time"], 
 					$datashop["shop_close_time"], $datashop["shop_capacity"], $datashop["shop_lat_point"], $datashop["shop_lng_point"], 
-			    $current_time, $current_time, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], $_SESSION['admin_id']);
+			    $current_time, $current_time, $shopmedia, $datashop["shop_remark"], $datashop["shop_time_zone"], $datashop["is_delivery"] , $_SESSION['admin_id']);
 			
 			$query = $this->db->query($shopsql , $shopparams);
 			$insert_shop_id = $this->db->insert_id();
