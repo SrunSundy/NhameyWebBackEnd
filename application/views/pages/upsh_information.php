@@ -9,6 +9,7 @@
  	<?php include 'imports/cssimport.php' ?>
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/updateshop-input.css" />
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/css/nhamslider.css">
  
 	 
   </head>
@@ -149,6 +150,45 @@
 			       	 				</div>		       	 							       	 				
 			       	 			 </div>
 			       	 		  </div>
+			       	 		  
+			       	 		  <div class="col-lg-12 col-sm-12 update-info-box">
+				       	 			<p class="update-title">NHAM24 DELIVERY</p>
+				       	 			<div class="shop-info-wrapper">			       	 			
+				       	 				<div class="info-edit-wrapper">
+					       	 				<div class="div-left">
+					       	 					<p class="shop-info wordwrap " style="display: inline;" id="is_delivery"></p> 
+					       	 					
+					       	 				</div>
+					       	 				<div class="div-right" >
+					       	 					<div class="shop-info-edit-btn pull-right">
+					       	 						<i class="fa fa-pencil" aria-hidden="true"></i>
+					       	 					</div>
+					       	 				</div>
+					       	 				<div style="clear:both;"></div>	
+				       	 				</div>			       	 				
+				       	 				<div style="clear:both;"></div>				       	 				
+				       	 				<div class="save-shop-info-box">			       	 				
+				       	 					<div class="col-lg-12 col-sm-12 input-wrapper">	
+				       	 						<div class="row">
+				       	 						      <div>
+                        			                       <label class="switch left-div">
+                                              				<input class="toggleshop" type="checkbox" id="nham24delivery" >
+                                              				<div class="slider"></div>
+                                            			   </label>
+                    			                      </div>
+				       	 						</div>				                							                    	
+						                  	</div>
+						                  	<div class="col-lg-12 col-sm-12 save-btn-wrapper">
+						                  		<div class="row pull-right">
+						                  			<input type="hidden" class="update-param" value="is_delivery"/>
+						                  			<img  class="update-loading" src="<?php echo base_url() ?>assets/nhamdis/img/updateload.gif" />
+						                  			<button type="button" class="btn btn-default update-shop-save nham-btn deliveryNham24">save</button>
+						                  		</div>
+						                  	</div>
+						                  	<div style="clear:both;"></div>
+				       	 				</div>		       	 							       	 				
+				       	 			</div>				       	 							       	 			
+			       	 		    </div>
 			       	 		  
 			       	 		  <div class="col-lg-12 col-sm-12 update-info-box">
 			       	 			<p class="update-title">SHOP'S SERVE-CATEGORY</p>
@@ -1387,7 +1427,14 @@
 	/*================= end working day section =================*/
 	/*=================== phone adding =================*/
 
-	
+	$('#shop_phonenum').keypress(function (e) {
+        
+    	if (e.which == 13) {
+    		$(".nham-append-data").click();
+    	    return false;    //<---- Add this line
+    	}
+    });
+    
 	$(".nham-append-data").on("click",function(){
 		var phonenum = $("#shop_phonenum").val().replace(/[_]/g,"").trim();
 		if(phonenum == '' || phonenum.indexOf('--') > -1  || phonenum == null) return;		
@@ -1534,6 +1581,15 @@
 				
 				$("#dis-kh-name").html(defaultNull(shopdata.shop_name_kh));
 				$("#shop-capacity").html(defaultNum(shopdata.shop_capacity));
+
+				if(shopdata.is_delivery && parseInt(shopdata.is_delivery) > 0){
+					$("#is_delivery").html("<div style='width:160px;height:50px;border-radius:15px;background:#CB202D; '><img style='height:100%;width:100%;padding:0 5px 0 5px;' src='<?php echo base_url(); ?>assets/img/nham24.png' /></div>");
+					$("#nham24delivery").prop('checked', true);
+				}else{
+					$("#is_delivery").html("<span class='no-information'>NO INFORMATION!<span>");
+					$("#nham24delivery").prop('checked', false);
+				}
+				
 				if(shopdata.shop_capacity <= 0 || shopdata.shop_capacity =="0" ){
 					$("#shop-capacity-num").hide();
 				}
@@ -1684,14 +1740,22 @@
 		else if($(this).hasClass("phone")){		
 			value = getAllPhone().toString().replace(/[,]/g,"|").trim();
 		}
+		else if($(this).hasClass("deliveryNham24")){
+			value = $("#nham24delivery").is(':checked') ? '1' : '0';
+		}
 		else{
 			value = $(this).parents(".save-btn-wrapper").siblings(".input-wrapper").find(".insert-value").eq(0).val();
 		}
+
+		
 		var param = $(this).siblings("input.update-param").val();
 		if(!value){
 			top.swal("Update Error!", param+" is invalid", "error");
 			return;
 		}
+
+		
+		
 		$(this).siblings(".update-loading").show();
 		updateShopField(value, param, this , function(obj){
 			
@@ -1701,6 +1765,15 @@
 			else if($(obj).hasClass("phone")){
 				$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(getPhoneNumber(value));
 				$("#phone-add-result").children().remove();
+			}
+			else if($(obj).hasClass("deliveryNham24")){
+				if(parseInt(value) > 0){
+					$("#is_delivery").html("<div style='width:160px;height:50px;border-radius:15px;background:#CB202D; '><img style='height:100%;width:100%;padding:0 5px 0 5px;' src='<?php echo base_url(); ?>assets/img/nham24.png' /></div>");
+					$("#nham24delivery").prop('checked', true);
+				}else{
+					$("#is_delivery").html("<span class='no-information'>NO INFORMATION!<span>");
+					$("#nham24delivery").prop('checked', false);
+				}
 			}
 			else{
 				$(obj).parents(".shop-info-wrapper").children(".info-edit-wrapper").find(".shop-info").html(value);

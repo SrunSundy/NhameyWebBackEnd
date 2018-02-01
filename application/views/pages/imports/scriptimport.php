@@ -86,13 +86,22 @@
 	</script>
 	
 	<script>
-	loadNotification();
-	function loadNotification(){
+	var myPage = 1;
+	var myTtPage = 1;
+	loadNotification(false);
+	function loadNotification(scroll){
 		//alert();
 		var base_u = "<?php echo base_url(); ?>";
+		$("#noti_loading").show();
 		$.ajax({
 			 type: "POST",
 			 url: base_u + "API/DashboardRestController/getNotification",	
+			 data :JSON.stringify({
+				"request_data" : {
+					"page" : myPage,
+					"row" : 15
+				}
+			 }),
 			 success : function(data){
 				console.log(data);
 
@@ -101,16 +110,76 @@
 					$(".header_notificaiton_top").html(data.noti_cnt);
 				$(".header_notificaiton").html(data.noti_cnt);
 
-				$("#list_notification").children().remove();
+				//$("#list_notification").children().remove();
 				var myData = data.response_data;
+				myTtPage = data.total_page;
+				var html = "";
 				for(var i=0; i<myData.length; i++){
-
+					if(parseInt(myData[i].read_cnt) > 0){
+						html += "<li style='background: #efefef' >";
+	                    html += " <a href='javascript:;' class='gotoReport' data-NotiId='"+myData[i].notification_id+"' data-postId='"+myData[i].object_id+"' data-reportType='"+myData[i].report_type+"' >";
+	                    if(parseInt(myData[i].reporter_cnt) <= 1)
+	                    	html += "a post has been reported! 	<img src='http://dernham.com/dernham_API/uploadimages/real/post/medium/"+myData[i].post_image_src+"' style='width:auto;height:60px;margin-left:20px; float:right' > ";
+	                    else
+	                    	html +=  myData[i].reporter_cnt+" users have reported the post! <img src='http://dernham.com/dernham_API/uploadimages/real/post/medium/"+myData[i].post_image_src+"' style='width:auto;height:60px;margin-left:20px;float:right'> ";
+	                    html += "<p style='color: #b1b1b1;font-size: 13px;margin-top: 5px;'> <i class='fa fa-clock-o' style='margin-right:5px;'></i> "+moment(myData[i].created_date).fromNow()+"</p>";
+	                    html += " </a>";
+	                    html += "</li>";
+					}else{
+						html += "<li>";
+	                    html += " <a href='javascript:;' class='gotoReport' data-NotiId='"+myData[i].notification_id+"' data-postId='"+myData[i].object_id+"' data-reportType='"+myData[i].report_type+"' >";
+	                    if(parseInt(myData[i].reporter_cnt) <= 1)
+	                    	html += "a post has been reported! 	<img src='http://dernham.com/dernham_API/uploadimages/real/post/medium/"+myData[i].post_image_src+"' style='width:auto;height:60px;margin-left:20px; float:right' > ";
+	                    else
+	                    	html +=  myData[i].reporter_cnt+" users have reported the post! <img src='http://dernham.com/dernham_API/uploadimages/real/post/medium/"+myData[i].post_image_src+"' style='width:auto;height:60px;margin-left:20px;float:right'> ";
+	                    html += "<p style='color: #b1b1b1;font-size: 13px;margin-top: 5px;'> <i class='fa fa-clock-o' style='margin-right:5px;'></i> "+moment(myData[i].created_date).fromNow()+"</p>";
+	                    html += " </a>";
+	                    html += "</li>";
+					}
+					
 				}
+				if(scroll){
+					$("#list_notification").append(html);
+				}else{
+					$("#list_notification").html(html);
+				}
+				myPage++;
+				$("#noti_loading").hide();
 			 }
 		 
 			
 	 	}); 
+	 	
 	}
+
+	$(document).on("click", ".gotoReport", function(){
+
+		var base_u = "<?php echo base_url(); ?>";
+		$.ajax({
+			 type: "POST",
+			 url: base_u + "API/DashboardRestController/updateNotification",
+			 data :JSON.stringify({
+				"request_data" : {
+					"post_id" : $(this).attr("data-postId"),
+					"report_type" : $(this).attr("data-reportType")
+				}
+			 }),
+			 success : function(data){
+				 location.href = "listplayerPost";
+			 }
+		 
+			
+	 	}); 
+		
+	});
+
+	 $('#list_notification').on('scroll', function() {
+	        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+
+		        if(myPage <= myTtPage)
+	        		loadNotification(true);
+	        }
+	 });
 	</script>
     
     

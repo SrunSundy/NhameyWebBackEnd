@@ -1,4 +1,12 @@
-
+<style>
+    #myHeader .slimScrollDiv, #myHeader #list_notification{
+        height: 450px !important;
+    }
+    
+    #myHeader #list_notification{
+        max-height: 450px !important;
+    }
+</style>
 <!-- Logo -->
 <a href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 	<span class="logo-mini"><b>D</b>NA</span> <!-- logo for regular state and mobile devices -->
@@ -19,21 +27,16 @@
                   <i class="fa fa-bell-o"></i>
                   <span class="label label-warning header_notificaiton_top"></span>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu"  style="width: 380px;" id="myHeader">
                   <li class="header">You have <span class="header_notificaiton"></span> notifications</li>
                   <li>
                     <!-- inner menu: contains the actual data -->
-                    <ul class="menu" id="list_notification">
+                    <ul class="menu" id="list_notification" style="height:450px !important;">
                     
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-users text-red"></i> 5 new members joined
-                        </a>
-                      </li>
                    
                     </ul>
                   </li>
-                  <li class="footer"><a href="#">Loading...</a></li>
+                  <li class="footer"><a href="#" id="noti_loading" style="display:none;">Loading...</a></li>
                 </ul>
               </li>
               <!-- Tasks: style can be found in dropdown.less -->

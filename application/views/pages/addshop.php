@@ -11,6 +11,8 @@
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-validation.css" />
  	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/csscontroller/addshop-openmodal.css" />
  	
+ 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/nhamdis/css/nhamslider.css">
+ 	
   <style>
   	.swal-style{
   		border-radius: 0;
@@ -106,6 +108,18 @@
 			            <!-- Left col -->
 			            <section class="col-lg-5 connectedSortable">
 			             	<h5 class="gray-color">Informative Text</h5>
+			             	
+			             	 <div class="form-group">
+			                      <label>Nham24 Delivery</label>
+			                      <div>
+    			                       <label class="switch left-div">
+                          				<input class="toggleshop" type="checkbox" id="nham24delivery" >
+                          				<div class="slider"></div>
+                        			   </label>
+			                      </div>
+			                     
+		                     </div>
+			             	
 			             	 <div class="form-group">
 			                      <label>Shop Name</label>
 			                      <input type="text" id="shopengname" class="form-control" placeholder="Shop Name in English">
@@ -653,7 +667,7 @@
 								<div class="nham-embed-googlemap col-lg-12">
 									<div class="row">
 										<script type="text/javascript"
-											 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSDjBA-4xhfV7TGP1jrTBcBJ4p70mmezo"></script>
+											 src="https://maps.googleapis.com/maps/api/js?v=3.30&key=AIzaSyCSDjBA-4xhfV7TGP1jrTBcBJ4p70mmezo"></script>
 										
 										<div id="map_canvas" style="width: 100%; height: 580px;"></div>
 									</div>
